@@ -1,0 +1,30 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "24.0.2"
+
+    defaultConfig {
+        applicationId "co.com.une.appmovilesune"
+        minSdkVersion 7
+        targetSdkVersion 7
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile files('libs/activation.jar')
+    compile files('libs/additionnals.jar')
+    compile files('libs/itextg-5.4.4.jar')
+    compile files('libs/ksoap2-android-assembly-2.6.0-jar-with-dependencies.jar')
+    compile files('libs/libGoogleAnalyticsServices.jar')
+    compile files('libs/mail.jar')
+}

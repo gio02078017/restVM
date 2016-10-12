@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/bg_info"
+    android:padding="5dp" >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp" >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp" >
+
+            <TextView
+                android:id="@+id/lblDireccionCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/direccion"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtDireccionCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/direccion" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp" >
+
+            <TextView
+                android:id="@+id/lblBarrioCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/barrio"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtBarrioCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/barrio" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp" >
+
+            <TextView
+                android:id="@+id/lblEstratoCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/estrato"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtEstratoCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/estrato" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp" >
+
+            <TextView
+                android:id="@+id/lblCiudadCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/ciudad"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtCiudadCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/ciudad" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp" >
+
+            <TextView
+                android:id="@+id/lblProductosCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/productos"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtProductosCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/productos" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp" >
+
+            <TextView
+                android:id="@+id/lblRegaloCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/regalo"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtRegaloCliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/regalo" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp" >
+
+            <TextView
+                android:id="@+id/lblOferta1Cliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/oferta1"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtOferta1Cliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/oferta1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp" >
+
+            <TextView
+                android:id="@+id/lblOferta2Cliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/oferta2"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtOferta2Cliente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/oferta2" />
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

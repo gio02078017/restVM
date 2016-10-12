@@ -1,0 +1,858 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/texture"
+    android:orientation="vertical" >
+
+    <co.com.une.appmovilesune.components.TituloPrincipal
+        android:id="@+id/tlpPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <LinearLayout
+                    android:id="@+id/Factura"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:weightSum="1" >
+
+                    <ScrollView
+                        android:id="@+id/scroll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <LinearLayout
+                            android:id="@+id/fac"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="50dp"
+                                android:layout_marginRight="50dp"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginRight="10dp"
+                                    android:text="@string/factura"
+                                    android:textStyle="bold" />
+
+                                <co.com.une.appmovilesune.change.Busqueda
+                                    android:id="@+id/busquedaFactura"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+                            </LinearLayout>
+
+                            <ListView
+                                android:id="@+id/viewFactura"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/Cartera"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:weightSum="1" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="50dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/cedula"
+                            android:textStyle="bold" />
+
+                        <co.com.une.appmovilesune.change.Busqueda
+                            android:id="@+id/busquedaCartera"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llytLinea"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#33000000"
+                        android:orientation="horizontal" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" >
+
+                        <TableLayout
+                            android:id="@+id/TableCartera"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:shrinkColumns="*"
+                            android:stretchColumns="*"
+                            android:visibility="visible" >
+
+                            <TableRow
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="1dp"
+                                android:background="@drawable/bg_title_resumen_sim" >
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_span="6"
+                                    android:gravity="center_horizontal"
+                                    android:text="@string/resultado"
+                                    android:textColor="#9B2E9B"
+                                    android:textStyle="bold" />
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="-10dp"
+                                android:background="#FFF"
+                                android:padding="10dp" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/nombre_points"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/txtNombre"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_span="5"
+                                    android:text="@string/nombre" />
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="-10dp"
+                                android:background="#FFF"
+                                android:padding="10dp" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/estado_points"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/txtResultado"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_span="5"
+                                    android:text="@string/estado" />
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="-10dp"
+                                android:background="#FFF"
+                                android:padding="10dp" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/accion_points"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/txtAccion"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_span="5"
+                                    android:text="@string/accion" />
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="-10dp"
+                                android:background="#FFF"
+                                android:padding="10dp" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/origen_points"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/txtOrigen"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_span="5"
+                                    android:text="@string/origen" />
+                            </TableRow>
+                        </TableLayout>
+                    </ScrollView>
+
+                    <LinearLayout
+                        android:id="@+id/linerScooring"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical"
+                        android:weightSum="1" >
+                        
+                      	<ScrollView 
+                      	    android:layout_width="match_parent"
+                      	    android:layout_height="match_parent">
+                      	    
+                      	    <ListView
+	                            android:id="@+id/viewScooring"
+	                            android:layout_width="match_parent"
+	                            android:layout_height="fill_parent"
+	                            android:layout_marginLeft="5dp"
+	                            android:layout_marginRight="5dp"
+	                            android:layout_marginTop="-15dp"
+	                            android:textSize="10sp" />
+                      	    
+                      	</ScrollView>
+
+                        
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ESTE ES COBERTURA -->
+
+                <LinearLayout
+                    android:id="@+id/Cobertura"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1" >
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <LinearLayout
+                            android:id="@+id/con"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" >
+
+                            <RadioGroup
+                                android:id="@+id/radioGroupRespuestasCobertura"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="10dp"
+                                android:orientation="horizontal" >
+
+                                <RadioButton
+                                    android:id="@+id/radio_telefono_Cobertura"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:button="@drawable/style_radiobtn"
+                                    android:text="@string/telefono"
+                                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_direccion_Cobertura"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:button="@drawable/style_radiobtn"
+                                    android:text="@string/direccion"
+                                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_Cedula_Cobertura"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:button="@drawable/style_radiobtn"
+                                    android:text="@string/cedula"
+                                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_gpon_Cobertura"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:button="@drawable/style_radiobtn"
+                                    android:text="@string/gpon"
+                                    android:textAppearance="?android:attr/textAppearanceSmall"
+                                    android:visibility="gone" />
+                            </RadioGroup>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="#33000000"
+                                android:orientation="horizontal" />
+
+                            <TableLayout
+                                android:id="@+id/tlytTablaAsesorias"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/bg_info"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*" >
+
+                                <TableRow
+                                    android:id="@+id/campoCedulaCobertura"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:padding="5dp"
+                                    android:visibility="gone" >
+
+                                    <TextView
+                                        android:id="@+id/TextView01"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/cedula_points"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textStyle="bold" />
+
+                                    <co.com.une.appmovilesune.change.Busqueda
+                                        android:id="@+id/busquedaCobertura"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_span="5" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/campoDireccionesCobertura"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp"
+                                    android:visibility="gone" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/direcciones_points"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/Direcciones_Cobertura"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_span="5"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="20dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/campoNodosCobertura"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/nodos"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textStyle="bold" />
+
+                                    <co.com.une.appmovilesune.change.Busqueda
+                                        android:id="@+id/busquedaNodosCobertura"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_span="5"
+                                        android:inputType="number" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/campoGponCobertura"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp"
+                                    android:visibility="gone" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/direccion_points"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textStyle="bold" />
+
+                                    <AutoCompleteTextView
+                                        android:id="@+id/txtGpon"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_span="5"
+                                        android:background="@drawable/edittextbg" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/campoTelefonoCobertura"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp" >
+
+                                    <TextView
+                                        android:id="@+id/textView2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/telefono_points"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/viewTelefonoCobertura"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_span="5"
+                                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/campoDireccionCobertura"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp" >
+
+                                    <TextView
+                                        android:id="@+id/textView4"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/direccion_points"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/viewDireccionCobertura"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="5"
+                                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/campoCiudadCobertura"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="5dp"
+                                    android:padding="5dp" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/ciudad_points"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/viewCiudadCobertura"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="5dp"
+                                        android:text=""
+                                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                                </TableRow>
+                            </TableLayout>
+
+                            <ListView
+                                android:id="@+id/viewCobertura"
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="-15dp"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+
+                <!-- ESTE ES PORTAFOLIO -->
+
+                <LinearLayout
+                    android:id="@+id/Portafolio"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1" >
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <LinearLayout
+                            android:id="@+id/con"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical" >
+
+                            <RadioGroup
+                                android:id="@+id/radioGroupRespuestasPortafolio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="10dp"
+                                android:orientation="horizontal" >
+
+                                <RadioButton
+                                    android:id="@+id/radio_telefono_Portafolio"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:button="@drawable/style_radiobtn"
+                                    android:text="@string/telefono"
+                                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_direccion_Portafolio"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:button="@drawable/style_radiobtn"
+                                    android:text="@string/direccion"
+                                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_Cedula_Portafolio"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:button="@drawable/style_radiobtn"
+                                    android:text="@string/cedula"
+                                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                            </RadioGroup>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="#33000000"
+                                android:orientation="horizontal" />
+
+                            <TableLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/bg_info"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*" >
+
+                                <TableRow
+                                    android:id="@+id/campoCedulaPortafolio"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:padding="5dp"
+                                    android:visibility="gone" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:paddingLeft="5dp"
+                                        android:text="@string/cedula_points"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textStyle="bold" />
+
+                                    <co.com.une.appmovilesune.change.Busqueda
+                                        android:id="@+id/busquedaPortafolio"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="10dp"
+                                        android:layout_span="5" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/campoDireccionesPortafolio"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp"
+                                    android:visibility="gone" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:padding="5dp"
+                                        android:text="@string/direcciones_points"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/Direcciones_Portafolio"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="10dp"
+                                        android:layout_span="5"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="20dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/campoTelefonoPortafolio"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="5dp"
+                                        android:text="@string/telefono_points"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/viewTelefonoPortafolio"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="5"
+                                        android:padding="5dp"
+                                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/campoDireccionPortafolio"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="5dp" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="5dp"
+                                        android:text="@string/direccion_points"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/viewDireccionPortafolio"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="5"
+                                        android:padding="5dp"
+                                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/campoCiudadPortafolio"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:padding="5dp" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="5dp"
+                                        android:text="@string/ciudad_points"
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/viewCiudadPortafolio"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:padding="5dp"
+                                        android:text=""
+                                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                                </TableRow>
+                            </TableLayout>
+
+                            <TableLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*" >
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="-20dp"
+                                    android:padding="5dp" >
+
+                                    <ListView
+                                        android:id="@+id/viewPortafolio"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent" />
+                                </TableRow>
+                            </TableLayout>
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+
+                <!-- BLINDAJE ANTIOQUIA -->
+
+                <LinearLayout
+                    android:id="@+id/BlindajeAntioquia"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1" >
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <LinearLayout
+                            android:id="@+id/layoutBlindajeAntioquia"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:visibility="gone" >
+
+                            <RadioGroup
+                                android:id="@+id/radioGroupRespuestasBlindaje"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="10dp"
+                                android:orientation="horizontal" >
+
+                                <RadioButton
+                                    android:id="@+id/radio_telefono_Blindaje"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:button="@drawable/style_radiobtn"
+                                    android:text="@string/telefono"
+                                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_codigoHogar_Blindaje"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:button="@drawable/style_radiobtn"
+                                    android:text="@string/codigo_hogar"
+                                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_Cedula_Blindaje"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:button="@drawable/style_radiobtn"
+                                    android:text="@string/cedula"
+                                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                            </RadioGroup>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="#33000000"
+                                android:orientation="horizontal" />
+
+                            <TableLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/bg_info"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*" >
+
+                                <TableRow
+                                    android:id="@+id/campoBusquedaBlindaje"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:padding="5dp" >
+
+                                    <TextView
+                                        android:id="@+id/viewbusquedaBlindaje"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:paddingLeft="5dp"
+                                        android:text=""
+                                        android:textAppearance="?android:attr/textAppearanceSmall"
+                                        android:textStyle="bold" />
+
+                                    <co.com.une.appmovilesune.change.Busqueda
+                                        android:id="@+id/busquedaBlindaje"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="10dp"
+                                        android:layout_span="5" />
+                                </TableRow>
+                            </TableLayout>
+
+                            <TableLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*" >
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="-20dp"
+                                    android:padding="5dp" >
+
+                                    <ListView
+                                        android:id="@+id/viewListBlindaje"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent" />
+                                </TableRow>
+                            </TableLayout>
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>

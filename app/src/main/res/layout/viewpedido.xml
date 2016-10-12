@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/texture"
+    android:orientation="vertical" >
+
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <co.com.une.appmovilesune.components.TituloPrincipal
+                android:id="@+id/tlpPrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="#42083B" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <!-- **************************************************************************************************************************** -->
+                <!-- ***********************************************ESTADO PEDIDO***************************************************** -->
+                <!-- **************************************************************************************************************************** -->
+
+                <LinearLayout
+                    android:id="@+id/llyPedido"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:visibility="visible" >
+
+                    <ScrollView
+                        android:id="@+id/scrollView3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" >
+
+                        <LinearLayout
+                            android:id="@+id/ped"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_marginTop="9dp"
+                                    android:text="@string/pedido"
+                                    android:textStyle="bold" />
+
+                                <co.com.une.appmovilesune.change.Busqueda
+                                    android:id="@+id/busquedaPedido"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="25dp"
+                                    android:layout_weight="1" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/llytLinea"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:orientation="horizontal" />
+
+                            <ListView
+                                android:id="@+id/viewEstadoPedido"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+                <!-- **************************************************************************************************************************** -->
+                <!-- **************************************************ESTADO VENTA***************************************************** -->
+                <!-- **************************************************************************************************************************** -->
+
+                <LinearLayout
+                    android:id="@+id/llyVenta"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical" >
+
+                    <ScrollView
+                        android:id="@+id/scrollView1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TableLayout
+                            android:id="@+id/tlytTablaVentas"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:shrinkColumns="*"
+                            android:stretchColumns="*" >
+
+                            <TableRow
+                                android:id="@+id/tlytTablaVentasTipo"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Tipo Usuario"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/spnTipoUsuario"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/spin" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/trTablaVentasLoginRed"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/login"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <EditText
+                                    android:id="@+id/txtLoginRed"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/edittextbg"
+                                    android:inputType="textPersonName" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/trTablaVentasPasswordRed"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/contrasenia"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <EditText
+                                    android:id="@+id/txtPasswordRed"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/edittextbg"
+                                    android:inputType="textPassword" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaVentasCabecera"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Venta"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <co.com.une.appmovilesune.change.Busqueda
+                                    android:id="@+id/busquedaVenta"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaVentasRespuesta"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Respuesta"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/lblRespuesta"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:text="Respuesta"
+                                    android:textColor="#FF000000"
+                                    android:textSize="13dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaVentasEstado"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Estado"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/lblEstado"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:text="Estado"
+                                    android:textColor="#FF000000"
+                                    android:textSize="13dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaVentasPedido"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Pedido"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/lblPedido"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:text="Pedido"
+                                    android:textColor="#FF000000"
+                                    android:textSize="13dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaVentasObservaciones"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Observaciones"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/lblObservaciones"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:text="Observaciones"
+                                    android:textColor="#FF000000"
+                                    android:textSize="13dp" />
+                            </TableRow>
+                        </TableLayout>
+                    </ScrollView>
+                </LinearLayout>
+
+                <!-- **************************************************ESTADO VENTA BLINDAJE***************************************************** -->
+                <!-- **************************************************************************************************************************** -->
+
+                <LinearLayout
+                    android:id="@+id/llyGerencia"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical" >
+
+                    <ScrollView
+                        android:id="@+id/scrollView1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TableLayout
+                            android:id="@+id/tlytTablaGerencia"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:shrinkColumns="*"
+                            android:stretchColumns="*" >
+
+                            <TableRow
+                                android:id="@+id/tlytTablaGerenciaTipo"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Tipo Usuario"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/spnTipoUsuarioGerencia"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/spin" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/trTablaGerenciaLoginRed"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/login"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <EditText
+                                    android:id="@+id/txtLoginRedGerencia"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/edittextbg"
+                                    android:inputType="textPersonName" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/trTablaGerenciaPasswordRed"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/contrasenia"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <EditText
+                                    android:id="@+id/txtPasswordRedGerencia"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/edittextbg"
+                                    android:inputType="textPassword" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaGerenciaCabecera"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Id"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <co.com.une.appmovilesune.change.Busqueda
+                                    android:id="@+id/busquedaGerencia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaGerenciaRespuesta"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Respuesta"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/lblRespuestaGerencia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:text="Respuesta"
+                                    android:textColor="#FF000000"
+                                    android:textSize="13dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaGerenciaEstado"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Estado"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/lblEstadoGerencia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:text="Estado"
+                                    android:textColor="#FF000000"
+                                    android:textSize="13dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaGerenciaGestion"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Gestion"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/lblGestionGerencia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:text="Estado"
+                                    android:textColor="#FF000000"
+                                    android:textSize="13dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaGerenciaObservaciones"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Observaciones"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/lblObservacionesGerencia"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:text="Observaciones"
+                                    android:textColor="#FF000000"
+                                    android:textSize="13dp" />
+                            </TableRow>
+                        </TableLayout>
+                    </ScrollView>
+                </LinearLayout>
+
+                <!-- **************************************************ESTADO VENTA BLINDAJE***************************************************** -->
+                <!-- **************************************************************************************************************************** -->
+
+                <LinearLayout
+                    android:id="@+id/llyVentaBlindaje"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <ScrollView
+                        android:id="@+id/scrollView1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TableLayout
+                            android:id="@+id/tlytTablaVentasBlindaje"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:shrinkColumns="*"
+                            android:stretchColumns="*" >
+
+                            <TableRow
+                                android:id="@+id/tlytTablaVentasBlindajeCabecera"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Blindaje"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <co.com.une.appmovilesune.change.Busqueda
+                                    android:id="@+id/busquedaVentaBlindaje"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaEstadoBlindaje"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Estado"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/lblEstadoBlindaje"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:text=""
+                                    android:textColor="#FF000000"
+                                    android:textSize="13dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaBlindajeMovilidad"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="Mensajes"
+                                    android:textColor="#FF000000"
+                                    android:textSize="14dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/lblObservacionesBlindaje"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:text=""
+                                    android:textColor="#FF000000"
+                                    android:textSize="13dp" />
+                            </TableRow>
+                        </TableLayout>
+                    </ScrollView>
+                </LinearLayout>
+                
+                <!-- **************************************************VENTAS POR DIA *********************************************************** -->
+                <!-- **************************************************************************************************************************** -->
+                
+                <LinearLayout
+                    android:id="@+id/llyConsultaVentas"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@color/white"
+                    android:orientation="vertical" >
+                    
+                    <co.com.une.appmovilesune.components.SelectorFecha
+                         android:id="@+id/slfFecha"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_margin="10dp "
+                         android:layout_span="8" />
+                    
+                     <ListView 
+                         android:id="@+id/lstListaVentas"
+                         android:background="@color/white"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent" />
+                    
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>

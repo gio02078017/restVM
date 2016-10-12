@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="20dp"
+    android:background="@drawable/bg_info"
+    android:orientation="vertical"
+    android:padding="5dp" >
+
+    <TextView
+        android:id="@+id/titulo_datos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="30dp"
+        android:text="@string/small_text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#7a7a7a" />
+
+    <TextView
+        android:id="@+id/datos_default"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05"
+        android:paddingLeft="10dp"
+        android:text="@string/medium_text"
+        android:textColor="#4F4F4F"
+        android:textSize="15sp" />
+
+</LinearLayout>

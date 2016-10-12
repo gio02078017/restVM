@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/texture"
+    android:orientation="vertical" >
+    
+    <co.com.une.appmovilesune.components.TituloPrincipal
+        android:id="@+id/tlpPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            
+            <Button 
+                android:id="@+id/btnNuevo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@drawable/button"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:text="@string/nuevo"
+                android:onClick="mostrarOfertaDigital"
+                android:visibility="visible"/>
+
+		    <RadioGroup
+			    android:id="@+id/radioGroupRespuestasAmigoCuentas"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_gravity="center_horizontal"
+			    android:layout_margin="10dp"
+			    android:orientation="horizontal" >
+
+                <RadioButton
+			        android:id="@+id/radio_identificador"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_weight="1"
+			        android:layout_margin="5dp"
+			        android:button="@drawable/style_radiobtn"
+					android:drawableRight="@drawable/fingerprint10"
+			        android:textAppearance="?android:attr/textAppearanceSmall" />
+                
+                <RadioButton
+			        android:id="@+id/radio_telefono"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_weight="1"
+			        android:layout_margin="5dp"
+			        android:button="@drawable/style_radiobtn"
+					android:drawableRight="@drawable/telefono_pequeno"
+			        android:textAppearance="?android:attr/textAppearanceSmall" />
+                
+                <RadioButton
+			        android:id="@+id/radio_codigo_hogar"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_weight="1"
+			        android:layout_margin="5dp"
+			        android:button="@drawable/style_radiobtn"
+					android:drawableRight="@drawable/cleopatra"
+			        android:textAppearance="?android:attr/textAppearanceSmall" />
+                
+                <RadioButton
+			        android:id="@+id/radio_Cedula"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_weight="1"
+			        android:layout_margin="5dp"
+			        android:button="@drawable/style_radiobtn"
+					android:drawableRight="@drawable/documento_pequeno"
+			        android:textAppearance="?android:attr/textAppearanceSmall" />
+                
+                <RadioButton
+			        android:id="@+id/radio_direccion"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_weight="1"
+			        android:layout_margin="5dp"
+			        android:button="@drawable/style_radiobtn"
+			        android:drawableRight="@drawable/direccion_pequeno"
+			        android:textAppearance="?android:attr/textAppearanceSmall" />
+			    
+			</RadioGroup>
+			
+		    <co.com.une.appmovilesune.change.Busqueda
+			    android:id="@+id/busqueda"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_marginLeft="10dp"
+		        android:layout_marginRight="10dp"
+		        android:layout_marginTop="10dp"
+		        android:visibility="gone" />
+		    
+	       <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_info"
+                android:layout_marginLeft="10dp"
+		        android:layout_marginRight="10dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*" >
+
+		        <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="-10dp"
+                    android:background="#FFF"
+                    android:padding="10dp" >
+		            
+		            <TextView 
+		                android:id="@+id/lblTelefono"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:textStyle="bold"
+		                android:text="@string/telefono_points"/>
+		            
+		            <TextView 
+		                android:id="@+id/txtTelefono"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_span="5"
+		                android:textStyle="bold"/>
+		            
+		        </TableRow>
+		        
+		        <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="-10dp"
+                    android:background="#FFF"
+                    android:padding="10dp" >
+		            
+		            <TextView 
+		                android:id="@+id/lblCodigoHogar"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:textStyle="bold"
+		                android:text="@string/codigo_hogar_points"/>
+		            
+		            <TextView 
+		                android:id="@+id/txtCodigoHogar"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_span="5"
+		                android:textStyle="bold"/>
+		            
+		        </TableRow>
+		        
+		        <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="-10dp"
+                    android:background="#FFF"
+                    android:padding="10dp" >
+		            
+		            <TextView 
+		                android:id="@+id/lblCedula"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:textStyle="bold"
+		                android:text="@string/cedula_points"/>
+		            
+		            <TextView 
+		                android:id="@+id/txtCedula"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_span="5"
+		                android:textStyle="bold"/>
+		            
+		        </TableRow>
+		        
+		        <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="-10dp"
+                    android:background="#FFF"
+                    android:padding="10dp" >
+		            
+		            <TextView 
+		                android:id="@+id/lblDireccion"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:textStyle="bold"
+		                android:text="@string/direccion_points"/>
+		            
+		            <TextView 
+		                android:id="@+id/txtDireccion"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_span="5"
+		                android:textStyle="bold"/>
+		            
+		        </TableRow>
+		        
+		    </TableLayout>
+		    
+		    <ListView 
+		        android:id="@+id/lstDirecciones"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:background="@drawable/bg_info"
+		        android:layout_marginTop="5dp"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginRight="10dp"
+		        android:visibility="gone" />
+		    
+		    <Button 
+		        android:id="@+id/btnSeleccionar"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="5dp"
+		        android:layout_gravity="center_horizontal"
+		        android:text="@string/buscar"
+		        android:onClick="hacerConsulta"
+		        android:visibility="gone"/>
+		    
+		    <ProgressBar
+		        android:id="@+id/pgbProgreso"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="5dp"
+		        android:layout_gravity="center_horizontal"
+		        android:visibility="gone" />
+		    
+		    <TextView 
+		        android:id="@+id/txtMensajeBusqueda"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center_horizontal"
+		        android:text="@string/mensaje"
+		        android:visibility="gone"/>
+	    
+	    </LinearLayout>
+    
+   	</ScrollView>
+
+</LinearLayout>

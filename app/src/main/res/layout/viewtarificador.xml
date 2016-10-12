@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/texture"
+    android:orientation="vertical" >
+
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <co.com.une.appmovilesune.components.TituloPrincipal
+                android:id="@+id/tlpPrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="#42083B" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <!-- **************************************************************************************************************************** -->
+                <!-- ***********************************************FORMULARIO DE TRIFICADOR***************************************************** -->
+                <!-- **************************************************************************************************************************** -->
+
+                <LinearLayout
+                    android:id="@+id/llyProductos"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp"
+                    android:visibility="visible" >
+
+                    <ScrollView
+                        android:id="@+id/scrollView3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TableLayout
+                            android:id="@+id/tlytTablaAsesorias"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="15dp"
+                            android:shrinkColumns="*"
+                            android:stretchColumns="*" >
+
+                            <TableRow
+                                android:id="@+id/tlytTablaProductosEstrato"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_span="2"
+                                    android:text="@string/estrato"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/sltEstrato"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/spin"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="45dp" />
+
+                                <CheckBox
+                                    android:id="@+id/chktvAnaloga"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_span="2"
+                                    android:button="@drawable/style_checkboxes"
+                                    android:text="@string/tvanaloga1"
+                                    android:enabled="false" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaProductosEstrato"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_span="2"
+                                    android:text="@string/television"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/sltPlanTelevision"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_span="2"
+                                    android:background="@drawable/spin"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="45dp" />
+
+                                <Spinner
+                                    android:id="@+id/sltTelevision"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/spin"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="45dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaProductosEstrato"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_span="2"
+                                    android:text="@string/internet"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/sltPlanInternet"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_span="2"
+                                    android:background="@drawable/spin"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="45dp" />
+
+                                <Spinner
+                                    android:id="@+id/sltInternet"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/spin"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="45dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaProductosEstrato"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:id="@+id/textView4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_span="2"
+                                    android:text="@string/telefonia"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/sltPlanTelefonia"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_span="2"
+                                    android:background="@drawable/spin"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="45dp" />
+
+                                <Spinner
+                                    android:id="@+id/sltTelefonia"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/spin"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="45dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaProductos3G"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp"
+                                android:visibility="invisible" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_span="2"
+                                    android:text="@string/tresg"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/slt3G"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_span="6"
+                                    android:background="@drawable/spin"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="45dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:id="@+id/tlytTablaProductos4G"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp"
+                                android:visibility="invisible" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_span="2"
+                                    android:text="@string/cuatrog"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/slt4G"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_span="6"
+                                    android:background="@drawable/spin"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="45dp" />
+                            </TableRow>
+                        </TableLayout>
+                    </ScrollView>
+                </LinearLayout>
+                <!-- **************************************************************************************************************************** -->
+                <!-- **************************************************DESCUENTOS TRIFICADOR***************************************************** -->
+                <!-- **************************************************************************************************************************** -->
+
+                <LinearLayout
+                    android:id="@+id/llyDescuentos"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical" >
+
+                    <ScrollView
+                        android:id="@+id/scrollView1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" >
+
+                        <TableLayout
+                            android:id="@+id/tlytTablaDescuentos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:shrinkColumns="*"
+                            android:stretchColumns="*" >
+
+                            <TableRow
+                                android:id="@+id/tlytTablaDescuentosCabecera"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="5dp" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/telefonia"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/sltDesTelefonia"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/spin"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="45dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginLeft="10dp" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/television"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/sltDesTelevision"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/spin"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="45dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginLeft="10dp" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/internet"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/sltDesInternet"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/spin"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="45dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:visibility="gone" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/tresg"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/sltDes3G"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/spin"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="45dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:visibility="gone" >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/cuatrog"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/sltDes4G"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="15dp"
+                                    android:layout_span="4"
+                                    android:background="@drawable/spin"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="45dp" />
+                            </TableRow>
+                        </TableLayout>
+                    </ScrollView>
+                </LinearLayout>
+                <!-- **************************************************************************************************************************** -->
+                <!-- **************************************************ADICONALES TRIFICADOR***************************************************** -->
+                <!-- **************************************************************************************************************************** -->
+
+                <LinearLayout
+                    android:id="@+id/llyAdicionales"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <ListView
+                        android:id="@+id/lsvAdicionales"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+                </LinearLayout>
+
+                <!-- **************************************************************************************************************************** -->
+                <!-- *****************************************************DECOS TRIFICADOR******************************************************* -->
+                <!-- **************************************************************************************************************************** -->
+
+                <LinearLayout
+                    android:id="@+id/llyDecos"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <co.com.une.appmovilesune.components.CompDecos
+                            android:id="@+id/cmpDecosTarificador"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </ScrollView>
+                </LinearLayout>
+
+                <!-- **************************************************************************************************************************** -->
+                <!-- **************************************************RESUMEN DE TRIFICADOR***************************************************** -->
+                <!-- **************************************************************************************************************************** -->
+
+                <LinearLayout
+                    android:id="@+id/llyResultado"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <ScrollView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" >
+
+                            <TableLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/bg_info"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*" >
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:padding="5dp" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/localizacion"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtLocalizacion"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="5"
+                                        android:text=""
+                                        android:textSize="13sp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:padding="5dp" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/estrato_points"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtEstrato"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="5"
+                                        android:text=""
+                                        android:textSize="13sp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="7dp"
+                                    android:padding="5dp" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/adicionales"
+                                        android:textStyle="bold" />
+
+                                    <!-- <TextView -->
+                                    <!-- android:id="@+id/txtAdicionales" -->
+                                    <!-- android:layout_width="wrap_content" -->
+                                    <!-- android:layout_height="wrap_content" -->
+                                    <!-- android:layout_span="5" -->
+                                    <!-- android:text="" -->
+                                    <!-- android:textSize="13sp" /> -->
+
+                                    <ImageButton
+                                        android:id="@+id/btnDescuentos"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="5dp"
+                                        android:layout_marginRight="20dp"
+                                        android:layout_span="2"
+                                        android:background="@drawable/buttons"
+                                        android:contentDescription="@string/desc_finalizar"
+                                        android:onClick="descuentosAdicionales"
+                                        android:src="@drawable/adicional_buttons"
+                                        android:visibility="gone" />
+
+                                    <CheckBox
+                                        android:id="@+id/chkAplicarAd"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="2"
+                                        android:button="@drawable/style_checkboxes"
+                                        android:text="@string/aplicar"
+                                        android:visibility="gone" />
+                                </TableRow>
+                            </TableLayout>
+
+                            <co.com.une.appmovilesune.components.ResumenTarificador
+                                android:id="@+id/rstResumen"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ImageButton
+                                android:id="@+id/btnSiguiente"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="5dp"
+                                android:background="@drawable/buttons"
+                                android:contentDescription="@string/desc_finalizar"
+                                android:onClick="procesarCotizacion"
+                                android:src="@drawable/buttons_src" />
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+                <!-- **************************************************************************************************************************** -->
+                <!-- **************************************************RESUMEN DE TRIFICADOR***************************************************** -->
+                <!-- **************************************************************************************************************************** -->
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>

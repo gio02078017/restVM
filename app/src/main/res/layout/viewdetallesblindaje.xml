@@ -1,0 +1,1237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/texture"
+    android:orientation="vertical" >
+
+    <co.com.une.appmovilesune.components.TituloPrincipal
+        android:id="@+id/tlpPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <LinearLayout
+                    android:id="@+id/blindajeDetalle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:weightSum="1" >
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:orientation="horizontal" >
+
+                                <TextView
+                                    android:id="@+id/lblBlindajeNombre"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_weight="4"
+                                    android:text="@string/nombre" />
+
+                                <Spinner
+                                    android:id="@+id/sltNombreBlindaje"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/spin" />
+                            </LinearLayout>
+                            
+                            <TableLayout
+                                android:id="@+id/tlyFormulario"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/bg_info"
+                                android:padding="10dp"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*"
+                                android:visibility="gone" >
+                                
+                                 <TableRow
+                                    android:id="@+id/trTablaClienteNombre"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/nombre"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtNombre"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteApellido"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/apellido"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtApellido"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaCTD"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/tipoDocumento"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltTipoDocumento"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaCD"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/documento"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtDocumento"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="number"
+                                        android:maxLength="15"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTabClienteFExp"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_weight="1"
+                                        android:text="@string/fecha_exped"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <co.com.une.appmovilesune.components.SelectorFecha
+                                        android:id="@+id/slfCliente"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="-8dp"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_span="8" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaCL"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/lugar_exped"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtLugarExpedicion"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_span="8"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+                                
+                                <TableRow
+                                    android:id="@+id/trTablaClienteTipoServico"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/tipo_servicio"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/spnTipoServicio"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+                                
+                                <TableRow
+                                    android:id="@+id/trTCNContacto1"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/nombre_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtNombreContacto1"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTCNContacto1"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/apellido_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtApellidoContacto1"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+                                
+                                <TableRow
+                                    android:id="@+id/trTCTContacto1"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/telefono_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtTelefonoContacto1"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="phone"
+                                        android:maxLength="10"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTCNContacto2"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/nombre_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtNombreContacto2"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTCNContacto2"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/apellido_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtApellidoContacto2"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTCTContacto2"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/telefono_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtTelefonoContacto2"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="phone"
+                                        android:maxLength="10"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                
+                            </TableLayout>
+
+                            <TableLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/bg_info"
+                                android:padding="10dp" >
+
+                                <TableRow
+                                    android:id="@+id/tlrBlindajeTipoDocumento"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeTipoDocumento"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/tipoDocumento"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeTipoDocumento"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/tipoDocumento" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/tlrBlindajeDocumento"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeDocumento"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/documento"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeDocumento"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/documento" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeCiudad"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/ciudad"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeCiudad"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/ciudad" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeDireccion"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/direccion"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeDireccion"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/direccion" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeBarrio"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/barrio"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeBarrio"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/barrio" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeEstrato"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/estrato"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeEstrato"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/estrato" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeComuna"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/comuna"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeComuna"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/comuna" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeUrbanizacion"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/urbanizacion"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeUrbanizacion"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/urbanizacion" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeProductos"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/productos"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeProductos"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/productos" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeTo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/telefonia"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeTo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/telefonia" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeToPrecio"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/valorto"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeToPrecio"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/valorto" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajePlanCerrado"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/plancerrado"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajePlanCerrado"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/plancerrado" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeTv"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/television"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeTv"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/television" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeTvIptv"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/valortv"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeTvIptv"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/valortv" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeBa"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/internet"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeBa"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/internet" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeBaPrecio"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/valorba"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeBaPrecio"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/valorba" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeBaGotica"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/gotica"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeBaGotica"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/gotica" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingBottom="4dp" >
+
+                                    <TextView
+                                        android:id="@+id/lblBlindajeTotal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/total_venta"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeTotal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="4"
+                                        android:text="@string/total_venta" />
+                                </TableRow>
+                            </TableLayout>
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/blindajeOfertas"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="5dp" >
+
+                            <TableLayout
+                                android:id="@+id/tlyRegalo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/bg_info"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*" >
+
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/bg_purple"
+                                    android:padding="5dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="9"
+                                        android:text="@string/regaloinicial"
+                                        android:textColor="@color/white"
+                                        android:textStyle="bold" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:padding="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeRegalo1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:text="@string/regalo"
+                                        android:textStyle="bold" />
+
+                                    <CheckBox
+                                        android:id="@+id/chkBlindajeRegalo1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:button="@drawable/style_checkboxes"
+                                        android:onClick="aplicarReglas"
+                                        android:tag="chkRegalo" />
+                                </TableRow>
+                            </TableLayout>
+
+                            <TableLayout
+                                android:id="@+id/tlyOferta1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/bg_info"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*" >
+
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:background="@drawable/bg_purple"
+                                    android:padding="5dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:text="@string/oferta1"
+                                        android:textColor="@color/white"
+                                        android:textStyle="bold" />
+
+                                    <CheckBox
+                                        android:id="@+id/chkBlindajeOferta1Check"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:button="@drawable/style_checkboxes"
+                                        android:onClick="aplicarReglas"
+                                        android:tag="chkOferta1" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:padding="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_span="1"
+                                        android:text="@string/oferta1"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeOferta1Nombre"
+                                        android:layout_width="match_parent"
+                                        android:layout_span="8"
+                                        android:text="@string/oferta1" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/tlrRegaloFinalOferta1"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:padding="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_span="1"
+                                        android:text="@string/regalo"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeOferta1regalo"
+                                        android:layout_width="match_parent"
+                                        android:layout_span="8"
+                                        android:text="@string/regalo" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:padding="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_span="1"
+                                        android:text="@string/valor"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeOferta1Valor"
+                                        android:layout_width="match_parent"
+                                        android:layout_span="8"
+                                        android:text="@string/valor" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:padding="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_span="1"
+                                        android:text="@string/factura"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeOferta1Factura"
+                                        android:layout_width="match_parent"
+                                        android:layout_span="8"
+                                        android:text="@string/factura" />
+                                </TableRow>
+                            </TableLayout>
+
+                            <TableLayout
+                                android:id="@+id/tlyOferta2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_info"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*" >
+
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:background="@drawable/bg_purple"
+                                    android:padding="5dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:text="@string/oferta2"
+                                        android:textColor="@color/white"
+                                        android:textStyle="bold" />
+
+                                    <CheckBox
+                                        android:id="@+id/chkBlindajeOferta2Check"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:button="@drawable/style_checkboxes"
+                                        android:onClick="aplicarReglas"
+                                        android:tag="chkOferta2" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:padding="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_span="1"
+                                        android:text="@string/oferta2"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeOferta2Nombre"
+                                        android:layout_width="match_parent"
+                                        android:layout_span="8"
+                                        android:text="@string/oferta2" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/tlrRegaloFinalOferta2"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:padding="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_span="1"
+                                        android:text="@string/regalo"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeOferta2regalo"
+                                        android:layout_width="match_parent"
+                                        android:layout_span="8"
+                                        android:text="@string/regalo" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:padding="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_span="1"
+                                        android:text="@string/valor"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeOferta2Valor"
+                                        android:layout_width="match_parent"
+                                        android:layout_span="8"
+                                        android:text="@string/valor" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:padding="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_span="1"
+                                        android:text="@string/factura"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeOferta2Factura"
+                                        android:layout_width="match_parent"
+                                        android:layout_span="8"
+                                        android:text="@string/factura" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:padding="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_span="1"
+                                        android:text="@string/observaciones"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/txtBlindajeOferta2Factura"
+                                        android:layout_width="match_parent"
+                                        android:layout_span="8"
+                                        android:text="hola" />
+                                    
+                                </TableRow>
+                            </TableLayout>
+
+                            <TableLayout
+                                android:id="@+id/tlyObservaciones"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_info"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*" >
+
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:padding="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_span="8"
+                                        android:text="@string/observaciones"
+                                        android:textColor="@color/purple"
+                                        android:textStyle="bold" />
+
+                                </TableRow>
+                                
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:padding="10dp"
+                                    android:visibility="visible" >
+
+                                    <EditText
+                                        android:id="@+id/txtObservacionesBlindaje"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="7"
+                                        android:background="@drawable/textarea"
+                                        android:inputType="text|textMultiLine"
+                                        android:minLines="3"
+                                        android:paddingLeft="20dp"
+                                        android:paddingRight="20dp" />
+
+                                </TableRow>
+                                
+                            </TableLayout>
+
+                            <ImageButton
+                                android:id="@+id/btnSiguiente"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/buttons"
+                                android:contentDescription="@string/desc_finalizar"
+                                android:onClick="guardarBlindaje"
+                                android:src="@drawable/buttons_src" />
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/blindajeAgenda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <ListView
+                        android:id="@+id/lstBlindajeAgenda"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    
+                </LinearLayout>
+                
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>

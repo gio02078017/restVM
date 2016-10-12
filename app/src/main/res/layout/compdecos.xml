@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="0dp" >
+    
+    <LinearLayout 
+        android:id="@+id/llycabedcerasdecos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:background="@drawable/bg_title_resumen"
+        android:orientation="horizontal" >
+        
+        <TextView 
+            android:id="@+id/eliminardeco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="@string/eliminar"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+        
+        <TextView 
+            android:id="@+id/configuraciondecos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/configuraciondecos"
+            android:textStyle="bold"
+            android:layout_weight="5"/>
+        
+        <TextView 
+            android:id="@+id/fideliza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fideliza"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+        
+        <TextView 
+            android:id="@+id/precio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/precio"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+        
+    </LinearLayout>
+    
+	<ListView 
+	    android:id="@+id/listadecodifcadores"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_below="@id/llycabedcerasdecos"
+	    android:layout_margin="5dp" />
+	
+	<ImageView 
+	    android:id="@+id/imgagregardecodificador"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/plus_active"
+	   	android:layout_centerHorizontal="true"
+	    android:layout_below="@id/listadecodifcadores"/>
+	
+    
+</RelativeLayout>
