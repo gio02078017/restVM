@@ -8,6 +8,8 @@ android {
         applicationId "co.com.une.appmovilesune"
         minSdkVersion 7
         targetSdkVersion 7
+        versionCode 10
+        versionName "1.9.0"
     }
 
     buildTypes {
