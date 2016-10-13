@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/linearlayoutproductovalores">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/lblcargobasicotarificador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cargobasicotarificador"
+            style="@style/textcompproductobackgroundorange"/>
+
+        <TextView
+            android:id="@+id/txtvalorcargobasico"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="$ 30.000.oo"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/lbldescuentocargobasicotarificador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/descuentocargobasicotarificador"
+            style="@style/textcompproductobackgroundorange"/>
+
+        <TextView
+            android:id="@+id/txtvalordescuentocargobasico"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="50 %"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/lblduraciondescuentocargobasicotarificador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/duraciondescuentocargobasicotarificador"
+            style="@style/textcompproductobackgroundorange"/>
+
+        <TextView
+            android:id="@+id/txtduraciondescuentocargobasico"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="12 Meses"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

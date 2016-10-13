@@ -36,5 +36,10 @@
     <declare-styleable name="compdecos">
         <attr name="tipo"/>
     </declare-styleable>
+
+    <declare-styleable name="compproducto">
+        <attr name="tipo"/>
+    </declare-styleable>
+
     
 </resources> 

@@ -296,6 +296,10 @@
     <string name="clienteValor">clienteValor</string>
     <string name="planfacturacion">Plan Facturación</string>
     <string name="cargobasico">CB:</string>
+    <string name="cargobasicotarificador">Cargo Básico</string>
+    <string name="totalcargobasicotarificador">Total Cargo Básico</string>
+    <string name="descuentocargobasicotarificador">Descuento Cargo Básico</string>
+    <string name="duraciondescuentocargobasicotarificador">Duración Descuento</string>
     <string name="cargofinanciero">CF:</string>
     <string name="cargoadicionales">CA:</string>
     <string name="desc_img">producto img</string>
@@ -334,7 +338,7 @@
     <string name="tvdigitalfull">TV DIGITAL + HD BASICO</string>
     <string name="tvdigitalsuperior">TV DIGITAL 2</string>
     <string name="tvdigitalesencial">Esencial</string>
-    <string name="iva">IVA:</string>
+    <string name="iva">IVA</string>
     <string name="nuevo">Cliente Nuevo</string>
     <string name="adicionalesComp">Adicionales</string>
     <string name="cotizacionInvalida">Cotización Inválida</string>
@@ -409,4 +413,10 @@
     <string name="rechazado">Rechazado</string>
     <string name="mensajeconfrontanoaprobado">El proceso de confronta no fue exitoso, no es posible continuar con el ingreso de la venta.</string>
     <string name="mensajeconfrontanorealizado">No se ha realizado el proceso de confronta</string>
+
+    <string name="pagonaticipado">Pago Anticipado</string>
+    <string name="pagoparcial">Pago Parcial por Conexión</string>
+    <string name="descuentopagoparcial">Descuento Pago Parcial</string>
+    <string name="valordescuentopagoparcial">Valor Pago Parcial con Descuento</string>
+
 </resources>

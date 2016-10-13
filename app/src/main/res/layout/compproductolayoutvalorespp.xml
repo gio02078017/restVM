@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/linearlayoutproductovalores">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/lblpagoparcial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pagoparcial"
+            style="@style/textcompproductobackgroundorange"/>
+
+        <TextView
+            android:id="@+id/txtvalorpagoparcial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="$ 30.000.oo"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/lbldescuentopagoparcial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/descuentopagoparcial"
+            style="@style/textcompproductobackgroundorange"/>
+
+        <Spinner
+            android:id="@+id/spndescuentopagoparcial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/lblvalordescuentopagoparcial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/valordescuentopagoparcial"
+            style="@style/textcompproductobackgroundorange"/>
+
+        <TextView
+            android:id="@+id/txtvalorpagoparcialdescuento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="$ 33.000.oo"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
