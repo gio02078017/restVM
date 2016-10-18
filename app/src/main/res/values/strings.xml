@@ -419,4 +419,32 @@
     <string name="descuentopagoparcial">Descuento Pago Parcial</string>
     <string name="valordescuentopagoparcial">Valor Pago Parcial con Descuento</string>
 
+    <string-array name="tipoPeticion">
+        <item>N</item>
+        <item>C</item>
+        <item>E</item>
+    </string-array>
+    
+    <string name="hogarnuevo">Hogar Nuevo</string>
+    <string name="analoga">Análoga</string>
+    <string name="tipooferta">Tipo Oferta</string>
+
+    <string-array name="tipoofertaarray">
+        <item>-</item>
+        <item>Individual</item>
+        <item>Duo</item>
+        <item>Trio</item>
+    </string-array>
+
+    <string-array name="estratos">
+        <item>-</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string name="oferta">Oferta</string>
 </resources>

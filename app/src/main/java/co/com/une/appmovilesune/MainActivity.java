@@ -105,6 +105,7 @@ public class MainActivity extends Activity implements Observer {
 	public static final String MODULO_DETALLE_PRODUCTO = "co.com.une.appmovilesune.ControlDetalleProducto";
 	public static final String MODULO_AMC_DIGITAL = "co.com.une.appmovilesune.ControlAmigoCuentasDigital";
 	public static final String MODULO_CARRUSEL = "co.com.une.appmovilesune.ControlCarrusel";
+	public static final String MODULO_COTIZADOR = "co.com.une.appmovilesune.ControlCotizador";
 
 	/* Servidor de conexion */
 	public static boolean debug = true;
@@ -239,18 +240,19 @@ public class MainActivity extends Activity implements Observer {
 	 */
 	public void mostrarTarificador(View v) {
 		/* Primero validamos si hay o no asesoria */
-		if (validarAsesoria()) {
+
+		Intent intent = new Intent(MODULO_COTIZADOR);
+		startActivity(intent);
+		modulo = MODULO_COTIZADOR;
+		/*if (validarAsesoria()) {
 
 			if (asesoria.cotizacion != null && asesoria.venta != null) {
-				/* En caso de que exista asesoria guardada y sea cargada */
+				// En caso de que exista asesoria guardada y sea cargada
 				dialogo = new Dialogo(this, Dialogo.DIALOGO_SELECTOR_RECUPERADOR, "Por donde quiere seguir.");
 				dialogo.dialogo.setOnDismissListener(dlr);
 				dialogo.dialogo.show();
 			} else {
-				/*
-				 * En caso de que exista asesoria entonces se lanza el modulo de
-				 * tarificador
-				 */
+
 				System.out.println("ingreso tarificador");
 
 				if (!asesoria.cliente.getEstrato().equalsIgnoreCase(Utilidades.inicial_estrato)) {
@@ -289,7 +291,7 @@ public class MainActivity extends Activity implements Observer {
 			modulo = MODULO_TARIFICADOR;
 			ccfg.setLanzador("tarificador");
 
-		}
+		}*/
 
 	}
 
