@@ -421,6 +421,7 @@
     <string name="valordescuentopagoparcial">Valor Pago Parcial con Descuento</string>
 
     <string-array name="tipoPeticion">
+        <item>-</item>
         <item>N</item>
         <item>C</item>
         <item>E</item>
@@ -438,7 +439,6 @@
     </string-array>
 
     <string-array name="estratos">
-        <item>-</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

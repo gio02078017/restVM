@@ -54,6 +54,7 @@ public class ControlCotizador extends Activity implements Observer{
 
         spnestrato.setOnItemSelectedListener(seleccionarEstrato);
         spntipooferta.setOnItemSelectedListener(seleccionarTipoOferta);
+        spnoferta.setOnItemSelectedListener(seleccionarOferta);
 
     }
 
@@ -92,10 +93,19 @@ public class ControlCotizador extends Activity implements Observer{
         spnoferta.setAdapter(adaptador);
     }
 
+    private void parametrizarComponentes(){
+        cprdTelevision.cargarPlanes("Antioquia",Integer.parseInt((String)spnestrato.getSelectedItem()),"HFC",(String)spnoferta.getSelectedItem());
+        cprdInternet.cargarPlanes("Antioquia",Integer.parseInt((String)spnestrato.getSelectedItem()),"HFC",(String)spnoferta.getSelectedItem());
+        cprdTelefonia.cargarPlanes("Antioquia",Integer.parseInt((String)spnestrato.getSelectedItem()),"HFC",(String)spnoferta.getSelectedItem());
+
+
+    }
+
     AdapterView.OnItemSelectedListener seleccionarEstrato = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             llenarOfertas((String)parent.getSelectedItem(),(String)spntipooferta.getSelectedItem());
+            parametrizarComponentes();
         }
 
         @Override
@@ -108,6 +118,19 @@ public class ControlCotizador extends Activity implements Observer{
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             llenarOfertas((String)spnestrato.getSelectedItem(),(String)parent.getSelectedItem());
+            parametrizarComponentes();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    AdapterView.OnItemSelectedListener seleccionarOferta = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            parametrizarComponentes();
         }
 
         @Override

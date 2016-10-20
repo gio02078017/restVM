@@ -66,10 +66,10 @@ public class CompProducto extends LinearLayout implements Subject {
     private TextView txtvalorpagoparcialdescuento;
 
     private int tipo;
-    private String departamento = "Antioquia";
-    private int estrato = 3;
-    private String tecnologia = "HFC";
-    private String oferta = "ULTRA TRIO GOLD";
+    private String departamento;
+    private int estrato;
+    private String tecnologia;
+    private String oferta;
 
     private ProductoCotizador producto;
 
@@ -178,6 +178,11 @@ public class CompProducto extends LinearLayout implements Subject {
     }
 
     public void cargarPlanes(String departamento, int estrato, String tecnologia, String oferta){
+
+        this.departamento = departamento;
+        this.estrato = estrato;
+        this.tecnologia = tecnologia;
+        this.oferta = oferta;
 
         String clausula = "";
         String[] valores = null;
