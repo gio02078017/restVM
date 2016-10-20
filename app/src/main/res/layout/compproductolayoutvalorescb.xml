@@ -7,20 +7,42 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/lblcargobasicotarificador"
+            android:id="@+id/lblcargobasicotarificadorind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cargobasicotarificador"
+            android:text="@string/cargobasicotarificadorind"
             style="@style/textcompproductobackgroundorange"/>
 
         <TextView
-            android:id="@+id/txtvalorcargobasico"
+            android:id="@+id/txtvalorcargobasicoind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="$ 30.000.oo"/>
+            android:text="$ 0.oo"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/lblcargobasicotarificadoremp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cargobasicotarificadoremp"
+            style="@style/textcompproductobackgroundorange"/>
+
+        <TextView
+            android:id="@+id/txtvalorcargobasicoemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="$ 0.oo"/>
 
     </RelativeLayout>
 
@@ -42,7 +64,7 @@
             android:layout_alignParentRight="true"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="50 %"/>
+            android:text="0 %"/>
 
     </RelativeLayout>
 
@@ -64,7 +86,7 @@
             android:layout_alignParentRight="true"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="12 Meses"/>
+            android:text="0 Meses"/>
 
     </RelativeLayout>
 

@@ -296,7 +296,8 @@
     <string name="clienteValor">clienteValor</string>
     <string name="planfacturacion">Plan Facturación</string>
     <string name="cargobasico">CB:</string>
-    <string name="cargobasicotarificador">Cargo Básico</string>
+    <string name="cargobasicotarificadorind">Cargo Básico Individual</string>
+    <string name="cargobasicotarificadoremp">Cargo Básico Empaquetado</string>
     <string name="totalcargobasicotarificador">Total Cargo Básico</string>
     <string name="descuentocargobasicotarificador">Descuento Cargo Básico</string>
     <string name="duraciondescuentocargobasicotarificador">Duración Descuento</string>

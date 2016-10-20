@@ -52,7 +52,8 @@ public class CompProducto extends LinearLayout implements Subject {
 
 
     /*Componentes graficos del detelle de valores de cargo basico*/
-    private TextView txtvalorcargobasico;
+    private TextView txtvalorcargobasicoind;
+    private TextView txtvalorcargobasicoemp;
     private TextView txtvalordescuentocargobasico;
     private TextView txtduraciondescuentocargobasico;
 
@@ -68,6 +69,7 @@ public class CompProducto extends LinearLayout implements Subject {
     private String departamento = "Antioquia";
     private int estrato = 3;
     private String tecnologia = "HFC";
+    private String oferta = "ULTRA TRIO GOLD";
 
     private ProductoCotizador producto;
 
@@ -104,7 +106,8 @@ public class CompProducto extends LinearLayout implements Subject {
         txtPlanFacturacion = (TextView) findViewById(R.id.txtPlanFacturacion);
         txtVelocidad = (TextView) findViewById(R.id.txtVelocidad);
 
-        txtvalorcargobasico = (TextView) findViewById(R.id.txtvalorcargobasico);
+        txtvalorcargobasicoind = (TextView) findViewById(R.id.txtvalorcargobasicoind);
+        txtvalorcargobasicoemp = (TextView) findViewById(R.id.txtvalorcargobasicoemp);
         txtvalordescuentocargobasico = (TextView) findViewById(R.id.txtvalordescuentocargobasico);
         txtduraciondescuentocargobasico = (TextView) findViewById(R.id.txtduraciondescuentocargobasico);
 
@@ -116,6 +119,8 @@ public class CompProducto extends LinearLayout implements Subject {
 
         chkHabilitarProducto.setChecked(true);
         chkHabilitarProducto.setOnCheckedChangeListener(habilitarCompProducto);
+
+        spntipeticionproducto.setOnItemSelectedListener(seleccionarTipoTransaccion);
 
     }
 
@@ -164,7 +169,7 @@ public class CompProducto extends LinearLayout implements Subject {
             numeroTipoPeticion = "1";
         }else if(((String)spntipeticionproducto.getSelectedItem()).equals("C")){
             numeroTipoPeticion = "0";
-        }else if(((String)spntipeticionproducto.getSelectedItem()).equals("C")){
+        }else if(((String)spntipeticionproducto.getSelectedItem()).equals("E")){
             numeroTipoPeticion = "3";
         }
 
@@ -172,11 +177,28 @@ public class CompProducto extends LinearLayout implements Subject {
 
     }
 
-    public void cargarPlanes(String departamento, int estrato, String tecnologia){
+    public void cargarPlanes(String departamento, int estrato, String tecnologia, String oferta){
 
-        String clausula = "Departamento=? and Tipo_Producto=? and Nuevo IN(?) and Estrato like ? and Tecnologia like ?";
-        String[] valores = new String[] { departamento, traducirProducto(), traducirTipoPeticion(), "%" + estrato + "%",
-                "%" + tecnologia + "%" };
+        String clausula = "";
+        String[] valores = null;
+
+        if(oferta.equals("-")){
+            oferta = "";
+        }
+
+        if(traducirTipoPeticion().equals("0") || traducirTipoPeticion().equals("1")){
+
+            clausula = "Departamento=? and Tipo_Producto=? and Nuevo IN(?,?) and Estrato like ? and Tecnologia like ? and Oferta = ?";
+            valores = new String[] { departamento, traducirProducto(), traducirTipoPeticion(),"2", "%" + estrato + "%",
+                    "%" + tecnologia + "%", oferta };
+
+        }else {
+            clausula = "Departamento=? and Tipo_Producto=? and Nuevo IN(?) and Estrato like ? and Tecnologia like ?";
+            valores = new String[] { departamento, traducirProducto(), traducirTipoPeticion(), "%" + estrato + "%",
+                    "%" + tecnologia + "%"};
+        }
+
+
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Productos", new String[] { "Producto" }, clausula,
                 valores, null, null, null);
@@ -197,6 +219,10 @@ public class CompProducto extends LinearLayout implements Subject {
 
     }
 
+    private void cargarValoresProducto(){
+
+    }
+
     CompoundButton.OnCheckedChangeListener habilitarCompProducto = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -213,7 +239,7 @@ public class CompProducto extends LinearLayout implements Subject {
     AdapterView.OnItemSelectedListener seleccionarTipoTransaccion = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            cargarPlanes(departamento,estrato,tecnologia);
+            cargarPlanes(departamento,estrato,tecnologia,oferta);
         }
 
         @Override
@@ -265,3 +291,4 @@ public class CompProducto extends LinearLayout implements Subject {
 
     }
 }
+

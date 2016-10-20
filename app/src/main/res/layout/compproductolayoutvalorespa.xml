@@ -20,7 +20,7 @@
             android:layout_alignParentRight="true"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="$ 10.000.oo"/>
+            android:text="$ 0.oo"/>
 
     </RelativeLayout>
 

@@ -20,7 +20,7 @@
             android:layout_alignParentRight="true"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="$ 30.000.oo"/>
+            android:text="$ 0.oo"/>
 
     </RelativeLayout>
 
@@ -61,7 +61,7 @@
             android:layout_alignParentRight="true"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="$ 33.000.oo"/>
+            android:text="$ 0.oo"/>
 
     </RelativeLayout>
 

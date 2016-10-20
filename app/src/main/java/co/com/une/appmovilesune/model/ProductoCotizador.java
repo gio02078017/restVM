@@ -17,7 +17,8 @@ public class ProductoCotizador {
     private String plan;
     private String planFacturacion;
     private String velocidad;
-    private double cargoBasico;
+    private double cargoBasicoInd;
+    private double cargoBasicoEmp;
     private double descuentoCargobasico;
     private int duracionDescuento;
     private double pagoAnticipado;

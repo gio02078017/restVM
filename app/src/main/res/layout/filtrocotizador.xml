@@ -12,12 +12,14 @@
         android:orientation="horizontal">
 
         <CheckBox
+            android:id="@+id/chkHogarNuevo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/hogarnuevo"/>
 
         <CheckBox
+            android:id="@+id/chkAnaloga"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -51,7 +53,7 @@
             android:text="@string/tipooferta"/>
 
         <Spinner
-            android:id="@+id/spnestrato"
+            android:id="@+id/spntipooferta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
