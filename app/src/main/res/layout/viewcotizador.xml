@@ -39,7 +39,9 @@
                 android:layout_height="wrap_content"
                 custom:tipo="Telefonia"/>
 
+
         </LinearLayout>
+
 
     </ScrollView>
 

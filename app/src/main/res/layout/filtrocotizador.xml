@@ -82,4 +82,22 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginfiltroscotizador"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:text="Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:onClick="cotizar"/>
+
 </LinearLayout>

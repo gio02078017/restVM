@@ -1433,12 +1433,12 @@ public class UtilidadesTarificador {
 		json = new JSONObject();
 
 		try {
-			json.put("departamento", cliente.getDepartamento());
-			json.put("ciudad", cliente.getCiudad());
-			json.put("estrato", cliente.getEstrato());
-			json.put("tecnologia", tecnologia);
-			json.put("hogarNuevo", hogarNuevo);
-			json.put("tvAnaloga", tvAnaloga);
+			json.put("departamento", "Antioquia");
+			json.put("ciudad", "Medellin");
+			json.put("estrato", 3);
+			json.put("tecnologia", "HFC");
+			json.put("hogarNuevo", "N/A");
+			json.put("tvAnaloga", 0);
 		} catch (JSONException e) {
 			Log.w("Error", e.getMessage());
 		}

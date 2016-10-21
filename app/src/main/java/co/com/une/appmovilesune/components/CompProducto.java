@@ -295,5 +295,25 @@ public class CompProducto extends LinearLayout implements Subject {
     public void notifyObserver() {
 
     }
+
+    public String getPlan() {
+        return (String)spnSelectorPlan.getSelectedItem();
+    }
+
+    public Spinner getSpnSelectorPlan() {
+        return spnSelectorPlan;
+    }
+
+    public void setSpnSelectorPlan(Spinner spnSelectorPlan) {
+        this.spnSelectorPlan = spnSelectorPlan;
+    }
+
+    public void setTxtvalorcargobasicoind(String cargobasicoind) {
+        txtvalorcargobasicoind.setText(cargobasicoind);
+    }
+
+    public void setTxtvalorcargobasicoemp(String cargobasicoemp) {
+        txtvalorcargobasicoemp.setText(cargobasicoemp);
+    }
 }
 
