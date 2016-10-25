@@ -27,6 +27,13 @@
                 android:layout_height="wrap_content"
                 custom:tipo="Television"/>
 
+            <co.com.une.appmovilesune.components.CompAdicional
+                android:id="@+id/cadcTelevision"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                custom:tipoAdicional="AdicionalesTelevision"
+                android:visibility="gone"/>
+
             <co.com.une.appmovilesune.components.CompProducto
                 android:id="@+id/cprdInternet"
                 android:layout_width="match_parent"
@@ -38,6 +45,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 custom:tipo="Telefonia"/>
+
+            <co.com.une.appmovilesune.components.CompAdicional
+                android:id="@+id/cadcTelefonia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                custom:tipoAdicional="AdicionalesTelefonia"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

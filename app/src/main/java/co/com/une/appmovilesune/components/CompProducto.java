@@ -23,14 +23,16 @@ import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.interfaces.Observer;
+import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
 import co.com.une.appmovilesune.interfaces.Subject;
+import co.com.une.appmovilesune.interfaces.SubjectAdicionales;
 import co.com.une.appmovilesune.model.ProductoCotizador;
 
 /**
  * Created by davids on 13/10/16.
  */
 
-public class CompProducto extends LinearLayout implements Subject {
+public class CompProducto extends LinearLayout implements SubjectAdicionales {
 
     public static final int TELEFONIA = 0;
     public static final int TELEVISION = 1;
@@ -62,6 +64,8 @@ public class CompProducto extends LinearLayout implements Subject {
 
     /*Componentes graficos del detelle de valores de pago parcial*/
     private TextView txtvalorpagoparcial;
+
+    private ObserverAdicionales observerAdicionales;
 
     private int tipo;
     private String departamento;
@@ -113,24 +117,25 @@ public class CompProducto extends LinearLayout implements Subject {
 
         txtvalorpagoparcial = (TextView) findViewById(R.id.txtvalorpagoparcial);
 
-        chkHabilitarProducto.setChecked(true);
+        chkHabilitarProducto.setChecked(false);
         chkHabilitarProducto.setOnCheckedChangeListener(habilitarCompProducto);
 
         spntipeticionproducto.setOnItemSelectedListener(seleccionarTipoTransaccion);
+        spnSelectorPlan.setOnItemSelectedListener(seleccionarPlan);
 
     }
 
     private void cargarHeaderInformation(){
         switch (tipo) {
-            case 0:
+            case TELEFONIA:
                 imgProducto.setImageDrawable(getResources().getDrawable(R.drawable.amgto));
                 lblTipoProducto.setText(getResources().getString(R.string.telefonia));
                 break;
-            case 1:
+            case TELEVISION:
                 imgProducto.setImageDrawable(getResources().getDrawable(R.drawable.amgtv));
                 lblTipoProducto.setText(getResources().getString(R.string.television));
                 break;
-            case 2:
+            case INTERNET:
                 imgProducto.setImageDrawable(getResources().getDrawable(R.drawable.amgba));
                 lblTipoProducto.setText(getResources().getString(R.string.internet));
                 break;
@@ -183,6 +188,8 @@ public class CompProducto extends LinearLayout implements Subject {
         String clausula = "";
         String[] valores = null;
 
+        Log.i("Oferta",oferta);
+
         if(oferta.equals("-")){
             oferta = "";
         }
@@ -234,6 +241,9 @@ public class CompProducto extends LinearLayout implements Subject {
                 slide_up(getContext(),llyProducto);
                 llyProducto.setVisibility(GONE);
             }
+            if(observerAdicionales != null){
+                notifyObserver();
+            }
         }
     };
 
@@ -241,6 +251,20 @@ public class CompProducto extends LinearLayout implements Subject {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             cargarPlanes(departamento,estrato,tecnologia,oferta);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    AdapterView.OnItemSelectedListener seleccionarPlan = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if(observerAdicionales != null){
+                observerAdicionales.seleccionarPlan(Utilidades.traducirPlanOfertaDigital((String) parent.getSelectedItem()));
+            }
         }
 
         @Override
@@ -273,23 +297,43 @@ public class CompProducto extends LinearLayout implements Subject {
         }
     }
 
+    public void habilitarCheckProducto(){
+        chkHabilitarProducto.setEnabled(true);
+    }
+
+    public void deshabilitarCheckProducto(){
+        chkHabilitarProducto.setEnabled(false);
+    }
+
     public boolean isActivo(){
         return chkHabilitarProducto.isChecked();
     }
 
-    @Override
-    public void addObserver(Observer o) {
-
+    public void setActivo(boolean activo){
+        chkHabilitarProducto.setChecked(activo);
     }
 
     @Override
-    public void removeObserver(Observer o) {
+    public void addObserver(ObserverAdicionales o) {
+        observerAdicionales = o;
+    }
 
+    @Override
+    public void removeObserver(ObserverAdicionales o) {
+        observerAdicionales = null;
     }
 
     @Override
     public void notifyObserver() {
+        notificarEstadoComponenteProducto();
+    }
 
+    private void notificarEstadoComponenteProducto(){
+        if(isActivo()){
+            observerAdicionales.habilitar();
+        }else{
+            observerAdicionales.deshabilitar();
+        }
     }
 }
 

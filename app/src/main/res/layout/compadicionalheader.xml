@@ -11,7 +11,7 @@
     android:orientation="horizontal" >
 
     <ImageView
-        android:id="@+id/imgProducto"
+        android:id="@+id/imgAdicional"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -19,20 +19,13 @@
         android:contentDescription="@string/desc_img"
         android:src="@drawable/logo_tv" />
 
-    <CheckBox
-        android:id="@+id/chkHabilitarProducto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_alignBottom="@id/imgProducto" />
-
     <TextView
-        android:id="@+id/lblTipoProducto"
+        android:id="@+id/lblTipoAdicional"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imgProducto"
-        android:layout_toRightOf="@id/chkHabilitarProducto"
-        android:text="@string/television"
+        android:layout_marginLeft="10dp"
+        android:layout_alignBottom="@+id/imgAdicional"
+        android:text="@string/adicionalestelevision"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/purple"
         android:textStyle="bold" />

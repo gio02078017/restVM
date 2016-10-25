@@ -9,6 +9,10 @@
     	<enum name="Internet" value="2"/>
     	<enum name="AdicHD" value="3" />    
     </attr>
+    <attr name="tipoAdicional" format="enum" >
+        <enum name="AdicionalesTelefonia" value="0"/>
+        <enum name="AdicionalesTelevision" value="1"/>
+    </attr>
     
     <attr name="ubicacion" format="enum" >
     	<enum name="Oferta" value="0"/>
@@ -39,6 +43,10 @@
 
     <declare-styleable name="compproducto">
         <attr name="tipo"/>
+    </declare-styleable>
+
+    <declare-styleable name="compadicional">
+        <attr name="tipoAdicional"/>
     </declare-styleable>
 
     
