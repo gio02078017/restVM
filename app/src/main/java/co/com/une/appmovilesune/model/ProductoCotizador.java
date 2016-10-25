@@ -33,6 +33,8 @@ public class ProductoCotizador {
         this.velocidad = velocidad;
         this.cargoBasicoInd = cargoBasicoInd;
         this.cargoBasicoEmp = cargoBasicoEmp;
+        System.out.println("descuentoCargobasico "+descuentoCargobasico);
+        System.out.println("duracionDescuento "+duracionDescuento);
         this.descuentoCargobasico = descuentoCargobasico;
         this.duracionDescuento = duracionDescuento;
     }

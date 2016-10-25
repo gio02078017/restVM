@@ -300,6 +300,10 @@ public class CompProducto extends LinearLayout implements Subject {
         return (String)spnSelectorPlan.getSelectedItem();
     }
 
+    public String getPeticionProducto() {
+        return (String)spntipeticionproducto.getSelectedItem();
+    }
+
     public Spinner getSpnSelectorPlan() {
         return spnSelectorPlan;
     }
@@ -314,6 +318,14 @@ public class CompProducto extends LinearLayout implements Subject {
 
     public void setTxtvalorcargobasicoemp(String cargobasicoemp) {
         txtvalorcargobasicoemp.setText(cargobasicoemp);
+    }
+
+    public void setTxtvalordescuentocargobasico(String descuentocargobasico) {
+        txtvalordescuentocargobasico.setText(descuentocargobasico);
+    }
+
+    public void setTxtduraciondescuentocargobasico(String duraciondescuentocargobasico) {
+        txtduraciondescuentocargobasico.setText(duraciondescuentocargobasico);
     }
 }
 
