@@ -62,8 +62,6 @@ public class CompProducto extends LinearLayout implements Subject {
 
     /*Componentes graficos del detelle de valores de pago parcial*/
     private TextView txtvalorpagoparcial;
-    private Spinner spndescuentopagoparcial;
-    private TextView txtvalorpagoparcialdescuento;
 
     private int tipo;
     private String departamento;
@@ -114,8 +112,6 @@ public class CompProducto extends LinearLayout implements Subject {
         txtvalorpagoanticipado = (TextView) findViewById(R.id.txtvalorpagoanticipado);
 
         txtvalorpagoparcial = (TextView) findViewById(R.id.txtvalorpagoparcial);
-        spndescuentopagoparcial = (Spinner) findViewById(R.id.spndescuentopagoparcial);
-        txtvalorpagoparcialdescuento = (TextView) findViewById(R.id.txtvalorpagoparcialdescuento);
 
         chkHabilitarProducto.setChecked(true);
         chkHabilitarProducto.setOnCheckedChangeListener(habilitarCompProducto);

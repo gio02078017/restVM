@@ -415,8 +415,8 @@
     <string name="mensajeconfrontanoaprobado">El proceso de confronta no fue exitoso, no es posible continuar con el ingreso de la venta.</string>
     <string name="mensajeconfrontanorealizado">No se ha realizado el proceso de confronta</string>
 
-    <string name="pagonaticipado">Pago Anticipado</string>
-    <string name="pagoparcial">Pago Parcial por Conexión</string>
+    <string name="pagonaticipado">Pago Anticipo Cargo Fijo</string>
+    <string name="pagoparcial">Pago Parcial Conexión</string>
     <string name="descuentopagoparcial">Descuento Pago Parcial</string>
     <string name="valordescuentopagoparcial">Valor Pago Parcial con Descuento</string>
 
