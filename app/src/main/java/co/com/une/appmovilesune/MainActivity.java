@@ -242,8 +242,15 @@ public class MainActivity extends Activity implements Observer {
 		/* Primero validamos si hay o no asesoria */
 
 		Intent intent = new Intent(MODULO_COTIZADOR);
+		System.out.println("cliente "+asesoria.cliente);
+		intent.putExtra("cliente", asesoria.cliente);
 		startActivity(intent);
 		modulo = MODULO_COTIZADOR;
+
+
+
+
+
 		/*if (validarAsesoria()) {
 
 			if (asesoria.cotizacion != null && asesoria.venta != null) {

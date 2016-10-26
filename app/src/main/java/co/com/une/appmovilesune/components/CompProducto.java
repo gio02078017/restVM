@@ -335,5 +335,37 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales {
             observerAdicionales.deshabilitar();
         }
     }
+
+    public String getPlan() {
+        return (String)spnSelectorPlan.getSelectedItem();
+    }
+
+    public String getPeticionProducto() {
+        return (String)spntipeticionproducto.getSelectedItem();
+    }
+
+    public Spinner getSpnSelectorPlan() {
+        return spnSelectorPlan;
+    }
+
+    public void setSpnSelectorPlan(Spinner spnSelectorPlan) {
+        this.spnSelectorPlan = spnSelectorPlan;
+    }
+
+    public void setTxtvalorcargobasicoind(String cargobasicoind) {
+        txtvalorcargobasicoind.setText(cargobasicoind);
+    }
+
+    public void setTxtvalorcargobasicoemp(String cargobasicoemp) {
+        txtvalorcargobasicoemp.setText(cargobasicoemp);
+    }
+
+    public void setTxtvalordescuentocargobasico(String descuentocargobasico) {
+        txtvalordescuentocargobasico.setText(descuentocargobasico);
+    }
+
+    public void setTxtduraciondescuentocargobasico(String duraciondescuentocargobasico) {
+        txtduraciondescuentocargobasico.setText(duraciondescuentocargobasico);
+    }
 }
 

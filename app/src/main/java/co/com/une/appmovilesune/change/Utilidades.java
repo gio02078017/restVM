@@ -2770,6 +2770,9 @@ public class Utilidades {
 
 		int numero = 0;
 
+		System.out.println("Valor convertirNumericos "+Valor);
+		System.out.println("Campo convertirNumericos"+Campo);
+
 		try {
 
 			numero = Integer.parseInt(Valor);
@@ -2784,6 +2787,10 @@ public class Utilidades {
 	public static double convertirDouble(String Valor, String Campo) {
 
 		double numero = 0.0;
+
+		System.out.println("Valor convertirDouble "+Valor);
+		System.out.println("Campo convertirDouble "+Campo);
+
 
 		try {
 

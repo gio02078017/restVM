@@ -1443,6 +1443,8 @@ public class UtilidadesTarificador {
 			Log.w("Error", e.getMessage());
 		}
 
+		System.out.println("json smart promo 2.0 "+json);
+
 		return json.toString();
 	}
 	

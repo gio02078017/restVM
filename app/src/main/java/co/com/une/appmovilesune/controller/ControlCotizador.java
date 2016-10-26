@@ -13,9 +13,12 @@ import java.util.ArrayList;
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.components.CompAdicional;
+import co.com.une.appmovilesune.change.UtilidadesTarificador;
 import co.com.une.appmovilesune.components.CompProducto;
-import co.com.une.appmovilesune.components.TituloPrincipal;
 import co.com.une.appmovilesune.interfaces.Observer;
+import co.com.une.appmovilesune.model.Cliente;
+import co.com.une.appmovilesune.model.ProductoCotizador;
+import co.com.une.appmovilesune.model.TarificadorNew;
 
 /**
  * Created by davids on 18/10/16.
@@ -37,15 +40,41 @@ public class ControlCotizador extends Activity implements Observer{
     private CompProducto cprdTelefonia;
     private CompAdicional cadcTelefonia;
 
+    private TarificadorNew tarificador;
+    private Cliente cliente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        tarificador = new TarificadorNew();
+
         setContentView(R.layout.viewcotizador);
 
         tlpPrincipal = (TituloPrincipal) findViewById(R.id.tlpPrincipal);
         tlpPrincipal.setTitulo(getResources().getString(R.string.cotizador));
+
+        Bundle reicieveParams = getIntent().getExtras();
+        if (reicieveParams != null) {
+            //cotizacion = (Cotizacion) reicieveParams.getSerializable("cotizacion");
+            cliente = (Cliente) reicieveParams.getSerializable("cliente");
+            //scooring = (Scooring) reicieveParams.getSerializable("scooring");
+            /*if (cotizacion != null) {
+                Validar = true;
+
+                System.out.println("CambiarCotizacion " + cotizacion.isCambiarCotizacion());
+                if (cotizacion.isCambiarCotizacion()) {
+                    precargarBa = true;
+                    precargarTo = true;
+                    precargarTv = true;
+                }
+
+                System.out.println("CambiarCotizacion precargarBa" + precargarBa);
+                System.out.println("CambiarCotizacion precargarTo" + precargarTo);
+                System.out.println("CambiarCotizacion precargarTv" + precargarTv);
+
+            }*/
+        }
 
         chkHogarNuevo = (CheckBox) findViewById(R.id.chkHogarNuevo);
         chkAnaloga = (CheckBox) findViewById(R.id.chkAnaloga);
@@ -62,39 +91,43 @@ public class ControlCotizador extends Activity implements Observer{
         cprdTelevision.addObserver(cadcTelevision);
         cprdTelefonia.addObserver(cadcTelefonia);
 
+        cprdTelevision.addObserver(this);
+        cprdInternet.addObserver(this);
+        cprdTelefonia.addObserver(this);
+
         spnestrato.setOnItemSelectedListener(seleccionarEstrato);
         spntipooferta.setOnItemSelectedListener(seleccionarTipoOferta);
         spnoferta.setOnItemSelectedListener(seleccionarOferta);
 
     }
 
-    private void llenarOfertas(String estrato, String tipoPaquete){
+    private void llenarOfertas(String estrato, String tipoPaquete) {
 
-        if(estrato.equals("-")){
+        if (estrato.equals("-")) {
             estrato = "";
         }
 
-        if(tipoPaquete.equals("-")){
+        if (tipoPaquete.equals("-")) {
             tipoPaquete = "";
-        }else if(tipoPaquete.equals("Individual")){
+        } else if (tipoPaquete.equals("Individual")) {
             tipoPaquete = "Ind";
         }
 
         String clausula = "estrato like ? and tipo_paquete like ?";
-        String[] valores = new String[] { "%"+estrato+"%","%"+tipoPaquete+"%" };
+        String[] valores = new String[]{"%" + estrato + "%", "%" + tipoPaquete + "%"};
 
-        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Precios", new String[] { "Oferta" }, clausula,
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Precios", new String[]{"Oferta"}, clausula,
                 valores, null, null, null);
 
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
 
         System.out.println(respuesta);
 
-        if(respuesta != null){
+        if (respuesta != null) {
             for (ArrayList<String> arrayList : respuesta) {
-                if(arrayList.get(0).equals("")){
+                if (arrayList.get(0).equals("")) {
                     adaptador.add("-");
-                }else{
+                } else {
                     adaptador.add(arrayList.get(0));
                 }
             }
@@ -114,7 +147,7 @@ public class ControlCotizador extends Activity implements Observer{
     AdapterView.OnItemSelectedListener seleccionarEstrato = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            llenarOfertas((String)parent.getSelectedItem(),(String)spntipooferta.getSelectedItem());
+            llenarOfertas((String) parent.getSelectedItem(), (String) spntipooferta.getSelectedItem());
             parametrizarComponentes();
         }
 
@@ -127,7 +160,7 @@ public class ControlCotizador extends Activity implements Observer{
     AdapterView.OnItemSelectedListener seleccionarTipoOferta = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            llenarOfertas((String)spnestrato.getSelectedItem(),(String)parent.getSelectedItem());
+            llenarOfertas((String) spnestrato.getSelectedItem(), (String) parent.getSelectedItem());
             parametrizarComponentes();
         }
 
@@ -202,4 +235,74 @@ public class ControlCotizador extends Activity implements Observer{
     public void update(Object value) {
 
     }
+
+    public void cotizar(View v) {
+
+
+        System.out.println("hola");
+
+        /*private CompProducto cprdTelevision;
+        private CompProducto cprdInternet;
+        private CompProducto cprdTelefonia;*/
+
+        System.out.println("cprdTelevision " + cprdTelevision.getPlan());
+        System.out.println("cprdInternet " + cprdInternet.getPlan());
+        System.out.println("cprdTelefonia " + cprdTelefonia.getPlan());
+
+        limpiarComp(cprdTelefonia);
+        limpiarComp(cprdTelevision);
+        limpiarComp(cprdInternet);
+
+        String[][] adicionales = new String[0][0];
+
+        tarificador.Consulta_Tarifaz(cprdTelefonia.getPeticionProducto(), cprdTelefonia.getPlan(),
+                cprdTelevision.getPeticionProducto(), cprdTelevision.getPlan(),
+                cprdInternet.getPeticionProducto(), cprdInternet.getPlan(), adicionales,
+                0, (String) spnestrato.getSelectedItem(), false, cliente,
+                UtilidadesTarificador.jsonDatos(cliente, "N/A", cliente.getTecnologia(), "0"), this,
+                0);
+
+        ArrayList<ProductoCotizador> productos = tarificador.cotizacionVenta();
+
+        if (productos != null) {
+            System.out.println("cantidad " + productos.size());
+
+            for (int i = 0; i < productos.size(); i++) {
+
+                System.out.println("tipoProducto " + productos.get(i).getTipo());
+
+                switch (productos.get(i).getTipo()) {
+                    case 0:
+                        System.out.println("planProducto " + productos.get(i).getPlan());
+                        System.out.println("promo " + productos.get(i).getDescuentoCargobasico());
+                        System.out.println("tiempo promo " + productos.get(i).getDuracionDescuento());
+                        llenarComp(cprdTelefonia, productos.get(i));
+                        break;
+                    case 1:
+                        System.out.println("planProducto " + productos.get(i).getPlan());
+                        llenarComp(cprdTelevision, productos.get(i));
+                        break;
+                    case 2:
+                        System.out.println("planProducto " + productos.get(i).getPlan());
+                        llenarComp(cprdInternet, productos.get(i));
+                        break;
+                }
+            }
+        }
+    }
+
+    public void llenarComp(CompProducto comp, ProductoCotizador productos) {
+        comp.setTxtvalorcargobasicoind("$" + productos.getCargoBasicoInd());
+        comp.setTxtvalorcargobasicoemp("$" + productos.getCargoBasicoEmp());
+        comp.setTxtvalordescuentocargobasico(productos.getDescuentoCargobasico()+"%");
+        comp.setTxtduraciondescuentocargobasico(productos.getDuracionDescuento()+" Meses");
+    }
+
+    public void limpiarComp(CompProducto comp) {
+        comp.setTxtvalorcargobasicoind("$0.0");
+        comp.setTxtvalorcargobasicoemp("$0.0");
+        comp.setTxtvalordescuentocargobasico("0%");
+        comp.setTxtduraciondescuentocargobasico("0 Meses");
+    }
+
 }
