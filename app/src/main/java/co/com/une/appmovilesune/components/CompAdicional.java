@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +23,7 @@ import co.com.une.appmovilesune.adapters.ListaAdicionalesAdapter;
 import co.com.une.appmovilesune.change.ControlSimulador;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
+import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Tarificador;
 
 /**
@@ -43,6 +46,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales {
     private int tipo;
     private String departamento;
     private String estrato;
+    private Cliente cliente;
 
     private ArrayList<ListaAdicionales> adicionales = new ArrayList<ListaAdicionales>();
 
@@ -74,6 +78,8 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales {
         spnSelectorAdicionales = (Spinner) findViewById(R.id.spnSelectorAdicionales);
         txtValorAdicional = (TextView) findViewById(R.id.txtValorAdicional);
         lstListaAdicionales = (ListView) findViewById(R.id.lstListaAdicionales);
+
+        spnSelectorAdicionales.setOnItemSelectedListener(seleccionarAdicional);
     }
 
     private void cargarHeaderInformation(){
@@ -112,8 +118,10 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales {
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Adicionales",
                 new String[] { "adicional", "tarifa", "tarifaIva" },
                 "departamento like ? and (producto like ? or producto like ?) and tipoProducto = ? and estrato like ? and adicional = ?",
-                new String[] { "%" + departamento + "%", "%HFC%", "%IPTV%", "tv", "%" + estrato + "%", adicional },
+                new String[] { "%" + cliente.getDepartamento() + "%", "%HFC%", "%IPTV%", "tv", "%" + cliente.getEstrato() + "%", adicional },
                 null, "producto,adicional ASC", null);
+
+        System.out.println("Respuesta Adicionales "+respuesta);
 
         if (respuesta != null) {
 
@@ -128,7 +136,9 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales {
 			 */
 
             ArrayList<ArrayList<String>> result = Tarificador.consultarDescuentos2(data, departamento, true, 1,
-                   UtilidadesTarificador.jsonDatos(null, "1", "N/A", "ingresar 0 o 1"));
+                   UtilidadesTarificador.jsonDatos(cliente, "1", "N/A", "ingresar 0 o 1"));
+
+            System.out.println(result);
 
             ListaAdicionales adicionalItem = null;
             if (result != null) {
@@ -166,6 +176,26 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales {
         //actualizarTotal();
 
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    AdapterView.OnItemSelectedListener seleccionarAdicional = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            consultarAdicional((String) parent.getSelectedItem());
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
 
     @Override
     public void seleccionarPlan(String plan) {
