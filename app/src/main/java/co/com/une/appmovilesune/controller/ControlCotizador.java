@@ -14,6 +14,7 @@ import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.components.CompAdicional;
 import co.com.une.appmovilesune.components.CompProducto;
+import co.com.une.appmovilesune.components.TituloPrincipal;
 import co.com.une.appmovilesune.interfaces.Observer;
 
 /**
@@ -21,6 +22,8 @@ import co.com.une.appmovilesune.interfaces.Observer;
  */
 
 public class ControlCotizador extends Activity implements Observer{
+
+    private TituloPrincipal tlpPrincipal;
 
     private CheckBox chkHogarNuevo;
     private CheckBox chkAnaloga;
@@ -40,6 +43,9 @@ public class ControlCotizador extends Activity implements Observer{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.viewcotizador);
+
+        tlpPrincipal = (TituloPrincipal) findViewById(R.id.tlpPrincipal);
+        tlpPrincipal.setTitulo(getResources().getString(R.string.cotizador));
 
         chkHogarNuevo = (CheckBox) findViewById(R.id.chkHogarNuevo);
         chkAnaloga = (CheckBox) findViewById(R.id.chkAnaloga);

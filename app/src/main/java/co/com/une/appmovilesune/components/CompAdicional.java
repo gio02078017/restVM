@@ -1,5 +1,6 @@
 package co.com.une.appmovilesune.components;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -15,7 +16,12 @@ import java.util.ArrayList;
 
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
+import co.com.une.appmovilesune.adapters.ListaAdicionales;
+import co.com.une.appmovilesune.adapters.ListaAdicionalesAdapter;
+import co.com.une.appmovilesune.change.ControlSimulador;
+import co.com.une.appmovilesune.change.UtilidadesTarificador;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
+import co.com.une.appmovilesune.model.Tarificador;
 
 /**
  * Created by davids on 25/10/16.
@@ -35,6 +41,10 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales {
     public ListView lstListaAdicionales;
 
     private int tipo;
+    private String departamento;
+    private String estrato;
+
+    private ArrayList<ListaAdicionales> adicionales = new ArrayList<ListaAdicionales>();
 
     public CompAdicional(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -96,6 +106,65 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales {
             }
         }
         spnSelectorAdicionales.setAdapter(adaptador);
+    }
+
+    private void consultarAdicional(String adicional) {
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Adicionales",
+                new String[] { "adicional", "tarifa", "tarifaIva" },
+                "departamento like ? and (producto like ? or producto like ?) and tipoProducto = ? and estrato like ? and adicional = ?",
+                new String[] { "%" + departamento + "%", "%HFC%", "%IPTV%", "tv", "%" + estrato + "%", adicional },
+                null, "producto,adicional ASC", null);
+
+        if (respuesta != null) {
+
+            String[][] data = new String[1][2];
+
+            data[0][0] = respuesta.get(0).get(0);
+            data[0][1] = respuesta.get(0).get(2);
+
+			/*
+			 * ArrayList<ArrayList<String>> result = Tarificador
+			 * .consultarDescuentos(data, departamento, true, 1);
+			 */
+
+            ArrayList<ArrayList<String>> result = Tarificador.consultarDescuentos2(data, departamento, true, 1,
+                   UtilidadesTarificador.jsonDatos(null, "1", "N/A", "ingresar 0 o 1"));
+
+            ListaAdicionales adicionalItem = null;
+            if (result != null) {
+                adicionalItem = new ListaAdicionales(adicional, respuesta.get(0).get(2), result.get(0).get(1),
+                        result.get(0).get(2));
+            } else {
+                adicionalItem = new ListaAdicionales(adicional, respuesta.get(0).get(2), "", "");
+            }
+
+            ArrayList<Boolean> agregar = new ArrayList<Boolean>();
+            for (int i = 0; i < adicionales.size(); i++) {
+                if (!adicionales.get(i).getAdicional().equals(adicional)) {
+                    agregar.add(true);
+                } else {
+                    agregar.add(false);
+                }
+            }
+
+            if (!agregar.contains(false)) {
+                adicionales.add(adicionalItem);
+            }
+
+            actualizarLista();
+        }
+    }
+
+    private void actualizarLista() {
+
+        ListaAdicionalesAdapter adapter = new ListaAdicionalesAdapter((Activity) getContext(), adicionales,
+                getContext(), "");
+        //adapter.addObserver(this);
+        lstListaAdicionales.setAdapter(adapter);
+        ControlSimulador.setListViewHeightBasedOnChildren(lstListaAdicionales);
+
+        //actualizarTotal();
+
     }
 
     @Override
