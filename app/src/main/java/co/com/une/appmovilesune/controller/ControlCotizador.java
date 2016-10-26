@@ -15,6 +15,7 @@ import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.components.CompAdicional;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
 import co.com.une.appmovilesune.components.CompProducto;
+import co.com.une.appmovilesune.components.TituloPrincipal;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.ProductoCotizador;
@@ -91,9 +92,8 @@ public class ControlCotizador extends Activity implements Observer{
         cprdTelevision.addObserver(cadcTelevision);
         cprdTelefonia.addObserver(cadcTelefonia);
 
-        cprdTelevision.addObserver(this);
-        cprdInternet.addObserver(this);
-        cprdTelefonia.addObserver(this);
+        cadcTelevision.setCliente(cliente);
+        cadcTelefonia.setCliente(cliente);
 
         spnestrato.setOnItemSelectedListener(seleccionarEstrato);
         spntipooferta.setOnItemSelectedListener(seleccionarTipoOferta);
