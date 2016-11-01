@@ -230,8 +230,18 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     }
 
-    private void cargarValoresProducto(){
+    public void llenarComp(ProductoCotizador productos) {
+        setTxtvalorcargobasicoind("$" + productos.getCargoBasicoInd());
+        setTxtvalorcargobasicoemp("$" + productos.getCargoBasicoEmp());
+        setTxtvalordescuentocargobasico(productos.getDescuentoCargobasico() + "%");
+        setTxtduraciondescuentocargobasico(productos.getDuracionDescuento() + " Meses");
+    }
 
+    public void limpiarComp() {
+        setTxtvalorcargobasicoind("$0.0");
+        setTxtvalorcargobasicoemp("$0.0");
+        setTxtvalordescuentocargobasico("0%");
+        setTxtduraciondescuentocargobasico("0 Meses");
     }
 
     CompoundButton.OnCheckedChangeListener habilitarCompProducto = new CompoundButton.OnCheckedChangeListener() {
@@ -266,7 +276,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-
+            observer.update(null);
 
             if(observerAdicionales != null){
                 observerAdicionales.seleccionarPlan(Utilidades.traducirPlanOfertaDigital((String) parent.getSelectedItem()));

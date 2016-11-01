@@ -304,7 +304,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     @Override
     public void update(Object value) {
-
+        cotizar();
     }
 
     public void cotizar(View v) {
@@ -313,20 +313,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     public void cotizar() {
 
+        cprdTelefonia.limpiarComp();
+        cprdTelevision.limpiarComp();
+        cprdInternet.limpiarComp();
 
-        System.out.println("hola");
-
-        /*private CompProducto cprdTelevision;
-        private CompProducto cprdInternet;
-        private CompProducto cprdTelefonia;*/
-
-        System.out.println("cprdTelevision " + cprdTelevision.getPlan());
-        System.out.println("cprdInternet " + cprdInternet.getPlan());
-        System.out.println("cprdTelefonia " + cprdTelefonia.getPlan());
-
-        limpiarComp(cprdTelefonia);
-        limpiarComp(cprdTelevision);
-        limpiarComp(cprdInternet);
+        cttlTotales.limpiarTotales();
 
         String[][] adicionales = new String[0][0];
 
@@ -342,57 +333,31 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         CotizacionCliente cotizacionCliente = tarificador.cotizacionCliente();
 
         ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
-        if (cotizacionCliente.getGotaba().isControlGota()) {
-            System.out.println("cotizacionCliente.getGotaba().isControlGota() " + cotizacionCliente.getGotaba().isControlGota());
-            System.out.println("cotizacionCliente.getGotaba().getValorGota() " + cotizacionCliente.getGotaba().getValorGota());
-        }
-
-        System.out.println("cotizacionCliente total Individual " + cotizacionCliente.getTotalIndividual());
-        System.out.println("cotizacionCliente total Paquete " + cotizacionCliente.getTotalEmpaquetado());
 
         if (productos != null) {
-            System.out.println("cantidad " + productos.size());
-
             for (int i = 0; i < productos.size(); i++) {
 
                 System.out.println("tipoProducto " + productos.get(i).getTipo());
 
                 switch (productos.get(i).getTipo()) {
                     case 0:
-                        System.out.println("planProducto " + productos.get(i).getPlan());
-                        System.out.println("promo " + productos.get(i).getDescuentoCargobasico());
-                        System.out.println("tiempo promo " + productos.get(i).getDuracionDescuento());
-                        llenarComp(cprdTelefonia, productos.get(i));
+                        cprdTelefonia.llenarComp(productos.get(i));
                         break;
                     case 1:
-                        System.out.println("planProducto " + productos.get(i).getPlan());
-                        llenarComp(cprdTelevision, productos.get(i));
+                        cprdTelevision.llenarComp(productos.get(i));
                         break;
                     case 2:
-                        System.out.println("planProducto " + productos.get(i).getPlan());
-                        llenarComp(cprdInternet, productos.get(i));
+                        cprdInternet.llenarComp(productos.get(i));
                         break;
                 }
             }
         }
 
-        if (cotizacionCliente.getControl().equalsIgnoreCase("00")) {
+        cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(),cotizacionCliente.getTotalEmpaquetado(),cadcTelevision.calcularTotal(),cadcTelefonia.calcularTotal());
+
+        /*if (cotizacionCliente.getControl().equalsIgnoreCase("00")) {
             procesarCotizacion(cotizacionCliente);
-        }
-    }
-
-    public void llenarComp(CompProducto comp, ProductoCotizador productos) {
-        comp.setTxtvalorcargobasicoind("$" + productos.getCargoBasicoInd());
-        comp.setTxtvalorcargobasicoemp("$" + productos.getCargoBasicoEmp());
-        comp.setTxtvalordescuentocargobasico(productos.getDescuentoCargobasico() + "%");
-        comp.setTxtduraciondescuentocargobasico(productos.getDuracionDescuento() + " Meses");
-    }
-
-    public void limpiarComp(CompProducto comp) {
-        comp.setTxtvalorcargobasicoind("$0.0");
-        comp.setTxtvalorcargobasicoemp("$0.0");
-        comp.setTxtvalordescuentocargobasico("0%");
-        comp.setTxtduraciondescuentocargobasico("0 Meses");
+        }*/
     }
 
     public void procesarCotizacion(CotizacionCliente cotizacionCliente) {

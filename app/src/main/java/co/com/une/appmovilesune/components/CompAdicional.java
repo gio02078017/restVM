@@ -176,9 +176,11 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         adapter.addObserver(this);
         lstListaAdicionales.setAdapter(adapter);
         ControlSimulador.setListViewHeightBasedOnChildren(lstListaAdicionales);
+
+        observer.update(null);
     }
 
-    private double calcularTotal(){
+    public double calcularTotal(){
 
         double total = 0;
 
