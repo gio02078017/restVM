@@ -924,15 +924,16 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 			if (cliente.getCiudad().equalsIgnoreCase("Medellin")) {
 				//txtDireccion.setText("CL 18 B CR 88 A -26");
 				//txtDireccion.setText("CL 79 C CR 75 -37 (INTERIOR 516 )");
-				//txtDireccion.setText("CL 88 A  # 67 - 46 APT 601");
-				txtDireccion.setText("CL 29 C CR 35 -130 (INTERIOR 531 )");
+				txtDireccion.setText("CL 88 A  # 67 - 46 APT 601");
+				//txtDireccion.setText("CL 29 C CR 35 -130 (INTERIOR 531 )");
 			} else {
 				txtDireccion.setText("CL 25 # 15 - 25");
 			}
 		} else {
 			if (cliente.getCiudad().equalsIgnoreCase("Medellin")
 					|| MainActivity.config.getCiudad().equals("Medellin")) {
-				txtDireccion.setText("CL 64 E CR 91 B -42");
+				//txtDireccion.setText("CL 64 E CR 91 B -42");
+				txtDireccion.setText("CL 88 A  # 67 - 46 APT 601");
 			} else {
 				txtDireccion.setText("CL 25 # 15 - 25");
 			}

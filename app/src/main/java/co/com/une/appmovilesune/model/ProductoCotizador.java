@@ -15,7 +15,8 @@ public class ProductoCotizador {
     private String tipoPeticion;
     private int tipo;
     private String plan;
-    private String planFacturacion;
+    private String planFacturacionInd;
+    private String planFacturacionEmp;
     private String velocidad;
     private double cargoBasicoInd;
     private double cargoBasicoEmp;
@@ -25,11 +26,12 @@ public class ProductoCotizador {
     private double pagoParcial;
     private double pagoParcialDescuento;
 
-    public ProductoCotizador(String tipoPeticion, int tipo, String plan, String planFacturacion, String velocidad, double cargoBasicoInd, double cargoBasicoEmp, double descuentoCargobasico, int duracionDescuento) {
+    public ProductoCotizador(String tipoPeticion, int tipo, String plan, double cargoBasicoInd, double cargoBasicoEmp, double descuentoCargobasico, int duracionDescuento, String planFacturacionInd,String planFacturacionEmp, String velocidad) {
         this.tipoPeticion = tipoPeticion;
         this.tipo = tipo;
         this.plan = plan;
-        this.planFacturacion = planFacturacion;
+        this.planFacturacionInd = planFacturacionInd;
+        this.planFacturacionEmp = planFacturacionEmp;
         this.velocidad = velocidad;
         this.cargoBasicoInd = cargoBasicoInd;
         this.cargoBasicoEmp = cargoBasicoEmp;
@@ -75,12 +77,20 @@ public class ProductoCotizador {
         this.plan = plan;
     }
 
-    public String getPlanFacturacion() {
-        return planFacturacion;
+    public String getPlanFacturacionInd() {
+        return planFacturacionInd;
     }
 
-    public void setPlanFacturacion(String planFacturacion) {
-        this.planFacturacion = planFacturacion;
+    public void setPlanFacturacionInd(String planFacturacionInd) {
+        this.planFacturacionInd = planFacturacionInd;
+    }
+
+    public String getPlanFacturacionEmp() {
+        return planFacturacionEmp;
+    }
+
+    public void setPlanFacturacionEmp(String planFacturacionEmp) {
+        this.planFacturacionEmp = planFacturacionEmp;
     }
 
     public String getVelocidad() {

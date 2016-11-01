@@ -1088,36 +1088,45 @@ public class TarificadorNew {
 
     }
 
-    public ArrayList<ProductoCotizador> cotizacionVenta() {
+    public CotizacionCliente cotizacionCliente() {
 
         ArrayList<ProductoCotizador> productos = new ArrayList<ProductoCotizador>();
 
-        //productos.add(new ProductoCotizador("1",ProductoCotizador.INTERNET));
-
         ArrayList<ArrayList<String>> descuentos = Descuentos2(planTo, telefonia, planTv, television, planBa, internet, jsonDatos);
-
-        System.out.println("Descuentos " + descuentos);
 
         if (descuentos != null) {
             for (int i = 0; i < descuentos.size(); i++) {
-                System.out.println("descuentos.get(i) "+descuentos.get(i));
-                System.out.println("descuentos.get(i) "+descuentos.get(i).get(0));
-                System.out.println("descuentos.get(i) "+descuentos.get(i).get(1));
-                System.out.println("descuentos.get(i) "+descuentos.get(i).get(2));
                 if (descuentos.get(i).get(0).equalsIgnoreCase("to")) {
-                    productos.add(new ProductoCotizador(planTo, ProductoCotizador.TELEFONIA, telefonia, "0.00", "0", TO_I_IVA, TO_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1),"descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2),"descuentos.get(i).get(2)")));
+                    productos.add(new ProductoCotizador(planTo, ProductoCotizador.TELEFONIA, telefonia, TO_I_IVA, TO_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1),"descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2),"descuentos.get(i).get(2)"),planFacturacionTO_I,planFacturacionTO_P,"0"));
                 } else if (descuentos.get(i).get(0).equalsIgnoreCase("tv")) {
-                    productos.add(new ProductoCotizador(planTv, ProductoCotizador.TELEVISION, television, "0.00", "0", TV_I_IVA, TV_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1),"descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2),"descuentos.get(i).get(2)")));
+                    productos.add(new ProductoCotizador(planTv, ProductoCotizador.TELEVISION, television,  TV_I_IVA, TV_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1),"descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2),"descuentos.get(i).get(2)"),planFacturacionTV_I,planFacturacionTO_P,"0"));
                 } else if (descuentos.get(i).get(0).equalsIgnoreCase("ba")) {
-                    productos.add(new ProductoCotizador(planBa, ProductoCotizador.INTERNET, internet, "0.00", "0", BA_I_IVA, BA_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1),"descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2),"descuentos.get(i).get(2)")));
+                    productos.add(new ProductoCotizador(planBa, ProductoCotizador.INTERNET, internet, BA_I_IVA, BA_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1),"descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2),"descuentos.get(i).get(2)"),planFacturacionBA_I,planFacturacionBA_P,"0"));
                 }
             }
         } else {
 
-            productos.add(new ProductoCotizador(planTo, ProductoCotizador.TELEFONIA, telefonia, "0.00", "0", TO_I_IVA, TO_P_IVA, 0, 0));
-            productos.add(new ProductoCotizador(planTv, ProductoCotizador.TELEVISION, television, "0.00", "0", TV_I_IVA, TV_P_IVA, 0, 0));
-            productos.add(new ProductoCotizador(planBa, ProductoCotizador.INTERNET, internet, "0.00", "0", BA_I_IVA, BA_P_IVA, 0, 0));
+            productos.add(new ProductoCotizador(planTo, ProductoCotizador.TELEFONIA, telefonia,TO_I_IVA, TO_P_IVA, 0, 0,planFacturacionTO_I,planFacturacionTO_P,"0"));
+            productos.add(new ProductoCotizador(planTv, ProductoCotizador.TELEVISION, television, TV_I_IVA, TV_P_IVA, 0, 0,planFacturacionTV_I,planFacturacionTO_P,"0"));
+            productos.add(new ProductoCotizador(planBa, ProductoCotizador.INTERNET, internet,BA_I_IVA, BA_P_IVA, 0, 0,planFacturacionBA_I,planFacturacionBA_P,"0"));
         }
+
+        String controlCotizacion = "01";
+        if (control) {
+            controlCotizacion = "00";
+        }
+        CotizacionCliente cotizacionCliente = new CotizacionCliente();
+        cotizacionCliente.setControl(controlCotizacion);
+        cotizacionCliente.setOferta(Oferta);
+        cotizacionCliente.setGotaba(new GotaBa(controlGota,valorGota,valorGotaSinIva,velocidadInicial,velocidadFinal));
+        cotizacionCliente.setTotalIndividual(TT_I_TP_IVA);
+        cotizacionCliente.setTotalEmpaquetado(TT_P_TP_IVA);
+        cotizacionCliente.setContadorProductos(Contador_Productos());
+        cotizacionCliente.setEstrato(estrato);
+        cotizacionCliente.setProductoCotizador(productos);
+
+        System.out.println("TT_I_TP_IVA "+TT_I_TP_IVA);
+        System.out.println("TT_P_TP_IVA "+TT_P_TP_IVA);
 
 		/*Productos.add(new ItemTarificador("" + Oferta, "Validaciones", "Oferta"));
 
@@ -1183,7 +1192,7 @@ public class TarificadorNew {
 		Productos.add(new ItemTarificador("" + Contador_Productos(), "Contador", "OTROS"));
 		Productos.add(new ItemTarificador(estrato, "Estrato", "OTROS"));*/
 
-        return productos;
+        return cotizacionCliente;
 
     }
 
