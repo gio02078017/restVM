@@ -15,33 +15,6 @@
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="0dp"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        android:paddingBottom="10dp">
-
-        <TextView
-            android:id="@+id/lblValorAdicional"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Valor"
-            style="@style/textcompproductobackgroundorange" />
-
-        <TextView
-            android:id="@+id/txtValorAdicional"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:text="$ 0.oo"/>
-
-    </RelativeLayout>
-
     <ListView
         android:id="@+id/lstListaAdicionales"
         android:layout_width="match_parent"

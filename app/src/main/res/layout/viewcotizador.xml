@@ -53,6 +53,12 @@
                 custom:tipoAdicional="AdicionalesTelefonia"
                 android:visibility="gone"/>
 
+            <co.com.une.appmovilesune.components.CompTotalCotizador
+                android:id="@+id/cttlTotales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"/>
+
         </LinearLayout>
 
     </ScrollView>

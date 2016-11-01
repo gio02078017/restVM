@@ -24,15 +24,17 @@ import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
+import co.com.une.appmovilesune.interfaces.ObserverTotales;
 import co.com.une.appmovilesune.interfaces.Subject;
 import co.com.une.appmovilesune.interfaces.SubjectAdicionales;
+import co.com.une.appmovilesune.interfaces.SubjectTotales;
 import co.com.une.appmovilesune.model.ProductoCotizador;
 
 /**
  * Created by davids on 13/10/16.
  */
 
-public class CompProducto extends LinearLayout implements SubjectAdicionales {
+public class CompProducto extends LinearLayout implements SubjectAdicionales, Subject {
 
     public static final int TELEFONIA = 0;
     public static final int TELEVISION = 1;
@@ -66,6 +68,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales {
     private TextView txtvalorpagoparcial;
 
     private ObserverAdicionales observerAdicionales;
+    private Observer observer;
 
     private int tipo;
     private String departamento;
@@ -105,7 +108,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales {
 
         spntipeticionproducto = (Spinner) findViewById(R.id.spntipeticionproducto);
         spnSelectorPlan = (Spinner) findViewById(R.id.spnSelectorPlan);
-        txtPlanFacturacion = (TextView) findViewById(R.id.txtPlanFacturacion);
+        txtPlanFacturacion = (TextView) findViewById (R.id.txtPlanFacturacion);
         txtVelocidad = (TextView) findViewById(R.id.txtVelocidad);
 
         txtvalorcargobasicoind = (TextView) findViewById(R.id.txtvalorcargobasicoind);
@@ -262,6 +265,9 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales {
     AdapterView.OnItemSelectedListener seleccionarPlan = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+
             if(observerAdicionales != null){
                 observerAdicionales.seleccionarPlan(Utilidades.traducirPlanOfertaDigital((String) parent.getSelectedItem()));
             }
@@ -314,13 +320,28 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales {
     }
 
     @Override
-    public void addObserver(ObserverAdicionales o) {
+    public void addObserverAdicionales(ObserverAdicionales o) {
         observerAdicionales = o;
     }
 
     @Override
-    public void removeObserver(ObserverAdicionales o) {
+    public void removeObserverAdicionales(ObserverAdicionales o) {
         observerAdicionales = null;
+    }
+
+    @Override
+    public void notifyObserverAdicionales() {
+
+    }
+
+    @Override
+    public void addObserver(Observer o) {
+        observer = o;
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        observer = null;
     }
 
     @Override

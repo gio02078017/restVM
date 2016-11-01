@@ -22,7 +22,11 @@ import co.com.une.appmovilesune.adapters.ListaAdicionales;
 import co.com.une.appmovilesune.adapters.ListaAdicionalesAdapter;
 import co.com.une.appmovilesune.change.ControlSimulador;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
+import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
+import co.com.une.appmovilesune.interfaces.ObserverTotales;
+import co.com.une.appmovilesune.interfaces.Subject;
+import co.com.une.appmovilesune.interfaces.SubjectTotales;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Tarificador;
 
@@ -30,7 +34,7 @@ import co.com.une.appmovilesune.model.Tarificador;
  * Created by davids on 25/10/16.
  */
 
-public class CompAdicional extends LinearLayout implements ObserverAdicionales {
+public class CompAdicional extends LinearLayout implements ObserverAdicionales, Observer, Subject {
 
     public static final int TELEFONIA = 0;
     public static final int TELEVISION = 1;
@@ -40,7 +44,6 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales {
     public TextView lblTipoAdicional;
 
     public Spinner spnSelectorAdicionales;
-    public TextView txtValorAdicional;
     public ListView lstListaAdicionales;
 
     private int tipo;
@@ -49,6 +52,8 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales {
     private Cliente cliente;
 
     private ArrayList<ListaAdicionales> adicionales = new ArrayList<ListaAdicionales>();
+
+    private Observer observer;
 
     public CompAdicional(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -76,7 +81,6 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales {
         lblTipoAdicional = (TextView) findViewById(R.id.lblTipoAdicional);
 
         spnSelectorAdicionales = (Spinner) findViewById(R.id.spnSelectorAdicionales);
-        txtValorAdicional = (TextView) findViewById(R.id.txtValorAdicional);
         lstListaAdicionales = (ListView) findViewById(R.id.lstListaAdicionales);
 
         spnSelectorAdicionales.setOnItemSelectedListener(seleccionarAdicional);
@@ -169,11 +173,20 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales {
 
         ListaAdicionalesAdapter adapter = new ListaAdicionalesAdapter((Activity) getContext(), adicionales,
                 getContext(), "");
-        //adapter.addObserver(this);
+        adapter.addObserver(this);
         lstListaAdicionales.setAdapter(adapter);
         ControlSimulador.setListViewHeightBasedOnChildren(lstListaAdicionales);
+    }
 
-        //actualizarTotal();
+    private double calcularTotal(){
+
+        double total = 0;
+
+        for (ListaAdicionales adicional: adicionales) {
+            total += Double.parseDouble(adicional.getPrecio());
+        }
+
+        return total;
 
     }
 
@@ -212,4 +225,30 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales {
         setVisibility(VISIBLE);
     }
 
+    @Override
+    public void update(Object value) {
+        ArrayList<Object> data = (ArrayList<Object>) value;
+        String lugar = data.get(0).toString();
+
+        if (lugar.equalsIgnoreCase("eliminar")) {
+            int position = Integer.parseInt(data.get(1).toString());
+            adicionales.remove(position);
+            actualizarLista();
+        }
+    }
+
+    @Override
+    public void addObserver(Observer o) {
+        observer = o;
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        observer = null;
+    }
+
+    @Override
+    public void notifyObserver() {
+
+    }
 }

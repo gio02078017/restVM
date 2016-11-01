@@ -1,9 +1,7 @@
 package co.com.une.appmovilesune.controller;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,8 +26,12 @@ import co.com.une.appmovilesune.complements.Validaciones;
 import co.com.une.appmovilesune.components.CompAdicional;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
 import co.com.une.appmovilesune.components.CompProducto;
+import co.com.une.appmovilesune.components.CompTotal;
+import co.com.une.appmovilesune.components.CompTotalCotizador;
 import co.com.une.appmovilesune.components.TituloPrincipal;
 import co.com.une.appmovilesune.interfaces.Observer;
+import co.com.une.appmovilesune.interfaces.ObserverTotales;
+import co.com.une.appmovilesune.interfaces.SubjectTotales;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
 import co.com.une.appmovilesune.model.CotizacionCliente;
@@ -42,7 +44,7 @@ import co.com.une.appmovilesune.model.TarificadorNew;
  * Created by davids on 18/10/16.
  */
 
-public class ControlCotizador extends Activity implements Observer {
+public class ControlCotizador extends Activity implements Observer, SubjectTotales{
 
     private TituloPrincipal tlpPrincipal;
 
@@ -60,6 +62,8 @@ public class ControlCotizador extends Activity implements Observer {
     private CompProducto cprdInternet;
     private CompProducto cprdTelefonia;
     private CompAdicional cadcTelefonia;
+
+    private CompTotalCotizador cttlTotales;
 
     private TarificadorNew tarificador;
     private Cliente cliente;
@@ -80,6 +84,8 @@ public class ControlCotizador extends Activity implements Observer {
     private boolean controlDescuentosAd = false;
     private double preciosConDescuentoAd = 0.0;
     private double precioDescuentosAd = 0.0;
+
+    private ObserverTotales observerTotales;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,9 +131,18 @@ public class ControlCotizador extends Activity implements Observer {
         cprdInternet = (CompProducto) findViewById(R.id.cprdInternet);
         cprdTelefonia = (CompProducto) findViewById(R.id.cprdTelefonia);
         cadcTelefonia = (CompAdicional) findViewById(R.id.cadcTelefonia);
+        cttlTotales = (CompTotalCotizador) findViewById(R.id.cttlTotales);
 
-        cprdTelevision.addObserver(cadcTelevision);
-        cprdTelefonia.addObserver(cadcTelefonia);
+        /*Se Agregan los observadores de adicionales a los producutos que cientan con la
+        funcionalidad de adicionales*/
+        cprdTelevision.addObserverAdicionales(cadcTelevision);
+        cprdTelefonia.addObserverAdicionales(cadcTelefonia);
+
+        cprdTelevision.addObserver(this);
+        cadcTelevision.addObserver(this);
+        cprdInternet.addObserver(this);
+        cprdTelefonia.addObserver(this);
+        cadcTelefonia.addObserver(this);
 
         cadcTelevision.setCliente(cliente);
         cadcTelefonia.setCliente(cliente);
@@ -291,6 +306,10 @@ public class ControlCotizador extends Activity implements Observer {
     }
 
     public void cotizar(View v) {
+        cotizar();
+    }
+
+    public void cotizar() {
 
 
         System.out.println("hola");
@@ -1635,5 +1654,19 @@ public class ControlCotizador extends Activity implements Observer {
         intent.putExtra("tipoIngreso", tipoIngreso);
         setResult(MainActivity.OK_RESULT_CODE, intent);
         finish();
+    }
+    @Override
+    public void addObserver(ObserverTotales o) {
+        observerTotales = o;
+    }
+
+    @Override
+    public void removeObserver(ObserverTotales o) {
+        observerTotales = null;
+    }
+
+    @Override
+    public void notifyObserver() {
+
     }
 }
