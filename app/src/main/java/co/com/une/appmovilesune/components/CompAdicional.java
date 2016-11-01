@@ -25,6 +25,7 @@ import co.com.une.appmovilesune.change.UtilidadesTarificador;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
 import co.com.une.appmovilesune.interfaces.ObserverTotales;
+import co.com.une.appmovilesune.interfaces.Subject;
 import co.com.une.appmovilesune.interfaces.SubjectTotales;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Tarificador;
@@ -33,7 +34,7 @@ import co.com.une.appmovilesune.model.Tarificador;
  * Created by davids on 25/10/16.
  */
 
-public class CompAdicional extends LinearLayout implements ObserverAdicionales, Observer, SubjectTotales {
+public class CompAdicional extends LinearLayout implements ObserverAdicionales, Observer, Subject {
 
     public static final int TELEFONIA = 0;
     public static final int TELEVISION = 1;
@@ -52,7 +53,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     private ArrayList<ListaAdicionales> adicionales = new ArrayList<ListaAdicionales>();
 
-    private ObserverTotales observerTotales;
+    private Observer observer;
 
     public CompAdicional(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -175,8 +176,6 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         adapter.addObserver(this);
         lstListaAdicionales.setAdapter(adapter);
         ControlSimulador.setListViewHeightBasedOnChildren(lstListaAdicionales);
-
-        //observerTotales.actualizarTotales(calcularTotal());
     }
 
     private double calcularTotal(){
@@ -239,13 +238,13 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
     }
 
     @Override
-    public void addObserver(ObserverTotales o) {
-        observerTotales = o;
+    public void addObserver(Observer o) {
+        observer = o;
     }
 
     @Override
-    public void removeObserver(ObserverTotales o) {
-        observerTotales = null;
+    public void removeObserver(Observer o) {
+        observer = null;
     }
 
     @Override

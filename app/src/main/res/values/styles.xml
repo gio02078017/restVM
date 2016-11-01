@@ -15,6 +15,21 @@
         <item name="android:layout_centerVertical">true</item>
     </style>
 
+    <style name="textcompproductobackgroundpurpple">
+        <item name="android:textColor">@color/purple</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="textovalortotales">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:text">@string/dinero</item>
+    </style>
+
     <style name="linearlayoutproductovalores">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

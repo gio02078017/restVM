@@ -10,13 +10,15 @@ import android.widget.TextView;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.interfaces.ObserverTotales;
 
-public class CompTotalCotizador extends LinearLayout implements ObserverTotales {
+public class CompTotalCotizador extends LinearLayout {
 
 	public static final String TOTAL_PAQUETE = "Total Paquete";
 	public static final String TOTAL_PAQUETE_ADICIONALES = "Total Paquete + Adicionales";
 
-	private TextView txtTipoTotal;
-	private TextView txtTotal;
+	private TextView txtvalortotalindividual;
+	private TextView txtvalortotalempaquetado;
+	private TextView txtvalortotalindividualadicionales;
+	private TextView txtvalortotalempaquetadoadicionales;
 
 	public CompTotalCotizador(Context context) {
 		super(context);
@@ -43,24 +45,9 @@ public class CompTotalCotizador extends LinearLayout implements ObserverTotales 
 
 		li.inflate(R.layout.comptotalcotizador, this, true);
 
-		txtTipoTotal = (TextView) findViewById(R.id.txtTipoTotal);
-		txtTotal = (TextView) findViewById(R.id.txtTotal);
-	}
-
-	public void setTipoTotal(String tipo) {
-		txtTipoTotal.setText(tipo);
-	}
-
-	public void setTotal(String total) {
-		txtTotal.setText(total);
-	}
-
-	public String getTotal() {
-		return txtTotal.getText().toString();
-	}
-
-	@Override
-	public void actualizarTotales(double total) {
-
+		txtvalortotalindividual = (TextView) findViewById(R.id.txtvalortotalindividual);
+		txtvalortotalempaquetado = (TextView) findViewById(R.id.txtvalortotalempaquetado);
+		txtvalortotalindividualadicionales = (TextView) findViewById(R.id.txtvalortotalindividualadicionales);
+		txtvalortotalempaquetadoadicionales = (TextView) findViewById(R.id.txtvalortotalempaquetadoadicionales);
 	}
 }

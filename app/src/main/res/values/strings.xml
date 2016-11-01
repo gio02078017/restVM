@@ -453,4 +453,9 @@
 
     <string name="cotizador">Cotizador</string>
 
+    <string name="totalindividualcotizador">Total Individual</string>
+    <string name="totalempaquetadocotizador">Total Empaquetado</string>
+    <string name="titulocargobasicototales">Cargo Básico</string>
+    <string name="titulocargobasicoadicionalestotales">Cargo Básico + Adicionales</string>
+    <string name="dinero">$ 0.oo</string>
 </resources>

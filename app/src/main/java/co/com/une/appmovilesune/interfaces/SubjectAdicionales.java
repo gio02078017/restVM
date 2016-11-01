@@ -6,10 +6,10 @@ package co.com.une.appmovilesune.interfaces;
 
 public interface SubjectAdicionales {
 
-    void addObserver(ObserverAdicionales o);
+    void addObserverAdicionales(ObserverAdicionales o);
 
-    void removeObserver(ObserverAdicionales o);
+    void removeObserverAdicionales(ObserverAdicionales o);
 
-    void notifyObserver();
+    void notifyObserverAdicionales();
 
 }
