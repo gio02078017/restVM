@@ -18,7 +18,7 @@ public class BaseDatos extends SQLiteOpenHelper {
 	public static final String NOMBRE = "ventamovil";
 	public static final int VERSION = 1;
 
-	private String estructura[] = new String[36];
+	private String estructura[] = new String[38];
 
 	public BaseDatos(Context context, String name, CursorFactory factory, int version) {
 		super(context, name, factory, version);
@@ -105,7 +105,11 @@ public class BaseDatos extends SQLiteOpenHelper {
 		estructura[33] = "CREATE TABLE IF NOT EXISTS decos(id_confdeco INTEGER, caracteristica TEXT, configuracion TEXT)";
 		estructura[34] = "CREATE TABLE IF NOT EXISTS condicionesxdecos(id_condicion INTEGER, id_decos INTEGER)";
 		estructura[35] = "CREATE TABLE IF NOT EXISTS permisos(rol TEXT, accion TEXT)";
-	}
+		estructura[36] = "CREATE TABLE IF NOT EXISTS pagoparcial(producto TEXT, servicio TEXT, valor DOUBLE, descuento TEXT)";
+		estructura[37] = "CREATE TABLE IF NOT EXISTS valorconexion(productos TEXT, valor REAL)";
+
+
+ 	}
 
 	public boolean insertar(String tabla, ContentValues datos) {
 		SQLiteDatabase db = MainActivity.basedatos.getWritableDatabase();
