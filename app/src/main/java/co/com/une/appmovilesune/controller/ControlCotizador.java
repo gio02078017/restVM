@@ -89,6 +89,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     private ObserverTotales observerTotales;
 
+    CotizacionCliente cotizacionCliente;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,6 +156,15 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         spnoferta.setOnItemSelectedListener(seleccionarOferta);
 
         llenarEstrato();
+
+        if (Utilidades.excluirMunicipal("bloquearCobertura", "bloquearCobertura", cliente.getCiudad())) {
+
+            bloqueoCobertura = Utilidades.tratarCoberturaBloqueo(cliente.getCobertura(), this);
+
+        }
+
+        System.out.println("bloqueoCobertura "+bloqueoCobertura);
+        System.out.println("cliente.getCobertura() "+cliente.getCobertura());
 
     }
 
@@ -307,10 +318,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cotizar();
     }
 
-    public void cotizar(View v) {
-        cotizar();
-    }
-
     public void cotizar() {
 
         cprdTelefonia.limpiarComp();
@@ -330,7 +337,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         // ArrayList<ProductoCotizador> productos = tarificador.cotizacionVenta();
 
-        CotizacionCliente cotizacionCliente = tarificador.cotizacionCliente();
+        cotizacionCliente = tarificador.cotizacionCliente();
 
         ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
 
@@ -355,9 +362,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(),cotizacionCliente.getTotalEmpaquetado(),cadcTelevision.calcularTotal(),cadcTelefonia.calcularTotal());
 
-        /*if (cotizacionCliente.getControl().equalsIgnoreCase("00")) {
+      }
+
+    public void cotizar(View v) {
+        if(cotizacionCliente != null){
             procesarCotizacion(cotizacionCliente);
-        }*/
+        }
     }
 
     public void procesarCotizacion(CotizacionCliente cotizacionCliente) {
@@ -391,6 +401,15 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             System.out.println("cprdInternet " + cprdInternet.getPlan());
             System.out.println("cprdTelefonia " + cprdTelefonia.getPlan());
 
+            itemPromocionesAdicionales = cadcTelevision.itemPromocionesAdicionales();
+
+            for (int i = 0; i < itemPromocionesAdicionales.size() ; i++) {
+                System.out.println("itemPromocionesAdicionales.get(i).getTipoProducto() "+itemPromocionesAdicionales.get(i).getTipoProducto());
+                System.out.println("itemPromocionesAdicionales.get(i).getAdicional() "+itemPromocionesAdicionales.get(i).getAdicional());
+                System.out.println("itemPromocionesAdicionales.get(i).getDescuento() "+itemPromocionesAdicionales.get(i).getDescuento());
+                System.out.println("itemPromocionesAdicionales.get(i).getMeses() "+itemPromocionesAdicionales.get(i).getMeses());
+            }
+
 //            cotizacion_venta = tarificador.Array_Cotizacion_Venta();
 //
 //            ArrayList<String> telefonia = Utilidades.getCotizacion(cotizacion_venta, Utilidades.tipo_producto_to_d);
@@ -410,7 +429,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
             //System.out.println("planesFacturacion " + planesFacturacion);
 
-            // cotizacion.setAdicionales(obtenerAdicionales());
+            System.out.println("cadcTelevision.arrayAdicionales() "+cadcTelevision.arrayAdicionales());
+
+            cotizacion.setAdicionales(cadcTelevision.arrayAdicionales());
 
             if (cotizacionCliente.getContadorProductos() == 3) {
 
@@ -460,7 +481,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 }
             }
 
-            //cotizacion.setTotalAdicionales(obtenerValorAdicionales().toString()); // se debe ingresar el dato
+            cotizacion.setTotalAdicionales(String.valueOf(cadcTelevision.calcularTotal())); // se debe ingresar el dato
 
             System.out.println("ofertas " + cotizacionCliente.getOferta());
 
@@ -729,7 +750,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         System.out.println("television " + productoCotizador.getPlan());
         ArrayList<String> descuentoTv = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
         cotizacion.setAdicionales(agregarAdicionalesGratis(productoCotizador.getPlanFacturacionInd(), productoCotizador.getPlanFacturacionEmp(),
-                obtenerAdicionales(), productoCotizador.getPlan(), tv, "" + contadorProd, trioNuevo,
+                cadcTelevision.arrayAdicionales(), productoCotizador.getPlan(), tv, "" + contadorProd, trioNuevo,
                 descuentoTv.get(0).toString(), descuentoTv.get(1).toString()));
 
         ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
@@ -1213,31 +1234,31 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                         cotizacion.setHFCDigital(false);
                     }
 
-                    if (bloqueoCobertura.getMedioTV().equalsIgnoreCase("HFC")) {
-                        if (bloqueoCobertura
-                                .isCoberturaHFC()) {
-                            pasa = true;
-                        } else if (bloqueoCobertura
-                                .isCoberturaREDCO()) {
-                            bloqueoCobertura.setConsultaMedioTV("IPTV");
-                            Utilidades.MensajesToast(getResources().getString(R.string.cambiomedioinstalaciontviptv),
-                                    this);
-                            cambioMedioTV = true;
-                        }
-
-                    } else if (bloqueoCobertura.getMedioTV().equalsIgnoreCase("IPTV")) {
-                        if (bloqueoCobertura
-                                .isCoberturaREDCO()) {
-                            pasa = true;
-                        } else if (bloqueoCobertura
-                                .isCoberturaHFC()) {
-                            bloqueoCobertura.setConsultaMedioTV("HFC");
-                            Utilidades.MensajesToast(getResources().getString(R.string.cambiomedioinstalaciontvhfc),
-                                    this);
-                            cambioMedioTV = true;
-                        }
-                    }
-
+//                    if (bloqueoCobertura.getMedioTV().equalsIgnoreCase("HFC")) {
+//                        if (bloqueoCobertura
+//                                .isCoberturaHFC()) {
+//                            pasa = true;
+//                        } else if (bloqueoCobertura
+//                                .isCoberturaREDCO()) {
+//                            bloqueoCobertura.setConsultaMedioTV("IPTV");
+//                            Utilidades.MensajesToast(getResources().getString(R.string.cambiomedioinstalaciontviptv),
+//                                    this);
+//                            cambioMedioTV = true;
+//                        }
+//
+//                    } else if (bloqueoCobertura.getMedioTV().equalsIgnoreCase("IPTV")) {
+//                        if (bloqueoCobertura
+//                                .isCoberturaREDCO()) {
+//                            pasa = true;
+//                        } else if (bloqueoCobertura
+//                                .isCoberturaHFC()) {
+//                            bloqueoCobertura.setConsultaMedioTV("HFC");
+//                            Utilidades.MensajesToast(getResources().getString(R.string.cambiomedioinstalaciontvhfc),
+//                                    this);
+//                            cambioMedioTV = true;
+//                        }
+//                    }
+                    pasa = true;
                 } else {
                     if (bloqueoCobertura
                             .isCoberturaHFC()) {

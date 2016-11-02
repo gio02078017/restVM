@@ -907,27 +907,6 @@ public class Tarificador {
 
 			TT_P_TP_IVA = TO_P_IVA + TV_P_IVA + BA_P_IVA + MOVIL_3G_P_IVA + MOVIL_4G_P_IVA + Precio_Ad_Tv_IVA;
 
-			// if (internet_3G.equalsIgnoreCase("Demanda - 1D") ||
-			// internet_3G.equalsIgnoreCase("Demanda - 3D")
-			// || internet_3G.equalsIgnoreCase("Demanda - 5D") ||
-			// internet_3G.equalsIgnoreCase("Demanda - 10H")
-			// || internet_3G.equalsIgnoreCase("Demanda - 20H") ||
-			// internet_3G.equalsIgnoreCase("Demanda - 30H")) {
-			//
-			// TT_I_TP_IVA_Sin_Demanda = TO_I_IVA + TV_I_IVA + BA_I_IVA +
-			// Precio_Ad_Tv_IVA;
-			// TT_P_TP_IVA_Sin_Demanda = TO_P_IVA + TV_P_IVA + BA_P_IVA +
-			// Precio_Ad_Tv_IVA;
-			//
-			// } else {
-			// TT_I_TP_IVA_Sin_Demanda = TO_I_IVA + TV_I_IVA + BA_I_IVA +
-			// MOVIL_3G_I_IVA + MOVIL_4G_I_IVA
-			// + Precio_Ad_Tv_IVA;
-			//
-			// TT_P_TP_IVA_Sin_Demanda = TO_P_IVA + TV_P_IVA + BA_P_IVA +
-			// MOVIL_3G_P_IVA + MOVIL_4G_P_IVA
-			// + Precio_Ad_Tv_IVA;
-			// }
 		} else {
 			// System.out.println("Error Cotizacion Invalida");
 			limpiar();

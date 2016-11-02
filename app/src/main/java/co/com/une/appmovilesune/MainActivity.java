@@ -703,6 +703,8 @@ public class MainActivity extends Activity implements Observer {
         try {
             if (requestCode == REQUEST_CODE) {
 
+                System.out.println("modulo onActivityResult "+modulo);
+
                 if (modulo.equals(MODULO_CLIENTE)) {
                     asesoria.cliente = (Cliente) data.getSerializableExtra("Cliente");
                     System.out.println("asesoria.cliente.getPortafolio() " + asesoria.cliente.getPortafolio());
@@ -791,7 +793,7 @@ public class MainActivity extends Activity implements Observer {
 					 * System.out.println("tipo Cliente " +
 					 * asesoria.cliente.getTipoCliente());
 					 */
-                } else if (modulo.equals(MODULO_TARIFICADOR)) {
+                } else if (modulo.equals(MODULO_TARIFICADOR) || modulo.equals(MODULO_COTIZADOR)) {
                     asesoria.cotizacion = (Cotizacion) data.getSerializableExtra("cotizacion");
                     asesoria.cliente = (Cliente) data.getSerializableExtra("cliente");
 
