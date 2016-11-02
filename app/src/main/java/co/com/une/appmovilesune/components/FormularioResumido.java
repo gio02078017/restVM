@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
+import co.com.une.appmovilesune.change.Utilidades;
+
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -50,7 +52,10 @@ public class FormularioResumido extends LinearLayout {
 		ArrayAdapter<String> adaptador = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item);
 		if (res != null) {
 			for (ArrayList<String> arrayList : res) {
-				adaptador.add(arrayList.get(0));
+				System.out.println("[ciudades del "+departamento+"] "+arrayList.get(0));
+				if (!Utilidades.excluir("ciudadesOcultas", arrayList.get(0))) {
+					adaptador.add(arrayList.get(0));
+				}
 			}
 		}
 		return adaptador;

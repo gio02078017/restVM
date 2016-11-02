@@ -292,19 +292,26 @@ public class ControlBusquedaAmigoCuentas extends Activity implements Observer, S
 				System.out.println("cliente.ac " + cliente.ac);
 
 				if (cliente.ac != null) {
-					if (cliente.ac.productosPortafolio != null) {
-						if (!cliente.ac.productosPortafolio.isEmpty()) {
-							Intent intent = new Intent();
-							intent.putExtra("cliente", cliente);
-							setResult(MainActivity.OK_RESULT_CODE, intent);
-							finish();
+
+					System.out.println("cliente.ac.municipio "+cliente.ac.municipio);
+					if(!Utilidades.excluir("siebelMunicipios", cliente.ac.municipio)){
+						if (cliente.ac.productosPortafolio != null) {
+							if (!cliente.ac.productosPortafolio.isEmpty()) {
+								Intent intent = new Intent();
+								intent.putExtra("cliente", cliente);
+								setResult(MainActivity.OK_RESULT_CODE, intent);
+								finish();
+							} else {
+								txtMensaje.setVisibility(View.VISIBLE);
+								txtMensaje.setText("La Consulta no arrojo resultados");
+							}
 						} else {
 							txtMensaje.setVisibility(View.VISIBLE);
 							txtMensaje.setText("La Consulta no arrojo resultados");
 						}
-					} else {
+					}else{
 						txtMensaje.setVisibility(View.VISIBLE);
-						txtMensaje.setText("La Consulta no arrojo resultados");
+						txtMensaje.setText("Para el muncipio de "+cliente.ac.municipio +" no es posible la venta por este modulo");
 					}
 				} else {
 					txtMensaje.setVisibility(View.VISIBLE);

@@ -624,39 +624,45 @@ public class Cliente implements Serializable, Observer, Subject {
 
 				System.out.println("jo cliente " + jo);
 
-				Direccion = jo.getString("Direccion");
-				Estrato = jo.getString("Estrato");
-				Paginacion = jo.getString("Paginacion");
+				System.out.println("jo Municipio " + traducirMunicipio(jo.getString("Municipio")));
 
-				if (jo.getString("Nombres").equalsIgnoreCase("") && jo.getString("Apellidos").equalsIgnoreCase("")) {
-					Nombre = jo.getString("NombreCompleto");
-					Apellido = "";
-				} else {
-					Nombre = jo.getString("Nombres");
-					Apellido = jo.getString("Apellidos");
-				}
+				if (!Utilidades.excluir("siebelMunicipios", traducirMunicipio(jo.getString("Municipio")))) {
 
-				Cedula = jo.getString("Documento");
-				// departamento =
-				// traducirDepartamento(jo.getString("Departamento"));
-				if (!departamento.equalsIgnoreCase(Utilidades.Bogota)) {
-					ciudad = traducirMunicipio(jo.getString("Municipio"));
-					ciudadFenix = Utilidades.traducirCiudadFenix(ciudad);
-					ciudadDane = Utilidades.traducirCiudadDane(ciudad);
-					this.departamentoSiebel = Utilidades.traducirCiudadDane(ciudad);
-					this.ciudadSiebel = Utilidades.traducirCiudadGIIS(ciudad);
-				}
+					Direccion = jo.getString("Direccion");
+					Estrato = jo.getString("Estrato");
+					Paginacion = jo.getString("Paginacion");
 
-				System.out.println("ciudad " + ciudad);
+					if (jo.getString("Nombres").equalsIgnoreCase("")
+							&& jo.getString("Apellidos").equalsIgnoreCase("")) {
+						Nombre = jo.getString("NombreCompleto");
+						Apellido = "";
+					} else {
+						Nombre = jo.getString("Nombres");
+						Apellido = jo.getString("Apellidos");
+					}
 
-				if (!ciudad.equalsIgnoreCase("BogotaREDCO")) {
-					lanzarSimulador("Cobertura");
-				}
+					Cedula = jo.getString("Documento");
+					// departamento =
+					// traducirDepartamento(jo.getString("Departamento"));
+					if (!departamento.equalsIgnoreCase(Utilidades.Bogota)) {
+						ciudad = traducirMunicipio(jo.getString("Municipio"));
+						ciudadFenix = Utilidades.traducirCiudadFenix(ciudad);
+						ciudadDane = Utilidades.traducirCiudadDane(ciudad);
+						this.departamentoSiebel = Utilidades.traducirCiudadDane(ciudad);
+						this.ciudadSiebel = Utilidades.traducirCiudadGIIS(ciudad);
+					}
 
-				lanzarSimulador("Portafolio");
-				lanzarSimulador("Cartera_UNE");
-				if (Utilidades.visible("AmigoCuentas", MainActivity.config.getCiudad())) {
-					lanzarAmigoCuentas(Telefono, "identificador", jo.getString("Municipio"));
+					System.out.println("ciudad " + ciudad);
+
+					if (!ciudad.equalsIgnoreCase("BogotaREDCO")) {
+						lanzarSimulador("Cobertura");
+					}
+
+					lanzarSimulador("Portafolio");
+					lanzarSimulador("Cartera_UNE");
+					if (Utilidades.visible("AmigoCuentas", MainActivity.config.getCiudad())) {
+						lanzarAmigoCuentas(Telefono, "identificador", jo.getString("Municipio"));
+					}
 				}
 
 			} catch (JSONException e) {

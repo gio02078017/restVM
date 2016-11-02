@@ -61,6 +61,8 @@ public class AmigoCuentas extends AsyncTask<ArrayList<Object>, Integer, ArrayLis
 
 	public boolean suspendido = false;
 
+	public String municipio = "";
+
 	public AmigoCuentas() {
 		productosBasica = new ArrayList<ProductoAMG>();
 		productosSuper = new ArrayList<ProductoAMG>();
@@ -508,6 +510,8 @@ public class AmigoCuentas extends AsyncTask<ArrayList<Object>, Integer, ArrayLis
 			JSONArray productos = portafolio.getJSONArray("productosFactura");
 			JSONObject tecnologia = portafolio.getJSONObject("infoCliente").getJSONObject("tecnologia");
 			// Log.d("organizarEstructura",productos.toString());
+
+			municipio = portafolio.getJSONObject("infoCliente").getString("municipio");
 
 			System.out.println("portafolio.getJSONObject('infoCliente)" + portafolio.getJSONObject("infoCliente"));
 
