@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -21,14 +22,13 @@ import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.adapters.BloqueoCobertura;
 import co.com.une.appmovilesune.adapters.ItemKeyValue2;
 import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
-import co.com.une.appmovilesune.adapters.ListaCheckedAdapter;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
 import co.com.une.appmovilesune.complements.Validaciones;
 import co.com.une.appmovilesune.components.CompAdicional;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
+import co.com.une.appmovilesune.components.CompDecos;
 import co.com.une.appmovilesune.components.CompProducto;
-import co.com.une.appmovilesune.components.CompTotal;
 import co.com.une.appmovilesune.components.CompTotalCotizador;
 import co.com.une.appmovilesune.components.TituloPrincipal;
 import co.com.une.appmovilesune.interfaces.Observer;
@@ -37,7 +37,6 @@ import co.com.une.appmovilesune.interfaces.SubjectTotales;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
 import co.com.une.appmovilesune.model.CotizacionCliente;
-import co.com.une.appmovilesune.model.GotaBa;
 import co.com.une.appmovilesune.model.ProductoCotizador;
 import co.com.une.appmovilesune.model.Scooring;
 import co.com.une.appmovilesune.model.TarificadorNew;
@@ -61,11 +60,14 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     private CompProducto cprdTelevision;
     private CompAdicional cadcTelevision;
+    private CompDecos cdcsDecodificadores;
     private CompProducto cprdInternet;
     private CompProducto cprdTelefonia;
     private CompAdicional cadcTelefonia;
 
     private CompTotalCotizador cttlTotales;
+
+    private ImageButton btnGardarCotizacion;
 
     private TarificadorNew tarificador;
     private Cliente cliente;
@@ -130,15 +132,25 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         cprdTelevision = (CompProducto) findViewById(R.id.cprdTelevision);
         cadcTelevision = (CompAdicional) findViewById(R.id.cadcTelevision);
+        cdcsDecodificadores = (CompDecos) findViewById(R.id.cdcsDecodificadores);
         cprdInternet = (CompProducto) findViewById(R.id.cprdInternet);
         cprdTelefonia = (CompProducto) findViewById(R.id.cprdTelefonia);
         cadcTelefonia = (CompAdicional) findViewById(R.id.cadcTelefonia);
         cttlTotales = (CompTotalCotizador) findViewById(R.id.cttlTotales);
 
+        btnGardarCotizacion = (ImageButton) findViewById(R.id.btnGardarCotizacion);
+
+
         /*Se Agregan los observadores de adicionales a los producutos que cientan con la
         funcionalidad de adicionales*/
         cprdTelevision.addObserverAdicionales(cadcTelevision);
+        cprdTelevision.addObserverDecodificadores(cdcsDecodificadores);
         cprdTelefonia.addObserverAdicionales(cadcTelefonia);
+
+        cdcsDecodificadores.setOferta("tarificador");
+        cdcsDecodificadores.setCiudad(cliente.getCiudad());
+        cdcsDecodificadores.addObserver(this);
+
 
         cprdTelevision.addObserver(this);
         cadcTelevision.addObserver(this);
@@ -307,10 +319,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cotizar();
     }
 
-    public void cotizar(View v) {
-        cotizar();
-    }
-
     public void cotizar() {
 
         cprdTelefonia.limpiarComp();
@@ -353,11 +361,16 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             }
         }
 
-        cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(),cotizacionCliente.getTotalEmpaquetado(),cadcTelevision.calcularTotal(),cadcTelefonia.calcularTotal());
+        cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(),cotizacionCliente.getTotalEmpaquetado(),cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal());
 
         /*if (cotizacionCliente.getControl().equalsIgnoreCase("00")) {
             procesarCotizacion(cotizacionCliente);
         }*/
+    }
+
+    public void procesarCotizacion(View v){
+        Log.d("Total individual",String.valueOf(cttlTotales.getTotalIndividualAdicionales()));
+        Log.d("Total Empaquetado",String.valueOf(cttlTotales.getTotalEmpaquetadoAdicionales()));
     }
 
     public void procesarCotizacion(CotizacionCliente cotizacionCliente) {

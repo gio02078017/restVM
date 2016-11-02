@@ -218,13 +218,19 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
     }
 
     @Override
-    public void deshabilitar() {
+    public void deshabilitarAdicionales() {
         setVisibility(GONE);
     }
 
     @Override
-    public void habilitar() {
+    public void habilitarAdicionales() {
         setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void limpiarAdicionales() {
+        adicionales.clear();
+        actualizarLista();
     }
 
     @Override

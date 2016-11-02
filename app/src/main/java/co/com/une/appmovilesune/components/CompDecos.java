@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,9 +19,11 @@ import co.com.une.appmovilesune.adapters.ListaDecodificadoresAdapter;
 import co.com.une.appmovilesune.change.ControlSimulador;
 import co.com.une.appmovilesune.change.UtilidadesDecos;
 import co.com.une.appmovilesune.interfaces.Observer;
+import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
+import co.com.une.appmovilesune.interfaces.ObserverDecodificadores;
 import co.com.une.appmovilesune.interfaces.Subject;
 
-public class CompDecos extends LinearLayout implements Observer, Subject {
+public class CompDecos extends LinearLayout implements Observer, Subject, ObserverDecodificadores {
 
 	public ListView listaDecodificadores;
 	private ImageView imgagregardecodificador;
@@ -106,6 +109,11 @@ public class CompDecos extends LinearLayout implements Observer, Subject {
 			listaDecodificadores.setAdapter(adapter);
 			ControlSimulador.setListViewHeightBasedOnChildren(listaDecodificadores);
 		}
+
+		if(oferta.equals("tarificador")){
+			observer.update(null);
+		}
+
 
 	}
 
@@ -260,4 +268,36 @@ public class CompDecos extends LinearLayout implements Observer, Subject {
 		observer.update(respuesta);
 	}
 
+	@Override
+	public void seleccionarPlan(String plan) {
+		System.out.println("Seleccionar Plan ->"+plan);
+		setPlan(plan);
+	}
+
+	@Override
+	public void deshabilitarDecodificadores() {
+		setVisibility(GONE);
+	}
+
+	@Override
+	public void habilitarDecodificadores() {
+		setVisibility(VISIBLE);
+	}
+
+	@Override
+	public void limpiarDecodificadores() {
+		if(decos != null){
+			decos.clear();
+		}
+		actualizarLista();
+	}
+
+	@Override
+	public void precargarDecos() {
+		if(decos != null){
+			decos = new ArrayList<ItemDecodificador>();
+		}
+		decos = UtilidadesDecos.logicaDecos(decos,plan);
+		actualizarLista();
+	}
 }

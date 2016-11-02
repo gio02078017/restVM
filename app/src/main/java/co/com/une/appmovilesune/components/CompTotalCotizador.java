@@ -51,13 +51,13 @@ public class CompTotalCotizador extends LinearLayout {
 		txtvalortotalempaquetadoadicionales = (TextView) findViewById(R.id.txtvalortotalempaquetadoadicionales);
 	}
 
-	public void llenarTotales(double totalIndividual, double totalEmpaquetado, double totalAdicionalesTV, double totalAdicionalesTO){
+	public void llenarTotales(double totalIndividual, double totalEmpaquetado, double totalAdicionalesTV, double totalDecodificadores, double totalAdicionalesTO){
 
 		double totalAdicionales = totalAdicionalesTO+totalAdicionalesTV;
 		setTotalIndividual("$" + totalIndividual);
 		setTotalEmpaquetado("$" + totalEmpaquetado);
 
-		totalIndividual += totalAdicionales;
+		totalIndividual += totalAdicionales + totalDecodificadores;
 		totalEmpaquetado += totalAdicionales;
 
 		setTotalIndividualAdicionales("$" + totalIndividual);
@@ -85,5 +85,21 @@ public class CompTotalCotizador extends LinearLayout {
 
 	public void setTotalEmpaquetadoAdicionales(String valor){
 		txtvalortotalempaquetadoadicionales.setText(valor);
+	}
+
+	public double getTotalIndividualAdicionales(){
+		String cadena =  txtvalortotalindividualadicionales.getText().toString();
+		cadena = cadena.substring(1);
+		double total = Double.parseDouble(cadena);
+
+		return total;
+	}
+
+	public double getTotalEmpaquetadoAdicionales(){
+		String cadena =  txtvalortotalempaquetadoadicionales.getText().toString();
+		cadena = cadena.substring(1);
+		double total = Double.parseDouble(cadena);
+
+		return total;
 	}
 }

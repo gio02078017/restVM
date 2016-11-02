@@ -24,9 +24,11 @@ import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
+import co.com.une.appmovilesune.interfaces.ObserverDecodificadores;
 import co.com.une.appmovilesune.interfaces.ObserverTotales;
 import co.com.une.appmovilesune.interfaces.Subject;
 import co.com.une.appmovilesune.interfaces.SubjectAdicionales;
+import co.com.une.appmovilesune.interfaces.SubjectDecodificadores;
 import co.com.une.appmovilesune.interfaces.SubjectTotales;
 import co.com.une.appmovilesune.model.ProductoCotizador;
 
@@ -34,7 +36,7 @@ import co.com.une.appmovilesune.model.ProductoCotizador;
  * Created by davids on 13/10/16.
  */
 
-public class CompProducto extends LinearLayout implements SubjectAdicionales, Subject {
+public class CompProducto extends LinearLayout implements SubjectAdicionales, Subject, SubjectDecodificadores {
 
     public static final int TELEFONIA = 0;
     public static final int TELEVISION = 1;
@@ -69,6 +71,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     private ObserverAdicionales observerAdicionales;
     private Observer observer;
+    private ObserverDecodificadores observerDecodificadores;
 
     private int tipo;
     private String departamento;
@@ -279,7 +282,14 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
             observer.update(null);
 
             if(observerAdicionales != null){
+                observerAdicionales.limpiarAdicionales();
                 observerAdicionales.seleccionarPlan(Utilidades.traducirPlanOfertaDigital((String) parent.getSelectedItem()));
+            }
+
+            if(observerDecodificadores != null){
+                observerDecodificadores.limpiarDecodificadores();
+                observerDecodificadores.seleccionarPlan((String) parent.getSelectedItem());
+                observerDecodificadores.precargarDecos();
             }
         }
 
@@ -361,9 +371,21 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     private void notificarEstadoComponenteProducto(){
         if(isActivo()){
-            observerAdicionales.habilitar();
+            if(observerAdicionales != null){
+                observerAdicionales.habilitarAdicionales();
+            }
+            if(observerDecodificadores != null){
+                observerDecodificadores.habilitarDecodificadores();
+            }
+
         }else{
-            observerAdicionales.deshabilitar();
+            if(observerAdicionales != null){
+                observerAdicionales.deshabilitarAdicionales();
+            }
+            if(observerDecodificadores != null){
+                observerDecodificadores.deshabilitarDecodificadores();
+            }
+
         }
     }
 
@@ -397,6 +419,20 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     public void setTxtduraciondescuentocargobasico(String duraciondescuentocargobasico) {
         txtduraciondescuentocargobasico.setText(duraciondescuentocargobasico);
+    }
+
+    @Override
+    public void addObserverDecodificadores(ObserverDecodificadores o) {
+        observerDecodificadores = o;
+    }
+
+    @Override
+    public void removeObserverDecodificadores(ObserverDecodificadores o) {
+        observerDecodificadores = null;
+    }
+
+    @Override
+    public void notifyObserverDecodificadores() {
     }
 }
 

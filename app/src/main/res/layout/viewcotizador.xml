@@ -34,6 +34,12 @@
                 custom:tipoAdicional="AdicionalesTelevision"
                 android:visibility="gone"/>
 
+            <co.com.une.appmovilesune.components.CompDecos
+                android:id="@+id/cdcsDecodificadores"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
             <co.com.une.appmovilesune.components.CompProducto
                 android:id="@+id/cprdInternet"
                 android:layout_width="match_parent"
@@ -58,6 +64,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="7dp"/>
+
+            <ImageButton
+                android:id="@+id/btnGardarCotizacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_span="9"
+                android:background="@drawable/buttons"
+                android:contentDescription="@string/desc_finalizar"
+                android:onClick="procesarCotizacion"
+                android:src="@drawable/buttons_src" />
 
         </LinearLayout>
 
