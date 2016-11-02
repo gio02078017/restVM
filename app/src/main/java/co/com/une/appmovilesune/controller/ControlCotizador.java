@@ -376,15 +376,13 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
       }
 
-    public void cotizar(View v) {
-        if(cotizacionCliente != null){
-            procesarCotizacion(cotizacionCliente);
-        }
-    }
-
     public void procesarCotizacion(View v){
         Log.d("Total individual",String.valueOf(cttlTotales.getTotalIndividualAdicionales()));
         Log.d("Total Empaquetado",String.valueOf(cttlTotales.getTotalEmpaquetadoAdicionales()));
+
+        if(cotizacionCliente != null){
+            procesarCotizacion(cotizacionCliente);
+        }
     }
 
     public void procesarCotizacion(CotizacionCliente cotizacionCliente) {
@@ -458,7 +456,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             }
 
             // if (otros != null && otros.size() > 0) {
-            cotizacion.Otros("" + cotizacionCliente.getTotalIndividual(), "" + cotizacionCliente.getTotalEmpaquetado(), "" + cotizacionCliente.getContadorProductos(), cotizacionCliente.getEstrato());
+            cotizacion.Otros("" + cttlTotales.getTotalIndividualAdicionales(), "" + cttlTotales.getTotalEmpaquetadoAdicionales(), "" + cotizacionCliente.getContadorProductos(), cotizacionCliente.getEstrato());
             //}
 
 //            System.out.println("tipoProducto " + productos.get(i).getTipo());
