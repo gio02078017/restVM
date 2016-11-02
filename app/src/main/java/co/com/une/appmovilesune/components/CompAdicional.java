@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
+import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
 import co.com.une.appmovilesune.adapters.ListaAdicionales;
 import co.com.une.appmovilesune.adapters.ListaAdicionalesAdapter;
 import co.com.une.appmovilesune.change.ControlSimulador;
@@ -71,7 +72,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         cargarHeaderInformation();
     }
 
-    private void init(){
+    private void init() {
         String infService = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
 
@@ -86,7 +87,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         spnSelectorAdicionales.setOnItemSelectedListener(seleccionarAdicional);
     }
 
-    private void cargarHeaderInformation(){
+    private void cargarHeaderInformation() {
         switch (tipo) {
             case TELEFONIA:
                 imgAdicional.setImageDrawable(getResources().getDrawable(R.drawable.amgto));
@@ -99,10 +100,10 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         }
     }
 
-    private void cargarAdicionales(String plan){
+    private void cargarAdicionales(String plan) {
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "listasvalores",
-                new String[] { "lst_valor" }, "lst_nombre=? and lst_clave=?",
-                new String[] { "adicionalesTVDigital", plan }, null, null, null);
+                new String[]{"lst_valor"}, "lst_nombre=? and lst_clave=?",
+                new String[]{"adicionalesTVDigital", plan}, null, null, null);
 
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item);
@@ -120,12 +121,12 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     private void consultarAdicional(String adicional) {
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Adicionales",
-                new String[] { "adicional", "tarifa", "tarifaIva" },
+                new String[]{"adicional", "tarifa", "tarifaIva"},
                 "departamento like ? and (producto like ? or producto like ?) and tipoProducto = ? and estrato like ? and adicional = ?",
-                new String[] { "%" + cliente.getDepartamento() + "%", "%HFC%", "%IPTV%", "tv", "%" + cliente.getEstrato() + "%", adicional },
+                new String[]{"%" + cliente.getDepartamento() + "%", "%HFC%", "%IPTV%", "tv", "%" + cliente.getEstrato() + "%", adicional},
                 null, "producto,adicional ASC", null);
 
-        System.out.println("Respuesta Adicionales "+respuesta);
+        System.out.println("Respuesta Adicionales " + respuesta);
 
         if (respuesta != null) {
 
@@ -135,12 +136,12 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
             data[0][1] = respuesta.get(0).get(2);
 
 			/*
-			 * ArrayList<ArrayList<String>> result = Tarificador
+             * ArrayList<ArrayList<String>> result = Tarificador
 			 * .consultarDescuentos(data, departamento, true, 1);
 			 */
 
             ArrayList<ArrayList<String>> result = Tarificador.consultarDescuentos2(data, departamento, true, 1,
-                   UtilidadesTarificador.jsonDatos(cliente, "1", "N/A", "ingresar 0 o 1"));
+                    UtilidadesTarificador.jsonDatos(cliente, "1", "N/A", "ingresar 0 o 1"));
 
             System.out.println(result);
 
@@ -180,15 +181,68 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         observer.update(null);
     }
 
-    public double calcularTotal(){
+    public double calcularTotal() {
 
         double total = 0;
 
-        for (ListaAdicionales adicional: adicionales) {
+        for (ListaAdicionales adicional : adicionales) {
             total += Double.parseDouble(adicional.getPrecio());
         }
 
         return total;
+
+    }
+
+    public ArrayList<ListaAdicionales> getAdicionales() {
+        return adicionales;
+    }
+
+    public String[][] arrayAdicionales() {
+        int contAdicionales = adicionales.size();
+
+        String[][] arrayAd = new String[contAdicionales][2];
+
+        for (int i = 0; i < adicionales.size(); i++) {
+            arrayAd[i][0] = adicionales.get(i).getAdicional();
+            arrayAd[i][1] = adicionales.get(i).getPrecio();
+        }
+
+        return arrayAd;
+
+    }
+
+    public ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionales() {
+
+        ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionales = new ArrayList<ItemPromocionesAdicionales>();
+
+        int contAdicionales = adicionales.size();
+
+        String[][] arrayAd = new String[contAdicionales][2];
+
+        for (int i = 0; i < adicionales.size(); i++) {
+            System.out.println("adicionales.get(i).getDescuento() "+adicionales.get(i).getAdicional());
+            System.out.println("adicionales.get(i).getDescuento() "+adicionales.get(i).getDescuento());
+            System.out.println("adicionales.get(i).getDuracion() "+adicionales.get(i).getDuracion());
+            if (!adicionales.get(i).getDescuento().equalsIgnoreCase("") && !adicionales.get(i).getDescuento().equalsIgnoreCase("-")) {
+
+                String meses;
+
+                if (adicionales.get(i).getDuracion().equalsIgnoreCase("1")) {
+                    meses = adicionales.get(i).getDuracion() + " Mes";
+                } else {
+                    meses = adicionales.get(i).getDuracion() + " Meses";
+                }
+
+                itemPromocionesAdicionales.add(new ItemPromocionesAdicionales(adicionales.get(i).getAdicional(), adicionales.get(i).getDescuento(), "TV", meses));
+            }
+        }
+
+        if (itemPromocionesAdicionales.size() == 0) {
+            itemPromocionesAdicionales.clear();
+            itemPromocionesAdicionales.add(0, new ItemPromocionesAdicionales("Vacia"));
+        }
+
+        return itemPromocionesAdicionales;
 
     }
 

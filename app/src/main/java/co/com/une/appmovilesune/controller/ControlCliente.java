@@ -914,7 +914,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 		}
 
 		if (cliente.consolidarCliente() == null || cliente.getCedula().equalsIgnoreCase("")) {
-			txtDocumento.setText("43744607");
+			txtDocumento.setText("1111241111");
 		}
 
 		System.out.println("cliente.getCiudad() " + cliente.getCiudad());
