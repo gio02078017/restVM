@@ -51,8 +51,6 @@ import co.com.une.appmovilesune.change.UtilidadesTarificador;
 import co.com.une.appmovilesune.complements.Conexion;
 import co.com.une.appmovilesune.complements.Dialogo;
 import co.com.une.appmovilesune.complements.Validaciones;
-import co.com.une.appmovilesune.components.Resumen3G;
-import co.com.une.appmovilesune.components.Resumen4G;
 import co.com.une.appmovilesune.components.ResumenInternet;
 import co.com.une.appmovilesune.components.ResumenTelefonia;
 import co.com.une.appmovilesune.components.ResumenTelevision;
@@ -71,8 +69,6 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 	ResumenTelefonia rto;
 	ResumenTelevision rtv;
 	ResumenInternet rba;
-	Resumen3G r3g;
-	Resumen4G r4g;
 	Spinner sltEmpaquetado;
 	TextView lblTotal, lblAgendamiento, lblTotalDescuento;
 	LinearLayout llyBarrio, llyTotalDescuento, llyAgendaDomingo;
@@ -255,8 +251,6 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 		rto = (ResumenTelefonia) findViewById(R.id.rsnTelefonia);
 		rtv = (ResumenTelevision) findViewById(R.id.rsnTelevision);
 		rba = (ResumenInternet) findViewById(R.id.rsnInternet);
-		r3g = (Resumen3G) findViewById(R.id.rsn3G);
-		r4g = (Resumen4G) findViewById(R.id.rsn4G);
 
 		sltEmpaquetado = (Spinner) findViewById(R.id.sltEmpaquetado);
 
@@ -492,56 +486,6 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 			rba.setWifi(venta.getInternet()[2]);
 		}
 
-	}
-
-	public void llenar3G() {
-		// llenado de campo de duracion de la promocion
-		if (venta.getInternet3G()[10] != null) {
-			r3g.setDuracion(venta.getInternet3G()[10]);
-		}
-
-		// llenado del campo de migracion del plan
-		if (venta.getInternet3G()[7] != null) {
-			r3g.setMigracion(venta.getInternet3G()[7]);
-		}
-
-		// llenado de campo de tipo de migracion
-		if (venta.getInternet3G()[8] != null) {
-			r3g.setTipoMigracion(venta.getInternet3G()[8]);
-		}
-
-		// llenado de campo de modem
-		if (venta.getInternet3G()[2] != null) {
-			r3g.setModem(venta.getInternet3G()[2]);
-		}
-
-		// llenado de campo de pago de modem
-		if (venta.getInternet3G()[3] != null) {
-			r3g.setPagoModem(venta.getInternet3G()[3]);
-		}
-
-		// llenado de campo de porcentaje en modem
-		if (venta.getInternet3G()[4] != null) {
-			r3g.setPorcentaje(venta.getInternet3G()[4]);
-		}
-
-		// llenado de campo de precio modem
-		if (venta.getInternet3G()[5] != null) {
-			r3g.setPrecioModem(venta.getInternet3G()[5]);
-		}
-
-		// llenado de campo de entrega modem
-		if (venta.getInternet3G()[6] != null) {
-			r3g.setEntrega(venta.getInternet3G()[6]);
-		}
-
-	}
-
-	public void llenar4G() {
-		// llenado de campo de duracion
-		if (venta.getInternet4G()[3] != null) {
-			r4g.setDuracion(venta.getInternet4G()[3]);
-		}
 	}
 
 	public void llenarHoraAtencion() {
@@ -1206,24 +1150,6 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 			rba.setVisibility(View.GONE);
 		}
 
-		r3g.Internet3G(this, cotizacion.getInternet3g(), cotizacion.getInternet3gInd(), cotizacion.getPromo3g(),
-				cotizacion.getInternet3gDInd(), cotizacion.getEstrato());
-		if (venta != null) {
-			llenar3G();
-		}
-		if (cotizacion.getInternet3g().equalsIgnoreCase("-")) {
-			r3g.setVisibility(View.GONE);
-		}
-
-		r4g.Internet4G(this, cotizacion.getInternet4g(), cotizacion.getInternet4gInd(), cotizacion.getPromo4g(),
-				cotizacion.getInternet4gDInd(), cotizacion.getEstrato());
-		if (venta != null) {
-			llenar4G();
-		}
-		if (cotizacion.getInternet4g().equalsIgnoreCase("-")) {
-			r4g.setVisibility(View.GONE);
-		}
-
 		lblTotal.setText(String.valueOf(Double.parseDouble(cotizacion.getTotalInd()) + UtilidadesTarificador
 				.ImpuestoTelefonico(cliente.getCiudad(), cliente.getDepartamento(), cliente.getEstrato())));
 
@@ -1357,24 +1283,6 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 			rba.setVisibility(View.GONE);
 		}
 
-		r3g.Internet3G(this, cotizacion.getInternet3g(), cotizacion.getInternet3gEmp(), cotizacion.getPromo3g(),
-				cotizacion.getInternet3gDEmp(), cotizacion.getEstrato());
-		if (venta != null) {
-			llenar3G();
-		}
-		if (cotizacion.getInternet3g().equalsIgnoreCase("-")) {
-			r3g.setVisibility(View.GONE);
-		}
-
-		r4g.Internet4G(this, cotizacion.getInternet4g(), cotizacion.getInternet4gEmp(), cotizacion.getPromo4g(),
-				cotizacion.getInternet4gDEmp(), cotizacion.getEstrato());
-		if (venta != null) {
-			llenar4G();
-		}
-		if (cotizacion.getInternet4g().equalsIgnoreCase("-")) {
-			r4g.setVisibility(View.GONE);
-		}
-
 		lblTotal.setText(String.valueOf(Double.parseDouble(cotizacion.getTotalEmp()) + UtilidadesTarificador
 				.ImpuestoTelefonico(cliente.getCiudad(), cliente.getDepartamento(), cliente.getEstrato())));
 
@@ -1461,17 +1369,6 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 	public void procesarVenta(View v) {
 		btnSiguiente = (ImageButton) v;
 
-		// System.out.println("Venta <=> " + venta);
-
-		// System.out.println("plan facturacion to "
-		// + cotizacion.getPlanFacturacionTo());
-		// System.out.println("plan facturacion tv "
-		// + cotizacion.getPlanFacturacionTv());
-		// System.out.println("plan facturacion Ba "
-		// + cotizacion.getPlanFacturacionBa());
-
-		System.out.println("imcompatibilidasd =  ");
-
 		boolean compatibilidad = true;
 		boolean nuevos = false;
 
@@ -1513,11 +1410,6 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 				cotizacion.getTipoCotizacionBa(), cotizacion.baIdent, rba.getTecnologiacr(),
 				cotizacion.getIpdinamica());
 
-		venta.setInternet3G(r3g.getPlan(), r3g.getValor(), r3g.getModem(), r3g.getPagoModem(), r3g.getPorcentaje(),
-				r3g.getPrecioModem(), r3g.getEntrega(), r3g.getMigracion(), r3g.getTipoMigracion(), r3g.getDescuento(),
-				r3g.getDuracion(), r3g.getValorDescuento());
-		venta.setInternet4G(r4g.getPlan(), r4g.getValor(), r4g.getDescuento(), r4g.getDuracion(),
-				r4g.getValorDescuento());
 		// venta.setDocumentacion(datosPersonales, mensajes, mail,
 		// contrato,factura, tipoContracto, telemercadeo);
 

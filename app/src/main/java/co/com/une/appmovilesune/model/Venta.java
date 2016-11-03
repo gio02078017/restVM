@@ -177,39 +177,6 @@ public class Venta implements Serializable {
 		this.controlGota = controlGota;
 	}
 
-	public String[] getInternet3G() {
-		return internet3g;
-	}
-
-	public void setInternet3G(String plan, String precio, String modem, String pagoModem, String porcentaje,
-			String precioModem, String entregaModem, String migracion, String tipoMigracion, String promocion,
-			String duracion, String precioDescuento) {
-		this.internet3g[0] = plan;
-		this.internet3g[1] = precio;
-		this.internet3g[2] = modem;
-		this.internet3g[3] = pagoModem;
-		this.internet3g[4] = porcentaje;
-		this.internet3g[5] = precioModem;
-		this.internet3g[6] = entregaModem;
-		this.internet3g[7] = migracion;
-		this.internet3g[8] = tipoMigracion;
-		this.internet3g[9] = promocion;
-		this.internet3g[10] = duracion;
-		this.internet3g[11] = precioDescuento;
-	}
-
-	public String[] getInternet4G() {
-		return internet4g;
-	}
-
-	public void setInternet4G(String plan, String precio, String promocion, String duracion, String precioDescuento) {
-		this.internet4g[0] = plan;
-		this.internet4g[1] = precio;
-		this.internet4g[2] = promocion;
-		this.internet4g[3] = duracion;
-		this.internet4g[4] = precioDescuento;
-	}
-
 	public String[] getDocumentacion() {
 		return documentacion;
 	}

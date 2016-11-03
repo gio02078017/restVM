@@ -455,28 +455,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 }
             }
 
-            // if (otros != null && otros.size() > 0) {
-            cotizacion.Otros("" + cttlTotales.getTotalIndividualAdicionales(), "" + cttlTotales.getTotalEmpaquetadoAdicionales(), "" + cotizacionCliente.getContadorProductos(), cotizacionCliente.getEstrato());
-            //}
 
-//            System.out.println("tipoProducto " + productos.get(i).getTipo());
-//
-//            switch (productos.get(i).getTipo()) {
-//                case 0:
-//                    System.out.println("planProducto " + productos.get(i).getPlan());
-//                    System.out.println("promo " + productos.get(i).getDescuentoCargobasico());
-//                    System.out.println("tiempo promo " + productos.get(i).getDuracionDescuento());
-//                    llenarComp(cprdTelefonia, productos.get(i));
-//                    break;
-//                case 1:
-//                    System.out.println("planProducto " + productos.get(i).getPlan());
-//                    llenarComp(cprdTelevision, productos.get(i));
-//                    break;
-//                case 2:
-//                    System.out.println("planProducto " + productos.get(i).getPlan());
-//                    llenarComp(cprdInternet, productos.get(i));
-//                    break;
-//            }
+            cotizacion.Otros("" + cttlTotales.getTotalIndividualAdicionales(), "" + cttlTotales.getTotalEmpaquetadoAdicionales(), "" + cotizacionCliente.getContadorProductos(), cotizacionCliente.getEstrato());
 
             if (cotizacionCliente.getProductoCotizador().size() > 0) {
                 for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
@@ -484,10 +464,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                     switch (cotizacionCliente.getProductoCotizador().get(i).getTipo()) {
                         case 0:
-                            llenarcotizacionTelevision(cotizacionCliente.getProductoCotizador().get(i), tv, cotizacionCliente.getContadorProductos(), trioNuevo);
+                            llenarcotizacionTelefonia(cotizacionCliente.getProductoCotizador().get(i), to, cotizacionCliente.getContadorProductos(), trioNuevo);
                             break;
                         case 1:
-                            llenarcotizacionTelefonia(cotizacionCliente.getProductoCotizador().get(i), to, cotizacionCliente.getContadorProductos(), trioNuevo);
+                            llenarcotizacionTelevision(cotizacionCliente.getProductoCotizador().get(i), tv, cotizacionCliente.getContadorProductos(), trioNuevo);
                             break;
                         case 2:
                             llenarcotizacionInternet(cotizacionCliente.getProductoCotizador().get(i), cotizacionCliente, to, cotizacionCliente.getContadorProductos(), trioNuevo);
@@ -768,6 +748,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 cadcTelevision.arrayAdicionales(), productoCotizador.getPlan(), tv, "" + contadorProd, trioNuevo,
                 descuentoTv.get(0).toString(), descuentoTv.get(1).toString()));
 
+        cotizacion.setDecodificadores(cdcsDecodificadores.getDecos());
+        cotizacion.setTotalDecos(cdcsDecodificadores.obtenerTotalDecos());
+
         ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
         cotizacion.Television(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), "" + productoCotizador.getCargoBasicoInd(),
                 "" + productoCotizador.getCargoBasicoEmp(), "0", "0", descuento.get(0).toString(), descuento.get(1).toString(), "",
@@ -789,7 +772,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
 
         // System.out.println("descuentoTo " + descuentoTo);
-        cotizacion.Internet(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), "" + productoCotizador.getCargoBasicoInd(),
+        cotizacion.Telefonia(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), "" + productoCotizador.getCargoBasicoInd(),
                 "" + productoCotizador.getCargoBasicoEmp(), "0", "0", descuento.get(0).toString(), descuento.get(1).toString(), "",
                 "", getTipoTecnologiaExistente("TO"));
 
@@ -814,7 +797,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
 
         // System.out.println("descuentoTo " + descuentoTo);
-        cotizacion.Telefonia(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), "" + productoCotizador.getCargoBasicoInd(),
+        cotizacion.Internet(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), "" + productoCotizador.getCargoBasicoInd(),
                 "" + productoCotizador.getCargoBasicoEmp(), "0", "0", descuento.get(0).toString(), descuento.get(1).toString(), "",
                 "", getTipoTecnologiaExistente("BA"));
 

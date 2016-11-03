@@ -58,7 +58,7 @@ public class CompTotalCotizador extends LinearLayout {
 		setTotalEmpaquetado("$" + totalEmpaquetado);
 
 		totalIndividual += totalAdicionales + totalDecodificadores;
-		totalEmpaquetado += totalAdicionales;
+		totalEmpaquetado += totalAdicionales + totalDecodificadores;
 
 		setTotalIndividualAdicionales("$" + totalIndividual);
 		setTotalEmpaquetadoAdicionales("$" + totalEmpaquetado);
