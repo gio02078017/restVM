@@ -294,7 +294,9 @@ public class ControlBusquedaAmigoCuentas extends Activity implements Observer, S
 				if (cliente.ac != null) {
 
 					System.out.println("cliente.ac.municipio "+cliente.ac.municipio);
-					if(!Utilidades.excluir("siebelMunicipios", cliente.ac.municipio)){
+					String capitalize = cliente.ac.municipio.substring(0,1).toUpperCase() + cliente.ac.municipio.substring(1).toLowerCase();
+					System.out.println("cliente.ac.municipio 2 "+capitalize);
+					if(!Utilidades.excluir("siebelMunicipios", cliente.ac.municipio) && !Utilidades.excluir("siebelMunicipios", capitalize)){
 						if (cliente.ac.productosPortafolio != null) {
 							if (!cliente.ac.productosPortafolio.isEmpty()) {
 								Intent intent = new Intent();
