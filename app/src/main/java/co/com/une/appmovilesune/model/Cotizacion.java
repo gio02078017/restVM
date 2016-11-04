@@ -107,6 +107,9 @@ public class Cotizacion implements Serializable {
 	
 	private boolean HFCDigital = false;
 
+	private String tipoOferta;
+	private String ofertaCotizacion;
+
 	public Cotizacion() {
 		this.telefonia = "";
 		this.toInd = "";
@@ -418,6 +421,13 @@ public class Cotizacion implements Serializable {
 		System.out.println("Telefonia->toTecnologiacr " + this.toTecnologiacr);
 	}
 
+	public void Telefonia(String tipoTo, String telefonia, String toInd, String toEmp) {
+		this.tipoTo = tipoTo;
+		this.telefonia = telefonia;
+		this.toInd = toInd;
+		this.toEmp = toEmp;
+	}
+
 	public void Television(String tipoTv, String television, String tvInd, String tvEmp, String tvDInd, String tvDEmp,
 			String promoTv, String tiempoPromoTv, String tvIdent, String tvPlanAnt, String tvTecnologiacr) {
 		this.tipoTv = tipoTv;
@@ -432,6 +442,13 @@ public class Cotizacion implements Serializable {
 		this.tvPlanAnt = tvPlanAnt;
 		this.tvTecnologiacr = tvTecnologiacr;
 		System.out.println("Television->tvTecnologiacr " + this.tvTecnologiacr);
+	}
+
+	public void Television(String tipoTv, String television, String tvInd, String tvEmp) {
+		this.tipoTv = tipoTv;
+		this.television = television;
+		this.tvInd = tvInd;
+		this.tvEmp = tvEmp;
 	}
 
 	public void Adicionales(String[][] adicionales, String adInd, String adEmp) {
@@ -460,6 +477,13 @@ public class Cotizacion implements Serializable {
 		this.baPlanAnt = baPlanAnt;
 		this.baTecnologiacr = baTecnologiacr;
 		System.out.println("Internet->baTecnologiacr " + this.baTecnologiacr);
+	}
+
+	public void Internet(String tipoBa, String internet,String baInd, String baEmp) {
+		this.tipoBa = tipoBa;
+		this.internet = internet;
+		this.baInd = baInd;
+		this.baEmp = baEmp;
 	}
 
 	public void Internet_3G(String internet3g, String internet3gInd, String internet3gEmp, String internet3gDInd,
@@ -1144,6 +1168,21 @@ public class Cotizacion implements Serializable {
 
 	public void setHFCDigital(boolean hFCDigital) {
 		HFCDigital = hFCDigital;
-	}	
-	
+	}
+
+	public String getTipoOferta() {
+		return tipoOferta;
+	}
+
+	public void setTipoOferta(String tipoOferta) {
+		this.tipoOferta = tipoOferta;
+	}
+
+	public String getOfertaCotizacion() {
+		return ofertaCotizacion;
+	}
+
+	public void setOfertaCotizacion(String ofertaCotizacion) {
+		this.ofertaCotizacion = ofertaCotizacion;
+	}
 }

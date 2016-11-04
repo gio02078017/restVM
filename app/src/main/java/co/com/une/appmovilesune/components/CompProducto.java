@@ -81,6 +81,8 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     private ProductoCotizador producto;
 
+    private String Plan;
+
     public CompProducto(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.compproducto);
@@ -230,6 +232,10 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         }
 
         spnSelectorPlan.setAdapter(adaptador);
+
+        if(Plan!=null) {
+            setPlan(Plan);
+        }
 
     }
 
@@ -401,8 +407,20 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         return spnSelectorPlan;
     }
 
-    public void setSpnSelectorPlan(Spinner spnSelectorPlan) {
-        this.spnSelectorPlan = spnSelectorPlan;
+    public void setPlan(String Plan) {
+        ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spnSelectorPlan.getAdapter();
+        spnSelectorPlan.setSelection(adaptador.getPosition(Plan));
+    }
+
+    public void rellenarProducto(String PeticionProducto,String Plan) {
+        //chkHabilitarProducto.setSelected(true);
+        this.Plan = Plan;
+        ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spntipeticionproducto.getAdapter();
+        spntipeticionproducto.setSelection(adaptador.getPosition(PeticionProducto));
+    }
+
+    public void setChkHabilitarProducto(boolean HabilitarProducto) {
+        chkHabilitarProducto.setChecked(HabilitarProducto);
     }
 
     public void setTxtvalorcargobasicoind(String cargobasicoind) {

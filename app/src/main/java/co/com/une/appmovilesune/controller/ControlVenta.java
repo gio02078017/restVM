@@ -1150,8 +1150,12 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 			rba.setVisibility(View.GONE);
 		}
 
-		lblTotal.setText(String.valueOf(Double.parseDouble(cotizacion.getTotalInd()) + UtilidadesTarificador
-				.ImpuestoTelefonico(cliente.getCiudad(), cliente.getDepartamento(), cliente.getEstrato())));
+		if(!cotizacion.getTelefonia().equalsIgnoreCase("-")) {
+			lblTotal.setText(String.valueOf(Double.parseDouble(cotizacion.getTotalInd()) + UtilidadesTarificador
+					.ImpuestoTelefonico(cliente.getCiudad(), cliente.getDepartamento(), cliente.getEstrato())));
+		}else{
+			lblTotal.setText(cotizacion.getTotalInd());
+		}
 
 		if (aplicarDescuentos) {
 			if (!cotizacion.getTotalIndDescuento().equals("0") && !cotizacion.getTotalIndDescuento().equals("0.0")
@@ -1283,8 +1287,14 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 			rba.setVisibility(View.GONE);
 		}
 
-		lblTotal.setText(String.valueOf(Double.parseDouble(cotizacion.getTotalEmp()) + UtilidadesTarificador
-				.ImpuestoTelefonico(cliente.getCiudad(), cliente.getDepartamento(), cliente.getEstrato())));
+
+
+		if(!cotizacion.getTelefonia().equalsIgnoreCase("-")) {
+			lblTotal.setText(String.valueOf(Double.parseDouble(cotizacion.getTotalEmp()) + UtilidadesTarificador
+					.ImpuestoTelefonico(cliente.getCiudad(), cliente.getDepartamento(), cliente.getEstrato())));
+		}else{
+			lblTotal.setText(cotizacion.getTotalEmp());
+		}
 
 		if (aplicarDescuentos) {
 

@@ -45,7 +45,7 @@ import co.com.une.appmovilesune.model.TarificadorNew;
  * Created by davids on 18/10/16.
  */
 
-public class ControlCotizador extends Activity implements Observer, SubjectTotales{
+public class ControlCotizador extends Activity implements Observer, SubjectTotales {
 
     private TituloPrincipal tlpPrincipal;
 
@@ -175,8 +175,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         }
 
-        System.out.println("bloqueoCobertura "+bloqueoCobertura);
-        System.out.println("cliente.getCobertura() "+cliente.getCobertura());
+        System.out.println("bloqueoCobertura " + bloqueoCobertura);
+        System.out.println("cliente.getCobertura() " + cliente.getCobertura());
 
     }
 
@@ -237,6 +237,35 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cprdTelevision.cargarPlanes("Antioquia", Integer.parseInt((String) spnestrato.getSelectedItem()), "HFC", (String) spnoferta.getSelectedItem());
         cprdInternet.cargarPlanes("Antioquia", Integer.parseInt((String) spnestrato.getSelectedItem()), "HFC", (String) spnoferta.getSelectedItem());
         cprdTelefonia.cargarPlanes("Antioquia", Integer.parseInt((String) spnestrato.getSelectedItem()), "HFC", (String) spnoferta.getSelectedItem());
+        if (cotizacion != null) {
+            rellenarCotizacion();
+        }
+    }
+
+    public void rellenarCotizacion() {
+        System.out.println("cotizacion.getTelevision() " + cotizacion.getTelevision());
+        System.out.println("cotizacion.getTipoTv() " + cotizacion.getTipoTv());
+
+        ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spntipooferta.getAdapter();
+        spntipooferta.setSelection(adaptador.getPosition(cotizacion.getTipoOferta()));
+
+        adaptador = (ArrayAdapter<String>) spnoferta.getAdapter();
+        spnoferta.setSelection(adaptador.getPosition(cotizacion.getOfertaCotizacion()));
+
+        if (!cotizacion.getTipoTv().equals("-") && !cotizacion.getTelevision().equals("-")) {
+            cprdTelevision.setChkHabilitarProducto(true);
+            cprdTelevision.rellenarProducto(cotizacion.getTipoTv(), cotizacion.getTelevision());
+        }
+
+        if (!cotizacion.getTipoTv().equals("-") && !cotizacion.getTelevision().equals("-")) {
+            cprdInternet.setChkHabilitarProducto(true);
+            cprdInternet.rellenarProducto(cotizacion.getTipoBa(), cotizacion.getInternet());
+        }
+
+        if (!cotizacion.getTipoTo().equals("-") && !cotizacion.getTelefonia().equals("-")) {
+            cprdTelefonia.setChkHabilitarProducto(true);
+            cprdTelefonia.rellenarProducto(cotizacion.getTipoTo(), cotizacion.getTelefonia());
+        }
     }
 
     AdapterView.OnItemSelectedListener seleccionarEstrato = new AdapterView.OnItemSelectedListener() {
@@ -372,16 +401,16 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             }
         }
 
-        cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(),cotizacionCliente.getTotalEmpaquetado(),cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal());
+        cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal());
 
-      }
+    }
 
-    public void procesarCotizacion(View v){
-        Log.d("Total individual",String.valueOf(cttlTotales.getTotalIndividualAdicionales()));
-        Log.d("Total Empaquetado",String.valueOf(cttlTotales.getTotalEmpaquetadoAdicionales()));
-
-        if(cotizacionCliente != null){
+    public void procesarCotizacion(View v) {
+        if (cotizacionCliente != null) {
+            System.out.println("cotizacionCliente " + cotizacionCliente);
             procesarCotizacion(cotizacionCliente);
+        }else{
+            Utilidades.MensajesToast("Debe seleccionar primero la cotización",this);
         }
     }
 
@@ -412,17 +441,20 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 cotizacion = new Cotizacion();
             }
 
+            cotizacion.setTipoOferta((String)spntipooferta.getSelectedItem());
+            cotizacion.setOfertaCotizacion((String)spnoferta.getSelectedItem());
+
             System.out.println("cprdTelevision " + cprdTelevision.getPlan());
             System.out.println("cprdInternet " + cprdInternet.getPlan());
             System.out.println("cprdTelefonia " + cprdTelefonia.getPlan());
 
             itemPromocionesAdicionales = cadcTelevision.itemPromocionesAdicionales();
 
-            for (int i = 0; i < itemPromocionesAdicionales.size() ; i++) {
-                System.out.println("itemPromocionesAdicionales.get(i).getTipoProducto() "+itemPromocionesAdicionales.get(i).getTipoProducto());
-                System.out.println("itemPromocionesAdicionales.get(i).getAdicional() "+itemPromocionesAdicionales.get(i).getAdicional());
-                System.out.println("itemPromocionesAdicionales.get(i).getDescuento() "+itemPromocionesAdicionales.get(i).getDescuento());
-                System.out.println("itemPromocionesAdicionales.get(i).getMeses() "+itemPromocionesAdicionales.get(i).getMeses());
+            for (int i = 0; i < itemPromocionesAdicionales.size(); i++) {
+                System.out.println("itemPromocionesAdicionales.get(i).getTipoProducto() " + itemPromocionesAdicionales.get(i).getTipoProducto());
+                System.out.println("itemPromocionesAdicionales.get(i).getAdicional() " + itemPromocionesAdicionales.get(i).getAdicional());
+                System.out.println("itemPromocionesAdicionales.get(i).getDescuento() " + itemPromocionesAdicionales.get(i).getDescuento());
+                System.out.println("itemPromocionesAdicionales.get(i).getMeses() " + itemPromocionesAdicionales.get(i).getMeses());
             }
 
 //            cotizacion_venta = tarificador.Array_Cotizacion_Venta();
@@ -444,7 +476,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
             //System.out.println("planesFacturacion " + planesFacturacion);
 
-            System.out.println("cadcTelevision.arrayAdicionales() "+cadcTelevision.arrayAdicionales());
+            System.out.println("cadcTelevision.arrayAdicionales() " + cadcTelevision.arrayAdicionales());
 
             cotizacion.setAdicionales(cadcTelevision.arrayAdicionales());
 
@@ -742,50 +774,65 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     public void llenarcotizacionTelevision(ProductoCotizador productoCotizador, String tv, int contadorProd, boolean trioNuevo) {
 
-        System.out.println("television " + productoCotizador.getPlan());
-        ArrayList<String> descuentoTv = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
-        cotizacion.setAdicionales(agregarAdicionalesGratis(productoCotizador.getPlanFacturacionInd(), productoCotizador.getPlanFacturacionEmp(),
-                cadcTelevision.arrayAdicionales(), productoCotizador.getPlan(), tv, "" + contadorProd, trioNuevo,
-                descuentoTv.get(0).toString(), descuentoTv.get(1).toString()));
+        System.out.println("llenado TV ");
 
-        cotizacion.setDecodificadores(cdcsDecodificadores.getDecos());
-        cotizacion.setTotalDecos(cdcsDecodificadores.obtenerTotalDecos());
+        if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
+            ArrayList<String> descuentoTv = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
+            cotizacion.setAdicionales(agregarAdicionalesGratis(productoCotizador.getPlanFacturacionInd(), productoCotizador.getPlanFacturacionEmp(),
+                    cadcTelevision.arrayAdicionales(), productoCotizador.getPlan(), tv, "" + contadorProd, trioNuevo,
+                    descuentoTv.get(0).toString(), descuentoTv.get(1).toString()));
 
-        ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
-        cotizacion.Television(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), "" + productoCotizador.getCargoBasicoInd(),
-                "" + productoCotizador.getCargoBasicoEmp(), "0", "0", descuento.get(0).toString(), descuento.get(1).toString(), "",
-                "", getTipoTecnologiaExistente("TV"));
+            cotizacion.setDecodificadores(cdcsDecodificadores.getDecos());
+            cotizacion.setTotalDecos(cdcsDecodificadores.obtenerTotalDecos());
 
-        cotizacion.setItemPromocionesAdicionales(itemPromocionesAdicionales);
-        boolean aplicarAd = false;//valor quemado corregir
-        cotizacion.setAplicarAd(aplicarAd);
+            ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
+            cotizacion.Television(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), String.valueOf(productoCotizador.getCargoBasicoInd()),
+                    String.valueOf(productoCotizador.getCargoBasicoEmp()), "0", "0", descuento.get(0).toString(), descuento.get(1).toString(), "",
+                    "", getTipoTecnologiaExistente("TV"));
 
-        cotizacion.setPlanFacturacionTv_I(productoCotizador.getPlanFacturacionInd());
-        cotizacion.setPlanFacturacionTv_P(productoCotizador.getPlanFacturacionEmp());
+            cotizacion.setItemPromocionesAdicionales(itemPromocionesAdicionales);
+            boolean aplicarAd = false;//valor quemado corregir
+            cotizacion.setAplicarAd(aplicarAd);
 
-        cotizacion.setTipoCotizacionTv(Utilidades.planNumerico(productoCotizador.getTipoPeticion()));
-        //contProductos++;
+            cotizacion.setPlanFacturacionTv_I(productoCotizador.getPlanFacturacionInd());
+            cotizacion.setPlanFacturacionTv_P(productoCotizador.getPlanFacturacionEmp());
+
+            cotizacion.setTipoCotizacionTv(Utilidades.planNumerico(productoCotizador.getTipoPeticion()));
+            //contProductos++;
+        } else {
+            System.out.println("llenado TV limpiar");
+            cotizacion.Television(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), String.valueOf(productoCotizador.getCargoBasicoInd()),
+                    String.valueOf(productoCotizador.getCargoBasicoEmp()));
+            cotizacion.setAdicionales(cadcTelevision.arrayAdicionales());
+        }
     }
 
     public void llenarcotizacionTelefonia(ProductoCotizador productoCotizador, String to, int contadorProd, boolean trioNuevo) {
 
-        ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
+        System.out.println("llenarcotizacion Telefonia" + productoCotizador.getPlan());
+        if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
+            ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
 
-        // System.out.println("descuentoTo " + descuentoTo);
-        cotizacion.Telefonia(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), "" + productoCotizador.getCargoBasicoInd(),
-                "" + productoCotizador.getCargoBasicoEmp(), "0", "0", descuento.get(0).toString(), descuento.get(1).toString(), "",
-                "", getTipoTecnologiaExistente("TO"));
+            // System.out.println("descuentoTo " + descuentoTo);
+            cotizacion.Telefonia(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), "" + productoCotizador.getCargoBasicoInd(),
+                    "" + productoCotizador.getCargoBasicoEmp(), "0", "0", descuento.get(0).toString(), descuento.get(1).toString(), "",
+                    "", getTipoTecnologiaExistente("TO"));
 
-        cotizacion.setPlanFacturacionTo_I(String.valueOf(productoCotizador.getCargoBasicoInd()));
-        cotizacion.setPlanFacturacionTo_P(String.valueOf(productoCotizador.getCargoBasicoEmp()));
+            cotizacion.setPlanFacturacionTo_I(String.valueOf(productoCotizador.getCargoBasicoInd()));
+            cotizacion.setPlanFacturacionTo_P(String.valueOf(productoCotizador.getCargoBasicoEmp()));
 
-        String tipoCotizacion = Utilidades.planNumerico(productoCotizador.getTipoPeticion());
-        cotizacion.setTipoCotizacionTo(tipoCotizacion);
+            String tipoCotizacion = Utilidades.planNumerico(productoCotizador.getTipoPeticion());
+            cotizacion.setTipoCotizacionTo(tipoCotizacion);
 
-        if (tipoCotizacion.equals("1")) {
-            System.out.println("Validar segunta TO");
+            if (tipoCotizacion.equals("1")) {
+                System.out.println("Validar segunta TO");
 
-            cotizacion.setSegundaTelefonia(UtilidadesTarificadorNew.validarSegundaTelefonia(cliente));
+                cotizacion.setSegundaTelefonia(UtilidadesTarificadorNew.validarSegundaTelefonia(cliente));
+            }
+        } else {
+            System.out.println("llenado To limpiar");
+            cotizacion.Telefonia(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), String.valueOf(productoCotizador.getCargoBasicoInd()),
+                    String.valueOf(productoCotizador.getCargoBasicoEmp()));
         }
 
         //contProductos++;
@@ -796,27 +843,34 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
 
-        // System.out.println("descuentoTo " + descuentoTo);
-        cotizacion.Internet(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), "" + productoCotizador.getCargoBasicoInd(),
-                "" + productoCotizador.getCargoBasicoEmp(), "0", "0", descuento.get(0).toString(), descuento.get(1).toString(), "",
-                "", getTipoTecnologiaExistente("BA"));
+        System.out.println("llenarcotizacion Internet" + productoCotizador.getPlan());
+        if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
+            // System.out.println("descuentoTo " + descuentoTo);
+            cotizacion.Internet(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), "" + productoCotizador.getCargoBasicoInd(),
+                    "" + productoCotizador.getCargoBasicoEmp(), "0", "0", descuento.get(0).toString(), descuento.get(1).toString(), "",
+                    "", getTipoTecnologiaExistente("BA"));
 
-        cotizacion.setPlanFacturacionBa_I(String.valueOf(productoCotizador.getCargoBasicoInd()));
-        cotizacion.setPlanFacturacionBa_P(String.valueOf(productoCotizador.getCargoBasicoEmp()));
+            cotizacion.setPlanFacturacionBa_I(String.valueOf(productoCotizador.getCargoBasicoInd()));
+            cotizacion.setPlanFacturacionBa_P(String.valueOf(productoCotizador.getCargoBasicoEmp()));
 
-        String tipoCotizacion = Utilidades.planNumerico(productoCotizador.getTipoPeticion());
-        cotizacion.setTipoCotizacionBa(tipoCotizacion);
+            String tipoCotizacion = Utilidades.planNumerico(productoCotizador.getTipoPeticion());
+            cotizacion.setTipoCotizacionBa(tipoCotizacion);
 
-        if (cotizacionCliente.getGotaba().isControlGota()) {
+            if (cotizacionCliente.getGotaba().isControlGota()) {
 
-            String nombreGota = "Gota de " + cotizacionCliente.getGotaba().getVelocidadInicial() + " a " + cotizacionCliente.getGotaba().getVelocidadFinal();
+                String nombreGota = "Gota de " + cotizacionCliente.getGotaba().getVelocidadInicial() + " a " + cotizacionCliente.getGotaba().getVelocidadFinal();
 
-            cotizacion.setGota(cotizacionCliente.getGotaba().isControlGota(), (int) Math.round(cotizacionCliente.getGotaba().getValorGota()),
-                    (int) Math.round(cotizacionCliente.getGotaba().getValorGotaSinIva()), cotizacionCliente.getGotaba().getVelocidadInicial(), cotizacionCliente.getGotaba().getVelocidadFinal(),
-                    nombreGota);
+                cotizacion.setGota(cotizacionCliente.getGotaba().isControlGota(), (int) Math.round(cotizacionCliente.getGotaba().getValorGota()),
+                        (int) Math.round(cotizacionCliente.getGotaba().getValorGotaSinIva()), cotizacionCliente.getGotaba().getVelocidadInicial(), cotizacionCliente.getGotaba().getVelocidadFinal(),
+                        nombreGota);
 
+            } else {
+                cotizacion.setControlGota(false);
+            }
         } else {
-            cotizacion.setControlGota(false);
+            System.out.println("llenado Ba limpiar");
+            cotizacion.Internet(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), String.valueOf(productoCotizador.getCargoBasicoInd()),
+                    String.valueOf(productoCotizador.getCargoBasicoEmp()));
         }
         //contProductos++;
 
@@ -1544,22 +1598,24 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         System.out.println("nProductos " + nProductos);
         System.out.println("planTv " + planTv);
 
-        if (Utilidades.excluirNacional("Mini HD Estratos 1-2-3-4 - B", planFacturaEmp) && nProductos == 3 && !miniHD) {
-            // miniHD = false;
-            if (!countValidacion2.contains("HD")) {
-                if (trioNuevo) {
-                    adicional = "Mini HD Estratos 1-2-3-4";
-                    promocion = "100";
-                    duracion = "12 Meses";
+        if (planFacturaEmp != null) {
+            if (Utilidades.excluirNacional("Mini HD Estratos 1-2-3-4 - B", planFacturaEmp) && nProductos == 3 && !miniHD) {
+                // miniHD = false;
+                if (!countValidacion2.contains("HD")) {
+                    if (trioNuevo) {
+                        adicional = "Mini HD Estratos 1-2-3-4";
+                        promocion = "100";
+                        duracion = "12 Meses";
+                    }
                 }
-            }
-        } else if (Utilidades.excluirNacional("HD Edicion Especial - B", planFacturaEmp) && nProductos == 1) {
-            // expecialHD = false;
-            if (!countValidacion2.contains("HD")) {
-                if (planTv.equalsIgnoreCase("N")) {
-                    adicional = "HD Edicion Especial";
-                    promocion = "100";
-                    duracion = "12 Meses";
+            } else if (Utilidades.excluirNacional("HD Edicion Especial - B", planFacturaEmp) && nProductos == 1) {
+                // expecialHD = false;
+                if (!countValidacion2.contains("HD")) {
+                    if (planTv.equalsIgnoreCase("N")) {
+                        adicional = "HD Edicion Especial";
+                        promocion = "100";
+                        duracion = "12 Meses";
+                    }
                 }
             }
         }
@@ -1641,6 +1697,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         setResult(MainActivity.OK_RESULT_CODE, intent);
         finish();
     }
+
     @Override
     public void addObserver(ObserverTotales o) {
         observerTotales = o;
