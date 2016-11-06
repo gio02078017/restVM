@@ -109,21 +109,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             cotizacion = (Cotizacion) reicieveParams.getSerializable("cotizacion");
             cliente = (Cliente) reicieveParams.getSerializable("cliente");
             scooring = (Scooring) reicieveParams.getSerializable("scooring");
-            /*if (cotizacion != null) {
-                Validar = true;
-
-                System.out.println("CambiarCotizacion " + cotizacion.isCambiarCotizacion());
-                if (cotizacion.isCambiarCotizacion()) {
-                    precargarBa = true;
-                    precargarTo = true;
-                    precargarTv = true;
-                }
-
-                System.out.println("CambiarCotizacion precargarBa" + precargarBa);
-                System.out.println("CambiarCotizacion precargarTo" + precargarTo);
-                System.out.println("CambiarCotizacion precargarTv" + precargarTv);
-
-            }*/
         }
 
         chkHogarNuevo = (CheckBox) findViewById(R.id.chkHogarNuevo);
@@ -208,8 +193,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             tipoPaquete = "Ind";
         }
 
-        String clausula = "estrato like ? and tipo_paquete like ?";
-        String[] valores = new String[]{"%" + estrato + "%", "%" + tipoPaquete + "%"};
+        String clausula = "estrato like ? and tipo_paquete like ? and Tecnologia like ?";
+        String[] valores = new String[]{"%" + estrato + "%", "%" + tipoPaquete + "%", "%" + cliente.getTecnologia() + "%"};
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Precios", new String[]{"Oferta"}, clausula,
                 valores, null, null, null);
@@ -234,9 +219,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     }
 
     private void parametrizarComponentes() {
-        cprdTelevision.cargarPlanes("Antioquia", Integer.parseInt((String) spnestrato.getSelectedItem()), "HFC", (String) spnoferta.getSelectedItem());
-        cprdInternet.cargarPlanes("Antioquia", Integer.parseInt((String) spnestrato.getSelectedItem()), "HFC", (String) spnoferta.getSelectedItem());
-        cprdTelefonia.cargarPlanes("Antioquia", Integer.parseInt((String) spnestrato.getSelectedItem()), "HFC", (String) spnoferta.getSelectedItem());
+        cprdTelevision.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem());
+        cprdInternet.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem());
+        cprdTelefonia.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem());
         if (cotizacion != null) {
             rellenarCotizacion();
         }
@@ -382,6 +367,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
 
+        UtilidadesTarificadorNew.imprimirProductosCotizacion(productos);
+
         if (productos != null) {
             for (int i = 0; i < productos.size(); i++) {
 
@@ -490,6 +477,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
             cotizacion.Otros("" + cttlTotales.getTotalIndividualAdicionales(), "" + cttlTotales.getTotalEmpaquetadoAdicionales(), "" + cotizacionCliente.getContadorProductos(), cotizacionCliente.getEstrato());
 
+            UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
+
             if (cotizacionCliente.getProductoCotizador().size() > 0) {
                 for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
                     System.out.println("tipoProducto " + cotizacionCliente.getProductoCotizador().get(i).getTipo());
@@ -502,7 +491,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                             llenarcotizacionTelevision(cotizacionCliente.getProductoCotizador().get(i), tv, cotizacionCliente.getContadorProductos(), trioNuevo);
                             break;
                         case 2:
-                            llenarcotizacionInternet(cotizacionCliente.getProductoCotizador().get(i), cotizacionCliente, to, cotizacionCliente.getContadorProductos(), trioNuevo);
+                            llenarcotizacionInternet(cotizacionCliente.getProductoCotizador().get(i), cotizacionCliente, ba, cotizacionCliente.getContadorProductos(), trioNuevo);
                             break;
                     }
                 }
@@ -850,8 +839,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     "" + productoCotizador.getCargoBasicoEmp(), "0", "0", descuento.get(0).toString(), descuento.get(1).toString(), "",
                     "", getTipoTecnologiaExistente("BA"));
 
-            cotizacion.setPlanFacturacionBa_I(String.valueOf(productoCotizador.getCargoBasicoInd()));
-            cotizacion.setPlanFacturacionBa_P(String.valueOf(productoCotizador.getCargoBasicoEmp()));
+            cotizacion.setPlanFacturacionBa_I(String.valueOf(productoCotizador.getPlanFacturacionInd()));
+            cotizacion.setPlanFacturacionBa_P(String.valueOf(productoCotizador.getPlanFacturacionEmp()));
 
             String tipoCotizacion = Utilidades.planNumerico(productoCotizador.getTipoPeticion());
             cotizacion.setTipoCotizacionBa(tipoCotizacion);
