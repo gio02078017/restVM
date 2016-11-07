@@ -214,12 +214,18 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
                     "%" + tecnologia + "%"};
         }
 
+//        System.out.println("cargarPlanes clausula "+clausula);
+//
+//        for (int i = 0; i < valores.length; i++) {
+//            System.out.println("cargarPlanes valores "+valores[i]+" posicion("+i+")");
+//        }
+
 
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Productos", new String[] { "Producto" }, clausula,
                 valores, null, null, null);
 
-        System.out.println(respuesta);
+//        System.out.println("cargarPlanes respuesta ofertas "+respuesta +" oferta "+oferta+" tipoProducto "+traducirProducto());
 
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item);
 
@@ -417,6 +423,11 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         this.Plan = Plan;
         ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spntipeticionproducto.getAdapter();
         spntipeticionproducto.setSelection(adaptador.getPosition(PeticionProducto));
+    }
+
+    public void limpiarTipoPeticion() {
+        ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spntipeticionproducto.getAdapter();
+        spntipeticionproducto.setSelection(adaptador.getPosition("-"));
     }
 
     public void setChkHabilitarProducto(boolean HabilitarProducto) {

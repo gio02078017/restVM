@@ -8,9 +8,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.analytics.tracking.android.EasyTracker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,6 +42,7 @@ import co.com.une.appmovilesune.model.Cotizacion;
 import co.com.une.appmovilesune.model.CotizacionCliente;
 import co.com.une.appmovilesune.model.ProductoCotizador;
 import co.com.une.appmovilesune.model.Scooring;
+import co.com.une.appmovilesune.model.Simulador;
 import co.com.une.appmovilesune.model.TarificadorNew;
 
 /**
@@ -92,6 +96,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     private ObserverTotales observerTotales;
 
     CotizacionCliente cotizacionCliente;
+
+    private String aplicarAnaloga = "N/A";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +157,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         spnestrato.setOnItemSelectedListener(seleccionarEstrato);
         spntipooferta.setOnItemSelectedListener(seleccionarTipoOferta);
         spnoferta.setOnItemSelectedListener(seleccionarOferta);
+        chkAnaloga.setOnCheckedChangeListener(aplicartvAnaloga);
+        chkAnaloga.setEnabled(false);
 
         llenarEstrato();
 
@@ -163,6 +171,112 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         System.out.println("bloqueoCobertura " + bloqueoCobertura);
         System.out.println("cliente.getCobertura() " + cliente.getCobertura());
 
+        Utilidades.DialogoMensaje(this, cliente.getCiudad());
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (MainActivity.seguimiento) {
+            EasyTracker.getInstance(this).activityStart(this);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (MainActivity.seguimiento) {
+            EasyTracker.getInstance(this).activityStop(this);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
+        if (Utilidades.excluir("ConsultarSmartPromo", cliente.getCiudad())) {
+            lanzarTipoHogar();
+        }
+    }
+
+    private void lanzarTipoHogar() {
+
+        Simulador simulador = new Simulador();
+        simulador.setManual(this);
+        simulador.addObserver(this);
+        // simulador.execute(params);
+
+        JSONObject data = new JSONObject();
+
+        cliente.setSmartPromo("");
+
+        cliente.setSmartPromo("");
+
+        boolean consultar = true;
+
+        try {
+
+            data.put("paginacion", cliente.getPaginacion());
+            data.put("direccion", cliente.getDireccion());
+            data.put("direccionNormalizada", cliente.getDireccionNormalizada());
+            data.put("medioCotizador", "Tarificador");
+            if (Utilidades.excluir("siebelMunicipios", cliente.getCiudad())) {
+                data.put("medio", "Siebel");
+                if (cliente.getIdDireccionGis() != null && !cliente.getIdDireccionGis().equalsIgnoreCase("")) {
+                    data.put("IdDireccionGis", cliente.getIdDireccionGis());
+                } else if (cliente.getIdDireccionGisEx() != null
+                        && !cliente.getIdDireccionGisEx().equalsIgnoreCase("")) {
+                    data.put("IdDireccionGis", cliente.getIdDireccionGisEx());
+                } else {
+                    consultar = false;
+                }
+            } else {
+                data.put("medio", "ATC");
+                if (cliente.getPaginacion().equalsIgnoreCase("")) {
+                    consultar = false;
+                }
+            }
+        } catch (JSONException e) {
+            Log.w("Error", e.getMessage());
+        }
+
+        if (consultar) {
+            ArrayList<String> parametros = new ArrayList<String>();
+            parametros.add(data.toString());
+            cliente.setlogSmartPromoEnv(data.toString());
+
+            ArrayList<Object> params = new ArrayList<Object>();
+            params.add(MainActivity.config.getCodigo());
+            params.add("TipoHogar");
+            params.add(parametros);
+
+            simulador.execute(params);
+        }
+
+    }
+
+    public void validarSmartPromo(String resultado) {
+        System.out.println("validarSmartPromo");
+        try {
+            JSONObject smart = new JSONObject(resultado);
+
+            if (smart.has("CodigoMensaje") && smart.getString("CodigoMensaje").equalsIgnoreCase("00")) {
+                if (smart.has("tipoHogar") && smart.getString("tipoHogar").equalsIgnoreCase("S")) {
+                    Utilidades.MensajesToast("Aplica Smart Promo", this);
+                    cliente.setSmartPromo("1");
+                } else {
+                    Utilidades.MensajesToast("No Aplica Smart Promo", this);
+                    cliente.setSmartPromo("0");
+                }
+
+            }
+        } catch (JSONException e) {
+            Log.w("Errror SmarPromo", e.getMessage());
+
+        }
+
+        System.out.println("cliente.getSmartPromo Resultado " + cliente.getSmartPromo());
     }
 
     public void llenarEstrato() {
@@ -292,6 +406,21 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         }
     };
 
+    CompoundButton.OnCheckedChangeListener aplicartvAnaloga = new CompoundButton.OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            // TODO Auto-generated method stub
+            System.out.println("evento Boton " + aplicarAnaloga);
+            if (isChecked) {
+                aplicarAnaloga = "1";
+            } else {
+                aplicarAnaloga = "0";
+            }
+            cotizar();
+        }
+    };
+
     private void productosHabilitar(String oferta) {
 
         if (oferta.equals("-")) {
@@ -311,10 +440,13 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             if (respuesta != null) {
 
                 cprdTelevision.deshabilitarCheckProducto();
+                cprdTelevision.limpiarTipoPeticion();
                 cprdTelevision.setActivo(false);
                 cprdInternet.deshabilitarCheckProducto();
+                cprdInternet.limpiarTipoPeticion();
                 cprdInternet.setActivo(false);
                 cprdTelefonia.deshabilitarCheckProducto();
+                cprdTelefonia.limpiarTipoPeticion();
                 cprdTelefonia.setActivo(false);
 
                 for (ArrayList<String> arrayList : respuesta) {
@@ -341,7 +473,32 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     @Override
     public void update(Object value) {
-        cotizar();
+
+        try {
+            ArrayList<Object> resultado = (ArrayList<Object>) value;
+            System.out.println("resultado update ControlCotizador" + resultado);
+
+            if (resultado != null && resultado.get(0).equals("TipoHogar")) {
+                System.out.println("TipoHogar " + resultado.get(1));
+                // cliente.setPortafolio(resultado.get(1).toString());
+                cliente.setlogSmartPromoRes(resultado.get(1).toString());
+                validarSmartPromo(resultado.get(1).toString());
+
+            } else if (resultado != null && resultado.get(0).equals("Portafolio")) {
+                System.out.println("Portafolio " + resultado.get(1));
+                cliente.setPortafolio(resultado.get(1).toString());
+            }else if (resultado != null && resultado.get(0).equals("validarPermiso")) {
+                //mostarComponenteDecos(resultado.get(1).toString());
+            } else if (resultado != null && resultado.get(0).equals("decos")) {
+
+            } else{
+                cotizar();
+            }
+
+        } catch (Exception e) {
+            Log.w("error update", e.getMessage());
+        }
+
     }
 
     public void cotizar() {
@@ -354,11 +511,17 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         String[][] adicionales = new String[0][0];
 
+        if(cprdTelevision.getPeticionProducto().equalsIgnoreCase("C")){
+            chkAnaloga.setEnabled(true);
+        }else {
+            chkAnaloga.setEnabled(false);
+            chkAnaloga.setChecked(false);
+        }
         tarificador.Consulta_Tarifaz(cprdTelefonia.getPeticionProducto(), cprdTelefonia.getPlan(),
                 cprdTelevision.getPeticionProducto(), cprdTelevision.getPlan(),
                 cprdInternet.getPeticionProducto(), cprdInternet.getPlan(), adicionales,
                 0, (String) spnestrato.getSelectedItem(), false, cliente,
-                UtilidadesTarificador.jsonDatos(cliente, "N/A", cliente.getTecnologia(), "0"), this,
+                UtilidadesTarificador.jsonDatos(cliente,cliente.getSmartPromo(), cliente.getTecnologia(), aplicarAnaloga), this,
                 0);
 
         // ArrayList<ProductoCotizador> productos = tarificador.cotizacionVenta();
@@ -367,7 +530,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
 
-        UtilidadesTarificadorNew.imprimirProductosCotizacion(productos);
+        //UtilidadesTarificadorNew.imprimirProductosCotizacion(productos);
 
         if (productos != null) {
             for (int i = 0; i < productos.size(); i++) {
@@ -407,13 +570,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         controlDescuentosAd = false;
         preciosConDescuentoAd = 0.0;
         precioDescuentosAd = 0.0;
-
-//        tarificador.Consulta_Tarifaz(cprdTelefonia.getPeticionProducto(), cprdTelefonia.getPlan(),
-//                cprdTelevision.getPeticionProducto(), cprdTelevision.getPlan(),
-//                cprdInternet.getPeticionProducto(), cprdInternet.getPlan(), adicionales,
-//                0, (String) spnestrato.getSelectedItem(), false, cliente,
-//                UtilidadesTarificador.jsonDatos(cliente, "N/A", cliente.getTecnologia(), "0"), this,
-//                0);
 
         String tv = cprdTelefonia.getPeticionProducto();
         String to = cprdTelevision.getPeticionProducto();
@@ -477,7 +633,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
             cotizacion.Otros("" + cttlTotales.getTotalIndividualAdicionales(), "" + cttlTotales.getTotalEmpaquetadoAdicionales(), "" + cotizacionCliente.getContadorProductos(), cotizacionCliente.getEstrato());
 
-            UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
+            //UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 
             if (cotizacionCliente.getProductoCotizador().size() > 0) {
                 for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {

@@ -103,6 +103,7 @@ public class TarificadorNew {
         System.out.println("telefonia " + telefonia);
         System.out.println("television " + television);
         System.out.println("internet " + internet);
+        System.out.println("json "+jsonDatos);
 
         limpiar();
 
