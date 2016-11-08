@@ -346,7 +346,7 @@ public class Utilidades {
 			String precio, String descuento, String duracion, String extensiones, String wifi, String linea,
 			String marca, String referencia, String capacidad, String adicionales, String planFacturacion,
 			String tecnologia, String decos, String tipoCotizacion, String identificador, String tecnologiacr,
-			ArrayList<ItemDecodificador> itemDecodificadors, String ipDinamica) {
+			ArrayList<ItemDecodificador> itemDecodificadors, String ipDinamica,String pagoAntCargoFijo,String pagoParcialConexion) {
 
 		System.out.println("jsonProductosVenta->tecnologiacr " + tecnologiacr);
 		JSONArray arrayAdicionales = null;
@@ -389,6 +389,8 @@ public class Utilidades {
 			productos.put("cambioPlan", cambioPlan);
 			productos.put("planAnterior", planAnterior);
 			productos.put("precio", precio);
+			productos.put("pagoAntCargoFijo", pagoAntCargoFijo);
+			productos.put("pagoParcialConexion", pagoParcialConexion);
 			productos.put("descuento", descuento);
 			productos.put("duracion", duracion);
 			productos.put("extensiones", extensiones);
@@ -1314,31 +1316,6 @@ public class Utilidades {
 					"Promoción: " + Internet[5] + " - Duración: " + Internet[6] + " - Precio: " + Internet[7]));
 			listVenta.add(new ListaDefault(2, "Wifi", Internet[2]));
 
-		}
-
-		String[] Internet3G = venta.getInternet3G();
-		if (!Internet3G[0].equalsIgnoreCase("-")) {
-			listVenta.add(new ListaDefault(0, "Productos Internet 3G", "Titulo"));
-			listVenta.add(new ListaDefault(1, "Internet 3G", Internet3G[0]));
-			listVenta.add(new ListaDefault(1, "Precio", Internet3G[1]));
-
-			listVenta.add(new ListaDefault(2, "Nuevo o Migración",
-					"Migración: " + Internet3G[7] + " - Tipo Migración: " + Internet3G[8]));
-			listVenta.add(new ListaDefault(2, "Promociones",
-					"Promoción: " + Internet3G[9] + " - Duración: " + Internet3G[10] + " - Precio: " + Internet3G[11]));
-			listVenta.add(new ListaDefault(2, "Modem",
-					"Modem: " + Internet3G[2] + " - Financiación: " + Internet3G[3] + " - Porcentaje: " + Internet3G[4]
-							+ " - Precio: " + Internet3G[5] + " - Entrega: " + Internet3G[6]));
-
-		}
-
-		String[] Internet4G = venta.getInternet4G();
-		if (!Internet3G[0].equalsIgnoreCase("-")) {
-			listVenta.add(new ListaDefault(0, "Productos Internet 3G", "Titulo"));
-			listVenta.add(new ListaDefault(1, "Internet 4G", Internet4G[0]));
-			listVenta.add(new ListaDefault(1, "Precio", Internet4G[1]));
-			listVenta.add(new ListaDefault(2, "Promociones",
-					"Promoción: " + Internet4G[2] + " - Duración: " + Internet4G[3] + " - Precio: " + Internet4G[4]));
 		}
 
 		String[] Documentacion = venta.getDocumentacion();

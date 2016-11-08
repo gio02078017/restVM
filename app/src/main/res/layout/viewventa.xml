@@ -175,20 +175,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="-10dp" />
 
-
-                            <co.com.une.appmovilesune.components.Resumen3G
-                            android:id="@+id/rsn3G"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="-10dp" />
-
-
-                            <co.com.une.appmovilesune.components.Resumen4G
-                            android:id="@+id/rsn4G"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="-10dp" />
-
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

@@ -20,7 +20,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class ResumenInternet extends LinearLayout {
 
-	private Spinner sltDuracion, sltTipoMigracion;
+	private Spinner sltTipoMigracion;
 	private TextView lblPlan, lblDescuento, lblValor, lblValorDescuento, lblDuracion, lblDescuentoA;
 	private CheckBox chkMigracion, chkWifi;
 
@@ -45,7 +45,6 @@ public class ResumenInternet extends LinearLayout {
 		super.onFinishInflate();
 		((Activity) getContext()).getLayoutInflater().inflate(R.layout.resumeninternet, this);
 
-		sltDuracion = (Spinner) findViewById(R.id.sltDuracion);
 		sltTipoMigracion = (Spinner) findViewById(R.id.sltTipoMigracion);
 
 		lblPlan = (TextView) findViewById(R.id.lblPlan);

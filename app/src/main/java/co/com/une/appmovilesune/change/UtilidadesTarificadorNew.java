@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import co.com.une.appmovilesune.model.Cliente;
+import co.com.une.appmovilesune.model.ProductoCotizador;
 
 /**
  * Created by Gospina on 28/10/2016.
@@ -77,5 +78,27 @@ public class UtilidadesTarificadorNew {
         }
 
         return segundaTO;
+    }
+
+    public static void imprimirProductosCotizacion(ArrayList<ProductoCotizador> productos){
+
+        System.out.println("************imprimirProductosCotizacion**********Inicio********");
+        for (int i = 0; i < productos.size(); i++) {
+
+            System.out.println("************Producto**********Posicion("+i+")********");
+            System.out.println("************tipo**********"+productos.get(i).getTipo()+"********");
+            System.out.println("************tipoPeticion**********"+productos.get(i).getTipoPeticion()+"********");
+            System.out.println("************plan**********"+productos.get(i).getPlan()+"********");
+            System.out.println("************planFacturacionInd**********"+productos.get(i).getPlanFacturacionInd()+"********");
+            System.out.println("************planFacturacionEmp**********"+productos.get(i).getPlanFacturacionEmp()+"********");
+            System.out.println("************cargoBasicoInd**********"+productos.get(i).getCargoBasicoInd()+"********");
+            System.out.println("************cargoBasicoEmp**********"+productos.get(i).getCargoBasicoEmp()+"********");
+            System.out.println("************cargoBasicoInd**********"+productos.get(i).getCargoBasicoInd()+"********");
+            System.out.println("************descuentoCargobasico**********"+productos.get(i).getDescuentoCargobasico()+"********");
+            System.out.println("************duracionDescuento**********"+productos.get(i).getDuracionDescuento()+"********");
+            System.out.println("************velocidad**********"+productos.get(i).getVelocidad()+"********");
+        }
+
+        System.out.println("************imprimirProductosCotizacion**********Fin********");
     }
 }

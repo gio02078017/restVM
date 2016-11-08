@@ -28,9 +28,9 @@ public class Venta implements Serializable {
 
 	private String[] documentacion = new String[7];
 
-	private String[] telefonia = new String[17];
-	private String[] television = new String[17];
-	private String[] internet = new String[13];
+	private String[] telefonia = new String[19];
+	private String[] television = new String[19];
+	private String[] internet = new String[15];
 	private String[] internet3g = new String[12];
 	private String[] internet4g = new String[5];
 	private String[] gota = new String[4];
@@ -46,6 +46,7 @@ public class Venta implements Serializable {
 
 	private String id, id_asesoria;
 	private String total;
+	private String totalPagoAntCargoFijo, totalPagoConexion,totalPagoParcialConexion,descuentoConexion;
 	private String totalNuevos;
 
 	private String scooring;
@@ -82,7 +83,7 @@ public class Venta implements Serializable {
 	public void setTelefonia(String plan, String precio, String linea, String pagoLinea, String migracion,
 			String tipoMigracion, String promocion, String duracion, String precioDescuento, String planFacturacion,
 			String tecnologia, String tipoCotizacion, String identificador, String adicionales,
-			String precioAdicionalesIndividuales, String precioAdicionales, String toTecnologiacr) {
+			String precioAdicionalesIndividuales, String precioAdicionales, String toTecnologiacr,String PagoAntCargoFijo, String PagoParcialConexion) {
 		this.telefonia[0] = plan;
 		this.telefonia[1] = precio;
 		this.telefonia[2] = linea;
@@ -100,6 +101,8 @@ public class Venta implements Serializable {
 		this.telefonia[14] = precioAdicionalesIndividuales;
 		this.telefonia[15] = precioAdicionales;
 		this.telefonia[16] = toTecnologiacr;
+		this.telefonia[17] = PagoAntCargoFijo;
+		this.telefonia[18] = PagoParcialConexion;
 
 		System.out.println("this.telefonia[16] " + this.telefonia[16]);
 	}
@@ -111,7 +114,7 @@ public class Venta implements Serializable {
 	public void setTelevision(String plan, String precio, String extensiones, String promocion, String duracion,
 			String precioDescuento, String Adicionales, String precioAdicionalesIndividuales, String precioAdicionales,
 			String migracion, String tipoMigracion, String planFacturacion, String decos, String tecnologia,
-			String tipoCotizacion, String identificador, String tvTecnologiacr) {
+			String tipoCotizacion, String identificador, String tvTecnologiacr,String PagoAntCargoFijo, String PagoParcialConexion) {
 		this.television[0] = plan;
 		this.television[1] = precio;
 		this.television[2] = extensiones;
@@ -129,6 +132,8 @@ public class Venta implements Serializable {
 		this.television[14] = tipoCotizacion;
 		this.television[15] = identificador;
 		this.television[16] = tvTecnologiacr;
+		this.television[17] = PagoAntCargoFijo;
+		this.television[18] = PagoParcialConexion;
 
 		System.out.println("this.television[16] " + this.television[16]);
 	}
@@ -139,7 +144,7 @@ public class Venta implements Serializable {
 
 	public void setInternet(String plan, String precio, String wifi, String migracion, String tipoMigracion,
 			String promocion, String duracion, String precioDescuento, String planFacturacion, String tipoCotizacion,
-			String identificador, String baTecnologiacr, String ipDinamica) {
+			String identificador, String baTecnologiacr, String ipDinamica,String PagoAntCargoFijo, String PagoParcialConexion) {
 		this.internet[0] = plan;
 		this.internet[1] = precio;
 		this.internet[2] = wifi;
@@ -153,6 +158,8 @@ public class Venta implements Serializable {
 		this.internet[10] = identificador;
 		this.internet[11] = baTecnologiacr;
 		this.internet[12] = ipDinamica;
+		this.internet[13] = PagoAntCargoFijo;
+		this.internet[14] = PagoParcialConexion;
 
 		System.out.println("this.internet[11] " + this.internet[11]);
 	}
@@ -175,39 +182,6 @@ public class Venta implements Serializable {
 
 	public void setControlGota(boolean controlGota) {
 		this.controlGota = controlGota;
-	}
-
-	public String[] getInternet3G() {
-		return internet3g;
-	}
-
-	public void setInternet3G(String plan, String precio, String modem, String pagoModem, String porcentaje,
-			String precioModem, String entregaModem, String migracion, String tipoMigracion, String promocion,
-			String duracion, String precioDescuento) {
-		this.internet3g[0] = plan;
-		this.internet3g[1] = precio;
-		this.internet3g[2] = modem;
-		this.internet3g[3] = pagoModem;
-		this.internet3g[4] = porcentaje;
-		this.internet3g[5] = precioModem;
-		this.internet3g[6] = entregaModem;
-		this.internet3g[7] = migracion;
-		this.internet3g[8] = tipoMigracion;
-		this.internet3g[9] = promocion;
-		this.internet3g[10] = duracion;
-		this.internet3g[11] = precioDescuento;
-	}
-
-	public String[] getInternet4G() {
-		return internet4g;
-	}
-
-	public void setInternet4G(String plan, String precio, String promocion, String duracion, String precioDescuento) {
-		this.internet4g[0] = plan;
-		this.internet4g[1] = precio;
-		this.internet4g[2] = promocion;
-		this.internet4g[3] = duracion;
-		this.internet4g[4] = precioDescuento;
 	}
 
 	public String[] getDocumentacion() {
@@ -542,7 +516,7 @@ public class Venta implements Serializable {
 				objectProductos.add(new Utilidades().jsonProductosVenta(telefonia[0], "TO", telefonia[4], telefonia[5],
 						telefonia[1], telefonia[6], telefonia[7], "null", "null", telefonia[2], "null", "null", "null",
 						listAdicionalesTo, telefonia[9], telefonia[10], "N/A", telefonia[11], telefonia[12],
-						telefonia[16], null, null));
+						telefonia[16], null, null,telefonia[17],telefonia[18]));
 			}
 
 			if (!television[0].equalsIgnoreCase(Utilidades.inicial_guion) && !television[0].equalsIgnoreCase("")) {
@@ -550,7 +524,7 @@ public class Venta implements Serializable {
 				objectProductos.add(new Utilidades().jsonProductosVenta(television[0], "TV", television[9],
 						television[10], television[1], television[3], television[4], television[2], "null", "null",
 						"null", "", "null", listAdicionalesTV, television[11], television[13], television[12],
-						television[14], television[15], television[16], itemDecodificadors, null));
+						television[14], television[15], television[16], itemDecodificadors, null, television[17], television[18]));
 			}
 
 			if (!internet[0].equalsIgnoreCase(Utilidades.inicial_guion) && !internet[0].equalsIgnoreCase("")) {
@@ -558,7 +532,7 @@ public class Venta implements Serializable {
 				objectProductos.add(new Utilidades().jsonProductosVenta(internet[0], "BA", internet[3], internet[4],
 						internet[1], internet[5], internet[6], "null", internet[2], "null", "null", "", "null",
 						listAdicionalesBa, internet[8], "N/A", "N/A", internet[9], internet[10], internet[11], null,
-						internet[12]));
+						internet[12],internet[13],internet[14]));
 
 			}
 
@@ -569,6 +543,10 @@ public class Venta implements Serializable {
 
 			venta.put("productos", arrayProductos);
 			venta.put("total", total);
+			venta.put("totalPagoAntCargoFijo", totalPagoAntCargoFijo);
+			venta.put("totalPagoConexion", totalPagoConexion);
+			venta.put("totalPagoParcialConexion", totalPagoParcialConexion);
+			venta.put("descuentoConexion", descuentoConexion);
 			venta.put("totalNuevos", totalNuevos);
 			venta.put("fecha", fecha + " " + hora);
 			venta.put("permanencia", telefonia[3]);
@@ -742,4 +720,35 @@ public class Venta implements Serializable {
 		this.itemDecodificadors = itemDecodificadors;
 	}
 
+	public String getTotalPagoAntCargoFijo() {
+		return totalPagoAntCargoFijo;
+	}
+
+	public void setTotalPagoAntCargoFijo(String totalPagoAntCargoFijo) {
+		this.totalPagoAntCargoFijo = totalPagoAntCargoFijo;
+	}
+
+	public String getTotalPagoConexion() {
+		return totalPagoConexion;
+	}
+
+	public void setTotalPagoConexion(String totalPagoConexion) {
+		this.totalPagoConexion = totalPagoConexion;
+	}
+
+	public String getTotalPagoParcialConexion() {
+		return totalPagoParcialConexion;
+	}
+
+	public void setTotalPagoParcialConexion(String totalPagoParcialConexion) {
+		this.totalPagoParcialConexion = totalPagoParcialConexion;
+	}
+
+	public String getDescuentoConexion() {
+		return descuentoConexion;
+	}
+
+	public void setDescuentoConexion(String descuentoConexion) {
+		this.descuentoConexion = descuentoConexion;
+	}
 }

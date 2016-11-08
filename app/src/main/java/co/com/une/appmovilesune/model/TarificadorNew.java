@@ -103,6 +103,7 @@ public class TarificadorNew {
         System.out.println("telefonia " + telefonia);
         System.out.println("television " + television);
         System.out.println("internet " + internet);
+        System.out.println("json "+jsonDatos);
 
         limpiar();
 
@@ -1107,7 +1108,7 @@ public class TarificadorNew {
         } else {
 
             productos.add(new ProductoCotizador(planTo, ProductoCotizador.TELEFONIA, telefonia,TO_I_IVA, TO_P_IVA, 0, 0,planFacturacionTO_I,planFacturacionTO_P,"0"));
-            productos.add(new ProductoCotizador(planTv, ProductoCotizador.TELEVISION, television, TV_I_IVA, TV_P_IVA, 0, 0,planFacturacionTV_I,planFacturacionTO_P,"0"));
+            productos.add(new ProductoCotizador(planTv, ProductoCotizador.TELEVISION, television, TV_I_IVA, TV_P_IVA, 0, 0,planFacturacionTV_I,planFacturacionTV_P,"0"));
             productos.add(new ProductoCotizador(planBa, ProductoCotizador.INTERNET, internet,BA_I_IVA, BA_P_IVA, 0, 0,planFacturacionBA_I,planFacturacionBA_P,"0"));
         }
 

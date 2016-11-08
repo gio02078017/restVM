@@ -81,6 +81,8 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     private ProductoCotizador producto;
 
+    private String Plan;
+
     public CompProducto(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.compproducto);
@@ -212,12 +214,18 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
                     "%" + tecnologia + "%"};
         }
 
+//        System.out.println("cargarPlanes clausula "+clausula);
+//
+//        for (int i = 0; i < valores.length; i++) {
+//            System.out.println("cargarPlanes valores "+valores[i]+" posicion("+i+")");
+//        }
+
 
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Productos", new String[] { "Producto" }, clausula,
                 valores, null, null, null);
 
-        System.out.println(respuesta);
+//        System.out.println("cargarPlanes respuesta ofertas "+respuesta +" oferta "+oferta+" tipoProducto "+traducirProducto());
 
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item);
 
@@ -230,6 +238,10 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         }
 
         spnSelectorPlan.setAdapter(adaptador);
+
+        if(Plan!=null) {
+            setPlan(Plan);
+        }
 
     }
 
@@ -405,8 +417,25 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         return spnSelectorPlan;
     }
 
-    public void setSpnSelectorPlan(Spinner spnSelectorPlan) {
-        this.spnSelectorPlan = spnSelectorPlan;
+    public void setPlan(String Plan) {
+        ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spnSelectorPlan.getAdapter();
+        spnSelectorPlan.setSelection(adaptador.getPosition(Plan));
+    }
+
+    public void rellenarProducto(String PeticionProducto,String Plan) {
+        //chkHabilitarProducto.setSelected(true);
+        this.Plan = Plan;
+        ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spntipeticionproducto.getAdapter();
+        spntipeticionproducto.setSelection(adaptador.getPosition(PeticionProducto));
+    }
+
+    public void limpiarTipoPeticion() {
+        ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spntipeticionproducto.getAdapter();
+        spntipeticionproducto.setSelection(adaptador.getPosition("-"));
+    }
+
+    public void setChkHabilitarProducto(boolean HabilitarProducto) {
+        chkHabilitarProducto.setChecked(HabilitarProducto);
     }
 
     public void setTxtvalorcargobasicoind(String cargobasicoind) {
