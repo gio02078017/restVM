@@ -708,6 +708,16 @@ public class Utilidades {
 		}
 	}
 
+	public static String traducirCiudadAmc(String ciudad) {
+		ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "Departamentos",
+				new String[] { "Codigo_Amc" }, "Ciudad = ?", new String[] { ciudad }, null, null, null);
+		if (resultado != null) {
+			return resultado.get(0).get(0);
+		} else {
+			return "Ninguna";
+		}
+	}
+
 	public static String traducirCodigoBarrio(String barrio) {
 
 		System.out.println("Barrio " + barrio);

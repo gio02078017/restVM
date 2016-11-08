@@ -1,6 +1,7 @@
 package co.com.une.appmovilesune.controller;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,8 +13,10 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.kobjects.base64.Base64;
 
 import java.util.ArrayList;
 
@@ -35,10 +38,12 @@ import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverTotales;
 import co.com.une.appmovilesune.interfaces.SubjectTotales;
 import co.com.une.appmovilesune.model.Cliente;
+import co.com.une.appmovilesune.model.Configuracion;
 import co.com.une.appmovilesune.model.Cotizacion;
 import co.com.une.appmovilesune.model.CotizacionCliente;
 import co.com.une.appmovilesune.model.ProductoCotizador;
 import co.com.une.appmovilesune.model.Scooring;
+import co.com.une.appmovilesune.model.Simulador;
 import co.com.une.appmovilesune.model.TarificadorNew;
 
 /**
@@ -178,6 +183,17 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         System.out.println("bloqueoCobertura "+bloqueoCobertura);
         System.out.println("cliente.getCobertura() "+cliente.getCobertura());
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        obtenerPagoParcialAnticipado();
     }
 
     public void llenarEstrato() {
@@ -327,6 +343,14 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     @Override
     public void update(Object value) {
+        if(value != null){
+            ArrayList<Object> resultado = (ArrayList<Object>) value;
+            System.out.println("resultado " + resultado);
+            if (resultado.get(0).equals("consultarPagoParcialAnticipado")) {
+                tratarPagoParcialAnticipado(resultado.get(1).toString());
+            }
+        }
+
         cotizar();
     }
 
@@ -1658,6 +1682,103 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         setResult(MainActivity.OK_RESULT_CODE, intent);
         finish();
     }
+
+    private void obtenerPagoParcialAnticipado(){
+        Simulador simulador = new Simulador();
+        //simulador.setManual(this);
+        simulador.addObserver(this);
+
+        JSONObject data = new JSONObject();
+
+        try {
+
+            data.put("Direccion", cliente.getDireccion());
+            data.put("Estrato", cliente.getEstrato());
+            data.put("CiudadId", cliente.getCiudadAmc());
+            data.put("Productos", new JSONArray());
+
+        } catch (JSONException e) {
+            Log.w("Error", e.getMessage());
+        }
+
+        ArrayList<String> parametros = new ArrayList<String>();
+        parametros.add(data.toString());
+
+        ArrayList<Object> params = new ArrayList<Object>();
+        params.add(MainActivity.config.getCodigo());
+        params.add("consultarPagoParcialAnticipado");
+        params.add(parametros);
+
+        simulador.execute(params);
+
+    }
+
+    private void tratarPagoParcialAnticipado(String respuesta){
+
+        Log.i("JSon",respuesta);
+
+        try{
+            JSONObject json = new JSONObject(respuesta);
+
+            if(Configuracion.validarIntegridad(json.getString("data"),json.getString("crc"))){
+                String data = new String(Base64.decode(json.getString("data")));
+
+                json = new JSONObject(data);
+
+                String codigoPP = json.getJSONObject("codigoRespuesta").getString("pagoParcial");
+                String codigoPA = json.getJSONObject("codigoRespuesta").getString("pagoAnticipado");
+
+                JSONArray jsonProdutos = json.getJSONObject("data").getJSONArray("productos");
+                JSONArray jsonValoresConexion = json.getJSONObject("data").getJSONArray("valorConexion");
+
+                guardarPagoParcialAnticipado(jsonProdutos);
+                guardarValorConexion(jsonValoresConexion);
+            }else{
+                Toast.makeText(this,getResources().getString(R.string.mensajevalidacionpagoparcial),Toast.LENGTH_LONG).show();
+            }
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void guardarPagoParcialAnticipado(JSONArray productos){
+        MainActivity.basedatos.eliminar("pagoparcialanticipado", null, null);
+        try {
+            for(int i = 0; i < productos.length(); i++){
+                ContentValues cv = new ContentValues();
+                JSONObject producto = productos.getJSONObject(i);
+                cv.put("producto",producto.getString("nombre"));
+                cv.put("servicio",producto.getString("servicio"));
+                cv.put("pagoparcial",producto.getString("pagoParcial"));
+                cv.put("descuento",producto.getJSONObject("descuentoPagoParcial").getString("porcentje"));
+                cv.put("pagoanticipado",producto.getString("pagoAnticipado"));
+
+                MainActivity.basedatos.insertar("pagoparcialanticipado",cv);
+
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void guardarValorConexion(JSONArray valoresConexion){
+        MainActivity.basedatos.eliminar("valorconexion", null, null);
+        try {
+            for(int i = 0; i < valoresConexion.length(); i++){
+                ContentValues cv = new ContentValues();
+                JSONObject valorConexion = valoresConexion.getJSONObject(i);
+                cv.put("productos",valorConexion.getString("productos"));
+                cv.put("valor",valorConexion.getString("valor"));
+
+                MainActivity.basedatos.insertar("valorconexion",cv);
+
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void addObserver(ObserverTotales o) {
         observerTotales = o;

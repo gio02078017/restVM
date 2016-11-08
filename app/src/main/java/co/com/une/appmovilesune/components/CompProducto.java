@@ -247,12 +247,38 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         setTxtduraciondescuentocargobasico("0 Meses");
     }
 
+    private void consultarPagoParcialAnticipado(){
+
+        String clausula = "producto=?";
+        String[] valores = new String[] { traducirProducto().toUpperCase() };
+
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "pagoparcialanticipado", new String[] { "pagoparcial", "descuento", "pagoanticipado" }, clausula,
+                valores, null, null, null);
+
+        if(respuesta != null){
+            txtvalorpagoparcial.setText(calcularDescuento(respuesta.get(0)));
+            txtvalorpagoanticipado.setText(respuesta.get(0).get(2));
+        }
+
+    }
+
+    private String calcularDescuento(ArrayList<String> valores){
+        double valor = Double.parseDouble(valores.get(0));
+        double descuento = Double.parseDouble(valores.get(1));
+
+        double total = (valor * descuento)/100;
+
+        return String.valueOf(total);
+
+    }
+
     CompoundButton.OnCheckedChangeListener habilitarCompProducto = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked){
                 slide_down(getContext(),llyProducto);
                 llyProducto.setVisibility(VISIBLE);
+                consultarPagoParcialAnticipado();
             }else{
                 slide_up(getContext(),llyProducto);
                 llyProducto.setVisibility(GONE);

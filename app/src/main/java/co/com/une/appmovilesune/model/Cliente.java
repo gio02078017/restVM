@@ -77,6 +77,7 @@ public class Cliente implements Serializable, Observer, Subject {
 	private String departamentoSiebel;
 	private String ciudadSiebel;
 	private String ciudadFenix;
+	private String ciudadAmc;
 
 	private String NivelEstudio;
 	private String Profesion;
@@ -241,6 +242,7 @@ public class Cliente implements Serializable, Observer, Subject {
 		this.ciudadDane = Utilidades.traducirCiudadDane(Municipio);
 		this.departamentoSiebel = Utilidades.traducirCiudadDane(Municipio);
 		this.ciudadSiebel = Utilidades.traducirCiudadGIIS(Municipio);
+		this.ciudadAmc = Utilidades.traducirCiudadAmc(Municipio);
 		this.TipoServicio = "";
 		this.Correo = "";
 		this.dominioCorreo = "";
@@ -1524,6 +1526,14 @@ public class Cliente implements Serializable, Observer, Subject {
 
 	public void setDepartamentoSiebel(String departamentoSiebel) {
 		this.departamentoSiebel = departamentoSiebel;
+	}
+
+	public String getCiudadAmc() {
+		return ciudadAmc;
+	}
+
+	public void setCiudadAmc(String ciudadAmc) {
+		this.ciudadAmc = ciudadAmc;
 	}
 
 	public String getConsolidado() {

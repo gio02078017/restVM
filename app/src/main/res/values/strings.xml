@@ -458,4 +458,6 @@
     <string name="titulocargobasicototales">Cargo Básico</string>
     <string name="titulocargobasicoadicionalestotales">Cargo Básico + Adicionales</string>
     <string name="dinero">$ 0.oo</string>
+
+    <string name="mensajevalidacionpagoparcial">Hubo algún problema consultando la información</string>
 </resources>

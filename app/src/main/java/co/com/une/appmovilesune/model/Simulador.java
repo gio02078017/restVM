@@ -31,6 +31,7 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
 	protected void onPreExecute() {
 		accion = "";
 		if (lugar.equals("Manual")) {
+			pd = null;
 			pd = ProgressDialog.show(context, "Consultando",
 					context.getResources().getString(R.string.obteniendoinformacion));
 		} else {
@@ -169,6 +170,9 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
 		} else if (accion.equals("validarPermiso")) {
 			parametros = (ArrayList<String>) params[0].get(2);
 			resultados.add(validarPermiso(parametros));
+		} else if(accion.equals("consultarPagoParcialAnticipado")){
+			parametros = (ArrayList<String>) params[0].get(2);
+			resultados.add(consultarPagoParcialAnticipado(parametros));
 		}
 
 		return resultados;
@@ -179,6 +183,11 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
 		if (lugar.equals("Manual")) {
 			pd.dismiss();
 			lugar = "";
+		}
+
+		if(pd != null){
+			pd.dismiss();
+			pd = null;
 		}
 
 		if (result.get(0).equals("Portafolio")) {
@@ -463,13 +472,16 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
 			System.out.println("Simulador 161 Consultar Respuesta => " + observer);
 			System.out.println("result " + result);
 			resultado = result;
-
 			notifyObserver();
 		} else if (accion.equals("validarPermiso")) {
 			System.out.println("Simulador 161 Consultar Respuesta => " + observer);
 			System.out.println("result " + result);
 			resultado = result;
-
+			notifyObserver();
+		}else if(accion.equals("consultarPagoParcialAnticipado")){
+			System.out.println("Simulador 161 Consultar Respuesta => " + observer);
+			System.out.println("result " + result);
+			resultado = result;
 			notifyObserver();
 		}
 
@@ -1050,6 +1062,25 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
 
 		// return "";
 		return MainActivity.conexion.ejecutarSoap("TipoHogar", param);
+
+	}
+
+	public String consultarPagoParcialAnticipado(ArrayList<String> parametros){
+
+		System.out.println("parametros " + parametros);
+		ArrayList<String[]> param = new ArrayList<String[]>();
+		// param.add(new String[] { "Parametros", parametros.get(0)[0] });
+		for (int i = 0; i < parametros.size(); i++) {
+			System.out.println("parametros " + parametros.get(i));
+
+		}
+
+		param.add(new String[] { "parametros", parametros.get(0)});
+		param.add(new String[] { "debug", "false" });
+		param.add(new String[] { "profundidad", "0" });
+
+		// return "";
+		return MainActivity.conexion.ejecutarSoap("consultarPagoParcialAnticipado", param);
 
 	}
 
