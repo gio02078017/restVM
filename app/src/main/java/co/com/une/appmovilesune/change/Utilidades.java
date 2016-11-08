@@ -346,7 +346,7 @@ public class Utilidades {
 			String precio, String descuento, String duracion, String extensiones, String wifi, String linea,
 			String marca, String referencia, String capacidad, String adicionales, String planFacturacion,
 			String tecnologia, String decos, String tipoCotizacion, String identificador, String tecnologiacr,
-			ArrayList<ItemDecodificador> itemDecodificadors, String ipDinamica) {
+			ArrayList<ItemDecodificador> itemDecodificadors, String ipDinamica,String pagoAntCargoFijo,String pagoParcialConexion) {
 
 		System.out.println("jsonProductosVenta->tecnologiacr " + tecnologiacr);
 		JSONArray arrayAdicionales = null;
@@ -389,6 +389,8 @@ public class Utilidades {
 			productos.put("cambioPlan", cambioPlan);
 			productos.put("planAnterior", planAnterior);
 			productos.put("precio", precio);
+			productos.put("pagoAntCargoFijo", pagoAntCargoFijo);
+			productos.put("pagoParcialConexion", pagoParcialConexion);
 			productos.put("descuento", descuento);
 			productos.put("duracion", duracion);
 			productos.put("extensiones", extensiones);

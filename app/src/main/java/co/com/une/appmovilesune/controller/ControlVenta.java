@@ -1408,17 +1408,17 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 				rto.getTipoMigracion(), rto.getDescuento(), rto.getDuracion(), rto.getValorDescuento(),
 				rto.getPlanFactura(), rto.getTecnologia(), cotizacion.getTipoCotizacionTo(), cotizacion.toIdent,
 				rto.getAdicionalesCadena(), rto.getPreciosAdicionalesCadena(), rto.getPrecioAdicionales(),
-				rto.getTecnologiacr());
+				rto.getTecnologiacr(),cotizacion.getToPagoAntCargoFijo(),cotizacion.getToPagoParcialConexion());
 		venta.setTelevision(rtv.getPlan(), rtv.getValor(), rtv.getExtensiones(), rtv.getDescuento(), rtv.getDuracion(),
 				rtv.getValorDescuento(), rtv.getAdicionalesCadena(), rtv.getPreciosAdicionalesCadena(),
 				rtv.getPrecioAdicionales(), rtv.getMigracion(), rtv.getTipoMigracion(), rtv.getPlanFacturacion(), decos,
-				rtv.getTecnologia(), cotizacion.getTipoCotizacionTv(), cotizacion.tvIdent, rtv.getTecnologiacr());
+				rtv.getTecnologia(), cotizacion.getTipoCotizacionTv(), cotizacion.tvIdent, rtv.getTecnologiacr(),cotizacion.getTvPagoAntCargoFijo(),cotizacion.getTvPagoParcialConexion());
 
 		venta.setItemDecodificadors(cotizacion.getDecodificadores());
 		venta.setInternet(rba.getPlan(), rba.getValor(), rba.getWifi(), rba.getMigracion(), rba.getTipoMigracion(),
 				rba.getDescuento(), rba.getDuracion(), rba.getValorDescuento(), rba.getPlanFacturacion(),
 				cotizacion.getTipoCotizacionBa(), cotizacion.baIdent, rba.getTecnologiacr(),
-				cotizacion.getIpdinamica());
+				cotizacion.getIpdinamica(),cotizacion.getBaPagoAntCargoFijo(),cotizacion.getBaPagoParcialConexion());
 
 		// venta.setDocumentacion(datosPersonales, mensajes, mail,
 		// contrato,factura, tipoContracto, telemercadeo);
@@ -1547,6 +1547,10 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 		venta.setListAdicionalesTV(arrayadicionales.toString());
 		venta.setDocumentacion(id);
 		venta.setTotal(lblTotal.getText().toString().replace(",", "."));
+		venta.setTotalPagoAntCargoFijo(cotizacion.getTotalPagoAntCargoFijo());
+		venta.setTotalPagoConexion(cotizacion.getTotalPagoConexion());
+		venta.setTotalPagoParcialConexion(cotizacion.getTotalPagoParcialConexion());
+		venta.setDescuentoConexion(cotizacion.getDescuentoConexion());
 		venta.setTotalNuevos("" + totalNuevos);
 
 		System.out.println("venta.getTotal() " + venta.getTotal());

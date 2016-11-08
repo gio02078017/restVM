@@ -16,6 +16,8 @@ public class Cotizacion implements Serializable {
 	private String telefonia;
 	private String toInd, toEmp;
 	private String toDInd, toDEmp;
+	private String toPagoAntCargoFijo;
+	private String toPagoParcialConexion;
 	private String promoTo;
 	private String tiempoPromoTo;
 	private String planFacturacionTo_I;
@@ -29,6 +31,8 @@ public class Cotizacion implements Serializable {
 	private String tipoTv;
 	private String television;
 	private String tvInd, tvEmp;
+	private String tvPagoAntCargoFijo;
+	private String tvPagoParcialConexion;
 	private String tvDInd, tvDEmp;
 	private String promoTv;
 	private String tiempoPromoTv;
@@ -49,6 +53,8 @@ public class Cotizacion implements Serializable {
 	private String internet;
 	private String baInd, baEmp;
 	private String baDInd, baDEmp;
+	private String baPagoAntCargoFijo;
+	private String baPagoParcialConexion;
 	private String promoBa;
 	private String tiempoPromoBa;
 	private String planFacturacionBa_I;
@@ -70,6 +76,8 @@ public class Cotizacion implements Serializable {
 	private String promo4g;
 
 	private String totalInd, totalEmp;
+
+	private String totalPagoAntCargoFijo, totalPagoConexion,totalPagoParcialConexion,descuentoConexion;
 
 	private String totalIndDescuento, totalEmpDescuento;
 
@@ -418,7 +426,12 @@ public class Cotizacion implements Serializable {
 		this.toIdent = toIdent;
 		this.toPlanAnt = toPlanAnt;
 		this.toTecnologiacr = toTecnologiacr;
-		System.out.println("Telefonia->toTecnologiacr " + this.toTecnologiacr);
+
+	}
+
+	public void TelefoniaCargos(String toPagoAntCargoFijo, String toPagoParcialConexion) {
+		this.toPagoAntCargoFijo = toPagoAntCargoFijo;
+		this.toPagoParcialConexion = toPagoParcialConexion;
 	}
 
 	public void Telefonia(String tipoTo, String telefonia, String toInd, String toEmp) {
@@ -441,7 +454,12 @@ public class Cotizacion implements Serializable {
 		this.tvIdent = tvIdent;
 		this.tvPlanAnt = tvPlanAnt;
 		this.tvTecnologiacr = tvTecnologiacr;
-		System.out.println("Television->tvTecnologiacr " + this.tvTecnologiacr);
+
+	}
+
+	public void TelevisionCargos(String tvPagoAntCargoFijo, String tvPagoParcialConexion) {
+		this.tvPagoAntCargoFijo = tvPagoAntCargoFijo;
+		this.tvPagoParcialConexion = tvPagoParcialConexion;
 	}
 
 	public void Television(String tipoTv, String television, String tvInd, String tvEmp) {
@@ -476,7 +494,12 @@ public class Cotizacion implements Serializable {
 		this.baIdent = baIdent;
 		this.baPlanAnt = baPlanAnt;
 		this.baTecnologiacr = baTecnologiacr;
-		System.out.println("Internet->baTecnologiacr " + this.baTecnologiacr);
+
+	}
+
+	public void InternetCargos(String baPagoAntCargoFijo, String baPagoParcialConexion) {
+		this.baPagoAntCargoFijo = baPagoAntCargoFijo;
+		this.baPagoParcialConexion = baPagoParcialConexion;
 	}
 
 	public void Internet(String tipoBa, String internet,String baInd, String baEmp) {
@@ -1184,5 +1207,85 @@ public class Cotizacion implements Serializable {
 
 	public void setOfertaCotizacion(String ofertaCotizacion) {
 		this.ofertaCotizacion = ofertaCotizacion;
+	}
+
+	public String getToPagoAntCargoFijo() {
+		return toPagoAntCargoFijo;
+	}
+
+	public void setToPagoAntCargoFijo(String toPagoAntCargoFijo) {
+		this.toPagoAntCargoFijo = toPagoAntCargoFijo;
+	}
+
+	public String getToPagoParcialConexion() {
+		return toPagoParcialConexion;
+	}
+
+	public void setToPagoParcialConexion(String toPagoParcialConexion) {
+		this.toPagoParcialConexion = toPagoParcialConexion;
+	}
+
+	public String getTvPagoAntCargoFijo() {
+		return tvPagoAntCargoFijo;
+	}
+
+	public void setTvPagoAntCargoFijo(String tvPagoAntCargoFijo) {
+		this.tvPagoAntCargoFijo = tvPagoAntCargoFijo;
+	}
+
+	public String getTvPagoParcialConexion() {
+		return tvPagoParcialConexion;
+	}
+
+	public void setTvPagoParcialConexion(String tvPagoParcialConexion) {
+		this.tvPagoParcialConexion = tvPagoParcialConexion;
+	}
+
+	public String getBaPagoAntCargoFijo() {
+		return baPagoAntCargoFijo;
+	}
+
+	public void setBaPagoAntCargoFijo(String baPagoAntCargoFijo) {
+		this.baPagoAntCargoFijo = baPagoAntCargoFijo;
+	}
+
+	public String getBaPagoParcialConexion() {
+		return baPagoParcialConexion;
+	}
+
+	public void setBaPagoParcialConexion(String baPagoParcialConexion) {
+		this.baPagoParcialConexion = baPagoParcialConexion;
+	}
+
+	public String getTotalPagoAntCargoFijo() {
+		return totalPagoAntCargoFijo;
+	}
+
+	public void setTotalPagoAntCargoFijo(String totalPagoAntCargoFijo) {
+		this.totalPagoAntCargoFijo = totalPagoAntCargoFijo;
+	}
+
+	public String getTotalPagoConexion() {
+		return totalPagoConexion;
+	}
+
+	public void setTotalPagoConexion(String totalPagoConexion) {
+		this.totalPagoConexion = totalPagoConexion;
+	}
+
+	public String getTotalPagoParcialConexion() {
+		return totalPagoParcialConexion;
+	}
+
+	public void setTotalPagoParcialConexion(String totalPagoParcialConexion) {
+		this.totalPagoParcialConexion = totalPagoParcialConexion;
+	}
+
+	public String getDescuentoConexion() {
+		return descuentoConexion;
+	}
+
+	public void setDescuentoConexion(String descuentoConexion) {
+		this.descuentoConexion = descuentoConexion;
 	}
 }

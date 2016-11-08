@@ -632,7 +632,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
 
             cotizacion.Otros("" + cttlTotales.getTotalIndividualAdicionales(), "" + cttlTotales.getTotalEmpaquetadoAdicionales(), "" + cotizacionCliente.getContadorProductos(), cotizacionCliente.getEstrato());
-
+            cotizacion.setTotalPagoAntCargoFijo("TotalPagoAntCargoFijo");
+            cotizacion.setTotalPagoConexion("TotalPagoConexion");
+            cotizacion.setTotalPagoParcialConexion("TotalPagoParcialConexion");
+            cotizacion.setDescuentoConexion("DescuentoConexion");
             //UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 
             if (cotizacionCliente.getProductoCotizador().size() > 0) {
@@ -942,6 +945,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             cotizacion.setPlanFacturacionTv_I(productoCotizador.getPlanFacturacionInd());
             cotizacion.setPlanFacturacionTv_P(productoCotizador.getPlanFacturacionEmp());
 
+            cotizacion.TelevisionCargos("cargoFijo","pagoParcial");
+
             cotizacion.setTipoCotizacionTv(Utilidades.planNumerico(productoCotizador.getTipoPeticion()));
             //contProductos++;
         } else {
@@ -965,6 +970,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
             cotizacion.setPlanFacturacionTo_I(String.valueOf(productoCotizador.getCargoBasicoInd()));
             cotizacion.setPlanFacturacionTo_P(String.valueOf(productoCotizador.getCargoBasicoEmp()));
+
+            cotizacion.TelefoniaCargos("cargoFijo","pagoParcial");
 
             String tipoCotizacion = Utilidades.planNumerico(productoCotizador.getTipoPeticion());
             cotizacion.setTipoCotizacionTo(tipoCotizacion);
@@ -997,6 +1004,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
             cotizacion.setPlanFacturacionBa_I(String.valueOf(productoCotizador.getPlanFacturacionInd()));
             cotizacion.setPlanFacturacionBa_P(String.valueOf(productoCotizador.getPlanFacturacionEmp()));
+
+            cotizacion.InternetCargos("cargoFijo","pagoParcial");
 
             String tipoCotizacion = Utilidades.planNumerico(productoCotizador.getTipoPeticion());
             cotizacion.setTipoCotizacionBa(tipoCotizacion);
