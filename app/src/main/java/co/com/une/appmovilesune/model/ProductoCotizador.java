@@ -2,6 +2,8 @@ package co.com.une.appmovilesune.model;
 
 import java.util.ArrayList;
 
+import co.com.une.appmovilesune.MainActivity;
+
 /**
  * Created by davids on 18/10/16.
  */
@@ -25,8 +27,9 @@ public class ProductoCotizador {
     private double pagoAnticipado;
     private double pagoParcial;
     private double pagoParcialDescuento;
+    private double totalPagoParcial;
 
-    public ProductoCotizador(String tipoPeticion, int tipo, String plan, double cargoBasicoInd, double cargoBasicoEmp, double descuentoCargobasico, int duracionDescuento, String planFacturacionInd,String planFacturacionEmp, String velocidad) {
+    public ProductoCotizador(String tipoPeticion, int tipo, String plan, double cargoBasicoInd, double cargoBasicoEmp, double descuentoCargobasico, int duracionDescuento, String planFacturacionInd, String planFacturacionEmp, String velocidad) {
         this.tipoPeticion = tipoPeticion;
         this.tipo = tipo;
         this.plan = plan;
@@ -39,6 +42,30 @@ public class ProductoCotizador {
         System.out.println("duracionDescuento "+duracionDescuento);
         this.descuentoCargobasico = descuentoCargobasico;
         this.duracionDescuento = duracionDescuento;
+        obtenerValorPagoparcial();
+    }
+
+    private void obtenerValorPagoparcial(){
+        String clausula = "producto=?";
+        String[] valores = new String[] { traducirProducto().toUpperCase() };
+
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "pagoparcialanticipado", new String[] { "pagoparcial", "descuento", "pagoanticipado" }, clausula,
+                valores, null, null, null);
+
+        if(respuesta != null){
+            totalPagoParcial = calcularDescuento(respuesta.get(0));
+            pagoAnticipado = Double.parseDouble(respuesta.get(0).get(2));
+        }
+    }
+
+    private double calcularDescuento(ArrayList<String> valores){
+        pagoParcial = Double.parseDouble(valores.get(0));
+        pagoParcialDescuento = Double.parseDouble(valores.get(1));
+
+        double total = (pagoParcial * pagoParcialDescuento)/100;
+
+        return total;
+
     }
 
     public static int getTELEFONIA() {
@@ -155,5 +182,34 @@ public class ProductoCotizador {
 
     public void setPagoParcialDescuento(double pagoParcialDescuento) {
         this.pagoParcialDescuento = pagoParcialDescuento;
+    }
+
+    public double getTotalPagoParcial() {
+        return totalPagoParcial;
+    }
+
+    public void setTotalPagoParcial(double totalPagoParcial) {
+        this.totalPagoParcial = totalPagoParcial;
+    }
+
+
+    private String traducirProducto(){
+
+        String productoAbreviacion = "";
+
+        switch (tipo){
+            case 0:
+                productoAbreviacion = "to";
+                break;
+            case 1:
+                productoAbreviacion = "tv";
+                break;
+            case 2:
+                productoAbreviacion = "ba";
+                break;
+        }
+
+        return productoAbreviacion;
+
     }
 }
