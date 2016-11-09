@@ -21,9 +21,9 @@ public class TarificadorNew {
     private String planTo, planTv, planBa;
 
     private double TO_I = 0, TO_I_IVA = 0, TO_P = 0, TO_P_IVA = 0, TO_I_D = 0, TO_I_IVA_D = 0, TO_P_D = 0,
-            TO_P_IVA_D = 0;
+            TO_P_IVA_D = 0, TO_PP = 0;
     private double BA_I = 0, BA_I_IVA = 0, BA_P = 0, BA_P_IVA = 0, BA_I_D = 0, BA_I_IVA_D = 0, BA_P_D = 0,
-            BA_P_IVA_D = 0;
+            BA_P_IVA_D = 0, BA_PP = 0;
     private double TV_I = 0, TV_I_IVA = 0, TV_P = 0, TV_P_IVA = 0, TV_I_D = 0, TV_I_IVA_D = 0, TV_P_D = 0,
             TV_P_IVA_D = 0;
 

@@ -82,7 +82,7 @@ public class BaseDatos extends SQLiteOpenHelper {
 		estructura[34] = "CREATE TABLE IF NOT EXISTS condicionesxdecos(id_condicion INTEGER, id_decos INTEGER)";
 		estructura[35] = "CREATE TABLE IF NOT EXISTS permisos(rol TEXT, accion TEXT)";
 		estructura[36] = "CREATE TABLE IF NOT EXISTS pagoparcialanticipado(producto TEXT, servicio TEXT, pagoparcial DOUBLE, descuento TEXT, pagoanticipado DOUBLE)";
-		estructura[37] = "CREATE TABLE IF NOT EXISTS valorconexion(productos TEXT, valor DOUBLE)";
+		estructura[37] = "CREATE TABLE IF NOT EXISTS v(productos TEXT, valor DOUBLE)";
 
  	}
 

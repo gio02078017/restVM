@@ -19,6 +19,9 @@ public class CompTotalCotizador extends LinearLayout {
 	private TextView txtvalortotalempaquetado;
 	private TextView txtvalortotalindividualadicionales;
 	private TextView txtvalortotalempaquetadoadicionales;
+	private TextView txtvalortotalpagoconexion;
+	private TextView txtvalortotalpagoparcial;
+	private TextView txtvalordescuentoconexion;
 
 	public CompTotalCotizador(Context context) {
 		super(context);
@@ -49,9 +52,12 @@ public class CompTotalCotizador extends LinearLayout {
 		txtvalortotalempaquetado = (TextView) findViewById(R.id.txtvalortotalempaquetado);
 		txtvalortotalindividualadicionales = (TextView) findViewById(R.id.txtvalortotalindividualadicionales);
 		txtvalortotalempaquetadoadicionales = (TextView) findViewById(R.id.txtvalortotalempaquetadoadicionales);
+		txtvalortotalpagoconexion = (TextView) findViewById(R.id.txtvalortotalpagoconexion);
+		txtvalortotalpagoparcial = (TextView) findViewById(R.id.txtvalortotalpagoparcial);
+		txtvalordescuentoconexion = (TextView) findViewById(R.id.txtvalordescuentoconexion);
 	}
 
-	public void llenarTotales(double totalIndividual, double totalEmpaquetado, double totalAdicionalesTV, double totalDecodificadores, double totalAdicionalesTO){
+	public void llenarTotales(double totalIndividual, double totalEmpaquetado, double totalAdicionalesTV, double totalDecodificadores, double totalAdicionalesTO, double totalConexion, double totalPagoParcial, double valorDescuentoConexion){
 
 		double totalAdicionales = totalAdicionalesTO+totalAdicionalesTV;
 		setTotalIndividual("$" + totalIndividual);
@@ -62,6 +68,10 @@ public class CompTotalCotizador extends LinearLayout {
 
 		setTotalIndividualAdicionales("$" + totalIndividual);
 		setTotalEmpaquetadoAdicionales("$" + totalEmpaquetado);
+
+		setTotalConexion("$" + totalConexion);
+		setTotalPagoParcial("$" + totalPagoParcial);
+		setValorDescuentoConexion("$" + valorDescuentoConexion);
 	}
 
 	public void limpiarTotales(){
@@ -97,6 +107,42 @@ public class CompTotalCotizador extends LinearLayout {
 
 	public double getTotalEmpaquetadoAdicionales(){
 		String cadena =  txtvalortotalempaquetadoadicionales.getText().toString();
+		cadena = cadena.substring(1);
+		double total = Double.parseDouble(cadena);
+
+		return total;
+	}
+
+	public void setTotalConexion(String valor){
+		txtvalortotalpagoconexion.setText(valor);
+	}
+
+	public void setTotalPagoParcial(String valor){
+		txtvalortotalpagoparcial.setText(valor);
+	}
+
+	public void setValorDescuentoConexion(String valor){
+		txtvalordescuentoconexion.setText(valor);
+	}
+
+	public double getTotalConexion(){
+		String cadena =  txtvalortotalpagoconexion.getText().toString();
+		cadena = cadena.substring(1);
+		double total = Double.parseDouble(cadena);
+
+		return total;
+	}
+
+	public double getTotalPagoParcial(){
+		String cadena =  txtvalortotalpagoparcial.getText().toString();
+		cadena = cadena.substring(1);
+		double total = Double.parseDouble(cadena);
+
+		return total;
+	}
+
+	public double getValorDescuentoConexion(){
+		String cadena =  txtvalordescuentoconexion.getText().toString();
 		cadena = cadena.substring(1);
 		double total = Double.parseDouble(cadena);
 

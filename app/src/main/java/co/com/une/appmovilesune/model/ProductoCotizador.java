@@ -42,10 +42,10 @@ public class ProductoCotizador {
         System.out.println("duracionDescuento "+duracionDescuento);
         this.descuentoCargobasico = descuentoCargobasico;
         this.duracionDescuento = duracionDescuento;
-        obtenerValorPagoparcial();
+        obtenerValorPagoparcialAnticipado();
     }
 
-    private void obtenerValorPagoparcial(){
+    private void obtenerValorPagoparcialAnticipado(){
         String clausula = "producto=?";
         String[] valores = new String[] { traducirProducto().toUpperCase() };
 
@@ -53,8 +53,17 @@ public class ProductoCotizador {
                 valores, null, null, null);
 
         if(respuesta != null){
-            totalPagoParcial = calcularDescuento(respuesta.get(0));
-            pagoAnticipado = Double.parseDouble(respuesta.get(0).get(2));
+            if(tipoPeticion.equals("N")){
+                totalPagoParcial = calcularDescuento(respuesta.get(0));
+                pagoAnticipado = Double.parseDouble(respuesta.get(0).get(2));
+            }else{
+                totalPagoParcial = 0;
+                pagoAnticipado = 0;
+            }
+
+        }else {
+            totalPagoParcial = 0;
+            pagoAnticipado = 0;
         }
     }
 

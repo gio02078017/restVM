@@ -100,6 +100,75 @@
 
 		</TableRow>
 
+		<TableRow
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:padding="5dp">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:maxWidth="70dp"
+				style="@style/textcompproductobackgroundpurpple"
+				android:text="@string/totalpagoconexion"/>
+
+			<TextView
+				android:id="@+id/txtvalortotalpagoconexion"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:layout_weight="1"
+				style="@style/textovalortotales" />
+
+		</TableRow>
+
+		<TableRow
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:padding="5dp">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:maxWidth="70dp"
+				style="@style/textcompproductobackgroundpurpple"
+				android:text="@string/totalpagoparcial"/>
+
+			<TextView
+				android:id="@+id/txtvalortotalpagoparcial"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:layout_weight="1"
+				style="@style/textovalortotales" />
+
+		</TableRow>
+
+		<TableRow
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:padding="5dp">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:maxWidth="70dp"
+				style="@style/textcompproductobackgroundpurpple"
+				android:text="@string/valordescuentoconexion"/>
+
+			<TextView
+				android:id="@+id/txtvalordescuentoconexion"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:layout_weight="1"
+				style="@style/textovalortotales" />
+
+		</TableRow>
+
 	</TableLayout>
 
 </LinearLayout>

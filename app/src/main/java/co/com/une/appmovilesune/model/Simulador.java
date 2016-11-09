@@ -889,6 +889,9 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
 		param.add(new String[] { "Id", parametros.get(1) });
 		param.add(new String[] { "Mail", parametros.get(2) });
 		param.add(new String[] { "CobroDomingo", parametros.get(3) });
+		param.add(new String[] { "ValorCargoConexion", parametros.get(4) });
+		param.add(new String[] { "DescuentoCargoConexion", parametros.get(5) });
+		param.add(new String[] { "PagoParcial", parametros.get(6) });
 
 		return MainActivity.conexion.ejecutarSoap("LanzarLlamada", param);
 

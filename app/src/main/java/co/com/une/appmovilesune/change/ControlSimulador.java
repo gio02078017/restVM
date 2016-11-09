@@ -2450,6 +2450,9 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
 		parametros.add(id);
 		parametros.add(mail);
 		parametros.add(Utilidades.cambioCobroDomingo(cobroDomingo));
+		parametros.add("0");
+		parametros.add("0");
+		parametros.add("0");
 		ArrayList<Object> params = new ArrayList<Object>();
 		params.add(MainActivity.config.getCodigo());
 		params.add("LanzarLlamada");

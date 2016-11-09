@@ -2047,6 +2047,9 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 		parametros.add(id);
 		parametros.add(mail);
 		parametros.add(Utilidades.cambioCobroDomingo(CobroDomingo));
+		parametros.add(cotizacion.getTotalPagoConexion());
+		parametros.add(cotizacion.getDescuentoConexion());
+		parametros.add(cotizacion.getTotalPagoParcialConexion());
 		ArrayList<Object> params = new ArrayList<Object>();
 		params.add(MainActivity.config.getCodigo());
 		params.add("LanzarLlamada");

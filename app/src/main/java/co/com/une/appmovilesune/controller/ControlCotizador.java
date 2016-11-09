@@ -103,6 +103,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     private String aplicarAnaloga = "N/A";
 
+    private double totalPagoAnticipado = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -202,11 +204,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         if (Utilidades.excluir("ConsultarSmartPromo", cliente.getCiudad())) {
             lanzarTipoHogar();
         }
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
         obtenerPagoParcialAnticipado();
     }
 
@@ -503,9 +500,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 tratarPagoParcialAnticipado(resultado.get(1).toString());
             }else if (resultado != null && resultado.get(0).equals("decos")) {
 
-            } else{
-                cotizar();
             }
+
+            cotizar();
 
         } catch (Exception e) {
             Log.w("error update", e.getMessage());
@@ -522,6 +519,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cttlTotales.limpiarTotales();
 
         String[][] adicionales = new String[0][0];
+
+
+        double totalPagoParcial = 0;
 
         if(cprdTelevision.getPeticionProducto().equalsIgnoreCase("C")){
             chkAnaloga.setEnabled(true);
@@ -548,7 +548,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             for (int i = 0; i < productos.size(); i++) {
 
                 System.out.println("tipoProducto " + productos.get(i).getTipo());
-
+                System.out.println("tipoPeticion " + productos.get(i).getTipoPeticion());
                 switch (productos.get(i).getTipo()) {
                     case 0:
                         cprdTelefonia.llenarComp(productos.get(i));
@@ -560,10 +560,78 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                         cprdInternet.llenarComp(productos.get(i));
                         break;
                 }
+                if(productos.get(i).getTipoPeticion().equals("N")){
+                    totalPagoParcial += productos.get(i).getTotalPagoParcial();
+                    totalPagoAnticipado += productos.get(i).getPagoAnticipado();
+                }
+            }
+
+        }
+
+        String cadenaConexion = obtenerCadenaValorConexion();
+        double valorConexion = obtenerValorConexion(cadenaConexion);
+        double valorDescuentoComercial = valorConexion - totalPagoParcial;
+        cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal(),valorConexion,totalPagoParcial,valorDescuentoComercial);
+
+    }
+
+    private String obtenerCadenaValorConexion(){
+
+        ArrayList<String> productosNuevos = new ArrayList<String>();
+        String cadenaConexion = "";
+
+        if(cprdTelefonia.isActivo()){
+            if(cprdTelefonia.getPeticionProducto().equals("N")){
+                if(!productosNuevos.contains("TO")){
+                    productosNuevos.add("TO");
+                }
             }
         }
 
-        cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal());
+        if(cprdTelevision.isActivo()){
+            if(cprdTelevision.getPeticionProducto().equals("N")){
+                if(!productosNuevos.contains("TV")){
+                    productosNuevos.add("TV");
+                }
+            }
+        }
+
+
+        if(cprdInternet.isActivo()){
+            if(cprdInternet.getPeticionProducto().equals("N")){
+                if(!productosNuevos.contains("BA")){
+                    productosNuevos.add("BA");
+                }
+            }
+        }
+
+        for (String prod: productosNuevos) {
+            cadenaConexion += prod + "-";
+        }
+
+        cadenaConexion = cadenaConexion.substring(0,cadenaConexion.length()-1);
+
+        return cadenaConexion;
+
+    }
+
+    private double obtenerValorConexion(String cadena){
+
+        double valorConexion = 0;
+
+        String clausula = "productos=?";
+        String[] valores = new String[] { cadena };
+
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "valorconexion", new String[] { "valor" }, clausula,
+                valores, null, null, null);
+
+        System.out.println("valorConexion " + respuesta);
+
+        if(respuesta != null){
+            valorConexion = Double.parseDouble(respuesta.get(0).get(0));
+        }
+
+        return valorConexion;
 
     }
 
@@ -644,10 +712,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
 
             cotizacion.Otros("" + cttlTotales.getTotalIndividualAdicionales(), "" + cttlTotales.getTotalEmpaquetadoAdicionales(), "" + cotizacionCliente.getContadorProductos(), cotizacionCliente.getEstrato());
-            cotizacion.setTotalPagoAntCargoFijo("TotalPagoAntCargoFijo");
-            cotizacion.setTotalPagoConexion("TotalPagoConexion");
-            cotizacion.setTotalPagoParcialConexion("TotalPagoParcialConexion");
-            cotizacion.setDescuentoConexion("DescuentoConexion");
+            cotizacion.setTotalPagoAntCargoFijo(String.valueOf(totalPagoAnticipado));
+            cotizacion.setTotalPagoConexion(String.valueOf(cttlTotales.getTotalConexion()));
+            cotizacion.setTotalPagoParcialConexion(String.valueOf(cttlTotales.getTotalPagoParcial()));
+            cotizacion.setDescuentoConexion(String.valueOf(cttlTotales.getValorDescuentoConexion()));
             //UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 
             if (cotizacionCliente.getProductoCotizador().size() > 0) {
@@ -957,7 +1025,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             cotizacion.setPlanFacturacionTv_I(productoCotizador.getPlanFacturacionInd());
             cotizacion.setPlanFacturacionTv_P(productoCotizador.getPlanFacturacionEmp());
 
-            cotizacion.TelevisionCargos("cargoFijo","pagoParcial");
+            cotizacion.TelevisionCargos(String.valueOf(productoCotizador.getPagoAnticipado()),String.valueOf(productoCotizador.getTotalPagoParcial()));
 
             cotizacion.setTipoCotizacionTv(Utilidades.planNumerico(productoCotizador.getTipoPeticion()));
             //contProductos++;
@@ -983,7 +1051,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             cotizacion.setPlanFacturacionTo_I(String.valueOf(productoCotizador.getCargoBasicoInd()));
             cotizacion.setPlanFacturacionTo_P(String.valueOf(productoCotizador.getCargoBasicoEmp()));
 
-            cotizacion.TelefoniaCargos("cargoFijo","pagoParcial");
+            cotizacion.TelefoniaCargos(String.valueOf(productoCotizador.getPagoAnticipado()),String.valueOf(productoCotizador.getTotalPagoParcial()));
 
             String tipoCotizacion = Utilidades.planNumerico(productoCotizador.getTipoPeticion());
             cotizacion.setTipoCotizacionTo(tipoCotizacion);
@@ -1017,7 +1085,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             cotizacion.setPlanFacturacionBa_I(String.valueOf(productoCotizador.getPlanFacturacionInd()));
             cotizacion.setPlanFacturacionBa_P(String.valueOf(productoCotizador.getPlanFacturacionEmp()));
 
-            cotizacion.InternetCargos("cargoFijo","pagoParcial");
+            cotizacion.InternetCargos(String.valueOf(productoCotizador.getPagoAnticipado()),String.valueOf(productoCotizador.getTotalPagoParcial()));
 
             String tipoCotizacion = Utilidades.planNumerico(productoCotizador.getTipoPeticion());
             cotizacion.setTipoCotizacionBa(tipoCotizacion);
@@ -1866,7 +1934,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     private void obtenerPagoParcialAnticipado(){
         Simulador simulador = new Simulador();
-        //simulador.setManual(this);
+        simulador.setManual(this);
         simulador.addObserver(this);
 
         JSONObject data = new JSONObject();
