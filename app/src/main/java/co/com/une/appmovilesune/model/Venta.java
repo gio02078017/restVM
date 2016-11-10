@@ -608,6 +608,14 @@ public class Venta implements Serializable {
 		return venta;
 	}
 
+	public void quitarPagosParciales(){
+		setTotalPagoParcialConexion("0.0");
+		setDescuentoConexion("0.0");
+		this.telefonia[18] = "0.0";
+		this.television[18] = "0.0";
+		this.internet[14] = "0.0";
+	}
+
 	public String getMunicipioSSC() {
 		return municipioSSC;
 	}

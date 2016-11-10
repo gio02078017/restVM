@@ -2,6 +2,7 @@ package co.com.une.appmovilesune;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.kobjects.base64.Base64;
@@ -143,6 +144,7 @@ public class MainActivity extends Activity implements Observer {
     public static ProgressDialog pd;
 
     public static ArrayList<ListaDefault> listDocumentacion = new ArrayList<ListaDefault>();
+    public static boolean permanecia = false;
 
     private LocationManager locManager;
     private LocationListener locListenerGPS;
@@ -1493,6 +1495,7 @@ public class MainActivity extends Activity implements Observer {
                 System.out.println("data => " + data);
                 IVR = data;
                 if (asesoria.venta != null) {
+                    validarPermanecia(data);
                     pintarDocumentacion(data);
                 }
 
@@ -1524,6 +1527,25 @@ public class MainActivity extends Activity implements Observer {
         } else if (listDocumentacion.get(0).getTitulo().equalsIgnoreCase("NO")) {
             Toast.makeText(this, listDocumentacion.get(0).getDato(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void validarPermanecia(String resultado){
+
+        try{
+
+            JSONArray ja = new JSONArray(resultado);
+            JSONObject jsonObject = ja.getJSONObject(0);
+
+            if(jsonObject.getString("cnf_permanencia").equals("0")
+                    || jsonObject.getString("cnf_permanencia").equals("null")){
+                asesoria.venta.quitarPagosParciales();
+            }
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+
     }
 
     public void tipoAsesoria() {

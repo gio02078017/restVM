@@ -1724,6 +1724,13 @@ public class Interprete {
 
 			IVR.add(new ListaDefault(0, "Documentación", "Datos"));
 
+			if(jsonObject.getString("cnf_permanencia").equals("0")
+					|| jsonObject.getString("cnf_permanencia").equals("null")){
+				IVR.add(new ListaDefault(1, "Acepta Permanencia", "NO"));
+			} else {
+				IVR.add(new ListaDefault(1, "Acepta Permanencia", "SI"));
+			}
+
 			if (jsonObject.getString("cnf_aceptacontrato").equals("0")
 					|| jsonObject.getString("cnf_aceptacontrato").equals("null")) {
 				IVR.add(new ListaDefault(1, "Acepta Contrato", "NO"));
