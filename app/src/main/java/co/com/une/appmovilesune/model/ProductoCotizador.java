@@ -71,7 +71,7 @@ public class ProductoCotizador {
         pagoParcial = Double.parseDouble(valores.get(0));
         pagoParcialDescuento = Double.parseDouble(valores.get(1));
 
-        double total = (pagoParcial * pagoParcialDescuento)/100;
+        double total = pagoParcial - (pagoParcial * pagoParcialDescuento)/100;
 
         return total;
 

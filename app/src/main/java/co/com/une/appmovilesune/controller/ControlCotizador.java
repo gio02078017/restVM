@@ -204,7 +204,16 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         if (Utilidades.excluir("ConsultarSmartPromo", cliente.getCiudad())) {
             lanzarTipoHogar();
         }
-        obtenerPagoParcialAnticipado();
+
+        MainActivity.basedatos.eliminar("pagoparcialanticipado", null, null);
+        MainActivity.basedatos.eliminar("valorconexion", null, null);
+
+        System.out.println("Elite "+Utilidades.visible("elite",cliente.getCiudad()));
+
+        if(Utilidades.excluir("elite",cliente.getCiudad())){
+            obtenerPagoParcialAnticipado();
+        }
+
     }
 
     private void lanzarTipoHogar() {

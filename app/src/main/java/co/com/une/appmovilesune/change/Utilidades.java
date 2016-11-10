@@ -1373,7 +1373,7 @@ public class Utilidades {
 				new String[] { "lst_valor" }, "lst_clave=? and Upper(lst_ciudad)=?",
 				new String[] { clave, ciudad.toUpperCase() }, null, null, null);
 
-		System.out.println("respuesta " + respuesta);
+		System.out.println("respuesta  Visible " + respuesta);
 
 		String data = "";
 
