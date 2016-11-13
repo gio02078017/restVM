@@ -538,6 +538,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             chkAnaloga.setEnabled(false);
             chkAnaloga.setChecked(false);
         }
+
         tarificador.Consulta_Tarifaz(cprdTelefonia.getPeticionProducto(), cprdTelefonia.getPlan(),
                 cprdTelevision.getPeticionProducto(), cprdTelevision.getPlan(),
                 cprdInternet.getPeticionProducto(), cprdInternet.getPlan(), adicionales,
@@ -725,7 +726,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             cotizacion.setTotalPagoConexion(String.valueOf(cttlTotales.getTotalConexion()));
             cotizacion.setTotalPagoParcialConexion(String.valueOf(cttlTotales.getTotalPagoParcial()));
             cotizacion.setDescuentoConexion(String.valueOf(cttlTotales.getValorDescuentoConexion()));
-            //UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
+
+            UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 
             if (cotizacionCliente.getProductoCotizador().size() > 0) {
                 for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
@@ -1050,6 +1052,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         System.out.println("llenarcotizacion Telefonia" + productoCotizador.getPlan());
         if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
+
             ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
 
             // System.out.println("descuentoTo " + descuentoTo);
@@ -1521,7 +1524,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         if (Utilidades.excluirMunicipal("bloquearCobertura", "bloquearCobertura", cliente.getCiudad())) {
 
             if (productosNuevos()) {
-                if (!cotizacion.getTipoTv().equalsIgnoreCase("-") && !cotizacion.getTelevision().equalsIgnoreCase("")) {
+                if ((cotizacion.getTipoTv() != null && !cotizacion.getTipoTv().equalsIgnoreCase("-")) && !cotizacion.getTelevision().equalsIgnoreCase("")) {
 
                     if (bloqueoCobertura.isHFCDigital()) {
                         cotizacion.setHFCDigital(true);
