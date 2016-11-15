@@ -59,12 +59,18 @@ public class CompTotalCotizador extends LinearLayout {
 
 	public void llenarTotales(double totalIndividual, double totalEmpaquetado, double totalAdicionalesTV, double totalDecodificadores, double totalAdicionalesTO, double totalConexion, double totalPagoParcial, double valorDescuentoConexion){
 
+		System.out.println("TotalesCot ltll ind "+totalIndividual);
+		System.out.println("TotalesCot ltll emp "+totalEmpaquetado);
+
 		double totalAdicionales = totalAdicionalesTO+totalAdicionalesTV;
 		setTotalIndividual("$" + totalIndividual);
 		setTotalEmpaquetado("$" + totalEmpaquetado);
 
 		totalIndividual += totalAdicionales + totalDecodificadores;
 		totalEmpaquetado += totalAdicionales + totalDecodificadores;
+
+		System.out.println("TotalesCot suma ind "+totalIndividual);
+		System.out.println("TotalesCot suma emp "+totalEmpaquetado);
 
 		setTotalIndividualAdicionales("$" + totalIndividual);
 		setTotalEmpaquetadoAdicionales("$" + totalEmpaquetado);

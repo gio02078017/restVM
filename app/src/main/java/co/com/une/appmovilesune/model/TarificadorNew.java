@@ -176,7 +176,9 @@ public class TarificadorNew {
                         new String[]{depto, tipo_producto, producto, "%" + estrato + "%", "%" + paquete + "%"}, null,
                         null, null).get(0);
 
-                System.out.println("precios " + precios);
+                System.out.println("consultaNT precios " + precios);
+                System.out.println("consultaNT tipoProducto " + tipo_producto);
+                System.out.println("consultaNT producto " + producto);
 
                 Precios(precios.get(0), precios.get(1), precios.get(2), precios.get(3), precios.get(4), precios.get(5),
                         tipo_producto, precios.get(6), precios.get(7), precios.get(8), precios.get(9), precios.get(10),
@@ -315,8 +317,8 @@ public class TarificadorNew {
                 velocidadInicial = inicialGota;
                 velocidadFinal = finalGota;
                 System.out.println("GOTA" + valorGota);
-                System.out.println("velocidadInicial" + velocidadInicial);
-                System.out.println("velocidadFinal" + velocidadFinal);
+                System.out.println("GOTA velocidadInicial" + velocidadInicial);
+                System.out.println("GOTA velocidadFinal" + velocidadFinal);
 
             }
         }
@@ -1261,6 +1263,8 @@ public class TarificadorNew {
         TT_I_IVA = 0;
         TT_P = 0;
         TT_P_IVA = 0;
+        TT_I_TP_IVA = 0;
+        TT_P_TP_IVA = 0;
         Precio_Ad_Tv_IVA = 0;
         Contador = 0;
         Contador_productos = 0;

@@ -294,6 +294,8 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+            System.out.println("PlanOISL " + (String) parent.getSelectedItem());
+
             observer.update(null);
 
             if (observerAdicionales != null) {

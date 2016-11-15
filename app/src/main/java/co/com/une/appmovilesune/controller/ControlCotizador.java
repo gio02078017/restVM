@@ -491,8 +491,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     public void update(Object value) {
 
         try {
-            ArrayList<Object> resultado = (ArrayList<Object>) value;
-            System.out.println("resultado update ControlCotizador" + resultado);
+            ArrayList<Object> resultado = null;
+            if(value != null){
+                resultado = (ArrayList<Object>) value;
+                System.out.println("resultado update ControlCotizador" + resultado);
+            }
+
 
             if (resultado != null && resultado.get(0).equals("TipoHogar")) {
                 System.out.println("TipoHogar " + resultado.get(1));
@@ -511,11 +515,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
             }
 
-            cotizar();
-
         } catch (Exception e) {
             Log.w("error update", e.getMessage());
         }
+
+        cotizar();
 
     }
 
@@ -549,6 +553,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         // ArrayList<ProductoCotizador> productos = tarificador.cotizacionVenta();
 
         cotizacionCliente = tarificador.cotizacionCliente();
+
+        System.out.println("TotalesCot cot ind "+cotizacionCliente.getTotalIndividual());
+        System.out.println("TotalesCot cot emp "+cotizacionCliente.getTotalEmpaquetado());
 
         ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
 
@@ -619,7 +626,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             cadenaConexion += prod + "-";
         }
 
-        cadenaConexion = cadenaConexion.substring(0,cadenaConexion.length()-1);
+        if(!cadenaConexion.equals("")){
+            cadenaConexion = cadenaConexion.substring(0,cadenaConexion.length()-1);
+        }
 
         return cadenaConexion;
 
@@ -1006,7 +1015,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         } else {
             Toast.makeText(this, "Seleccione productos para cotizar", Toast.LENGTH_SHORT).show();
-            //tabs.setCurrentTab(0);
         }
 
     }
