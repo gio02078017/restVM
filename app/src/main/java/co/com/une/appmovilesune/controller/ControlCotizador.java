@@ -208,9 +208,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         MainActivity.basedatos.eliminar("pagoparcialanticipado", null, null);
         MainActivity.basedatos.eliminar("valorconexion", null, null);
 
-        System.out.println("Elite "+Utilidades.visible("elite",cliente.getCiudad()));
+        System.out.println("Elite "+Utilidades.excluir("elite",cliente.getCiudad()));
 
-        if(Utilidades.excluir("elite",cliente.getCiudad())){
+        if(!Utilidades.excluir("Elite",cliente.getCiudad())){
             obtenerPagoParcialAnticipado();
         }
 
