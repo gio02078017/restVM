@@ -11,6 +11,7 @@ import co.com.une.appmovilesune.adapters.ItemDependencias;
 import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
 import co.com.une.appmovilesune.adapters.ItemTarificador;
 import co.com.une.appmovilesune.change.Utilidades;
+import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
 import co.com.une.appmovilesune.complements.Calendario;
 
 public class TarificadorNew {
@@ -69,8 +70,9 @@ public class TarificadorNew {
 
     }
 
-    public void Consulta_Tarifaz(String planTo, String telefonia, String planTv, String television, String planBa, String internet, String[][] descripcion_Ad, double precio_ad, String estrato, boolean nuevo,
-                                 Cliente cliente, String jsonDatos, Context context, double totalDecodificadores) {
+    public void
+    Consulta_Tarifaz(String planTo, String telefonia, String planTv, String television, String planBa, String internet, String[][] descripcion_Ad, double precio_ad, String estrato, boolean nuevo,
+                     Cliente cliente, String jsonDatos, Context context, double totalDecodificadores) {
 
         this.estrato = estrato;
         this.telefonia = telefonia;
@@ -100,10 +102,10 @@ public class TarificadorNew {
 
         // System.out.println("desTelefonia " + desTelefonia);
 
-        System.out.println("telefonia " + telefonia);
-        System.out.println("television " + television);
-        System.out.println("internet " + internet);
-        System.out.println("json "+jsonDatos);
+        System.out.println("Consulta_Tarifaz telefonia " + telefonia + " plan " + planTo);
+        System.out.println("Consulta_Tarifaz television " + television + " plan " + planTv);
+        System.out.println("Consulta_Tarifaz internet " + internet + " plan " + planTv);
+        System.out.println("json " + jsonDatos);
 
         limpiar();
 
@@ -506,13 +508,13 @@ public class TarificadorNew {
 
         ArrayList<ArrayList<String>> promociones2 = null;
 
-        System.out.println("planTo " + planTo);
-        System.out.println("telefonia " + telefonia);
-        System.out.println("planTv " + planTv);
-        System.out.println("television " + television);
-        System.out.println("planTv " + planBa);
-        System.out.println("television " + internet);
-        System.out.println("jsonDatos " + jsonDatos);
+        System.out.println("Descuentos2 planTo " + planTo);
+        System.out.println("Descuentos2 telefonia " + telefonia);
+        System.out.println("Descuentos2 planTv " + planTv);
+        System.out.println("Descuentos2 television " + television);
+        System.out.println("Descuentos2 planTv " + planBa);
+        System.out.println("Descuentos2 television " + internet);
+        System.out.println("Descuentos2 jsonDatos " + jsonDatos);
 
 
         if (planTv != null && television != null) {
@@ -1095,21 +1097,46 @@ public class TarificadorNew {
 
         ArrayList<ArrayList<String>> descuentos = Descuentos2(planTo, telefonia, planTv, television, planBa, internet, jsonDatos);
 
+//        System.out.println("impresion descuentos "+descuentos);
+//        UtilidadesTarificadorNew.imprimirDescuentos(descuentos);
+
+        boolean controlTo = false;
+        boolean controlTv = false;
+        boolean controlBa = false;
+
         if (descuentos != null) {
             for (int i = 0; i < descuentos.size(); i++) {
                 if (descuentos.get(i).get(0).equalsIgnoreCase("to")) {
-                    productos.add(new ProductoCotizador(planTo, ProductoCotizador.TELEFONIA, telefonia, TO_I_IVA, TO_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1),"descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2),"descuentos.get(i).get(2)"),planFacturacionTO_I,planFacturacionTO_P,"0"));
+                    productos.add(new ProductoCotizador(planTo, ProductoCotizador.TELEFONIA, telefonia, TO_I_IVA, TO_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1), "descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2), "descuentos.get(i).get(2)"), planFacturacionTO_I, planFacturacionTO_P, "0"));
+                    controlTo = true;
                 } else if (descuentos.get(i).get(0).equalsIgnoreCase("tv")) {
-                    productos.add(new ProductoCotizador(planTv, ProductoCotizador.TELEVISION, television,  TV_I_IVA, TV_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1),"descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2),"descuentos.get(i).get(2)"),planFacturacionTV_I,planFacturacionTO_P,"0"));
+                    productos.add(new ProductoCotizador(planTv, ProductoCotizador.TELEVISION, television, TV_I_IVA, TV_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1), "descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2), "descuentos.get(i).get(2)"), planFacturacionTV_I, planFacturacionTO_P, "0"));
+                    controlTv = true;
                 } else if (descuentos.get(i).get(0).equalsIgnoreCase("ba")) {
-                    productos.add(new ProductoCotizador(planBa, ProductoCotizador.INTERNET, internet, BA_I_IVA, BA_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1),"descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2),"descuentos.get(i).get(2)"),planFacturacionBA_I,planFacturacionBA_P,"0"));
+                    productos.add(new ProductoCotizador(planBa, ProductoCotizador.INTERNET, internet, BA_I_IVA, BA_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1), "descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2), "descuentos.get(i).get(2)"), planFacturacionBA_I, planFacturacionBA_P, "0"));
+                    controlBa = true;
                 }
             }
-        } else {
+        } /*else {
 
             productos.add(new ProductoCotizador(planTo, ProductoCotizador.TELEFONIA, telefonia,TO_I_IVA, TO_P_IVA, 0, 0,planFacturacionTO_I,planFacturacionTO_P,"0"));
             productos.add(new ProductoCotizador(planTv, ProductoCotizador.TELEVISION, television, TV_I_IVA, TV_P_IVA, 0, 0,planFacturacionTV_I,planFacturacionTV_P,"0"));
             productos.add(new ProductoCotizador(planBa, ProductoCotizador.INTERNET, internet,BA_I_IVA, BA_P_IVA, 0, 0,planFacturacionBA_I,planFacturacionBA_P,"0"));
+            controlTo = true;
+            controlTv = true;
+            controlBa = true;
+        }*/
+
+        if (!controlTo) {
+            productos.add(new ProductoCotizador(planTo, ProductoCotizador.TELEFONIA, telefonia, TO_I_IVA, TO_P_IVA, 0, 0, planFacturacionTO_I, planFacturacionTO_P, "0"));
+        }
+
+        if (!controlTv) {
+            productos.add(new ProductoCotizador(planTv, ProductoCotizador.TELEVISION, television, TV_I_IVA, TV_P_IVA, 0, 0, planFacturacionTV_I, planFacturacionTV_P, "0"));
+        }
+
+        if (!controlBa) {
+            productos.add(new ProductoCotizador(planBa, ProductoCotizador.INTERNET, internet, BA_I_IVA, BA_P_IVA, 0, 0, planFacturacionBA_I, planFacturacionBA_P, "0"));
         }
 
         String controlCotizacion = "01";
@@ -1119,15 +1146,15 @@ public class TarificadorNew {
         CotizacionCliente cotizacionCliente = new CotizacionCliente();
         cotizacionCliente.setControl(controlCotizacion);
         cotizacionCliente.setOferta(Oferta);
-        cotizacionCliente.setGotaba(new GotaBa(controlGota,valorGota,valorGotaSinIva,velocidadInicial,velocidadFinal));
+        cotizacionCliente.setGotaba(new GotaBa(controlGota, valorGota, valorGotaSinIva, velocidadInicial, velocidadFinal));
         cotizacionCliente.setTotalIndividual(TT_I_TP_IVA);
         cotizacionCliente.setTotalEmpaquetado(TT_P_TP_IVA);
         cotizacionCliente.setContadorProductos(Contador_Productos());
         cotizacionCliente.setEstrato(estrato);
         cotizacionCliente.setProductoCotizador(productos);
 
-        System.out.println("TT_I_TP_IVA "+TT_I_TP_IVA);
-        System.out.println("TT_P_TP_IVA "+TT_P_TP_IVA);
+        System.out.println("TT_I_TP_IVA " + TT_I_TP_IVA);
+        System.out.println("TT_P_TP_IVA " + TT_P_TP_IVA);
 
 		/*Productos.add(new ItemTarificador("" + Oferta, "Validaciones", "Oferta"));
 
