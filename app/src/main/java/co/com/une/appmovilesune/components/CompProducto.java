@@ -99,7 +99,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         cargarHeaderInformation();
     }
 
-    private void init(){
+    private void init() {
         String infService = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
 
@@ -113,7 +113,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
         spntipeticionproducto = (Spinner) findViewById(R.id.spntipeticionproducto);
         spnSelectorPlan = (Spinner) findViewById(R.id.spnSelectorPlan);
-        txtPlanFacturacion = (TextView) findViewById (R.id.txtPlanFacturacion);
+        txtPlanFacturacion = (TextView) findViewById(R.id.txtPlanFacturacion);
         txtVelocidad = (TextView) findViewById(R.id.txtVelocidad);
 
         txtvalorcargobasicoind = (TextView) findViewById(R.id.txtvalorcargobasicoind);
@@ -133,7 +133,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     }
 
-    private void cargarHeaderInformation(){
+    private void cargarHeaderInformation() {
         switch (tipo) {
             case TELEFONIA:
                 imgProducto.setImageDrawable(getResources().getDrawable(R.drawable.amgto));
@@ -150,11 +150,11 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         }
     }
 
-    private String traducirProducto(){
+    private String traducirProducto() {
 
         String productoAbreviacion = "";
 
-        switch (tipo){
+        switch (tipo) {
             case 0:
                 productoAbreviacion = "to";
                 break;
@@ -170,23 +170,23 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     }
 
-    private String traducirTipoPeticion(){
+    private String traducirTipoPeticion() {
 
         String numeroTipoPeticion = "";
 
-        if (((String)spntipeticionproducto.getSelectedItem()).equals("N")) {
+        if (((String) spntipeticionproducto.getSelectedItem()).equals("N")) {
             numeroTipoPeticion = "1";
-        }else if(((String)spntipeticionproducto.getSelectedItem()).equals("C")){
+        } else if (((String) spntipeticionproducto.getSelectedItem()).equals("C")) {
             numeroTipoPeticion = "0";
-        }else if(((String)spntipeticionproducto.getSelectedItem()).equals("E")){
+        } else if (((String) spntipeticionproducto.getSelectedItem()).equals("E")) {
             numeroTipoPeticion = "3";
         }
 
-        return  numeroTipoPeticion;
+        return numeroTipoPeticion;
 
     }
 
-    public void cargarPlanes(String departamento, int estrato, String tecnologia, String oferta){
+    public void cargarPlanes(String departamento, int estrato, String tecnologia, String oferta) {
 
         this.departamento = departamento;
         this.estrato = estrato;
@@ -196,21 +196,21 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         String clausula = "";
         String[] valores = null;
 
-        Log.i("Oferta",oferta);
+        Log.i("Oferta", oferta);
 
-        if(oferta.equals("-")){
+        if (oferta.equals("-")) {
             oferta = "";
         }
 
-        if(traducirTipoPeticion().equals("0") || traducirTipoPeticion().equals("1")){
+        if (traducirTipoPeticion().equals("0") || traducirTipoPeticion().equals("1")) {
 
             clausula = "Departamento=? and Tipo_Producto=? and Nuevo IN(?,?) and Estrato like ? and Tecnologia like ? and Oferta = ?";
-            valores = new String[] { departamento, traducirProducto(), traducirTipoPeticion(),"2", "%" + estrato + "%",
-                    "%" + tecnologia + "%", oferta };
+            valores = new String[]{departamento, traducirProducto(), traducirTipoPeticion(), "2", "%" + estrato + "%",
+                    "%" + tecnologia + "%", oferta};
 
-        }else {
+        } else {
             clausula = "Departamento=? and Tipo_Producto=? and Nuevo IN(?) and Estrato like ? and Tecnologia like ?";
-            valores = new String[] { departamento, traducirProducto(), traducirTipoPeticion(), "%" + estrato + "%",
+            valores = new String[]{departamento, traducirProducto(), traducirTipoPeticion(), "%" + estrato + "%",
                     "%" + tecnologia + "%"};
         }
 
@@ -221,8 +221,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 //        }
 
 
-
-        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Productos", new String[] { "Producto" }, clausula,
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Productos", new String[]{"Producto"}, clausula,
                 valores, null, null, null);
 
 //        System.out.println("cargarPlanes respuesta ofertas "+respuesta +" oferta "+oferta+" tipoProducto "+traducirProducto());
@@ -239,7 +238,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
         spnSelectorPlan.setAdapter(adaptador);
 
-        if(Plan!=null) {
+        if (Plan != null) {
             setPlan(Plan);
         }
 
@@ -266,14 +265,14 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
     CompoundButton.OnCheckedChangeListener habilitarCompProducto = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked){
-                slide_down(getContext(),llyProducto);
+            if (isChecked) {
+                slide_down(getContext(), llyProducto);
                 llyProducto.setVisibility(VISIBLE);
-            }else{
-                slide_up(getContext(),llyProducto);
+            } else {
+                slide_up(getContext(), llyProducto);
                 llyProducto.setVisibility(GONE);
             }
-            if(observerAdicionales != null){
+            if (observerAdicionales != null) {
                 notifyObserver();
             }
         }
@@ -282,7 +281,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
     AdapterView.OnItemSelectedListener seleccionarTipoTransaccion = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            cargarPlanes(departamento,estrato,tecnologia,oferta);
+            cargarPlanes(departamento, estrato, tecnologia, oferta);
         }
 
         @Override
@@ -297,12 +296,12 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
             observer.update(null);
 
-            if(observerAdicionales != null){
+            if (observerAdicionales != null) {
                 observerAdicionales.limpiarAdicionales();
                 observerAdicionales.seleccionarPlan(Utilidades.traducirPlanOfertaDigital((String) parent.getSelectedItem()));
             }
 
-            if(observerDecodificadores != null){
+            if (observerDecodificadores != null) {
                 observerDecodificadores.limpiarDecodificadores();
                 observerDecodificadores.seleccionarPlan((String) parent.getSelectedItem());
                 observerDecodificadores.precargarDecos();
@@ -339,19 +338,19 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         }
     }
 
-    public void habilitarCheckProducto(){
+    public void habilitarCheckProducto() {
         chkHabilitarProducto.setEnabled(true);
     }
 
-    public void deshabilitarCheckProducto(){
+    public void deshabilitarCheckProducto() {
         chkHabilitarProducto.setEnabled(false);
     }
 
-    public boolean isActivo(){
+    public boolean isActivo() {
         return chkHabilitarProducto.isChecked();
     }
 
-    public void setActivo(boolean activo){
+    public void setActivo(boolean activo) {
         chkHabilitarProducto.setChecked(activo);
     }
 
@@ -385,20 +384,20 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         notificarEstadoComponenteProducto();
     }
 
-    private void notificarEstadoComponenteProducto(){
-        if(isActivo()){
-            if(observerAdicionales != null){
+    private void notificarEstadoComponenteProducto() {
+        if (isActivo()) {
+            if (observerAdicionales != null) {
                 observerAdicionales.habilitarAdicionales();
             }
-            if(observerDecodificadores != null){
+            if (observerDecodificadores != null) {
                 observerDecodificadores.habilitarDecodificadores();
             }
 
-        }else{
-            if(observerAdicionales != null){
+        } else {
+            if (observerAdicionales != null) {
                 observerAdicionales.deshabilitarAdicionales();
             }
-            if(observerDecodificadores != null){
+            if (observerDecodificadores != null) {
                 observerDecodificadores.deshabilitarDecodificadores();
             }
 
@@ -406,11 +405,13 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
     }
 
     public String getPlan() {
-        return (String)spnSelectorPlan.getSelectedItem();
+        //System.out.println("llamado spnSelectorPlan.getSelectedItem() " + (String) spnSelectorPlan.getSelectedItem());
+        return (String) spnSelectorPlan.getSelectedItem();
     }
 
     public String getPeticionProducto() {
-        return (String)spntipeticionproducto.getSelectedItem();
+        //System.out.println("llamado (String)spntipeticionproducto.getSelectedItem() " + (String) spntipeticionproducto.getSelectedItem());
+        return (String) spntipeticionproducto.getSelectedItem();
     }
 
     public Spinner getSpnSelectorPlan() {
@@ -422,7 +423,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         spnSelectorPlan.setSelection(adaptador.getPosition(Plan));
     }
 
-    public void rellenarProducto(String PeticionProducto,String Plan) {
+    public void rellenarProducto(String PeticionProducto, String Plan) {
         //chkHabilitarProducto.setSelected(true);
         this.Plan = Plan;
         ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spntipeticionproducto.getAdapter();
@@ -454,11 +455,11 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         txtduraciondescuentocargobasico.setText(duraciondescuentocargobasico);
     }
 
-    public void setTxtvalorpagoparcial(String pagoparcial){
+    public void setTxtvalorpagoparcial(String pagoparcial) {
         txtvalorpagoparcial.setText(pagoparcial);
     }
 
-    public void setTxtvalorpagoanticipado(String pagoanticipado){
+    public void setTxtvalorpagoanticipado(String pagoanticipado) {
         txtvalorpagoanticipado.setText(pagoanticipado);
     }
 

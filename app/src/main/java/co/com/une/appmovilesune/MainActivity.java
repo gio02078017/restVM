@@ -62,6 +62,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import static co.com.une.appmovilesune.MainActivity.MODULO_COTIZADOR;
+
 public class MainActivity extends Activity implements Observer {
 
     public static final int REQUEST_CODE = 10;
@@ -1103,8 +1105,11 @@ public class MainActivity extends Activity implements Observer {
         public void onDismiss(DialogInterface arg0) {
             // TODO Auto-generated method stub
             if (dialogo.getLanzador().equals("confirmacionTarificador")) {
-                lanzarModulo(MODULO_TARIFICADOR);
-                modulo = MODULO_TARIFICADOR;
+                //lanzarModulo(MODULO_TARIFICADOR);
+                //modulo = MODULO_TARIFICADOR;
+                //ccfg.setLanzador("tarificador");
+                lanzarModulo(MODULO_COTIZADOR);
+                modulo = MODULO_COTIZADOR;
                 ccfg.setLanzador("tarificador");
             } else if (dialogo.getLanzador().equals("confirmacionVenta")) {
                 lanzarVenta();

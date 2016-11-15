@@ -31,9 +31,9 @@ public class UtilidadesTarificadorNew {
         }else{
             descuento.add(promocion + "%");
             if(duracion.equalsIgnoreCase("1")){
-                descuento.add(promocion + " Mes ");
+                descuento.add(duracion + " Mes ");
             }else{
-                descuento.add(promocion + " Meses ");
+                descuento.add(duracion + " Meses ");
             }
         }
 
@@ -100,5 +100,15 @@ public class UtilidadesTarificadorNew {
         }
 
         System.out.println("************imprimirProductosCotizacion**********Fin********");
+    }
+
+    public static void imprimirDescuentos(ArrayList<ArrayList<String>> descuentos){
+         if(descuentos != null){
+             for (int i = 0; i <descuentos.size() ; i++) {
+                 System.out.println("impresion descuentos tipoProducto "+descuentos.get(i).get(0));
+                 System.out.println("impresion descuentos descuento "+descuentos.get(i).get(1));
+                 System.out.println("impresion descuentos tiempo "+descuentos.get(i).get(2));
+             }
+         }
     }
 }
