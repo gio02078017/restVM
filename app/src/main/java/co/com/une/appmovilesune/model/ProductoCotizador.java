@@ -75,6 +75,10 @@ public class ProductoCotizador {
 
     }
 
+    public void aplciarDescuentoTrio(){
+        totalPagoParcial = 0;
+    }
+
     public static int getTELEFONIA() {
         return TELEFONIA;
     }

@@ -111,4 +111,23 @@ public class UtilidadesTarificadorNew {
              }
          }
     }
+
+    public static boolean isTrioNuevo(ArrayList<ProductoCotizador> productos){
+
+        boolean trioNuevo = false;
+
+        ArrayList<Boolean> nuevos = new ArrayList<Boolean>();
+
+        for (ProductoCotizador producto: productos) {
+            if(producto.getTipoPeticion().equals("N")){
+                nuevos.add(true);
+            }
+        }
+
+        if(nuevos.size() == 3){
+            trioNuevo = true;
+        }
+
+        return trioNuevo;
+    }
 }

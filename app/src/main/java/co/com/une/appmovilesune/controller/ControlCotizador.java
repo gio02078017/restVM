@@ -559,13 +559,19 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
 
-        //UtilidadesTarificadorNew.imprimirProductosCotizacion(productos);
+        boolean trioNuevo = UtilidadesTarificadorNew.isTrioNuevo(productos);
+
 
         if (productos != null) {
             for (int i = 0; i < productos.size(); i++) {
 
                 System.out.println("tipoProducto " + productos.get(i).getTipo());
                 System.out.println("tipoPeticion " + productos.get(i).getTipoPeticion());
+
+                if(trioNuevo){
+                    productos.get(i).aplciarDescuentoTrio();
+                }
+
                 switch (productos.get(i).getTipo()) {
                     case 0:
                         cprdTelefonia.llenarComp(productos.get(i));
@@ -591,6 +597,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal(),valorConexion,totalPagoParcial,valorDescuentoComercial);
 
     }
+
+
 
     private String obtenerCadenaValorConexion(){
 
