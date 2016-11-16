@@ -559,8 +559,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
 
-        boolean trioNuevo = UtilidadesTarificadorNew.isTrioNuevo(productos);
+       // UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 
+        boolean trioNuevo = UtilidadesTarificadorNew.isTrioNuevo(productos);
 
         if (productos != null) {
             for (int i = 0; i < productos.size(); i++) {
@@ -744,7 +745,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             cotizacion.setTotalPagoParcialConexion(String.valueOf(cttlTotales.getTotalPagoParcial()));
             cotizacion.setDescuentoConexion(String.valueOf(cttlTotales.getValorDescuentoConexion()));
 
-            UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
+            //UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 
             if (cotizacionCliente.getProductoCotizador().size() > 0) {
                 for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {

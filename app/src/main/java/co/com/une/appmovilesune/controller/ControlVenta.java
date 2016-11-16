@@ -1177,7 +1177,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 																	 */)
                         + UtilidadesTarificador.ImpuestoTelefonico(cliente.getCiudad(), cliente.getDepartamento(),
                         cliente.getEstrato()));
-                llyTotalDescuento.setVisibility(View.VISIBLE);
+                //llyTotalDescuento.setVisibility(View.VISIBLE);
             }
         }
 
@@ -1305,7 +1305,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 lblTotalDescuento.setText(String.valueOf(Double.parseDouble(cotizacion.getTotalEmpDescuento())
                         + UtilidadesTarificador.ImpuestoTelefonico(cliente.getCiudad(), cliente.getDepartamento(),
                         cliente.getEstrato())));
-                llyTotalDescuento.setVisibility(View.VISIBLE);
+                //llyTotalDescuento.setVisibility(View.VISIBLE);
             }
         }
 

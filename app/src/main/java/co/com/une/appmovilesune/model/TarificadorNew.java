@@ -1112,7 +1112,7 @@ public class TarificadorNew {
                     productos.add(new ProductoCotizador(planTo, ProductoCotizador.TELEFONIA, telefonia, TO_I_IVA, TO_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1), "descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2), "descuentos.get(i).get(2)"), planFacturacionTO_I, planFacturacionTO_P, "0"));
                     controlTo = true;
                 } else if (descuentos.get(i).get(0).equalsIgnoreCase("tv")) {
-                    productos.add(new ProductoCotizador(planTv, ProductoCotizador.TELEVISION, television, TV_I_IVA, TV_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1), "descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2), "descuentos.get(i).get(2)"), planFacturacionTV_I, planFacturacionTO_P, "0"));
+                    productos.add(new ProductoCotizador(planTv, ProductoCotizador.TELEVISION, television, TV_I_IVA, TV_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1), "descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2), "descuentos.get(i).get(2)"), planFacturacionTV_I, planFacturacionTV_P, "0"));
                     controlTv = true;
                 } else if (descuentos.get(i).get(0).equalsIgnoreCase("ba")) {
                     productos.add(new ProductoCotizador(planBa, ProductoCotizador.INTERNET, internet, BA_I_IVA, BA_P_IVA, Utilidades.convertirDouble(descuentos.get(i).get(1), "descuentos.get(i).get(1)"), Utilidades.convertirNumericos(descuentos.get(i).get(2), "descuentos.get(i).get(2)"), planFacturacionBA_I, planFacturacionBA_P, "0"));
