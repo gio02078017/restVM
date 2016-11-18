@@ -447,6 +447,33 @@
                                 </TableRow>
 
                                 <TableRow
+                                    android:id="@+id/trTablaProyectos"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/proyectos_rurales"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <AutoCompleteTextView
+                                        android:id="@+id/txtProyectosRurales"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:completionThreshold="3"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
                                     android:id="@+id/trTablaClienteContrato"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
@@ -1223,6 +1250,30 @@
 
                                     <Spinner
                                         android:id="@+id/spnTecnologia"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTipoZona"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/tipo_zona"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/spnTipoZona"
                                         android:layout_height="wrap_content"
                                         android:layout_span="8"
                                         android:background="@drawable/spin"

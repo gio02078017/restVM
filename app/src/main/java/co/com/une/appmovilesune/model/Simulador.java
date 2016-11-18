@@ -169,6 +169,9 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
 		} else if (accion.equals("validarPermiso")) {
 			parametros = (ArrayList<String>) params[0].get(2);
 			resultados.add(validarPermiso(parametros));
+		}else if (accion.equals("ProyectosRurales")) {
+			parametros = (ArrayList<String>) params[0].get(2);
+			resultados.add(proyectosRurales(parametros));
 		}
 
 		return resultados;
@@ -467,6 +470,12 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
 			notifyObserver();
 		} else if (accion.equals("validarPermiso")) {
 			System.out.println("Simulador 161 Consultar Respuesta => " + observer);
+			System.out.println("result " + result);
+			resultado = result;
+
+			notifyObserver();
+		}else if (accion.equals("ProyectosRurales")) {
+			System.out.println("Simulador Consultar Respuesta ProyectosRurales=> " + observer);
 			System.out.println("result " + result);
 			resultado = result;
 
@@ -829,6 +838,18 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
 		params.add("Direcciones");
 		params.add(parametros);
 		return MainActivity.conexion.ejecutarSoap("Direcciones", param);
+
+	}
+
+	public String proyectosRurales(ArrayList<String> parametros) {
+		ArrayList<String[]> param = new ArrayList<String[]>();
+		param.add(new String[] { "parametros", parametros.get(0) });
+
+		ArrayList<Object> params = new ArrayList<Object>();
+		params.add(MainActivity.config.getCodigo());
+		params.add("ProyectosRurales");
+		params.add(parametros);
+		return MainActivity.conexion.ejecutarSoap("ProyectosRurales", param);
 
 	}
 
