@@ -125,7 +125,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
         txtvalorpagoparcial = (TextView) findViewById(R.id.txtvalorpagoparcial);
 
-        chkHabilitarProducto.setChecked(false);
+        //chkHabilitarProducto.setChecked(false);
         chkHabilitarProducto.setOnCheckedChangeListener(habilitarCompProducto);
 
         spntipeticionproducto.setOnItemSelectedListener(seleccionarTipoTransaccion);
