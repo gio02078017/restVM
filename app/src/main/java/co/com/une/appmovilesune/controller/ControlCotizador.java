@@ -369,17 +369,17 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         spnoferta.setSelection(adaptador.getPosition(cotizacion.getOfertaCotizacion()));
 
         if (!cotizacion.getTipoTv().equals("-") && !cotizacion.getTelevision().equals("-")) {
-            cprdTelevision.setChkHabilitarProducto(true);
+            cprdTelevision.setActivo(true);
             cprdTelevision.rellenarProducto(cotizacion.getTipoTv(), cotizacion.getTelevision());
         }
 
-        if (!cotizacion.getTipoTv().equals("-") && !cotizacion.getTelevision().equals("-")) {
-            cprdInternet.setChkHabilitarProducto(true);
+        if (!cotizacion.getTipoBa().equals("-") && !cotizacion.getInternet().equals("-")) {
+            cprdInternet.setActivo(true);
             cprdInternet.rellenarProducto(cotizacion.getTipoBa(), cotizacion.getInternet());
         }
 
         if (!cotizacion.getTipoTo().equals("-") && !cotizacion.getTelefonia().equals("-")) {
-            cprdTelefonia.setChkHabilitarProducto(true);
+            cprdTelefonia.setActivo(true);
             cprdTelefonia.rellenarProducto(cotizacion.getTipoTo(), cotizacion.getTelefonia());
         }
     }
@@ -413,8 +413,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     AdapterView.OnItemSelectedListener seleccionarOferta = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            parametrizarComponentes();
             productosHabilitar((String) parent.getSelectedItem());
+            parametrizarComponentes();
         }
 
         @Override

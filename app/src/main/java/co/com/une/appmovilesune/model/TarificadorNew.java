@@ -117,29 +117,44 @@ public class TarificadorNew {
 
     // metodo encargado de la cotizacion de Telefonia
     public void Tarifas_Telefonia(String Telefonia) {
-        if (!Telefonia.equalsIgnoreCase(Utilidades.inicial) && !Telefonia.equalsIgnoreCase(Utilidades.inicial_guion)) {
-            Consulta(Telefonia, Utilidades.tipo_producto_to);
+        if(Telefonia != null){
+            if (!Telefonia.equalsIgnoreCase(Utilidades.inicial) && !Telefonia.equalsIgnoreCase(Utilidades.inicial_guion)) {
+                Consulta(Telefonia, Utilidades.tipo_producto_to);
+            } else {
+                telefonia = "-";
+            }
         } else {
             telefonia = "-";
         }
+
     }
 
     // metodo encargado de la cotizacion de Television
     public void Tarifas_Television(String Television) {
-        if (!Television.equalsIgnoreCase(Utilidades.inicial) && !Television.equalsIgnoreCase(Utilidades.inicial_guion)) {
-            Consulta(Television, Utilidades.tipo_producto_tv);
+        if(Television != null){
+            if (!Television.equalsIgnoreCase(Utilidades.inicial) && !Television.equalsIgnoreCase(Utilidades.inicial_guion)) {
+                Consulta(Television, Utilidades.tipo_producto_tv);
+            } else {
+                television = "-";
+            }
         } else {
             television = "-";
         }
+
     }
 
     // metodo encargado de la cotizacion de Internet
     public void Tarifas_Internet(String Internet) {
-        if (!Internet.equalsIgnoreCase(Utilidades.inicial) && !Internet.equalsIgnoreCase(Utilidades.inicial_guion)) {
-            Consulta(Internet, Utilidades.tipo_producto_ba);
+        if(Internet != null){
+            if (!Internet.equalsIgnoreCase(Utilidades.inicial) && !Internet.equalsIgnoreCase(Utilidades.inicial_guion)) {
+                Consulta(Internet, Utilidades.tipo_producto_ba);
+            } else {
+                internet = "-";
+            }
         } else {
             internet = "-";
         }
+
     }
 
     // metodo que consulta las tarifas en la DB
@@ -228,9 +243,12 @@ public class TarificadorNew {
             Contador_productos++;
         }
 
+
         if (!internet.equalsIgnoreCase(Utilidades.inicial) && !internet.equalsIgnoreCase(Utilidades.inicial_guion)) {
             Contador_productos++;
         }
+
+
 
         Contador = Contador_productos;
 
