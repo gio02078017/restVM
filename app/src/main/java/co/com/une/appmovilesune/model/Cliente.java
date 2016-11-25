@@ -147,6 +147,8 @@ public class Cliente implements Serializable, Observer, Subject {
 	private boolean realizoConfronta;
 	private boolean confronta;
 
+	private boolean coberRural = false;
+
 	public Cliente() {
 		TipoDocumento = "";
 		Cedula = "";
@@ -1960,6 +1962,14 @@ public class Cliente implements Serializable, Observer, Subject {
 
 	public void setRealizoConfronta(boolean realizoConfronta) {
 		this.realizoConfronta = realizoConfronta;
+	}
+
+	public boolean isCoberRural() {
+		return coberRural;
+	}
+
+	public void setCoberRural(boolean coberRural) {
+		this.coberRural = coberRural;
 	}
 
 	@Override

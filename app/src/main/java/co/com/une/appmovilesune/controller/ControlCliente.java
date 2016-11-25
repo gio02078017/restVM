@@ -6,13 +6,16 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.kobjects.util.Util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -354,7 +357,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         tabs = (TabHost) findViewById(android.R.id.tabhost);
         tabs.setup();
         /*
-		 * Establezco los tabs que se van a manejar y de acuerdo a estos,
+         * Establezco los tabs que se van a manejar y de acuerdo a estos,
 		 * cambian el titulo, texto e img
 		 */
         TabHost.TabSpec spec = tabs.newTabSpec("Cliente");
@@ -409,7 +412,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         tv.setTextColor(getResources().getColor(R.color.darkTab));
 
 		/*
-		 * Cada que se cambia el tab, repinto todos y luego pinto de amarillo el
+         * Cada que se cambia el tab, repinto todos y luego pinto de amarillo el
 		 * seleccionado
 		 */
         tabs.setOnTabChangedListener(new OnTabChangeListener() {
@@ -444,8 +447,36 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
         chkValidar.setOnCheckedChangeListener(validar);
 
+          //txtProyectosRurales.setOnItemSelectedListener(eventoProyectoRural);
+        txtProyectosRurales.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position,long arg3) {
+                Utilidades.MensajesToast(txtProyectosRurales.getText().toString(),MainActivity.context);
+                validarProyecto(txtProyectosRurales.getText().toString());
+            }
+
+        });
+
         campoVisibles();
 
+    }
+
+    public void validarProyecto(String proyecto){
+        boolean control =false;
+        for (int i = 0; i < arrayProyectosRurales.size(); i++) {
+             if(arrayProyectosRurales.get(i).getDescripcion().equalsIgnoreCase(proyecto)){
+                 System.out.println("proyecto descripcion "+arrayProyectosRurales.get(i).getDescripcion());
+                 System.out.println("proyecto cobertura "+arrayProyectosRurales.get(i).getCobertura());
+                 System.out.println("proyecto proyecto "+arrayProyectosRurales.get(i).getProyecto());
+
+                 validarCoberturaNew(Utilidades.coberturaProyecto(arrayProyectosRurales.get(i).getCobertura()));
+                 cliente.setCoberRural(true);
+             }
+        }
+
+        if(!control){
+            cliente.setCoberRural(false);
+        }
     }
 
     public void campoVisibles() {
@@ -696,9 +727,18 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
             String tipoZona = (String) spnTipoZona.getSelectedItem();
+            String barrio = txtBarrio.getText().toString();
+
+            System.out.println("Zona rural tipoZona" + tipoZona);
+            System.out.println("Zona rural barrio" + barrio);
+
             if (tipoZona.equalsIgnoreCase("Rural")) {
-                ConsultarProyectos();
-                rowProyectosRurales.setVisibility(View.VISIBLE);
+                if (!barrio.equalsIgnoreCase("")) {
+                    ConsultarProyectos();
+                    rowProyectosRurales.setVisibility(View.VISIBLE);
+                } else {
+                    limpiarSpnTipoZona();
+                }
             } else {
                 //limpiar
                 arrayProyectosRurales.clear();
@@ -712,6 +752,49 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
         }
     };
+
+    AdapterView.OnItemSelectedListener eventoProyectoRural = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+//            String tipoZona = (String) spnTipoZona.getSelectedItem();
+//            String barrio = txtBarrio.getText().toString();
+//
+//            System.out.println("Zona rural tipoZona" + tipoZona);
+//            System.out.println("Zona rural barrio" + barrio);
+//
+//            if (tipoZona.equalsIgnoreCase("Rural")) {
+//                if (!barrio.equalsIgnoreCase("")) {
+//                    ConsultarProyectos();
+//                    rowProyectosRurales.setVisibility(View.VISIBLE);
+//                } else {
+//                    limpiarSpnTipoZona();
+//                }
+//            } else {
+//                //limpiar
+//                arrayProyectosRurales.clear();
+//                llenarProyectosRurales(arrayProyectosRurales);
+//                rowProyectosRurales.setVisibility(View.GONE);
+//            }
+            Utilidades.MensajesToast(txtProyectosRurales.getText().toString(),MainActivity.context);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    public void limpiarSpnTipoZona() {
+
+        Utilidades.MensajesToast(getResources().getString(R.string.validacionBarrio), this);
+
+        ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spnTipoZona.getAdapter();
+        spnTipoZona.setSelection(adaptador.getPosition(Utilidades.inicial_opcion));
+        arrayProyectosRurales.clear();
+        llenarProyectosRurales(arrayProyectosRurales);
+        rowProyectosRurales.setVisibility(View.GONE);
+    }
 
     private void llenarDepartamentoFac() {
         ArrayAdapter<String> adaptador = null;
@@ -1259,29 +1342,25 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
     }
 
     public void ConsultarProyectos() {
-        if (!txtBarrio.getText().toString().equalsIgnoreCase("")) {
-            JSONObject jo = new JSONObject();
-            try {
 
-                jo.put("strNombreBarrio", txtBarrio.getText().toString());
-                jo.put("strDepartamento", cliente.getDepartamento());
-                jo.put("strMunicipio", cliente.getCiudad());
-                jo.put("strMunicipioFenix", cliente.getCiudadFenix());
-                VerificarProyectos(jo.toString());
+        JSONObject jo = new JSONObject();
+        try {
 
-            } catch (JSONException e) {
+            jo.put("strNombreBarrio", txtBarrio.getText().toString());
+            jo.put("strDepartamento", cliente.getDepartamento());
+            jo.put("strMunicipio", cliente.getCiudad());
+            jo.put("strMunicipioFenix", cliente.getCiudadFenix());
+            VerificarProyectos(jo.toString());
 
-                e.printStackTrace();
-            }
-        } else {
-            Toast.makeText(this, "El Barrio Deben Estar Diligenciados, Para Realizar La Consulta", Toast.LENGTH_SHORT)
-                    .show();
+        } catch (JSONException e) {
+
+            e.printStackTrace();
         }
     }
 
     public void buscar_login(View v) {
         // Identificadores();
-		/*
+        /*
 		 * Intent intent = new Intent(MainActivity.MODULO_DIRECCIONES);
 		 * startActivityForResult(intent, MainActivity.REQUEST_CODE);
 		 */
@@ -1605,47 +1684,51 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         } else if (resultado.get(0).equals("CoberturaNew")) {
 
             System.out.println("CoberturaNew " + resultado.get(1));
-            String tec = Utilidades.obtenerCobertura(resultado.get(1).toString(), this);
-            if (!tec.equalsIgnoreCase("N/D")) {
-                cliente.setTecnologia(tec);
-                if (Utilidades.excluirMunicipal("habilitarCampos", "tecnologia", cliente.getCiudad())) {
-                    ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spnTecnologia.getAdapter();
-                    if (Utilidades.camposUnicosCiudad("bloqueoTecnologia", cliente.getCiudad()).equals("true")) {
-                        cliente.setBloqueoTecnologia(true);
-                        spnTecnologia.setEnabled(false);
-                    }
-                    if (adaptador != null) {
-                        spnTecnologia.setSelection(adaptador.getPosition(tec));
-                    } else {
-                        spnTecnologia.setSelection(0);
-                    }
+            validarCoberturaNew(resultado.get(1).toString());
 
+        }
+    }
+
+    public void validarCoberturaNew(String cobertura){
+        String tec = Utilidades.obtenerCobertura(cobertura, this);
+        if (!tec.equalsIgnoreCase("N/D")) {
+            cliente.setTecnologia(tec);
+            if (Utilidades.excluirMunicipal("habilitarCampos", "tecnologia", cliente.getCiudad())) {
+                ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spnTecnologia.getAdapter();
+                if (Utilidades.camposUnicosCiudad("bloqueoTecnologia", cliente.getCiudad()).equals("true")) {
+                    cliente.setBloqueoTecnologia(true);
+                    spnTecnologia.setEnabled(false);
                 }
-
-            } else {
-                cliente.setTecnologia(Utilidades.inicial_opcion);
-                if (Utilidades.excluirMunicipal("habilitarCampos", "tecnologia", cliente.getCiudad())) {
-                    ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spnTecnologia.getAdapter();
-                    if (Utilidades.camposUnicosCiudad("bloqueoTecnologia", cliente.getCiudad()).equals("true")) {
-                        cliente.setBloqueoTecnologia(true);
-                        spnTecnologia.setEnabled(false);
-                    }
-                    if (adaptador != null) {
-                        spnTecnologia.setSelection(adaptador.getPosition(Utilidades.inicial_opcion));
-                    } else {
-                        spnTecnologia.setSelection(0);
-                    }
-
+                if (adaptador != null) {
+                    spnTecnologia.setSelection(adaptador.getPosition(tec));
+                } else {
+                    spnTecnologia.setSelection(0);
                 }
 
             }
 
-            System.out.println("Tecnologia " + cliente.getTecnologia());
-            cliente.setCobertura(resultado.get(1).toString());
-            // validarEstandarizacion(resultado.get(1).toString());
-            // resulValidarLogin(resultado.get(1).toString());
+        } else {
+            cliente.setTecnologia(Utilidades.inicial_opcion);
+            if (Utilidades.excluirMunicipal("habilitarCampos", "tecnologia", cliente.getCiudad())) {
+                ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spnTecnologia.getAdapter();
+                if (Utilidades.camposUnicosCiudad("bloqueoTecnologia", cliente.getCiudad()).equals("true")) {
+                    cliente.setBloqueoTecnologia(true);
+                    spnTecnologia.setEnabled(false);
+                }
+                if (adaptador != null) {
+                    spnTecnologia.setSelection(adaptador.getPosition(Utilidades.inicial_opcion));
+                } else {
+                    spnTecnologia.setSelection(0);
+                }
+
+            }
 
         }
+
+        System.out.println("Tecnologia " + cliente.getTecnologia());
+        cliente.setCobertura(cobertura);
+        // validarEstandarizacion(resultado.get(1).toString());
+        // resulValidarLogin(resultado.get(1).toString());
     }
 
     public void validarConsolidar(String resul) {
@@ -1908,11 +1991,10 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
                         llenarProyectosRurales(arrayProyectosRurales);
                     }
                 }
-            }else{
+            } else {
                 arrayProyectosRurales.clear();
                 llenarProyectosRurales(arrayProyectosRurales);
             }
-
 
 
         } catch (Exception e) {

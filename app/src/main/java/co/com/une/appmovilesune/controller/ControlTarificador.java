@@ -1669,7 +1669,7 @@ public class ControlTarificador extends Activity implements Subject, Observer {
 								if (validarDigital()) {
 									if (validarTelefonoServicio) {
 										if (Utilidades.validarTelefonos(cliente, this)) {
-											if (validarEstandarizacion || cliente.isControlCerca()) {
+											if (validarEstandarizacion || cliente.isControlCerca() || cliente.isCoberRural()) {
 
 												System.out.println("direccion " + cliente.getDireccion());
 												System.out.println("tipoDocumento " + cliente.getTipoDocumento());
@@ -1681,17 +1681,6 @@ public class ControlTarificador extends Activity implements Subject, Observer {
 																.equalsIgnoreCase(Utilidades.inicial_opcion)) {
 													if (!cliente.getTelefonoDestino().equalsIgnoreCase("")
 															&& cliente.getTelefonoDestino().length() >= 7) {
-														/*
-														 * Intent intent = new
-														 * Intent();
-														 * intent.putExtra(
-														 * "cotizacion",
-														 * cotizacion);
-														 * setResult(
-														 * MainActivity
-														 * .OK_RESULT_CODE ,
-														 * intent); finish();
-														 */
 														if (validarAgendaSiebel()) {
 															if ((cliente.getTipoPropiedad() != null
 																	&& !cliente.getTipoPropiedad()
