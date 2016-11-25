@@ -234,26 +234,20 @@ public class TarificadorNew {
         int Contador = 0;
         Contador_productos = 0;
 
-        if(telefonia != null){
-            if (!telefonia.equalsIgnoreCase(Utilidades.inicial) && !telefonia.equalsIgnoreCase(Utilidades.inicial_guion)) {
-                Contador_productos++;
-            }
+        if (!telefonia.equalsIgnoreCase(Utilidades.inicial) && !telefonia.equalsIgnoreCase(Utilidades.inicial_guion)) {
+            Contador_productos++;
+        }
+
+        if (!television.equalsIgnoreCase(Utilidades.inicial)
+                && !television.equalsIgnoreCase(Utilidades.inicial_guion)) {
+            Contador_productos++;
         }
 
 
-        if(television != null){
-            if (!television.equalsIgnoreCase(Utilidades.inicial)
-                    && !television.equalsIgnoreCase(Utilidades.inicial_guion)) {
-                Contador_productos++;
-            }
+        if (!internet.equalsIgnoreCase(Utilidades.inicial) && !internet.equalsIgnoreCase(Utilidades.inicial_guion)) {
+            Contador_productos++;
         }
 
-
-        if(internet != null){
-            if (!internet.equalsIgnoreCase(Utilidades.inicial) && !internet.equalsIgnoreCase(Utilidades.inicial_guion)) {
-                Contador_productos++;
-            }
-        }
 
 
         Contador = Contador_productos;

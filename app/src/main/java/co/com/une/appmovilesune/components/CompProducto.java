@@ -207,7 +207,6 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
             clausula = "Departamento=? and Tipo_Producto=? and Nuevo IN(?,?) and Estrato like ? and Tecnologia like ? and Oferta = ?";
             valores = new String[]{departamento, traducirProducto(), traducirTipoPeticion(), "2", "%" + estrato + "%",
                     "%" + tecnologia + "%", oferta};
-
         } else {
             clausula = "Departamento=? and Tipo_Producto=? and Nuevo IN(?) and Estrato like ? and Tecnologia like ?";
             valores = new String[]{departamento, traducirProducto(), traducirTipoPeticion(), "%" + estrato + "%",
@@ -408,7 +407,11 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     public String getPlan() {
         //System.out.println("llamado spnSelectorPlan.getSelectedItem() " + (String) spnSelectorPlan.getSelectedItem());
-        return (String) spnSelectorPlan.getSelectedItem();
+        String plan = (String) spnSelectorPlan.getSelectedItem();
+        if(plan == null){
+            plan = "-";
+        }
+        return plan;
     }
 
     public String getPeticionProducto() {
