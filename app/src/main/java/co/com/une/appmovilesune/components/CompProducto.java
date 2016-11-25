@@ -408,12 +408,20 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     public String getPlan() {
         //System.out.println("llamado spnSelectorPlan.getSelectedItem() " + (String) spnSelectorPlan.getSelectedItem());
-        return (String) spnSelectorPlan.getSelectedItem();
+        if (spnSelectorPlan.getSelectedItem() == null) {
+            return Utilidades.inicial;
+        } else {
+            return (String) spnSelectorPlan.getSelectedItem();
+        }
     }
 
     public String getPeticionProducto() {
         //System.out.println("llamado (String)spntipeticionproducto.getSelectedItem() " + (String) spntipeticionproducto.getSelectedItem());
-        return (String) spntipeticionproducto.getSelectedItem();
+        if (spntipeticionproducto.getSelectedItem() == null) {
+            return Utilidades.inicial_guion;
+        } else {
+            return (String) spntipeticionproducto.getSelectedItem();
+        }
     }
 
     public Spinner getSpnSelectorPlan() {
