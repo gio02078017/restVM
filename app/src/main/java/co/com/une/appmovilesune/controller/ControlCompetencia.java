@@ -50,7 +50,7 @@ public class ControlCompetencia extends Activity {
 	private Spinner spnCompetencia, spnProducto, spnMotivoNoUne, spnSubMotivoNoUne, spnAtencion;
 	private CheckBox chkEmpaquetado;
 	private EditText txtOtraCompetencia, txtPagoMensual, txtObservaciones, txtDireccion, txtNombre, txtApellido,
-			txtDocumento, txtBarrio, txtTelefono;
+			txtDocumento, txtBarrio, txtTelefono, txtCorreo;
 	public static EditText txtVigenciaContrato;
 	public static EditText txtFechaExpCompetencia;
 	public ImageButton btnSiguiente, btnPickDate;
@@ -154,6 +154,7 @@ public class ControlCompetencia extends Activity {
 		txtDocumento = (EditText) findViewById(R.id.txtDocumentoCompetencia);
 		txtBarrio = (EditText) findViewById(R.id.txtBarrioCompetencia);
 		spnTipoDocumento = (Spinner) findViewById(R.id.spnTipoDocumento);
+		txtCorreo = (EditText) findViewById(R.id.txtCorreoCompetencia);
 
 		// slfCompetenciaFechaExp = (SelectorFecha)
 		// findViewById(R.id.slfCompetenciaFechaExp);
@@ -296,6 +297,7 @@ public class ControlCompetencia extends Activity {
 	private void llenarCampos() {
 		ArrayAdapter<String> adaptador;
 		motivo();
+		llenarSpinerSubmotivos(competencia.getNoUne());
 		submotivo(competencia.getSubMotivo());
 		atiende();
 		txtObservaciones.setText(competencia.getObservaciones());
@@ -335,6 +337,7 @@ public class ControlCompetencia extends Activity {
 		txtApellido.setText(cliente.getApellido());
 		txtDocumento.setText(cliente.getCedula());
 		txtBarrio.setText(cliente.getBarrio());
+		txtCorreo.setText(cliente.getCorreo());
 
 		ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spnTipoDocumento.getAdapter();
 
