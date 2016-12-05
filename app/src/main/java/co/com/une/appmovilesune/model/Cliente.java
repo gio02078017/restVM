@@ -147,7 +147,8 @@ public class Cliente implements Serializable, Observer, Subject {
 	private boolean realizoConfronta;
 	private boolean confronta;
 
-	private boolean coberRural = false;
+	public CoberturaRural coberturaRural;
+	private String tipoZona;
 
 	public Cliente() {
 		TipoDocumento = "";
@@ -210,6 +211,8 @@ public class Cliente implements Serializable, Observer, Subject {
 
 		logSmartPromoEnv = "";
 		logSmartPromoRes = "";
+
+		tipoZona = "";
 	}
 
 	public Cliente(String Municipio, String Cedula, String Telefono, String Direccion, String id_asesoria) {
@@ -280,6 +283,7 @@ public class Cliente implements Serializable, Observer, Subject {
 		contacto1 = new Contacto();
 		contacto2 = new Contacto();
 		scooringune = new ScooringUne();
+		coberturaRural = new CoberturaRural();
 
 		facturacion = new Facturacion();
 
@@ -1150,6 +1154,22 @@ public class Cliente implements Serializable, Observer, Subject {
 				jo.put("bloqueoDomiciliacion", "0");
 			}
 
+			if(coberturaRural != null){
+				if(coberturaRural.isCoberturaRural()){
+					JSONObject proyecto = new JSONObject();
+					proyecto.put("cobertura",coberturaRural.getCoberturaSeleccionada());
+					proyecto.put("proyecto",coberturaRural.getProyectoSeleccionado());
+					proyecto.put("codigoProyecto",coberturaRural.getCodigoProyecto());
+
+					jo.put("proyectoRural",proyecto);
+
+				}else{
+					jo.put("proyectoRural","N/A");
+				}
+			}else{
+				jo.put("proyectoRural","N/A");
+			}
+
 		} catch (JSONException e) {
 			Log.w("Error", e.getMessage());
 		}
@@ -1964,12 +1984,12 @@ public class Cliente implements Serializable, Observer, Subject {
 		this.realizoConfronta = realizoConfronta;
 	}
 
-	public boolean isCoberRural() {
-		return coberRural;
+	public String getTipoZona() {
+		return tipoZona;
 	}
 
-	public void setCoberRural(boolean coberRural) {
-		this.coberRural = coberRural;
+	public void setTipoZona(String tipoZona) {
+		this.tipoZona = tipoZona;
 	}
 
 	@Override
