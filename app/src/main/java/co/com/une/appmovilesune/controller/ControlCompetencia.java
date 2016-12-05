@@ -215,20 +215,6 @@ public class ControlCompetencia extends Activity {
 		adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listMotivo);
 		spnMotivoNoUne.setAdapter(adaptador);
 
-		resultado = MainActivity.basedatos.consultar(false, "listasgenerales", new String[] { "lst_item" },
-				"lst_nombre = ?", new String[] { "SubMotivos Gestor Visitas" }, null, null, null);
-		ArrayList<String> listSubMotivo = new ArrayList<String>();
-		if (resultado != null) {
-			listSubMotivo.add(Utilidades.inicial_sub_motivo);
-
-			for (int i = 0; i < resultado.size(); i++) {
-				listSubMotivo.add(resultado.get(i).get(0));
-			}
-		}
-
-		adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listSubMotivo);
-		spnSubMotivoNoUne.setAdapter(adaptador);
-
 		spnMotivoNoUne.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			public void onItemSelected(AdapterView<?> parent, android.view.View v, int position, long id) {
 
@@ -237,9 +223,15 @@ public class ControlCompetencia extends Activity {
 				if (motivo != null) {
 					if (motivo.equalsIgnoreCase("CREDITO Y CARTERA")) {
 						trTablaCompetenciaSubMotivo.setVisibility(View.VISIBLE);
+						llenarSpinerSubmotivos("CREDITO Y CARTERA");
 						preLLenarSubMotivo();
 						spnSubMotivoNoUne.setEnabled(false);
-					} else {
+					} else if(motivo.equalsIgnoreCase("MOTIVO DE NO PAGO")){
+						trTablaCompetenciaSubMotivo.setVisibility(View.VISIBLE);
+						llenarSpinerSubmotivos("MOTIVO DE NO PAGO");
+						spnSubMotivoNoUne.setSelection(0);
+						spnSubMotivoNoUne.setEnabled(true);
+					} else  {
 						trTablaCompetenciaSubMotivo.setVisibility(View.GONE);
 						spnSubMotivoNoUne.setSelection(0);
 					}
@@ -271,6 +263,25 @@ public class ControlCompetencia extends Activity {
 
 		adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listATipoDocumento);
 		spnTipoDocumento.setAdapter(adaptador);
+	}
+
+	private void llenarSpinerSubmotivos(String motivo){
+
+		ArrayAdapter<String> adaptador = null;
+
+		ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores", new String[] { "lst_valor" },
+				"lst_nombre = ? and lst_clave = ?", new String[] { "submotivos gerencia visitas", motivo }, null, null, null);
+		ArrayList<String> listSubMotivo = new ArrayList<String>();
+		if (resultado != null) {
+			listSubMotivo.add(Utilidades.inicial_sub_motivo);
+
+			for (int i = 0; i < resultado.size(); i++) {
+				listSubMotivo.add(resultado.get(i).get(0));
+			}
+		}
+
+		adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listSubMotivo);
+		spnSubMotivoNoUne.setAdapter(adaptador);
 	}
 
 	public void preLLenarSubMotivo() {
@@ -419,7 +430,6 @@ public class ControlCompetencia extends Activity {
 		cliente.setCedula(txtDocumento.getText().toString());
 		cliente.setExpedicion(txtFechaExpCompetencia.getText().toString());
 		cliente.setTipoDocumento((String) spnTipoDocumento.getSelectedItem());
-		;
 
 		Intent intent = new Intent();
 		intent.putExtra("competencia", competencia);
