@@ -8,5 +8,43 @@
 		<item name="android:textColor">#000000</item>
 	</style>
 
+    <style name="textcompproductobackgroundorange">
+        <item name="android:textColor">@color/orange</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="textcompproductobackgroundpurpple">
+        <item name="android:textColor">@color/purple</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="textovalortotales">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:text">@string/dinero</item>
+    </style>
+
+    <style name="linearlayoutproductovalores">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/compproductovaloresbackground</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:divider">@drawable/empyverticaldivider</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+
+
 </resources>
 

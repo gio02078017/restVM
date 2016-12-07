@@ -18,8 +18,8 @@ public class Resumen extends Activity {
 	Venta venta;
 	Cliente cliente;
 
-	TextView lblTO, lblTV, lblAdicional, lblBA, lbl3G, lbl4g, txtPlanTO, txtDescuentoTO, txtPlanTV, txtDescuentoTV,
-			txtAdicionales, txtPlanBA, txtDescuentoBA, txtPlan3G, txtDescuento3G, txtPlan4G, txtDescuento4G, txtTotal,
+	TextView lblTO, lblTV, lblAdicional, lblBA, txtPlanTO, txtDescuentoTO, txtPlanTV, txtDescuentoTV,
+			txtAdicionales, txtPlanBA, txtDescuentoBA, txtTotal,
 			txtAdicionalesTO, lblAdicionalTO;
 
 	TableRow tableimpuesto;
@@ -50,14 +50,6 @@ public class Resumen extends Activity {
 		lblBA = (TextView) findViewById(R.id.lblInternet);
 		txtPlanBA = (TextView) findViewById(R.id.planInternet);
 		txtDescuentoBA = (TextView) findViewById(R.id.dtoInternet);
-
-		lbl3G = (TextView) findViewById(R.id.lblTresG);
-		txtPlan3G = (TextView) findViewById(R.id.planTresG);
-		txtDescuento3G = (TextView) findViewById(R.id.dtoTresG);
-
-		lbl4g = (TextView) findViewById(R.id.lblCuatroG);
-		txtPlan4G = (TextView) findViewById(R.id.planCuatroG);
-		txtDescuento4G = (TextView) findViewById(R.id.dtoCuatroG);
 
 		txtTotal = (TextView) findViewById(R.id.totalVenta);
 
@@ -132,37 +124,6 @@ public class Resumen extends Activity {
 			txtDescuentoBA.setVisibility(View.GONE);
 			findViewById(R.id.TableRow7).setVisibility(View.GONE);
 			findViewById(R.id.TableRow8).setVisibility(View.GONE);
-		}
-
-		if (!venta.getInternet3G()[0].equals("-")) {
-			txtPlan3G.setText(venta.getInternet3G()[0]);
-			if (!venta.getInternet3G()[9].equals("-")) {
-				txtDescuento3G.setText(venta.getInternet3G()[9]);
-			} else {
-				txtDescuento3G.setVisibility(View.GONE);
-
-			}
-		} else {
-			lbl3G.setVisibility(View.GONE);
-			txtPlan3G.setVisibility(View.GONE);
-			txtDescuento3G.setVisibility(View.GONE);
-			findViewById(R.id.TableRow9).setVisibility(View.GONE);
-			findViewById(R.id.TableRow10).setVisibility(View.GONE);
-		}
-
-		if (!venta.getInternet4G()[0].equals("-")) {
-			txtPlan4G.setText(venta.getInternet4G()[0]);
-			if (!venta.getInternet4G()[2].equals("-")) {
-				txtDescuento4G.setText(venta.getInternet4G()[2]);
-			} else {
-				txtDescuento4G.setVisibility(View.GONE);
-			}
-		} else {
-			lbl4g.setVisibility(View.GONE);
-			txtPlan4G.setVisibility(View.GONE);
-			txtDescuento4G.setVisibility(View.GONE);
-			findViewById(R.id.TableRow11).setVisibility(View.GONE);
-			findViewById(R.id.TableRow12).setVisibility(View.GONE);
 		}
 
 		txtTotal.setText(venta.getTotal());

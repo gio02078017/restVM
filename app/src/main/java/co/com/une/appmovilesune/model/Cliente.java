@@ -77,6 +77,7 @@ public class Cliente implements Serializable, Observer, Subject {
 	private String departamentoSiebel;
 	private String ciudadSiebel;
 	private String ciudadFenix;
+	private String ciudadAmc;
 
 	private String NivelEstudio;
 	private String Profesion;
@@ -143,9 +144,11 @@ public class Cliente implements Serializable, Observer, Subject {
 	private boolean controlCarrusel;
 	private String crmCarrusel;
 	private String productosCarrusel;
-	
+
 	private boolean realizoConfronta;
 	private boolean confronta;
+
+	private String pagoAnticipado;
 
 	private boolean coberRural = false;
 
@@ -210,6 +213,8 @@ public class Cliente implements Serializable, Observer, Subject {
 
 		logSmartPromoEnv = "";
 		logSmartPromoRes = "";
+
+		pagoAnticipado = "";
 	}
 
 	public Cliente(String Municipio, String Cedula, String Telefono, String Direccion, String id_asesoria) {
@@ -243,6 +248,7 @@ public class Cliente implements Serializable, Observer, Subject {
 		this.ciudadDane = Utilidades.traducirCiudadDane(Municipio);
 		this.departamentoSiebel = Utilidades.traducirCiudadDane(Municipio);
 		this.ciudadSiebel = Utilidades.traducirCiudadGIIS(Municipio);
+		this.ciudadAmc = Utilidades.traducirCiudadAmc(Municipio);
 		this.TipoServicio = "";
 		this.Correo = "";
 		this.dominioCorreo = "";
@@ -626,39 +632,45 @@ public class Cliente implements Serializable, Observer, Subject {
 
 				System.out.println("jo cliente " + jo);
 
-				Direccion = jo.getString("Direccion");
-				Estrato = jo.getString("Estrato");
-				Paginacion = jo.getString("Paginacion");
+				System.out.println("jo Municipio " + traducirMunicipio(jo.getString("Municipio")));
 
-				if (jo.getString("Nombres").equalsIgnoreCase("") && jo.getString("Apellidos").equalsIgnoreCase("")) {
-					Nombre = jo.getString("NombreCompleto");
-					Apellido = "";
-				} else {
-					Nombre = jo.getString("Nombres");
-					Apellido = jo.getString("Apellidos");
-				}
+				if (!Utilidades.excluir("siebelMunicipios", traducirMunicipio(jo.getString("Municipio")))) {
 
-				Cedula = jo.getString("Documento");
-				// departamento =
-				// traducirDepartamento(jo.getString("Departamento"));
-				if (!departamento.equalsIgnoreCase(Utilidades.Bogota)) {
-					ciudad = traducirMunicipio(jo.getString("Municipio"));
-					ciudadFenix = Utilidades.traducirCiudadFenix(ciudad);
-					ciudadDane = Utilidades.traducirCiudadDane(ciudad);
-					this.departamentoSiebel = Utilidades.traducirCiudadDane(ciudad);
-					this.ciudadSiebel = Utilidades.traducirCiudadGIIS(ciudad);
-				}
+					Direccion = jo.getString("Direccion");
+					Estrato = jo.getString("Estrato");
+					Paginacion = jo.getString("Paginacion");
 
-				System.out.println("ciudad " + ciudad);
+					if (jo.getString("Nombres").equalsIgnoreCase("")
+							&& jo.getString("Apellidos").equalsIgnoreCase("")) {
+						Nombre = jo.getString("NombreCompleto");
+						Apellido = "";
+					} else {
+						Nombre = jo.getString("Nombres");
+						Apellido = jo.getString("Apellidos");
+					}
 
-				if (!ciudad.equalsIgnoreCase("BogotaREDCO")) {
-					lanzarSimulador("Cobertura");
-				}
+					Cedula = jo.getString("Documento");
+					// departamento =
+					// traducirDepartamento(jo.getString("Departamento"));
+					if (!departamento.equalsIgnoreCase(Utilidades.Bogota)) {
+						ciudad = traducirMunicipio(jo.getString("Municipio"));
+						ciudadFenix = Utilidades.traducirCiudadFenix(ciudad);
+						ciudadDane = Utilidades.traducirCiudadDane(ciudad);
+						this.departamentoSiebel = Utilidades.traducirCiudadDane(ciudad);
+						this.ciudadSiebel = Utilidades.traducirCiudadGIIS(ciudad);
+					}
 
-				lanzarSimulador("Portafolio");
-				lanzarSimulador("Cartera_UNE");
-				if (Utilidades.visible("AmigoCuentas", MainActivity.config.getCiudad())) {
-					lanzarAmigoCuentas(Telefono, "identificador", jo.getString("Municipio"));
+					System.out.println("ciudad " + ciudad);
+
+					if (!ciudad.equalsIgnoreCase("BogotaREDCO")) {
+						lanzarSimulador("Cobertura");
+					}
+
+					lanzarSimulador("Portafolio");
+					lanzarSimulador("Cartera_UNE");
+					if (Utilidades.visible("AmigoCuentas", MainActivity.config.getCiudad())) {
+						lanzarAmigoCuentas(Telefono, "identificador", jo.getString("Municipio"));
+					}
 				}
 
 			} catch (JSONException e) {
@@ -1028,13 +1040,13 @@ public class Cliente implements Serializable, Observer, Subject {
 			} else {
 				jo.put("Migracion4G", "N/A");
 			}
-			
+
 			if (crmCarrusel != null) {
 				jo.put("crmCarrusel", crmCarrusel);
 			} else {
 				jo.put("crmCarrusel", "");
 			}
-			
+
 			if (productosCarrusel != null) {
 				jo.put("productosCarrusel", productosCarrusel);
 			} else {
@@ -1098,7 +1110,7 @@ public class Cliente implements Serializable, Observer, Subject {
 			 * jo.put("tcontacto2", contacto2.getTelefono());
 			 * jo.put("ccontacto2", contacto2.getCelular());
 			 * jo.put("pcontacto2", contacto2.getParentesco());
-			 * 
+			 *
 			 * jo.put("departamentoFacturacion", facturacion.getDepartamento());
 			 * jo.put("municipioFacturacion", facturacion.getMunicipio());
 			 * jo.put("direccionFacturacion", facturacion.getDireccion());
@@ -1149,6 +1161,10 @@ public class Cliente implements Serializable, Observer, Subject {
 				jo.put("domiciliacion", "NO");
 				jo.put("bloqueoDomiciliacion", "0");
 			}
+
+			System.out.println("BanderaPA " + pagoAnticipado);
+
+			jo.put("pagoAnticipado",pagoAnticipado);
 
 		} catch (JSONException e) {
 			Log.w("Error", e.getMessage());
@@ -1526,6 +1542,14 @@ public class Cliente implements Serializable, Observer, Subject {
 
 	public void setDepartamentoSiebel(String departamentoSiebel) {
 		this.departamentoSiebel = departamentoSiebel;
+	}
+
+	public String getCiudadAmc() {
+		return ciudadAmc;
+	}
+
+	public void setCiudadAmc(String ciudadAmc) {
+		this.ciudadAmc = ciudadAmc;
 	}
 
 	public String getConsolidado() {
@@ -1930,8 +1954,8 @@ public class Cliente implements Serializable, Observer, Subject {
 
 	public void setControlCarrusel(boolean controlCarrusel) {
 		this.controlCarrusel = controlCarrusel;
-	}	
-	
+	}
+
 	public String getCrmCarrusel() {
 		return crmCarrusel;
 	}
@@ -1939,7 +1963,7 @@ public class Cliente implements Serializable, Observer, Subject {
 	public void setCrmCarrusel(String crmCarrusel) {
 		this.crmCarrusel = crmCarrusel;
 	}
-	
+
 	public String getProductosCarrusel() {
 		return productosCarrusel;
 	}
@@ -1962,6 +1986,10 @@ public class Cliente implements Serializable, Observer, Subject {
 
 	public void setRealizoConfronta(boolean realizoConfronta) {
 		this.realizoConfronta = realizoConfronta;
+	}
+
+	public void setPagoAnticipado(String pagoAnticipado){
+		this.pagoAnticipado = pagoAnticipado;
 	}
 
 	public boolean isCoberRural() {

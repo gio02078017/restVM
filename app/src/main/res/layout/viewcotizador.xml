@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <co.com.une.appmovilesune.components.TituloPrincipal
+        android:id="@+id/tlpPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/filtrocotizador" />
+
+            <co.com.une.appmovilesune.components.CompProducto
+                android:id="@+id/cprdTelevision"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                custom:tipo="Television"/>
+
+            <co.com.une.appmovilesune.components.CompAdicional
+                android:id="@+id/cadcTelevision"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                custom:tipoAdicional="AdicionalesTelevision"
+                android:visibility="gone"/>
+
+            <co.com.une.appmovilesune.components.CompDecos
+                android:id="@+id/cdcsDecodificadores"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <co.com.une.appmovilesune.components.CompProducto
+                android:id="@+id/cprdInternet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                custom:tipo="Internet"/>
+
+            <co.com.une.appmovilesune.components.CompProducto
+                android:id="@+id/cprdTelefonia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                custom:tipo="Telefonia"/>
+
+            <co.com.une.appmovilesune.components.CompAdicional
+                android:id="@+id/cadcTelefonia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                custom:tipoAdicional="AdicionalesTelefonia"
+                android:visibility="gone"/>
+
+            <co.com.une.appmovilesune.components.CompTotalCotizador
+                android:id="@+id/cttlTotales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"/>
+
+            <ImageButton
+                android:id="@+id/btnGardarCotizacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/buttons"
+                android:contentDescription="@string/desc_finalizar"
+                android:onClick="procesarCotizacion"
+                android:src="@drawable/buttons_src" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

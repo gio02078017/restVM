@@ -260,19 +260,6 @@ public class Pdf {
 				textPlanBaSol = nullPlan;
 			}
 
-			if (!venta.getInternet4G()[0].equalsIgnoreCase("-") && !venta.getTelevision()[6].trim().equals("")) {
-				textPlanCuatroGSol = new Phrase(venta.getInternet4G()[0], fontNormalGray);
-				if (!venta.getInternet4G()[3].equalsIgnoreCase("N/A")) {
-					textTitleDtoCuatroG = new Phrase(
-							"Con un descuento de " + venta.getInternet4G()[2] + " durante " + venta.getInternet4G()[3],
-							fontNormalGray);
-				}
-				textPlanCuatroGPrice = new Phrase("($" + venta.getInternet4G()[1] + " mensuales, IVA incluido)",
-						fontCursiveGray);
-			} else {
-				textPlanCuatroGSol = nullPlan;
-			}
-
 			if (!venta.getTelevision()[6].equalsIgnoreCase("-") && !venta.getTelevision()[6].trim().equals("")) {
 				observacionesSol = new Phrase(
 						"Recuerde que tambien ha adquirido con UNE adicionales como " + venta.getTelevision()[6]

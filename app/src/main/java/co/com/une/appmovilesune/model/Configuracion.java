@@ -861,6 +861,7 @@ public class Configuracion implements Serializable {
 						cv.put("Ciudad", jo.getString("Ciudad"));
 						cv.put("CiudadFenix", jo.getString("CiudadFenix"));
 						cv.put("Codigo_Giis", jo.getString("Codigo_Giis"));
+						cv.put("Codigo_Amc", jo.getString("Codigo_Amc"));
 						cv.put("Identificador", jo.getString("Identificador"));
 						cv.put("CodigoDaneMunicipio", jo.getString("codigoDaneMunicipio"));
 						cv.put("Estado", jo.getString("Estado"));

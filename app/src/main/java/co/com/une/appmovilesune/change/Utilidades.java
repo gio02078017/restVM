@@ -43,7 +43,6 @@ import co.com.une.appmovilesune.model.Cotizacion;
 import co.com.une.appmovilesune.model.Localizacion;
 import co.com.une.appmovilesune.model.Producto;
 import co.com.une.appmovilesune.model.Venta;
-
 import android.widget.Toast;
 
 public class Utilidades {
@@ -344,11 +343,11 @@ public class Utilidades {
         return contactos;
     }
 
-    public static JSONObject jsonProductosVenta(String nombre, String tipo, String cambioPlan, String planAnterior,
-                                                String precio, String descuento, String duracion, String extensiones, String wifi, String linea,
-                                                String marca, String referencia, String capacidad, String adicionales, String planFacturacion,
-                                                String tecnologia, String decos, String tipoCotizacion, String identificador, String tecnologiacr,
-                                                ArrayList<ItemDecodificador> itemDecodificadors, String ipDinamica) {
+	public static JSONObject jsonProductosVenta(String nombre, String tipo, String cambioPlan, String planAnterior,
+			String precio, String descuento, String duracion, String extensiones, String wifi, String linea,
+			String marca, String referencia, String capacidad, String adicionales, String planFacturacion,
+			String tecnologia, String decos, String tipoCotizacion, String identificador, String tecnologiacr,
+			ArrayList<ItemDecodificador> itemDecodificadors, String ipDinamica,String pagoAntCargoFijo,String pagoParcialConexion) {
 
         System.out.println("jsonProductosVenta->tecnologiacr " + tecnologiacr);
         JSONArray arrayAdicionales = null;
@@ -383,34 +382,36 @@ public class Utilidades {
             }
         }
 
-        JSONObject productos = new JSONObject();
-        try {
-            productos.put("nombre", nombre);
-            productos.put("tipoCotizacion", tipoCotizacion);
-            productos.put("tipo", tipo);
-            productos.put("cambioPlan", cambioPlan);
-            productos.put("planAnterior", planAnterior);
-            productos.put("precio", precio);
-            productos.put("descuento", descuento);
-            productos.put("duracion", duracion);
-            productos.put("extensiones", extensiones);
-            productos.put("linea", linea);
-            productos.put("wifi", wifi);
-            productos.put("marca", marca);
-            productos.put("referencia", referencia);
-            productos.put("capacidad", capacidad);
-            productos.put("homologado", "");
-            productos.put("planfacturacion", "");
-            productos.put("identificador", identificador);
-            productos.put("ipDinamica", ipDinamica);
-            productos.put("adicionales", arrayAdicionales);
-            productos.put("planFacturacion", planFacturacion);
-            if (!tecnologia.equalsIgnoreCase("IPTV")) {
-                productos.put("tecnologia", tecnologia);
-            } else {
-                productos.put("tecnologia", "REDCO");
-            }
-            productos.put("tecnologiacr", tecnologiacr);
+		JSONObject productos = new JSONObject();
+		try {
+			productos.put("nombre", nombre);
+			productos.put("tipoCotizacion", tipoCotizacion);
+			productos.put("tipo", tipo);
+			productos.put("cambioPlan", cambioPlan);
+			productos.put("planAnterior", planAnterior);
+			productos.put("precio", precio);
+			productos.put("pagoAntCargoFijo", pagoAntCargoFijo);
+			productos.put("pagoParcialConexion", pagoParcialConexion);
+			productos.put("descuento", descuento);
+			productos.put("duracion", duracion);
+			productos.put("extensiones", extensiones);
+			productos.put("linea", linea);
+			productos.put("wifi", wifi);
+			productos.put("marca", marca);
+			productos.put("referencia", referencia);
+			productos.put("capacidad", capacidad);
+			productos.put("homologado", "");
+			productos.put("planfacturacion", "");
+			productos.put("identificador", identificador);
+			productos.put("ipDinamica", ipDinamica);
+			productos.put("adicionales", arrayAdicionales);
+			productos.put("planFacturacion", planFacturacion);
+			if (!tecnologia.equalsIgnoreCase("IPTV")) {
+				productos.put("tecnologia", tecnologia);
+			} else {
+				productos.put("tecnologia", "REDCO");
+			}
+			productos.put("tecnologiacr", tecnologiacr);
 
             System.out.println("decos " + decos);
             if (!decos.equalsIgnoreCase("") && !decos.equalsIgnoreCase("N/A")) {
@@ -710,7 +711,17 @@ public class Utilidades {
         }
     }
 
-    public static String traducirCodigoBarrio(String barrio) {
+	public static String traducirCiudadAmc(String ciudad) {
+		ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "Departamentos",
+				new String[] { "Codigo_Amc" }, "Ciudad = ?", new String[] { ciudad }, null, null, null);
+		if (resultado != null) {
+			return resultado.get(0).get(0);
+		} else {
+			return "Ninguna";
+		}
+	}
+
+	public static String traducirCodigoBarrio(String barrio) {
 
         System.out.println("Barrio " + barrio);
 
@@ -1335,6 +1346,8 @@ public class Utilidades {
 
         String[] Documentacion = venta.getDocumentacion();
         listVenta.add(new ListaDefault(0, "Documentación", "Titulo"));
+		String[] Documentacion = venta.getDocumentacion();
+		listVenta.add(new ListaDefault(0, "Documentación", "Titulo"));
 
         listVenta.add(new ListaDefault(1, "Identificador Validación IVR", Documentacion[0]));
         listVenta.add(new ListaDefault(1, "Horario Atención", venta.getHorarioAtencion()));
@@ -1388,7 +1401,7 @@ public class Utilidades {
                 new String[]{"lst_valor"}, "lst_clave=? and Upper(lst_ciudad)=?",
                 new String[]{clave, ciudad.toUpperCase()}, null, null, null);
 
-        System.out.println("respuesta " + respuesta);
+		System.out.println("respuesta  Visible " + respuesta);
 
         String data = "";
 
@@ -2787,7 +2800,7 @@ public class Utilidades {
 
         double numero = 0.0;
 
-        try {
+		try {
 
             numero = Double.parseDouble(Valor);
 
@@ -3095,8 +3108,27 @@ public class Utilidades {
 
         Log.e("estados" + estados);
 
-        return estados;
-    }
+		return estados;
+	}
+
+	public static ArrayList<String> excluirEstadosPagoAnticipado() {
+		ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "listasgenerales",
+				new String[] { "lst_item" }, "lst_nombre=?", new String[] { "estadosExcluidosPagoAnticipado" }, null, null, null);
+
+		ArrayList<String> estados = new ArrayList<String>();
+
+		if (respuesta != null) {
+			for (int i = 0; i < respuesta.size(); i++) {
+				System.out.println("respuesta.get(i).get(0) " + respuesta.get(i).get(0));
+				estados.add(respuesta.get(i).get(0).toUpperCase());
+			}
+
+		}
+
+		Log.e("BanderaPA estados" + estados);
+
+		return estados;
+	}
 
     public static String cambioCobroDomingo(String cobroDomingo) {
 

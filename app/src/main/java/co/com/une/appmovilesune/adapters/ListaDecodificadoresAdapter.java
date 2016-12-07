@@ -28,7 +28,7 @@ import co.com.une.appmovilesune.interfaces.Subject;
 
 public class ListaDecodificadoresAdapter extends BaseAdapter implements Subject {
 
-	public static final String TAG = "ListaDecodificadoresAdapter";
+	public static final String TAG = "ListaDecodificadores";
 
 	protected Activity activity;
 	protected ArrayList<ItemDecodificador> items, aux;
@@ -355,9 +355,9 @@ public class ListaDecodificadoresAdapter extends BaseAdapter implements Subject 
 
 		System.out.println(MainActivity.config.getDepartamento());
 
-		Log.w(TAG, plan);
+		/*Log.w(TAG, plan);
 		Log.w(TAG, decodificador);
-		Log.w(TAG, String.valueOf(UtilidadesDecos.consultarPrecio(plan, decodificador)));
+		Log.w(TAG, String.valueOf(UtilidadesDecos.consultarPrecio(plan, decodificador)));*/
 
 		return String.valueOf(UtilidadesDecos.consultarPrecio(plan, decodificador));
 
@@ -386,6 +386,8 @@ public class ListaDecodificadoresAdapter extends BaseAdapter implements Subject 
 
 		ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasgenerales",
 				new String[] { "lst_item" }, "lst_nombre = ?", new String[] { "tipoDecos" }, null, null, null);
+
+		System.out.println(resultado);
 
 		ArrayList<String> arrayListData = new ArrayList<String>();
 		if (resultado != null) {

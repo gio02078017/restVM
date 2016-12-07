@@ -298,6 +298,11 @@
     <string name="clienteValor">clienteValor</string>
     <string name="planfacturacion">Plan Facturación</string>
     <string name="cargobasico">CB:</string>
+    <string name="cargobasicotarificadorind">Cargo Básico Individual</string>
+    <string name="cargobasicotarificadoremp">Cargo Básico Empaquetado</string>
+    <string name="totalcargobasicotarificador">Total Cargo Básico</string>
+    <string name="descuentocargobasicotarificador">Descuento Cargo Básico</string>
+    <string name="duraciondescuentocargobasicotarificador">Duración Descuento</string>
     <string name="cargofinanciero">CF:</string>
     <string name="cargoadicionales">CA:</string>
     <string name="desc_img">producto img</string>
@@ -336,7 +341,7 @@
     <string name="tvdigitalfull">TV DIGITAL + HD BASICO</string>
     <string name="tvdigitalsuperior">TV DIGITAL 2</string>
     <string name="tvdigitalesencial">Esencial</string>
-    <string name="iva">IVA:</string>
+    <string name="iva">IVA</string>
     <string name="nuevo">Cliente Nuevo</string>
     <string name="adicionalesComp">Adicionales</string>
     <string name="cotizacionInvalida">Cotización Inválida</string>
@@ -411,6 +416,56 @@
     <string name="rechazado">Rechazado</string>
     <string name="mensajeconfrontanoaprobado">El proceso de confronta no fue exitoso, no es posible continuar con el ingreso de la venta.</string>
     <string name="mensajeconfrontanorealizado">No se ha realizado el proceso de confronta</string>
+
+    <string name="pagonaticipado">Pago Anticipo Cargo Fijo</string>
+    <string name="pagoparcial">Pago Parcial Conexión</string>
+    <string name="descuentopagoparcial">Descuento Pago Parcial</string>
+    <string name="valordescuentopagoparcial">Valor Pago Parcial con Descuento</string>
+
+    <string-array name="tipoPeticion">
+        <item>-</item>
+        <item>N</item>
+        <item>C</item>
+        <item>E</item>
+    </string-array>
+
+    <string name="hogarnuevo">Hogar Nuevo</string>
+    <string name="analoga">Análoga</string>
+    <string name="tipooferta">Tipo Oferta</string>
+
+    <string-array name="tipoofertaarray">
+        <item>-</item>
+        <item>Individual</item>
+        <item>Duo</item>
+        <item>Trio</item>
+    </string-array>
+
+    <string-array name="estratos">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string name="oferta">Oferta</string>
+    <string name="adicionalestelevision">Adicionales Televisión</string>
+    <string name="adiconalestelefonia">Adicionales Telefonía</string>
+
+    <string name="cotizador">Cotizador</string>
+
+    <string name="totalindividualcotizador">Total Individual</string>
+    <string name="totalempaquetadocotizador">Total Empaquetado</string>
+    <string name="titulocargobasicototales">Cargo Básico</string>
+    <string name="titulocargobasicoadicionalestotales">Cargo Básico + Adicionales</string>
+    <string name="dinero">$ 0.oo</string>
+
+    <string name="mensajevalidacionpagoparcial">Hubo algún problema consultando la información</string>
+
+    <string name="totalpagoconexion">Total Pago por Conexión</string>
+    <string name="totalpagoparcial">Total Pago Parcial por Conexión</string>
+    <string name="valordescuentoconexion">Valor Descuento por Conexión</string>
 
     <string name="validacionBarrio">El Barrio Deben Estar Diligenciados, Para seleccionar esta opción</string>
 </resources>

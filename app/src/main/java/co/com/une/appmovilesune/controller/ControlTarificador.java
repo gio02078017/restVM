@@ -1746,7 +1746,7 @@ public class ControlTarificador extends Activity implements Subject, Observer {
 																startActivityForResult(intent,
 																		MainActivity.REQUEST_CODE);
 															} catch (Exception e) {
-																Log.w("Error Validacion Agenda ", e.getMessage());
+																//Log.w("Error Validacion Agenda ", e.getMessage());
 															}
 														}
 													} else {

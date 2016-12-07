@@ -553,14 +553,16 @@ public class ResumenTelevision extends LinearLayout {
 			}
 		}
 
-		adaptador = new ListaPreciosAdapter(activity, adicional, context);
-		lstAdicionales.setAdapter(adaptador);
-		setListViewHeightBasedOnChildren(lstAdicionales);
-		double total = Double.parseDouble(lblValor.getText().toString()) + totalDecodificadores();
+		if(adicional.size() >0) {
+			adaptador = new ListaPreciosAdapter(activity, adicional, context);
+			lstAdicionales.setAdapter(adaptador);
+			setListViewHeightBasedOnChildren(lstAdicionales);
+			double total = Double.parseDouble(lblValor.getText().toString()) + totalDecodificadores();
 
-		lblValorAdicionales.setText(getPrecioAdicionales());
+			lblValorAdicionales.setText(getPrecioAdicionales());
 
-		asignarValor(String.valueOf(total));
+			asignarValor(String.valueOf(total));
+		}
 	}
 
 	private double totalDecodificadores() {
