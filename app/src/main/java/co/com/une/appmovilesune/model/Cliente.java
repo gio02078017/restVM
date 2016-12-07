@@ -144,9 +144,11 @@ public class Cliente implements Serializable, Observer, Subject {
 	private boolean controlCarrusel;
 	private String crmCarrusel;
 	private String productosCarrusel;
-	
+
 	private boolean realizoConfronta;
 	private boolean confronta;
+
+	private String pagoAnticipado;
 
 	public Cliente() {
 		TipoDocumento = "";
@@ -209,6 +211,8 @@ public class Cliente implements Serializable, Observer, Subject {
 
 		logSmartPromoEnv = "";
 		logSmartPromoRes = "";
+
+		pagoAnticipado = "";
 	}
 
 	public Cliente(String Municipio, String Cedula, String Telefono, String Direccion, String id_asesoria) {
@@ -1034,13 +1038,13 @@ public class Cliente implements Serializable, Observer, Subject {
 			} else {
 				jo.put("Migracion4G", "N/A");
 			}
-			
+
 			if (crmCarrusel != null) {
 				jo.put("crmCarrusel", crmCarrusel);
 			} else {
 				jo.put("crmCarrusel", "");
 			}
-			
+
 			if (productosCarrusel != null) {
 				jo.put("productosCarrusel", productosCarrusel);
 			} else {
@@ -1104,7 +1108,7 @@ public class Cliente implements Serializable, Observer, Subject {
 			 * jo.put("tcontacto2", contacto2.getTelefono());
 			 * jo.put("ccontacto2", contacto2.getCelular());
 			 * jo.put("pcontacto2", contacto2.getParentesco());
-			 * 
+			 *
 			 * jo.put("departamentoFacturacion", facturacion.getDepartamento());
 			 * jo.put("municipioFacturacion", facturacion.getMunicipio());
 			 * jo.put("direccionFacturacion", facturacion.getDireccion());
@@ -1155,6 +1159,10 @@ public class Cliente implements Serializable, Observer, Subject {
 				jo.put("domiciliacion", "NO");
 				jo.put("bloqueoDomiciliacion", "0");
 			}
+
+			System.out.println("BanderaPA " + pagoAnticipado);
+
+			jo.put("pagoAnticipado",pagoAnticipado);
 
 		} catch (JSONException e) {
 			Log.w("Error", e.getMessage());
@@ -1944,8 +1952,8 @@ public class Cliente implements Serializable, Observer, Subject {
 
 	public void setControlCarrusel(boolean controlCarrusel) {
 		this.controlCarrusel = controlCarrusel;
-	}	
-	
+	}
+
 	public String getCrmCarrusel() {
 		return crmCarrusel;
 	}
@@ -1953,7 +1961,7 @@ public class Cliente implements Serializable, Observer, Subject {
 	public void setCrmCarrusel(String crmCarrusel) {
 		this.crmCarrusel = crmCarrusel;
 	}
-	
+
 	public String getProductosCarrusel() {
 		return productosCarrusel;
 	}
@@ -1976,6 +1984,10 @@ public class Cliente implements Serializable, Observer, Subject {
 
 	public void setRealizoConfronta(boolean realizoConfronta) {
 		this.realizoConfronta = realizoConfronta;
+	}
+
+	public void setPagoAnticipado(String pagoAnticipado){
+		this.pagoAnticipado = pagoAnticipado;
 	}
 
 	@Override
