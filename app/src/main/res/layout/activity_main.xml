@@ -149,7 +149,7 @@
                     android:layout_gravity="center"
                     android:background="@drawable/bg_buttons_main"
                     android:onClick="mostrarCarrusel"
-                    app:icono="@drawable/validador"
+                    app:icono="@drawable/validar_retiro"
                     app:text="@string/carrusel" />
                 
             </TableRow>

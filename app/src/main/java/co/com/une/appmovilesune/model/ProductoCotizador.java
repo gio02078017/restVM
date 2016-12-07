@@ -29,6 +29,8 @@ public class ProductoCotizador {
     private double pagoParcialDescuento;
     private double totalPagoParcial;
 
+    private boolean aplicaPA;
+
     public ProductoCotizador(String tipoPeticion, int tipo, String plan, double cargoBasicoInd, double cargoBasicoEmp, double descuentoCargobasico, int duracionDescuento, String planFacturacionInd, String planFacturacionEmp, String velocidad) {
         this.tipoPeticion = tipoPeticion;
         this.tipo = tipo;
@@ -53,7 +55,12 @@ public class ProductoCotizador {
         if(respuesta != null){
             if(tipoPeticion.equals("N")){
                 totalPagoParcial = calcularDescuento(respuesta.get(0));
-                pagoAnticipado = Double.parseDouble(respuesta.get(0).get(2));
+                if(aplicaPA){
+                    pagoAnticipado = Double.parseDouble(respuesta.get(0).get(2));
+                } else {
+                    pagoAnticipado = 0;
+                }
+
             }else{
                 totalPagoParcial = 0;
                 pagoAnticipado = 0;
@@ -222,5 +229,10 @@ public class ProductoCotizador {
 
         return productoAbreviacion;
 
+    }
+
+    public void setAplicaPA(boolean aplica){
+        aplicaPA = aplica;
+        obtenerValorPagoparcialAnticipado();
     }
 }

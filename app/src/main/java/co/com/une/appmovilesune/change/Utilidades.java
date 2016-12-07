@@ -3090,6 +3090,25 @@ public class Utilidades {
 		return estados;
 	}
 
+	public static ArrayList<String> excluirEstadosPagoAnticipado() {
+		ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "listasgenerales",
+				new String[] { "lst_item" }, "lst_nombre=?", new String[] { "estadosExcluidosPagoAnticipado" }, null, null, null);
+
+		ArrayList<String> estados = new ArrayList<String>();
+
+		if (respuesta != null) {
+			for (int i = 0; i < respuesta.size(); i++) {
+				System.out.println("respuesta.get(i).get(0) " + respuesta.get(i).get(0));
+				estados.add(respuesta.get(i).get(0).toUpperCase());
+			}
+
+		}
+
+		Log.e("BanderaPA estados" + estados);
+
+		return estados;
+	}
+
 	public static String cambioCobroDomingo(String cobroDomingo) {
 
 		String data = "NO";

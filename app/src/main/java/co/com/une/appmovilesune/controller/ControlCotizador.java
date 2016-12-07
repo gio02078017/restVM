@@ -106,6 +106,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     private double totalPagoAnticipado = 0;
 
+    private String codigoPP = "";
+    private String codigoPA = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -536,6 +539,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
 
         double totalPagoParcial = 0;
+        totalPagoAnticipado = 0;
 
         if (cprdTelevision.getPeticionProducto().equalsIgnoreCase("C")) {
             chkAnaloga.setEnabled(true);
@@ -570,6 +574,24 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 System.out.println("tipoProducto " + productos.get(i).getTipo());
                 System.out.println("tipoPeticion " + productos.get(i).getTipoPeticion());
 
+                System.out.println("BanderaPA codigoPA "+codigoPA);
+
+                if(codigoPA.equalsIgnoreCase("00") || codigoPA.equalsIgnoreCase("02")){
+                    if (Utilidades.excluirEstadosPagoAnticipado()
+                            .contains(cliente.getScooringune().getRazonScooring())) {
+                        productos.get(i).setAplicaPA(true);
+                        cliente.setPagoAnticipado("SI");
+                    }else {
+                        productos.get(i).setAplicaPA(false);
+                        cliente.setPagoAnticipado("NO");
+                    }
+
+                }else {
+                    productos.get(i).setAplicaPA(false);
+                    cliente.setPaginaAsignacion("NO");
+                }
+
+
                 if (trioNuevo) {
                     productos.get(i).aplciarDescuentoTrio();
                 }
@@ -587,11 +609,18 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 }
                 if (productos.get(i).getTipoPeticion().equals("N")) {
                     totalPagoParcial += productos.get(i).getTotalPagoParcial();
-                    totalPagoAnticipado += productos.get(i).getPagoAnticipado();
+                    if(codigoPA.equalsIgnoreCase("00")){
+                        totalPagoAnticipado += productos.get(i).getPagoAnticipado();
+                    }else{
+                        totalPagoAnticipado = 0;
+                    }
+
                 }
             }
 
         }
+
+        System.out.println("totalPagoAnticipado " + totalPagoAnticipado);
 
         String cadenaConexion = obtenerCadenaValorConexion();
         double valorConexion = obtenerValorConexion(cadenaConexion);
@@ -1693,6 +1722,23 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     if (cliente.getScooringune().isValidarScooring()) {
                         if (!cliente.getScooringune().isPasaScooring()) {
                             if (productosNuevos()) {
+                                if (codigoPA.equalsIgnoreCase("00") || codigoPA.equalsIgnoreCase("02")) {
+                                    if (Utilidades.excluirEstadosPagoAnticipado()
+                                            .contains(cliente.getScooringune().getRazonScooring())) {
+                                        valid = true;
+                                        cliente.setPagoAnticipado("SI");
+                                    } else {
+                                        valid = false;
+                                        cliente.setPagoAnticipado("NO");
+                                        Utilidades.MensajesToast(
+                                                "No se puede vender ya que el cliente no cumple con el scoring", this);
+                                    }
+                                } else {
+                                    valid = false;
+                                    Utilidades.MensajesToast(
+                                            "No se puede vender ya que el cliente no cumple con el scoring", this);
+                                }
+                                /* Documentado por choque de reglas de domiciliacion con pago anticipado
                                 if (cliente.getDomiciliacion().equals("SI")) {
                                     if (Utilidades.excluirEstadosDomiciliacion()
                                             .contains(cliente.getScooringune().getRazonScooring())) {
@@ -1707,7 +1753,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                     valid = false;
                                     Utilidades.MensajesToast(
                                             "No se puede vender ya que el cliente no cumple con el scoring", this);
-                                }
+                                }*/
 
                             } else {
                                 cliente.setDomiciliacion("NO");
@@ -2007,8 +2053,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 json = new JSONObject(data);
 
-                String codigoPP = json.getJSONObject("codigoRespuesta").getString("pagoParcial");
-                String codigoPA = json.getJSONObject("codigoRespuesta").getString("pagoAnticipado");
+                codigoPP = json.getJSONObject("codigoRespuesta").getString("pagoParcial");
+                codigoPA = json.getJSONObject("codigoRespuesta").getString("pagoAnticipado");
 
                 JSONArray jsonProdutos = json.getJSONObject("data").getJSONArray("productos");
                 JSONArray jsonValoresConexion = json.getJSONObject("data").getJSONArray("valorConexion");
