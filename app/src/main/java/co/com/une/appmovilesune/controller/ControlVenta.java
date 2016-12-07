@@ -1037,10 +1037,20 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             lblAgendamiento.setText(venta.getHorarioAtencion());
         }
 
-        rto.Telefonia(this, this, cotizacion.getTipoTo(), cotizacion.getTelefonia(), cotizacion.getToInd(),
-                "Sin Promocion", "N/A", "0", cotizacion.getEstrato(), cotizacion.getPlanFacturacionTo_I(), segundaLinea,
-                cotizacion.toPlanAnt, cotizacion.getAdicionalesTo(), cotizacion.getTotalAdicionalesTo(),
-                cotizacion.toTecnologiacr, aplicarDescuentos);
+        System.out.println("cotizacion.getContadorProductos() "+cotizacion.getContadorProductos());
+
+        if (Utilidades.excluirNacional("descuestosIndividuales", cotizacion.getTelefonia()) && cotizacion.getContadorProductos().equalsIgnoreCase("1")) {
+            rto.Telefonia(this, this, cotizacion.getTipoTo(), cotizacion.getTelefonia(), cotizacion.getToInd(),
+                    cotizacion.getPromoTo(), cotizacion.getTiempoPromoTo(), "0", cotizacion.getEstrato(), cotizacion.getPlanFacturacionTo_I(), segundaLinea,
+                    cotizacion.toPlanAnt, cotizacion.getAdicionalesTo(), cotizacion.getTotalAdicionalesTo(),
+                    cotizacion.toTecnologiacr, aplicarDescuentos);
+
+        } else {
+            rto.Telefonia(this, this, cotizacion.getTipoTo(), cotizacion.getTelefonia(), cotizacion.getToInd(),
+                    "Sin Promocion", "N/A", "0", cotizacion.getEstrato(), cotizacion.getPlanFacturacionTo_I(), segundaLinea,
+                    cotizacion.toPlanAnt, cotizacion.getAdicionalesTo(), cotizacion.getTotalAdicionalesTo(),
+                    cotizacion.toTecnologiacr, aplicarDescuentos);
+        }
 
         if (cliente.getDepartamento().equalsIgnoreCase("Antioquia")) {
             rto.agregarImpuestoTelefonico(cliente.getCiudad(), cliente.getDepartamento(), cliente.getEstrato());
@@ -1115,7 +1125,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             rtv.setVisibility(View.GONE);
         }
 
-        if (Utilidades.excluirNacional("descuestosIndividuales", cotizacion.getInternet())) {
+        if (Utilidades.excluirNacional("descuestosIndividuales", cotizacion.getInternet()) && cotizacion.getContadorProductos().equalsIgnoreCase("1")) {
             if (Utilidades.excluir("cambiarPlan", Municipio)) {
                 rba.Internet(this, cotizacion.getTipoBa(), cotizacion.getInternet(), cotizacion.getBaInd(),
                         cotizacion.getPromoBa(), cotizacion.getTiempoPromoBa(), "0",
