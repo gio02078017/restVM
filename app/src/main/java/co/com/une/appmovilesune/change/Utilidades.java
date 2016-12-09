@@ -3537,14 +3537,18 @@ public class Utilidades {
 
             JSONObject data = cober.getJSONObject("Cobertura");
 
-            if (cobertura.equals("GPON")) {
+            String homologarCobertura = Utilidades.claveValor("homologarTecnologia",cobertura);
+
+            System.out.println("homologarCobertura "+homologarCobertura);
+
+            if (homologarCobertura.equals("GPON")) {
                 data.put("COBERTURA_GPON", "SI");
-            } else if (cobertura.equals("HFC")) {
+            } else if (homologarCobertura.equals("HFC")) {
                 data.put("COBERTURA_HFC", "SI");
                 data.put("DIRECCIONALIDAD", "B");
-            } else if (cobertura.equals("REDCO")) {
+            } else if (homologarCobertura.equals("REDCO")) {
                 data.put("COBERTURA_REDCO", "SI");
-                data.put("DISTANCIA", "0");
+                data.put("DISTANCIA", "100m");
             }
 
             cober.put("CodigoMensaje","00");
@@ -3568,5 +3572,17 @@ public class Utilidades {
         }
 
         return valido;
+    }
+
+    public static boolean CoberturaRural (Cliente cliente){
+        boolean cobertura = false;
+
+        if(cliente.coberturaRural != null){
+            if(cliente.coberturaRural.isCoberturaRural()){
+                cobertura = true;
+            }
+        }
+
+        return cobertura;
     }
 }

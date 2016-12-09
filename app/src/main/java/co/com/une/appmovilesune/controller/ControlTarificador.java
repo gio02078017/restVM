@@ -1669,7 +1669,7 @@ public class ControlTarificador extends Activity implements Subject, Observer {
 								if (validarDigital()) {
 									if (validarTelefonoServicio) {
 										if (Utilidades.validarTelefonos(cliente, this)) {
-											if (validarEstandarizacion || cliente.isControlCerca() || cliente.isCoberRural()) {
+											if (validarEstandarizacion || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
 
 												System.out.println("direccion " + cliente.getDireccion());
 												System.out.println("tipoDocumento " + cliente.getTipoDocumento());
@@ -2729,6 +2729,8 @@ public class ControlTarificador extends Activity implements Subject, Observer {
 		String planTO = (String) sltPlanTo.getSelectedItem();
 		// System.out.println("planTO " + planTO);
 
+		System.out.println("cliente.isCoberRural() "+Utilidades.CoberturaRural(cliente));
+
 		if (planTO.equalsIgnoreCase("N") && !Resumen.get(0).getDato().equalsIgnoreCase(Utilidades.inicial_guion)) {
 			if (Utilidades.visible("portafolioATC", cliente.getCiudad())
 			/* && cliente.getPortafolio() == null */) {
@@ -2738,7 +2740,7 @@ public class ControlTarificador extends Activity implements Subject, Observer {
 					// System.out.println("cliente.isControlNormalizada() "
 					// + cliente.isControlNormalizada());
 
-					if (!cliente.isControlCerca()) {
+					if (!cliente.isControlCerca() && !Utilidades.CoberturaRural(cliente)) {
 						if (!cliente.isControlNormalizada()) {
 							validarEstandarizacion = false;
 							// ja.put(Utilidades.jsonMensajes("Direccion",
@@ -2768,7 +2770,7 @@ public class ControlTarificador extends Activity implements Subject, Observer {
 				}
 			}
 		} else if (Utilidades.visible("estandarizarDireccion", cliente.getCiudad())) {
-			if (!cliente.isControlNormalizada()) {
+			if (!cliente.isControlNormalizada() && !Utilidades.CoberturaRural(cliente)) {
 				validarEstandarizacion = false;
 				Toast.makeText(this, getResources().getString(R.string.normailizardireccion), Toast.LENGTH_SHORT)
 						.show();

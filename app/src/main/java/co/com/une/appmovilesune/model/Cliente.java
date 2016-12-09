@@ -151,6 +151,8 @@ public class Cliente implements Serializable, Observer, Subject {
 	private String pagoAnticipado;
 
 	private boolean coberRural = false;
+	public CoberturaRural coberturaRural;
+	private String tipoZona;
 
 	public Cliente() {
 		TipoDocumento = "";
@@ -215,6 +217,8 @@ public class Cliente implements Serializable, Observer, Subject {
 		logSmartPromoRes = "";
 
 		pagoAnticipado = "";
+
+		tipoZona = "";
 	}
 
 	public Cliente(String Municipio, String Cedula, String Telefono, String Direccion, String id_asesoria) {
@@ -1166,6 +1170,22 @@ public class Cliente implements Serializable, Observer, Subject {
 
 			jo.put("pagoAnticipado",pagoAnticipado);
 
+			if(coberturaRural != null){
+				if(coberturaRural.isCoberturaRural()){
+					JSONObject proyecto = new JSONObject();
+					proyecto.put("cobertura",coberturaRural.getCoberturaSeleccionada());
+					proyecto.put("proyecto",coberturaRural.getProyectoSeleccionado());
+					proyecto.put("codigoProyecto",coberturaRural.getCodigoProyecto());
+
+					jo.put("proyectoRural",proyecto);
+
+				}else{
+					jo.put("proyectoRural","N/A");
+				}
+			}else{
+				jo.put("proyectoRural","N/A");
+			}
+
 		} catch (JSONException e) {
 			Log.w("Error", e.getMessage());
 		}
@@ -1954,8 +1974,8 @@ public class Cliente implements Serializable, Observer, Subject {
 
 	public void setControlCarrusel(boolean controlCarrusel) {
 		this.controlCarrusel = controlCarrusel;
-	}
-
+	}	
+	
 	public String getCrmCarrusel() {
 		return crmCarrusel;
 	}
@@ -1963,7 +1983,7 @@ public class Cliente implements Serializable, Observer, Subject {
 	public void setCrmCarrusel(String crmCarrusel) {
 		this.crmCarrusel = crmCarrusel;
 	}
-
+	
 	public String getProductosCarrusel() {
 		return productosCarrusel;
 	}
@@ -1996,8 +2016,12 @@ public class Cliente implements Serializable, Observer, Subject {
 		return coberRural;
 	}
 
-	public void setCoberRural(boolean coberRural) {
-		this.coberRural = coberRural;
+	public String getTipoZona() {
+		return tipoZona;
+	}
+
+	public void setTipoZona(String tipoZona) {
+		this.tipoZona = tipoZona;
 	}
 
 	@Override

@@ -22,6 +22,7 @@ public class CompTotalCotizador extends LinearLayout {
 	private TextView txtvalortotalpagoconexion;
 	private TextView txtvalortotalpagoparcial;
 	private TextView txtvalordescuentoconexion;
+	private TextView txtvalortotalpagoanticipado;
 
 	public CompTotalCotizador(Context context) {
 		super(context);
@@ -55,9 +56,10 @@ public class CompTotalCotizador extends LinearLayout {
 		txtvalortotalpagoconexion = (TextView) findViewById(R.id.txtvalortotalpagoconexion);
 		txtvalortotalpagoparcial = (TextView) findViewById(R.id.txtvalortotalpagoparcial);
 		txtvalordescuentoconexion = (TextView) findViewById(R.id.txtvalordescuentoconexion);
+		txtvalortotalpagoanticipado = (TextView) findViewById(R.id.txtvalortotalpagoanticipado);
 	}
 
-	public void llenarTotales(double totalIndividual, double totalEmpaquetado, double totalAdicionalesTV, double totalDecodificadores, double totalAdicionalesTO, double totalConexion, double totalPagoParcial, double valorDescuentoConexion){
+	public void llenarTotales(double totalIndividual, double totalEmpaquetado, double totalAdicionalesTV, double totalDecodificadores, double totalAdicionalesTO, double totalConexion, double totalPagoParcial, double valorDescuentoConexion, double totalPagoAnticipado){
 
 		System.out.println("TotalesCot ltll ind "+totalIndividual);
 		System.out.println("TotalesCot ltll emp "+totalEmpaquetado);
@@ -75,6 +77,7 @@ public class CompTotalCotizador extends LinearLayout {
 		setTotalIndividualAdicionales("$" + totalIndividual);
 		setTotalEmpaquetadoAdicionales("$" + totalEmpaquetado);
 
+		setTotalPagoAnticipado("$" + totalPagoAnticipado);
 		setTotalConexion("$" + totalConexion);
 		setTotalPagoParcial("$" + totalPagoParcial);
 		setValorDescuentoConexion("$" + valorDescuentoConexion);
@@ -125,6 +128,10 @@ public class CompTotalCotizador extends LinearLayout {
 
 	public void setTotalPagoParcial(String valor){
 		txtvalortotalpagoparcial.setText(valor);
+	}
+
+	public void setTotalPagoAnticipado(String valor){
+		txtvalortotalpagoanticipado.setText(valor);
 	}
 
 	public void setValorDescuentoConexion(String valor){
