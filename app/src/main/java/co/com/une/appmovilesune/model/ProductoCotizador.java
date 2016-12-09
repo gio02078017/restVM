@@ -45,44 +45,44 @@ public class ProductoCotizador {
         obtenerValorPagoparcialAnticipado();
     }
 
-    private void obtenerValorPagoparcialAnticipado(){
+    private void obtenerValorPagoparcialAnticipado() {
         String clausula = "producto=?";
-        String[] valores = new String[] { traducirProducto().toUpperCase() };
+        String[] valores = new String[]{traducirProducto().toUpperCase()};
 
-        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "pagoparcialanticipado", new String[] { "pagoparcial", "descuento", "pagoanticipado" }, clausula,
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "pagoparcialanticipado", new String[]{"pagoparcial", "descuento", "pagoanticipado"}, clausula,
                 valores, null, null, null);
 
-        if(respuesta != null){
-            if(tipoPeticion.equals("N")){
+        if (respuesta != null) {
+            if (tipoPeticion.equals("N")) {
                 totalPagoParcial = calcularDescuento(respuesta.get(0));
-                if(aplicaPA){
+                if (aplicaPA) {
                     pagoAnticipado = Double.parseDouble(respuesta.get(0).get(2));
                 } else {
                     pagoAnticipado = 0;
                 }
 
-            }else{
+            } else {
                 totalPagoParcial = 0;
                 pagoAnticipado = 0;
             }
 
-        }else {
+        } else {
             totalPagoParcial = 0;
             pagoAnticipado = 0;
         }
     }
 
-    private double calcularDescuento(ArrayList<String> valores){
+    private double calcularDescuento(ArrayList<String> valores) {
         pagoParcial = Double.parseDouble(valores.get(0));
         pagoParcialDescuento = Double.parseDouble(valores.get(1));
 
-        double total = pagoParcial - (pagoParcial * pagoParcialDescuento)/100;
+        double total = pagoParcial - (pagoParcial * pagoParcialDescuento) / 100;
 
         return total;
 
     }
 
-    public void aplciarDescuentoTrio(){
+    public void aplciarDescuentoTrio() {
         totalPagoParcial = 0;
     }
 
@@ -211,11 +211,11 @@ public class ProductoCotizador {
     }
 
 
-    private String traducirProducto(){
+    private String traducirProducto() {
 
         String productoAbreviacion = "";
 
-        switch (tipo){
+        switch (tipo) {
             case 0:
                 productoAbreviacion = "to";
                 break;
@@ -231,7 +231,7 @@ public class ProductoCotizador {
 
     }
 
-    public void setAplicaPA(boolean aplica){
+    public void setAplicaPA(boolean aplica) {
         aplicaPA = aplica;
         obtenerValorPagoparcialAnticipado();
     }

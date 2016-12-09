@@ -4,33 +4,33 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="10dp"
-    android:orientation="vertical" >
-    
-    <RelativeLayout 
+    android:orientation="vertical">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        
-        <TextView 
+
+        <TextView
             android:id="@+id/lblFecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="@string/fecha"/>
-        
-        <TextView 
+            android:text="@string/fecha" />
+
+        <TextView
             android:id="@+id/lblHora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="@string/hora"/>
-        
+            android:text="@string/hora" />
+
     </RelativeLayout>
-    
-    <RelativeLayout 
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        
-        <TextView 
+
+        <TextView
             android:id="@+id/lblCliente"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,17 +38,17 @@
             android:maxWidth="200dp"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:text="@string/cliente"/>
-        
-        <TextView 
+            android:text="@string/cliente" />
+
+        <TextView
             android:id="@+id/lblVenta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:textColor="@color/purple"
             android:textSize="20sp"
-            android:text="@string/venta"/>
-        
+            android:text="@string/venta" />
+
     </RelativeLayout>
 
 </LinearLayout>

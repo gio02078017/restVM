@@ -18,6 +18,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.util.Log;
+
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.components.BotonPrincipal;
@@ -26,267 +27,267 @@ import co.com.une.appmovilesune.interfaces.Subject;
 
 public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Object>> implements Subject {
 
-	public static final int GLOBAL = 0;
-	public static final int SIMULADOR = 1;
+    public static final int GLOBAL = 0;
+    public static final int SIMULADOR = 1;
 
-	public static final String SERVIDOR_DESARROLLO = "http://dgdr.une.net.co";
-	public static final String SERVIDOR_DESARROLLO_INTERNA = "http://unevm-dmap.epmtelco.com.co";
-	public static final String SERVIDOR_PRUEBAS = "http://200.13.249.56";
-	public static final String SERVIDOR_PRODUCCION = "https://ws.une.com.co";
-	public static final String SERVIDOR_PRODUCCION_INTERNA = "http://unevm-pmap.epmtelco.com.co";
-	public static final String SERVIDOR_DAVID = "http://10.65.78.113";
-	public static final String SERVIDOR_DAVID_INTERNA = "http://10.65.68.128";
-	public static final String SERVIDOR_DAVID_EXTRNA = "http://192.168.1.7:8888";
-	public static final String SERVIDOR_GIOVANNY = "http://10.65.68.118";
+    public static final String SERVIDOR_DESARROLLO = "http://dgdr.une.net.co";
+    public static final String SERVIDOR_DESARROLLO_INTERNA = "http://unevm-dmap.epmtelco.com.co";
+    public static final String SERVIDOR_PRUEBAS = "http://200.13.249.56";
+    public static final String SERVIDOR_PRODUCCION = "https://ws.une.com.co";
+    public static final String SERVIDOR_PRODUCCION_INTERNA = "http://unevm-pmap.epmtelco.com.co";
+    public static final String SERVIDOR_DAVID = "http://10.65.78.113";
+    public static final String SERVIDOR_DAVID_INTERNA = "http://10.65.68.128";
+    public static final String SERVIDOR_DAVID_EXTRNA = "http://192.168.1.7:8888";
+    public static final String SERVIDOR_GIOVANNY = "http://10.65.68.118";
 
-	private static final String RUTA_WS = "/wsVentaMovil/wsVentaMovil/";
-	// private static final String WS_GLOBAL = "ServerVentaMovil.php";
-	private static final String WS_GLOBAL = "ServerVentaMovilNew.php";
-	private static final String WS_SIMULADOR = "serverSimulador.php";
+    private static final String RUTA_WS = "/wsVentaMovil/wsVentaMovil/";
+    // private static final String WS_GLOBAL = "ServerVentaMovil.php";
+    private static final String WS_GLOBAL = "ServerVentaMovilNew.php";
+    private static final String WS_SIMULADOR = "serverSimulador.php";
 
-	private String namespace, url, servidor;
+    private String namespace, url, servidor;
 
-	private Observer observer;
-	private Object resultado;
+    private Observer observer;
+    private Object resultado;
 
-	public HttpTransportSE canal;
-	private SoapSerializationEnvelope paquete;
-	private SoapObject cliente;
+    public HttpTransportSE canal;
+    private SoapSerializationEnvelope paquete;
+    private SoapObject cliente;
 
-	private BotonPrincipal btnPricipal;
+    private BotonPrincipal btnPricipal;
 
-	private String mensaje;
-	private String lugar = "";
-	private Context context;
+    private String mensaje;
+    private String lugar = "";
+    private Context context;
 
-	public ProgressDialog pd;
+    public ProgressDialog pd;
 
-	public Conexion(String servidor) {
-		this.servidor = servidor;
-		generarDirecciones(GLOBAL);
-		canal = new HttpTransportSE(url);
-	}
+    public Conexion(String servidor) {
+        this.servidor = servidor;
+        generarDirecciones(GLOBAL);
+        canal = new HttpTransportSE(url);
+    }
 
-	public Conexion(String servidor, BotonPrincipal btnPricipal) {
-		this.servidor = servidor;
-		generarDirecciones(GLOBAL);
-		canal = new HttpTransportSE(url);
-		this.btnPricipal = btnPricipal;
-	}
+    public Conexion(String servidor, BotonPrincipal btnPricipal) {
+        this.servidor = servidor;
+        generarDirecciones(GLOBAL);
+        canal = new HttpTransportSE(url);
+        this.btnPricipal = btnPricipal;
+    }
 
-	@Override
-	protected void onPreExecute() {
-		// System.out.println("Conexion 76 => " + context);
-		if (context == null) {
-			MainActivity.btnCliente.setVisible();
-		} else if (context.getClass().getSimpleName().equals("ControlVenta")) {
-			MainActivity.btnCliente.setInvisible();
-		} else if (context.getClass().getSimpleName().equals("ControlResumen")) {
-			MainActivity.btnCliente.setInvisible();
-		} else {
-			MainActivity.btnCliente.setVisible();
-		}
+    @Override
+    protected void onPreExecute() {
+        // System.out.println("Conexion 76 => " + context);
+        if (context == null) {
+            MainActivity.btnCliente.setVisible();
+        } else if (context.getClass().getSimpleName().equals("ControlVenta")) {
+            MainActivity.btnCliente.setInvisible();
+        } else if (context.getClass().getSimpleName().equals("ControlResumen")) {
+            MainActivity.btnCliente.setInvisible();
+        } else {
+            MainActivity.btnCliente.setVisible();
+        }
 
-		if (lugar.equals("Manual")) {
-			pd = ProgressDialog.show(context, context.getResources().getString(R.string.consultando),
-					context.getResources().getString(R.string.obteniendoinformacion));
-		}
-	}
+        if (lugar.equals("Manual")) {
+            pd = ProgressDialog.show(context, context.getResources().getString(R.string.consultando),
+                    context.getResources().getString(R.string.obteniendoinformacion));
+        }
+    }
 
-	@Override
-	protected ArrayList<Object> doInBackground(ArrayList<Object>... params) {
+    @Override
+    protected ArrayList<Object> doInBackground(ArrayList<Object>... params) {
 
-		// System.out.println("Ejecutando");
+        // System.out.println("Ejecutando");
 
-		String accion = params[0].get(0).toString();
-		ArrayList<String[]> parametros = (ArrayList<String[]>) params[0].get(1);
+        String accion = params[0].get(0).toString();
+        ArrayList<String[]> parametros = (ArrayList<String[]>) params[0].get(1);
 
-		ArrayList<Object> resultados = new ArrayList<Object>();
-		resultados.add(accion);
-		resultados.add(MainActivity.conexion.ejecutarSoap(accion, parametros));
+        ArrayList<Object> resultados = new ArrayList<Object>();
+        resultados.add(accion);
+        resultados.add(MainActivity.conexion.ejecutarSoap(accion, parametros));
 
-		System.out.println("Soap Ejecutado => " + resultados);
+        System.out.println("Soap Ejecutado => " + resultados);
 
-		return resultados;
-	}
+        return resultados;
+    }
 
-	@Override
-	protected void onPostExecute(ArrayList<Object> result) {
-		System.out.println("result.get(0) => " + result.get(0));
-		if (result.get(0).equals("Cliente") || result.get(0).equals("ClienteREDCO")
-				|| result.get(0).equals("ConsolidadoSiebel")) {
-			MainActivity.btnCliente.setInvisible();
-			if (result.get(1).equals("0") || result.get(1).equals("-1") || result.get(1).equals("Respuesta Vacia")
-					|| result.get(1).equals("Ha superado el limite de consultas por dia")
-					|| result.get(1).equals("Consulta Hecha fuera del horario establecido")) {
-				MainActivity.btnCliente.setWRONG();
-				resultado = result;
-			} else {
-				MainActivity.btnCliente.setOK();
-				resultado = result;
-			}
-			notifyObserver();
-		} else if (result.get(0).equals("Consolidar")) {
-			MainActivity.btnCliente.setOK();
-			resultado = result;
-			notifyObserver();
-		} else if (result.get(0).equals("ConsultarAgenda")) {
-			MainActivity.btnCliente.setOK();
-			resultado = result;
-			notifyObserver();
-		} else if (result.get(0).equals("ConsultarBlindaje")) {
-			MainActivity.btnCliente.setInvisible();
-			resultado = result;
-			notifyObserver();
-		}
-		if (lugar.equals("Manual")) {
-			pd.dismiss();
-		}
-	}
+    @Override
+    protected void onPostExecute(ArrayList<Object> result) {
+        System.out.println("result.get(0) => " + result.get(0));
+        if (result.get(0).equals("Cliente") || result.get(0).equals("ClienteREDCO")
+                || result.get(0).equals("ConsolidadoSiebel")) {
+            MainActivity.btnCliente.setInvisible();
+            if (result.get(1).equals("0") || result.get(1).equals("-1") || result.get(1).equals("Respuesta Vacia")
+                    || result.get(1).equals("Ha superado el limite de consultas por dia")
+                    || result.get(1).equals("Consulta Hecha fuera del horario establecido")) {
+                MainActivity.btnCliente.setWRONG();
+                resultado = result;
+            } else {
+                MainActivity.btnCliente.setOK();
+                resultado = result;
+            }
+            notifyObserver();
+        } else if (result.get(0).equals("Consolidar")) {
+            MainActivity.btnCliente.setOK();
+            resultado = result;
+            notifyObserver();
+        } else if (result.get(0).equals("ConsultarAgenda")) {
+            MainActivity.btnCliente.setOK();
+            resultado = result;
+            notifyObserver();
+        } else if (result.get(0).equals("ConsultarBlindaje")) {
+            MainActivity.btnCliente.setInvisible();
+            resultado = result;
+            notifyObserver();
+        }
+        if (lugar.equals("Manual")) {
+            pd.dismiss();
+        }
+    }
 
-	public void generarDirecciones(int webservice) {
+    public void generarDirecciones(int webservice) {
 
-		switch (webservice) {
-		case 0:
-			namespace = servidor + RUTA_WS + WS_GLOBAL;
-			url = servidor + RUTA_WS + WS_GLOBAL + "?wsdl";
-			break;
-		case 1:
-			namespace = servidor + RUTA_WS + WS_SIMULADOR;
-			url = servidor + RUTA_WS + WS_SIMULADOR + "?wsdl";
-			break;
-		default:
-			namespace = servidor + RUTA_WS + WS_GLOBAL;
-			url = servidor + RUTA_WS + WS_GLOBAL + "?wsdl";
-			break;
-		}
-		// System.out.println("Conexion 134 => " + url);
-	}
+        switch (webservice) {
+            case 0:
+                namespace = servidor + RUTA_WS + WS_GLOBAL;
+                url = servidor + RUTA_WS + WS_GLOBAL + "?wsdl";
+                break;
+            case 1:
+                namespace = servidor + RUTA_WS + WS_SIMULADOR;
+                url = servidor + RUTA_WS + WS_SIMULADOR + "?wsdl";
+                break;
+            default:
+                namespace = servidor + RUTA_WS + WS_GLOBAL;
+                url = servidor + RUTA_WS + WS_GLOBAL + "?wsdl";
+                break;
+        }
+        // System.out.println("Conexion 134 => " + url);
+    }
 
-	public String ejecutarSoap(String accion, ArrayList<String[]> parametros) {
-		String respuesta = "Respuesta Vacia";
-		HttpTransportSE canal = new HttpTransportSE(url, 70000);
-		// HttpTransportSE canal = new HttpTransportSE(url, 120000);
-		try {
-			SoapObject cliente = new SoapObject(namespace, accion);
+    public String ejecutarSoap(String accion, ArrayList<String[]> parametros) {
+        String respuesta = "Respuesta Vacia";
+        HttpTransportSE canal = new HttpTransportSE(url, 70000);
+        // HttpTransportSE canal = new HttpTransportSE(url, 120000);
+        try {
+            SoapObject cliente = new SoapObject(namespace, accion);
 
-			for (int i = 0; i < parametros.size(); i++) {
-				cliente.addProperty(parametros.get(i)[0], parametros.get(i)[1]);
-			}
+            for (int i = 0; i < parametros.size(); i++) {
+                cliente.addProperty(parametros.get(i)[0], parametros.get(i)[1]);
+            }
 
-			SoapSerializationEnvelope paquete = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-			paquete.setOutputSoapObject(cliente);
-			System.out.println("Conexion 149 => " + cliente);
-			canal.debug = true;
-			canal.call(accion, paquete);
-			System.out.println("Log servicios " + canal.requestDump);
-			Editor editor = MainActivity.preferencias.edit();
-			editor.putString("xml", canal.requestDump);
-			editor.commit();
-			respuesta = paquete.getResponse().toString();
-			System.out.println("Conexion 170 => " + respuesta);
-		} catch (IOException e) {
-			e.printStackTrace();
-			Log.w("problemas conexion", e.getMessage() + "Parametros " + parametros);
-			System.out.println(respuesta);
-			System.out.println("Log servicios " + canal.requestDump);
-			Editor editor = MainActivity.preferencias.edit();
-			editor.putString("xml", canal.requestDump);
+            SoapSerializationEnvelope paquete = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            paquete.setOutputSoapObject(cliente);
+            System.out.println("Conexion 149 => " + cliente);
+            canal.debug = true;
+            canal.call(accion, paquete);
+            System.out.println("Log servicios " + canal.requestDump);
+            Editor editor = MainActivity.preferencias.edit();
+            editor.putString("xml", canal.requestDump);
+            editor.commit();
+            respuesta = paquete.getResponse().toString();
+            System.out.println("Conexion 170 => " + respuesta);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.w("problemas conexion", e.getMessage() + "Parametros " + parametros);
+            System.out.println(respuesta);
+            System.out.println("Log servicios " + canal.requestDump);
+            Editor editor = MainActivity.preferencias.edit();
+            editor.putString("xml", canal.requestDump);
 
-			editor.commit();
-			// Toast.LENGTH_SHORT).show();
-		} catch (XmlPullParserException e) {
-			e.printStackTrace();
-			Log.w("Error", e.getMessage() + "Parametros " + parametros);
-			System.out.println("Log servicios " + canal.requestDump);
-			Editor editor = MainActivity.preferencias.edit();
-			editor.putString("xml", canal.requestDump);
-			editor.commit();
-			// Toast.makeText(context,"Problemas Leyendo los Datos",
-			// Toast.LENGTH_SHORT).show();
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Excepcion" + e.getMessage());
-			System.out.println("Log servicios " + canal.requestDump);
-			Editor editor = MainActivity.preferencias.edit();
-			editor.putString("xml", canal.requestDump);
-			editor.commit();
-		}
-		return respuesta;
-	}
+            editor.commit();
+            // Toast.LENGTH_SHORT).show();
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+            Log.w("Error", e.getMessage() + "Parametros " + parametros);
+            System.out.println("Log servicios " + canal.requestDump);
+            Editor editor = MainActivity.preferencias.edit();
+            editor.putString("xml", canal.requestDump);
+            editor.commit();
+            // Toast.makeText(context,"Problemas Leyendo los Datos",
+            // Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Excepcion" + e.getMessage());
+            System.out.println("Log servicios " + canal.requestDump);
+            Editor editor = MainActivity.preferencias.edit();
+            editor.putString("xml", canal.requestDump);
+            editor.commit();
+        }
+        return respuesta;
+    }
 
-	public String ejecutarNuSoap(String accion, SoapObject parametros) {
-		String respuesta = "Respuesta Vacia";
-		try {
-			SoapObject cliente = new SoapObject(namespace, accion);
-			cliente.addProperty(accion, parametros);
-			SoapSerializationEnvelope paquete = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-			paquete.setOutputSoapObject(cliente);
-			canal.call(accion, paquete);
-			respuesta = paquete.getResponse().toString();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (XmlPullParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    public String ejecutarNuSoap(String accion, SoapObject parametros) {
+        String respuesta = "Respuesta Vacia";
+        try {
+            SoapObject cliente = new SoapObject(namespace, accion);
+            cliente.addProperty(accion, parametros);
+            SoapSerializationEnvelope paquete = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            paquete.setOutputSoapObject(cliente);
+            canal.call(accion, paquete);
+            respuesta = paquete.getResponse().toString();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (XmlPullParserException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-		return respuesta;
+        return respuesta;
 
-	}
+    }
 
-	public boolean isConect(Context context) {
+    public boolean isConect(Context context) {
 
-		boolean conectado = false;
-		ConnectivityManager manager = (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
-		NetworkInfo[] redes = manager.getAllNetworkInfo();
-		for (int i = 0; i < redes.length; i++) {
-			if (redes[i].isAvailable()) {
-				conectado = true;
-			}
+        boolean conectado = false;
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] redes = manager.getAllNetworkInfo();
+        for (int i = 0; i < redes.length; i++) {
+            if (redes[i].isAvailable()) {
+                conectado = true;
+            }
 
-		}
-		return conectado;
-	}
+        }
+        return conectado;
+    }
 
-	public String obtenerMAC() {
-		WifiManager wifimanager = (WifiManager) MainActivity.context
-				.getSystemService(MainActivity.context.WIFI_SERVICE);
-		WifiInfo wifiinfo = wifimanager.getConnectionInfo();
-		return wifiinfo.getMacAddress();
-	}
+    public String obtenerMAC() {
+        WifiManager wifimanager = (WifiManager) MainActivity.context
+                .getSystemService(MainActivity.context.WIFI_SERVICE);
+        WifiInfo wifiinfo = wifimanager.getConnectionInfo();
+        return wifiinfo.getMacAddress();
+    }
 
-	public void setManual(Context context) {
-		this.lugar = "Manual";
-		this.context = context;
-	}
+    public void setManual(Context context) {
+        this.lugar = "Manual";
+        this.context = context;
+    }
 
-	public void setContext(Context context) {
-		this.context = context;
-	}
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
-	public String getNamespace() {
-		return namespace;
-	}
+    public String getNamespace() {
+        return namespace;
+    }
 
-	@Override
-	public void addObserver(Observer o) {
-		// TODO Auto-generated method stub
-		observer = o;
-	}
+    @Override
+    public void addObserver(Observer o) {
+        // TODO Auto-generated method stub
+        observer = o;
+    }
 
-	@Override
-	public void removeObserver(Observer o) {
-		// TODO Auto-generated method stub
-		observer = null;
+    @Override
+    public void removeObserver(Observer o) {
+        // TODO Auto-generated method stub
+        observer = null;
 
-	}
+    }
 
-	@Override
-	public void notifyObserver() {
-		// TODO Auto-generated method stub
-		observer.update(this.resultado);
-	}
+    @Override
+    public void notifyObserver() {
+        // TODO Auto-generated method stub
+        observer.update(this.resultado);
+    }
 
 }

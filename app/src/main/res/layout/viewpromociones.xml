@@ -2,206 +2,206 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <co.com.une.appmovilesune.components.TituloPrincipal 
+    android:orientation="vertical">
+
+    <co.com.une.appmovilesune.components.TituloPrincipal
         android:id="@+id/tlpPrincipal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    
-	<ScrollView
-	    android:id="@+id/scrollView3"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent" >
-	
-	    <TableLayout
-	        android:id="@+id/tlytTablaAsesorias"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:shrinkColumns="*"
-	        android:stretchColumns="*" >
-	
-	        <TableRow
-	            android:id="@+id/tlytTablaAsesoriasCabecera"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:paddingTop="5dp"
-	            android:layout_marginLeft="10dp" >
-	
-	            <TextView
-	                android:id="@+id/textView4"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_gravity="center_vertical"
-	                android:text="Promociones"
-	                android:textColor="#FF000000"
-	                android:textSize="14dp"
-	                android:textStyle="bold" />
-	
-	            <Spinner
-	                android:id="@+id/promociones"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_marginRight="15dp"
-	                android:layout_span="4" />
-	        </TableRow>
-	
-	        <TableRow
-	            android:id="@+id/tlytTablaAsesoriasCabecera"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_marginLeft="10dp" >
-	
-	            <TextView
-	                android:id="@+id/textView4"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="Nombre:"
-	                android:textColor="#FF000000"
-	                android:textSize="14dp"
-	                android:textStyle="bold" />
-	
-	            <TextView
-	                android:id="@+id/Nombre"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_span="4"
-	                android:layout_marginRight="15dp"
-	                android:text="asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa"
-	                android:textColor="#FFFFFFFF"
-	                android:textSize="13dp" />
-	        </TableRow>
-	
-	        <TableRow
-	            android:id="@+id/tlytTablaAsesoriasCabecera"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_marginLeft="10dp" >
-	
-	            <TextView
-	                android:id="@+id/textView4"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="Descripción:"
-	                android:textColor="#FF000000"
-	                android:textSize="14dp"
-	                android:textStyle="bold" />
-	
-	            <TextView
-	                android:id="@+id/Descripcion"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_span="4"
-	                android:layout_marginRight="15dp"
-	                android:text="asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa"
-	                android:textColor="#FFFFFFFF"
-	                android:textSize="13dp" />
-	        </TableRow>
-	
-	        <TableRow
-	            android:id="@+id/tlytTablaAsesoriasCabecera"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_marginLeft="10dp" >
-	
-	            <TextView
-	                android:id="@+id/textView4"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="Inicia:"
-	                android:textColor="#FF000000"
-	                android:textSize="14dp"
-	                android:textStyle="bold" />
-	
-	            <TextView
-	                android:id="@+id/Inicia"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_span="4"
-	                android:layout_marginRight="15dp"
-	                android:text="asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa"
-	                android:textColor="#FFFFFFFF"
-	                android:textSize="13dp" />
-	        </TableRow>
-	
-	        <TableRow
-	            android:id="@+id/tlytTablaAsesoriasCabecera"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_marginLeft="10dp" >
-	
-	            <TextView
-	                android:id="@+id/textView4"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="Termina:"
-	                android:textColor="#FFFFFFFF"
-	                android:textSize="14dp"
-	                android:textStyle="bold" />
-	
-	            <TextView
-	                android:id="@+id/Termina"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_span="4"
-	                android:layout_marginRight="15dp"
-	                android:text="asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa"
-	                android:textColor="#FFFFFFFF"
-	                android:textSize="13dp" />
-	        </TableRow>
-	
-	        <TableRow
-	            android:id="@+id/tlytTablaAsesoriasCabecera"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_marginLeft="10dp" >
-	
-	            <TextView
-	                android:id="@+id/textView4"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="Aplica:"
-	                android:textColor="#FF000000"
-	                android:textSize="14dp"
-	                android:textStyle="bold" />
-	
-	            <TextView
-	                android:id="@+id/Aplica"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_span="4"
-	                android:layout_marginRight="15dp"
-	                android:text="asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa"
-	                android:textColor="#FFFFFFFF"
-	                android:textSize="13dp" />
-	        </TableRow>
-	
-	        <TableRow
-	            android:id="@+id/tlytTablaAsesoriasCabecera"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_marginLeft="10dp" >
-	
-	            <TextView
-	                android:id="@+id/textView4"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="Activa:"
-	                android:textColor="#FF000000"
-	                android:textSize="14dp"
-	                android:textStyle="bold" />
-	
-	            <TextView
-	                android:id="@+id/Activa"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_span="4"
-	                android:layout_marginRight="15dp"
-	                android:text="asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa"
-	                android:textColor="#FFFFFFFF"
-	                android:textSize="13dp" />
-	        </TableRow>
-	    </TableLayout>
-	</ScrollView>
-    
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TableLayout
+            android:id="@+id/tlytTablaAsesorias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:id="@+id/tlytTablaAsesoriasCabecera"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Promociones"
+                    android:textColor="#FF000000"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/promociones"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_span="4" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tlytTablaAsesoriasCabecera"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre:"
+                    android:textColor="#FF000000"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/Nombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="4"
+                    android:layout_marginRight="15dp"
+                    android:text="asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13dp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tlytTablaAsesoriasCabecera"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción:"
+                    android:textColor="#FF000000"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/Descripcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="4"
+                    android:layout_marginRight="15dp"
+                    android:text="asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13dp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tlytTablaAsesoriasCabecera"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Inicia:"
+                    android:textColor="#FF000000"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/Inicia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="4"
+                    android:layout_marginRight="15dp"
+                    android:text="asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13dp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tlytTablaAsesoriasCabecera"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Termina:"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/Termina"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="4"
+                    android:layout_marginRight="15dp"
+                    android:text="asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13dp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tlytTablaAsesoriasCabecera"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Aplica:"
+                    android:textColor="#FF000000"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/Aplica"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="4"
+                    android:layout_marginRight="15dp"
+                    android:text="asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13dp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tlytTablaAsesoriasCabecera"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Activa:"
+                    android:textColor="#FF000000"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/Activa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="4"
+                    android:layout_marginRight="15dp"
+                    android:text="asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa asldnkj akjsbdkbajsh bdajnsb jhasbd jhasb jhasb jsah bdjash bdjhsa"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="13dp" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
 </LinearLayout>

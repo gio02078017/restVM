@@ -3,20 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:shrinkColumns="*"
-        android:stretchColumns="*" >
+        android:stretchColumns="*">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
-            android:background="@drawable/bg_title_resumen" >
+            android:background="@drawable/bg_title_resumen">
 
             <ImageButton
                 android:layout_width="1dp"
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:padding="10dp" >
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:padding="10dp" >
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:padding="10dp" >
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:padding="10dp"
-            android:visibility="visible" >
+            android:visibility="visible">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -149,7 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:padding="10dp" >
+            android:padding="10dp">
 
             <CheckBox
                 android:id="@+id/chkMigracion"
@@ -174,7 +174,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:padding="10dp"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -198,7 +198,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:padding="10dp" >
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -212,7 +212,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:padding="10dp" >
+            android:padding="10dp">
 
             <ListView
                 android:id="@+id/lstAdicionales"
@@ -226,12 +226,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:background="@color/white"
-            android:padding="10dp" >
+            android:padding="10dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_span="4" >
+                android:layout_span="4">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -254,12 +254,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:background="@color/white"
-            android:padding="10dp" >
+            android:padding="10dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_span="3" >
+                android:layout_span="3">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -281,7 +281,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_span="4"
-                android:background="@color/white" >
+                android:background="@color/white">
 
                 <TextView
                     android:id="@+id/tituloValorDescuento"
@@ -306,7 +306,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:padding="10dp"
-            android:visibility="invisible" >
+            android:visibility="invisible">
 
             <TextView
                 android:layout_width="wrap_content"

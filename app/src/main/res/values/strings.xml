@@ -46,8 +46,8 @@
     <string name="atencion">Atención</string>
     <string name="documento">Documento</string>
     <string name="codigo">Código</string>
-    <string name="cod_prueba"/>
-    <string name="ced_prueba"/>
+    <string name="cod_prueba" />
+    <string name="ced_prueba" />
     <!--  <string name="cod_prueba">1234</string>
     <string name="ced_prueba">4321</string>-->
     <!-- <string name="cod_prueba">460137</string>

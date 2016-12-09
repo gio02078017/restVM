@@ -1,6 +1,7 @@
 package co.com.une.appmovilesune;
 
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -10,8 +11,8 @@ import static org.junit.Assert.assertEquals;
 public class ProductoTest {
 
     @Test
-    public void testAdditionCorrect(){
-        assertEquals(4,2+2);
+    public void testAdditionCorrect() {
+        assertEquals(4, 2 + 2);
     }
 
 }

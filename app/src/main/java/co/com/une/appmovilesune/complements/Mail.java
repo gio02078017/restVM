@@ -23,229 +23,229 @@ import android.content.Intent;
 import android.net.Uri;
 
 public class Mail extends javax.mail.Authenticator {
-	private String user;
-	private String password;
+    private String user;
+    private String password;
 
-	private String[] to;
-	private String from;
+    private String[] to;
+    private String from;
 
-	private String port;
-	private String sport;
+    private String port;
+    private String sport;
 
-	private String host;
+    private String host;
 
-	private String subject;
-	private String body;
+    private String subject;
+    private String body;
 
-	private boolean _auth;
+    private boolean _auth;
 
-	private boolean _debuggable;
+    private boolean _debuggable;
 
-	private Multipart multipart;
+    private Multipart multipart;
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String[] getTo() {
-		return to;
-	}
+    public String[] getTo() {
+        return to;
+    }
 
-	public void setTo(String[] to) {
-		this.to = to;
-	}
+    public void setTo(String[] to) {
+        this.to = to;
+    }
 
-	public String getFrom() {
-		return from;
-	}
+    public String getFrom() {
+        return from;
+    }
 
-	public void setFrom(String from) {
-		this.from = from;
-	}
+    public void setFrom(String from) {
+        this.from = from;
+    }
 
-	public String getHost() {
-		return host;
-	}
+    public String getHost() {
+        return host;
+    }
 
-	public void setHost(String host) {
-		this.host = host;
-	}
+    public void setHost(String host) {
+        this.host = host;
+    }
 
-	public String getSubject() {
-		return subject;
-	}
+    public String getSubject() {
+        return subject;
+    }
 
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
 
-	public Multipart getMultipart() {
-		return multipart;
-	}
+    public Multipart getMultipart() {
+        return multipart;
+    }
 
-	public void setMultipart(Multipart multipart) {
-		this.multipart = multipart;
-	}
+    public void setMultipart(Multipart multipart) {
+        this.multipart = multipart;
+    }
 
-	public Mail() {
-		host = "smtp.googlemail.com"; // default smtp server
-		port = "465"; // default smtp port
-		sport = "465"; // default socketfactory port
+    public Mail() {
+        host = "smtp.googlemail.com"; // default smtp server
+        port = "465"; // default smtp port
+        sport = "465"; // default socketfactory port
 
-		user = "ventamovilcotizacion@gmail.com"; // username
-		password = "kibabu69"; // password
-		from = "Cotizaciones Venta Movil Une <ventamovilcotizacion@gmail.com>"; // email
-																				// sent
-																				// from
-		subject = ""; // email subject
-		body = ""; // email body
+        user = "ventamovilcotizacion@gmail.com"; // username
+        password = "kibabu69"; // password
+        from = "Cotizaciones Venta Movil Une <ventamovilcotizacion@gmail.com>"; // email
+        // sent
+        // from
+        subject = ""; // email subject
+        body = ""; // email body
 
-		_debuggable = false; // debug mode on or off - default off
-		_auth = true; // smtp authentication - default on
+        _debuggable = false; // debug mode on or off - default off
+        _auth = true; // smtp authentication - default on
 
-		multipart = new MimeMultipart();
+        multipart = new MimeMultipart();
 
-		// There is something wrong with MailCap, javamail can not find a
-		// handler for the multipart/mixed part, so this bit needs to be added.
-		MailcapCommandMap mc = (MailcapCommandMap) CommandMap.getDefaultCommandMap();
-		mc.addMailcap("text/html;; x-java-content-handler=com.sun.mail.handlers.text_html");
-		mc.addMailcap("text/xml;; x-java-content-handler=com.sun.mail.handlers.text_xml");
-		mc.addMailcap("text/plain;; x-java-content-handler=com.sun.mail.handlers.text_plain");
-		mc.addMailcap("multipart/*;; x-java-content-handler=com.sun.mail.handlers.multipart_mixed");
-		mc.addMailcap("message/rfc822;; x-java-content-handler=com.sun.mail.handlers.message_rfc822");
-		CommandMap.setDefaultCommandMap(mc);
-	}
+        // There is something wrong with MailCap, javamail can not find a
+        // handler for the multipart/mixed part, so this bit needs to be added.
+        MailcapCommandMap mc = (MailcapCommandMap) CommandMap.getDefaultCommandMap();
+        mc.addMailcap("text/html;; x-java-content-handler=com.sun.mail.handlers.text_html");
+        mc.addMailcap("text/xml;; x-java-content-handler=com.sun.mail.handlers.text_xml");
+        mc.addMailcap("text/plain;; x-java-content-handler=com.sun.mail.handlers.text_plain");
+        mc.addMailcap("multipart/*;; x-java-content-handler=com.sun.mail.handlers.multipart_mixed");
+        mc.addMailcap("message/rfc822;; x-java-content-handler=com.sun.mail.handlers.message_rfc822");
+        CommandMap.setDefaultCommandMap(mc);
+    }
 
-	public Mail(String user, String pass) {
-		this();
+    public Mail(String user, String pass) {
+        this();
 
-		this.user = user;
-		password = pass;
-	}
+        this.user = user;
+        password = pass;
+    }
 
-	public boolean send() throws Exception {
-		Properties props = _setProperties();
+    public boolean send() throws Exception {
+        Properties props = _setProperties();
 
-		if (!user.equals("") && !password.equals("") && to.length > 0 && !from.equals("") && !subject.equals("")
-				&& !body.equals("")) {
-			Session session = Session.getInstance(props, this);
+        if (!user.equals("") && !password.equals("") && to.length > 0 && !from.equals("") && !subject.equals("")
+                && !body.equals("")) {
+            Session session = Session.getInstance(props, this);
 
-			MimeMessage msg = new MimeMessage(session);
+            MimeMessage msg = new MimeMessage(session);
 
-			msg.setFrom(new InternetAddress(from));
+            msg.setFrom(new InternetAddress(from));
 
-			InternetAddress[] addressTo = new InternetAddress[to.length];
-			for (int i = 0; i < to.length; i++) {
-				addressTo[i] = new InternetAddress(to[i]);
-			}
-			msg.setRecipients(MimeMessage.RecipientType.TO, addressTo);
+            InternetAddress[] addressTo = new InternetAddress[to.length];
+            for (int i = 0; i < to.length; i++) {
+                addressTo[i] = new InternetAddress(to[i]);
+            }
+            msg.setRecipients(MimeMessage.RecipientType.TO, addressTo);
 
-			msg.setSubject(subject);
-			msg.setSentDate(new Date());
+            msg.setSubject(subject);
+            msg.setSentDate(new Date());
 
-			// setup message body
-			BodyPart messageBodyPart = new MimeBodyPart();
-			messageBodyPart.setText(body);
-			multipart.addBodyPart(messageBodyPart);
+            // setup message body
+            BodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setText(body);
+            multipart.addBodyPart(messageBodyPart);
 
-			// Put parts in message
-			msg.setContent(multipart);
+            // Put parts in message
+            msg.setContent(multipart);
 
-			// send email
-			Transport.send(msg);
+            // send email
+            Transport.send(msg);
 
-			return true;
-		} else {
-			return false;
-		}
-	}
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	public void addAttachment(String filename) throws Exception {
-		BodyPart messageBodyPart = new MimeBodyPart();
-		DataSource source = new FileDataSource(filename);
-		messageBodyPart.setDataHandler(new DataHandler(source));
-		messageBodyPart.setFileName(new File(filename).getName());
+    public void addAttachment(String filename) throws Exception {
+        BodyPart messageBodyPart = new MimeBodyPart();
+        DataSource source = new FileDataSource(filename);
+        messageBodyPart.setDataHandler(new DataHandler(source));
+        messageBodyPart.setFileName(new File(filename).getName());
 
-		multipart.addBodyPart(messageBodyPart);
-	}
+        multipart.addBodyPart(messageBodyPart);
+    }
 
-	public static void enviarEmailSoloTexto() {
-		// forma de envio
-		Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.setType("plain/text");
-		// podemos meter mas de un email.
-		intent.putExtra(Intent.EXTRA_EMAIL, new String[] { " jorgealbertoarroyavemanco@email.com" });
-		intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "titulo del email");
-		intent.putExtra(android.content.Intent.EXTRA_TEXT, "cuerpo del email");
-		// lanzamos las aplicaciones que tenga disponible
-		startActivity(Intent.createChooser(intent, "Enviar email..."));
-	}
+    public static void enviarEmailSoloTexto() {
+        // forma de envio
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("plain/text");
+        // podemos meter mas de un email.
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{" jorgealbertoarroyavemanco@email.com"});
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "titulo del email");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, "cuerpo del email");
+        // lanzamos las aplicaciones que tenga disponible
+        startActivity(Intent.createChooser(intent, "Enviar email..."));
+    }
 
-	private static void startActivity(Intent createChooser) {
-		// TODO Auto-generated method stub
+    private static void startActivity(Intent createChooser) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public PasswordAuthentication getPasswordAuthentication() {
-		return new PasswordAuthentication(user, password);
-	}
+    @Override
+    public PasswordAuthentication getPasswordAuthentication() {
+        return new PasswordAuthentication(user, password);
+    }
 
-	private Properties _setProperties() {
-		Properties props = new Properties();
+    private Properties _setProperties() {
+        Properties props = new Properties();
 
-		props.put("mail.smtp.host", host);
+        props.put("mail.smtp.host", host);
 
-		if (_debuggable) {
-			props.put("mail.debug", "true");
-		}
+        if (_debuggable) {
+            props.put("mail.debug", "true");
+        }
 
-		if (_auth) {
-			props.put("mail.smtp.auth", "true");
-		}
+        if (_auth) {
+            props.put("mail.smtp.auth", "true");
+        }
 
-		props.put("mail.smtp.port", port);
-		props.put("mail.smtp.socketFactory.port", sport);
-		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		props.put("mail.smtp.socketFactory.fallback", "false");
+        props.put("mail.smtp.port", port);
+        props.put("mail.smtp.socketFactory.port", sport);
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.socketFactory.fallback", "false");
 
-		return props;
-	}
+        return props;
+    }
 
-	// the getters and setters
-	public String getBody() {
-		return body;
-	}
+    // the getters and setters
+    public String getBody() {
+        return body;
+    }
 
-	public void setBody(String _body) {
-		this.body = _body;
-	}
+    public void setBody(String _body) {
+        this.body = _body;
+    }
 
-	public static boolean sendEmail(String to, String from, String subject, String message, String[] attachements)
-			throws Exception {
-		Mail mail = new Mail();
-		if (subject != null && subject.length() > 0) {
-			mail.setSubject(subject);
-		} else {
-			mail.setSubject("Subject");
+    public static boolean sendEmail(String to, String from, String subject, String message, String[] attachements)
+            throws Exception {
+        Mail mail = new Mail();
+        if (subject != null && subject.length() > 0) {
+            mail.setSubject(subject);
+        } else {
+            mail.setSubject("Subject");
 
-		}
+        }
 
-		if (message != null && message.length() > 0) {
-			mail.setBody(message);
-		} else {
-			mail.setBody("Message");
-		}
+        if (message != null && message.length() > 0) {
+            mail.setBody(message);
+        } else {
+            mail.setBody("Message");
+        }
 
-		mail.setTo(new String[] { to });
-		/*
+        mail.setTo(new String[]{to});
+        /*
 		 * if (attachements != null) { for (String attachement : attachements) {
 		 * mail.addAttachment(attachement); } }
 		 */
-		return mail.send();
-	}
+        return mail.send();
+    }
 }

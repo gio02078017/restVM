@@ -14,27 +14,27 @@ import android.widget.LinearLayout;
 
 public class SelectorFecha extends LinearLayout {
 
-	private EditText txtTexto;
-	public ImageButton btnSelector;
+    private EditText txtTexto;
+    public ImageButton btnSelector;
 
-	public SelectorFecha(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		// TODO Auto-generated constructor stub
-	}
+    public SelectorFecha(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        // TODO Auto-generated constructor stub
+    }
 
-	protected void onFinishInflate() {
-		super.onFinishInflate();
-		((Activity) getContext()).getLayoutInflater().inflate(R.layout.selectorfecha, this);
-		txtTexto = (EditText) findViewById(R.id.txtTexto);
-		btnSelector = (ImageButton) findViewById(R.id.btnSeleccionador);
-	}
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        ((Activity) getContext()).getLayoutInflater().inflate(R.layout.selectorfecha, this);
+        txtTexto = (EditText) findViewById(R.id.txtTexto);
+        btnSelector = (ImageButton) findViewById(R.id.btnSeleccionador);
+    }
 
-	public String getTexto() {
-		return txtTexto.getText().toString();
-	}
+    public String getTexto() {
+        return txtTexto.getText().toString();
+    }
 
-	public void setTexto(String texto) {
-		this.txtTexto.setText(texto);
-	}
+    public void setTexto(String texto) {
+        this.txtTexto.setText(texto);
+    }
 
 }

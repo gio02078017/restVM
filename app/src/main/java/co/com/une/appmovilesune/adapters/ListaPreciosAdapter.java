@@ -18,50 +18,49 @@ import android.widget.TextView;
  * Clase interna que sirve para controlar la programacion visual del desarrollo,
  * esta clase sirve como de adatador para convertir los datos del objeto
  * item_niveles arraylist a una listView
- * 
+ *
  * @author Giovanny
- * 
  */
 public class ListaPreciosAdapter extends BaseAdapter {
 
-	protected Activity activity;
-	protected ArrayList<ListaPrecios> items;
-	public ListaAgendamiento item;
+    protected Activity activity;
+    protected ArrayList<ListaPrecios> items;
+    public ListaAgendamiento item;
 
-	public ListaPreciosAdapter(Activity activity, ArrayList<ListaPrecios> items, Context ctx) {
-		this.activity = activity;
-		this.items = items;
-	}
+    public ListaPreciosAdapter(Activity activity, ArrayList<ListaPrecios> items, Context ctx) {
+        this.activity = activity;
+        this.items = items;
+    }
 
-	public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
-		View vi = convertView;
+        View vi = convertView;
 
-		final ListaPrecios item = items.get(position);
+        final ListaPrecios item = items.get(position);
 
-		LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		vi = inflater.inflate(R.layout.itemadicionales, null);
+        vi = inflater.inflate(R.layout.itemadicionales, null);
 
-		TextView lblNombre = (TextView) vi.findViewById(R.id.txtNombre);
-		lblNombre.setText(item.getNombre());
+        TextView lblNombre = (TextView) vi.findViewById(R.id.txtNombre);
+        lblNombre.setText(item.getNombre());
 
-		TextView lblValor = (TextView) vi.findViewById(R.id.txtValor);
-		lblValor.setText(item.getValor());
+        TextView lblValor = (TextView) vi.findViewById(R.id.txtValor);
+        lblValor.setText(item.getValor());
 
-		return vi;
-	}
+        return vi;
+    }
 
-	public Object getItem(int position) {
-		return items.get(position);
-	}
+    public Object getItem(int position) {
+        return items.get(position);
+    }
 
-	public long getItemId(int position) {
-		return items.get(position).getId();
-	}
+    public long getItemId(int position) {
+        return items.get(position).getId();
+    }
 
-	public int getCount() {
-		return items.size();
-	}
+    public int getCount() {
+        return items.size();
+    }
 
 }

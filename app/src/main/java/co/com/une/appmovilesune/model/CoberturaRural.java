@@ -9,7 +9,7 @@ import co.com.une.appmovilesune.adapters.ProyectosRurales;
  * Created by Gospina on 28/11/2016.
  */
 
-public class CoberturaRural implements Serializable{
+public class CoberturaRural implements Serializable {
 
     private String barrioConsulta;
     private boolean coberturaRural;
@@ -18,12 +18,12 @@ public class CoberturaRural implements Serializable{
     private String codigoProyecto;
     private String coberturaSeleccionada;
 
-    public CoberturaRural(){
+    public CoberturaRural() {
 
     }
 
-    public void limpiar(){
-        if(arrayProyectosRurales != null){
+    public void limpiar() {
+        if (arrayProyectosRurales != null) {
             arrayProyectosRurales.clear();
         }
 

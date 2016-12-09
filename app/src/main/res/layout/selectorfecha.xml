@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <EditText
         android:id="@+id/txtTexto"
@@ -17,7 +17,7 @@
 
         <requestFocus />
     </EditText>
-    
+
     <ImageButton
         android:id="@+id/btnSeleccionador"
         android:layout_width="wrap_content"
@@ -25,6 +25,6 @@
         android:background="@drawable/selectorfecha"
         android:contentDescription="Lanzar Selector"
         android:onClick="mostrarDialogo" />
-    
+
 
 </LinearLayout>

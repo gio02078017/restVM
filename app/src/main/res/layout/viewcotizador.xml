@@ -25,14 +25,14 @@
                 android:id="@+id/cprdTelevision"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                custom:tipo="Television"/>
+                custom:tipo="Television" />
 
             <co.com.une.appmovilesune.components.CompAdicional
                 android:id="@+id/cadcTelevision"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 custom:tipoAdicional="AdicionalesTelevision"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <co.com.une.appmovilesune.components.CompDecos
                 android:id="@+id/cdcsDecodificadores"
@@ -44,26 +44,26 @@
                 android:id="@+id/cprdInternet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                custom:tipo="Internet"/>
+                custom:tipo="Internet" />
 
             <co.com.une.appmovilesune.components.CompProducto
                 android:id="@+id/cprdTelefonia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                custom:tipo="Telefonia"/>
+                custom:tipo="Telefonia" />
 
             <co.com.une.appmovilesune.components.CompAdicional
                 android:id="@+id/cadcTelefonia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 custom:tipoAdicional="AdicionalesTelefonia"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <co.com.une.appmovilesune.components.CompTotalCotizador
                 android:id="@+id/cttlTotales"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="7dp"/>
+                android:layout_margin="7dp" />
 
             <ImageButton
                 android:id="@+id/btnGardarCotizacion"

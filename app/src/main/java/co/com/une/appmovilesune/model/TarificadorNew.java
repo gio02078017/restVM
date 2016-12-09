@@ -117,7 +117,7 @@ public class TarificadorNew {
 
     // metodo encargado de la cotizacion de Telefonia
     public void Tarifas_Telefonia(String Telefonia) {
-        if(Telefonia != null){
+        if (Telefonia != null) {
             if (!Telefonia.equalsIgnoreCase(Utilidades.inicial) && !Telefonia.equalsIgnoreCase(Utilidades.inicial_guion)) {
                 Consulta(Telefonia, Utilidades.tipo_producto_to);
             } else {
@@ -131,7 +131,7 @@ public class TarificadorNew {
 
     // metodo encargado de la cotizacion de Television
     public void Tarifas_Television(String Television) {
-        if(Television != null){
+        if (Television != null) {
             if (!Television.equalsIgnoreCase(Utilidades.inicial) && !Television.equalsIgnoreCase(Utilidades.inicial_guion)) {
                 Consulta(Television, Utilidades.tipo_producto_tv);
             } else {
@@ -145,7 +145,7 @@ public class TarificadorNew {
 
     // metodo encargado de la cotizacion de Internet
     public void Tarifas_Internet(String Internet) {
-        if(Internet != null){
+        if (Internet != null) {
             if (!Internet.equalsIgnoreCase(Utilidades.inicial) && !Internet.equalsIgnoreCase(Utilidades.inicial_guion)) {
                 Consulta(Internet, Utilidades.tipo_producto_ba);
             } else {
@@ -247,7 +247,6 @@ public class TarificadorNew {
         if (!internet.equalsIgnoreCase(Utilidades.inicial) && !internet.equalsIgnoreCase(Utilidades.inicial_guion)) {
             Contador_productos++;
         }
-
 
 
         Contador = Contador_productos;

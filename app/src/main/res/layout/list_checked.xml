@@ -9,5 +9,4 @@
     android:paddingRight="10dip"
     android:textAppearance="?android:attr/textAppearanceSmall"
     android:textColor="#FF000000"
-    android:background="#00ffffff"
-     />
+    android:background="#00ffffff" />

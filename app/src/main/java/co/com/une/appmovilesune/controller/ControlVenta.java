@@ -536,7 +536,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 System.out
                         .println("listaAdicionaleTos.get(i).getDuracion() " + listaAdicionalesTo.get(i).getDuracion());
                 /*
-				 * adicional.put("demo",
+                 * adicional.put("demo",
 				 * Utilidades.claveValor(cotizacion.getOferta(),
 				 * listaAdicionales.get(i).getAdicional()));
 				 */

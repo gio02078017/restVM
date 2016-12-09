@@ -180,7 +180,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         txtPaginacion = (EditText) findViewById(R.id.txtPaginacion);
         txtContracto = (EditText) findViewById(R.id.txtContrato);
         txtBarrio = (AutoCompleteTextView) findViewById(R.id.txtBarrio);
-        txtProyectosRurales = (AutoCompleteTextView) findViewById(R.id.txtProyectosRurales);
+
         txtPuntoReferencia = (EditText) findViewById(R.id.txtPuntoReferencial);
         txtTelefonoServicio = (EditText) findViewById(R.id.txtTelefonoServicio);
         txtTelefonoDestino = (EditText) findViewById(R.id.txtTelefonoDestino);
@@ -196,7 +196,6 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         spnTipoServicio = (Spinner) findViewById(R.id.spnTipoServicio);
         sltEstrato = (Spinner) findViewById(R.id.sltEstrato);
         spnTecnologia = (Spinner) findViewById(R.id.spnTecnologia);
-        spnTipoZona = (Spinner) findViewById(R.id.spnTipoZona);
         sltNivelEstudio = (Spinner) findViewById(R.id.sltNivelEstudio);
         sltProfession = (Spinner) findViewById(R.id.sltProfession);
         sltOcupacion = (Spinner) findViewById(R.id.sltOcupacion);
@@ -216,7 +215,6 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         /* Objectos Scoring */
         rowMunicipioREDCO = (TableRow) findViewById(R.id.trTablaMunicipioSSC);
         rowTecnologia = (TableRow) findViewById(R.id.trTablaTecnologia);
-        rowTipoZona = (TableRow) findViewById(R.id.trTipoZona);
         rowNivelEstudio = (TableRow) findViewById(R.id.trTablaNivelEstudio);
         rowProfesion = (TableRow) findViewById(R.id.trTablaProfesion);
         rowOcupacion = (TableRow) findViewById(R.id.trTablaOcupacion);
@@ -247,7 +245,9 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         rowClientePinHotPack = (TableRow) findViewById(R.id.trTablaClientePinHotPack);
 
         rowProyectosRurales = (TableRow) findViewById(R.id.trTablaProyectos);
-        rowTipoZona = (TableRow)findViewById(R.id.trTipoZona);
+        rowTipoZona = (TableRow) findViewById(R.id.trTipoZona);
+        spnTipoZona = (Spinner) findViewById(R.id.spnTipoZona);
+        txtProyectosRurales = (AutoCompleteTextView) findViewById(R.id.txtProyectosRurales);
 
         txtNombrePredio = (EditText) findViewById(R.id.txtNombrePredio);
 
@@ -489,12 +489,19 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         }
 
         if (!control) {
-            //cliente.setCoberRural(false);
-            cliente.coberturaRural.setCoberturaRural(false);
-            cliente.coberturaRural.setCoberturaSeleccionada("");
-            cliente.coberturaRural.setCodigoProyecto("");
-            cliente.coberturaRural.setProyectoSeleccionado("");
+            limpiarProyecto();
+
         }
+    }
+
+    public void limpiarProyecto(){
+        cliente.coberturaRural.setCoberturaRural(false);
+        cliente.coberturaRural.setCoberturaSeleccionada("");
+        cliente.coberturaRural.setCodigoProyecto("");
+        cliente.coberturaRural.setProyectoSeleccionado("");
+        cliente.setControlNormalizada(false);
+        cliente.setConsultaNormalizada(false);
+        cliente.setCobertura("");
     }
 
     public void campoVisibles() {
@@ -639,8 +646,6 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
         txtProyectosRurales.setTextColor(getResources().getColor(R.color.black));
 
-        System.out.println("rural cliente.coberturaRural.isCoberturaRural() " + cliente.coberturaRural.isCoberturaRural());
-
         if (cliente.coberturaRural.isCoberturaRural()) {
             System.out.println("rural cliente.coberturaRural.getProyectoSeleccionado() " + cliente.coberturaRural.getProyectoSeleccionado());
             txtProyectosRurales.setText(cliente.coberturaRural.getProyectoSeleccionado());
@@ -769,14 +774,18 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
                     limpiarSpnTipoZona();
                     controlProyecto = false;
                     controlEstandarizar = true;
+                    limpiarProyecto();
                 }
             } else {
                 //limpiar
                 arrayProyectosRurales.clear();
-                llenarProyectosRurales(arrayProyectosRurales);
+                if(cliente.coberturaRural != null) {
+                    llenarProyectosRurales(arrayProyectosRurales);
+                }
                 rowProyectosRurales.setVisibility(View.GONE);
                 controlProyecto = false;
                 controlEstandarizar = true;
+                limpiarProyecto();
             }
         }
 
@@ -1325,37 +1334,37 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         if (!txtDireccion.getText().toString().equalsIgnoreCase("")
                 && !txtBarrio.getText().toString().equalsIgnoreCase("")) {
 
-         if(controlEstandarizar) {
-             JSONObject jo = new JSONObject();
+            if (controlEstandarizar) {
+                JSONObject jo = new JSONObject();
 
-             try {
+                try {
 
-                 if (cliente.getCiudad().equalsIgnoreCase("BogotaREDCO")
-                         || cliente.getCiudad().equalsIgnoreCase("BogotaHFC")) {
-                     municipio = "Bogota";
-                 } else {
-                     municipio = cliente.getCiudad();
-                 }
+                    if (cliente.getCiudad().equalsIgnoreCase("BogotaREDCO")
+                            || cliente.getCiudad().equalsIgnoreCase("BogotaHFC")) {
+                        municipio = "Bogota";
+                    } else {
+                        municipio = cliente.getCiudad();
+                    }
 
-                 if (cliente.getDepartamento().equalsIgnoreCase("Antioquia")) {
-                     tipoEstandar = "1";
-                 } else {
-                     tipoEstandar = "0";
-                 }
+                    if (cliente.getDepartamento().equalsIgnoreCase("Antioquia")) {
+                        tipoEstandar = "1";
+                    } else {
+                        tipoEstandar = "0";
+                    }
 
-                 jo.put("Direccion", txtDireccion.getText().toString());
-                 jo.put("Municipio", municipio);
-                 jo.put("MunicipioFenix", Utilidades.ciudadFenix(cliente.getCiudad(), cliente.getDepartamento()));
-                 jo.put("DepartamentoFenix", Utilidades.departamentoFenix(cliente.getDepartamento()));
-                 jo.put("CodigoBarrioFenix", Utilidades.traducirCodigoBarrio(txtBarrio.getText().toString()));
-                 jo.put("NombreBarrio", txtBarrio.getText().toString());
-                 jo.put("tipoEstandar", tipoEstandar);
+                    jo.put("Direccion", txtDireccion.getText().toString());
+                    jo.put("Municipio", municipio);
+                    jo.put("MunicipioFenix", Utilidades.ciudadFenix(cliente.getCiudad(), cliente.getDepartamento()));
+                    jo.put("DepartamentoFenix", Utilidades.departamentoFenix(cliente.getDepartamento()));
+                    jo.put("CodigoBarrioFenix", Utilidades.traducirCodigoBarrio(txtBarrio.getText().toString()));
+                    jo.put("NombreBarrio", txtBarrio.getText().toString());
+                    jo.put("tipoEstandar", tipoEstandar);
 
-                 VerificarDireccion(jo.toString());
-             } catch (JSONException e) {
-                 e.printStackTrace();
-             }
-         }
+                    VerificarDireccion(jo.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         } else if (!txtBarrio.getText().toString().equalsIgnoreCase("")) {
             Intent intent = new Intent(MainActivity.MODULO_DIRECCIONES);
             startActivityForResult(intent, MainActivity.REQUEST_CODE);
@@ -1540,7 +1549,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         }
 
 		/*
-		 * System.out.println("Telefono destino => " +
+         * System.out.println("Telefono destino => " +
 		 * cliente.getTelefonoDestino());
 		 */
 

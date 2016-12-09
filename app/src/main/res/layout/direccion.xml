@@ -3,24 +3,24 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/texture"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent">
 
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="fill_parent"
                 android:layout_height="34dp"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView4"
@@ -31,21 +31,20 @@
                     android:text="@string/digilenciar_campos"
                     android:textColor="@color/gray_text"
                     android:textSize="13sp"
-                    android:textStyle="bold" >
-                </TextView>
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/my_shape_file"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TableLayout
                     android:id="@+id/tableLayout1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center" >
+                    android:layout_gravity="center">
 
                     <!-- 2 columns -->
 
@@ -53,7 +52,7 @@
                         android:id="@+id/tableRow1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <TextView
                             android:id="@+id/Elemento_1"
@@ -73,7 +72,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <Spinner
                             android:id="@+id/Elemento_A"
@@ -81,8 +80,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/spin"
                             android:paddingLeft="20dp"
-                            android:paddingRight="45dp" >
-                        </Spinner>
+                            android:paddingRight="45dp"></Spinner>
 
                         <TextView
                             android:text="@string/asterisco"
@@ -95,8 +93,7 @@
                             android:background="@drawable/edittextbg"
                             android:inputType="number"
                             android:paddingLeft="20dp"
-                            android:paddingRight="10dp" >
-                        </EditText>
+                            android:paddingRight="10dp"></EditText>
 
                         <TextView
                             android:text="@string/asterisco"
@@ -106,7 +103,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <TextView
                             android:id="@+id/Elemento_3"
@@ -126,7 +123,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <TextView
                             android:layout_gravity="center"
@@ -144,7 +141,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <Spinner
                             android:id="@+id/Elemento_C"
@@ -153,8 +150,7 @@
                             android:layout_span="2"
                             android:background="@drawable/spin"
                             android:paddingLeft="20dp"
-                            android:paddingRight="45dp" >
-                        </Spinner>
+                            android:paddingRight="45dp"></Spinner>
 
                         <Spinner
                             android:id="@+id/Elemento_D"
@@ -163,14 +159,13 @@
                             android:layout_span="2"
                             android:background="@drawable/spin"
                             android:paddingLeft="20dp"
-                            android:paddingRight="45dp" >
-                        </Spinner>
+                            android:paddingRight="45dp"></Spinner>
                     </TableRow>
 
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <TextView
                             android:layout_gravity="center"
@@ -188,7 +183,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <TextView
                             android:layout_gravity="center"
@@ -206,7 +201,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <Spinner
                             android:id="@+id/Elemento_E"
@@ -214,8 +209,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/spin"
                             android:paddingLeft="20dp"
-                            android:paddingRight="45dp" >
-                        </Spinner>
+                            android:paddingRight="45dp"></Spinner>
 
                         <TextView
                             android:text="@string/asterisco"
@@ -228,8 +222,7 @@
                             android:background="@drawable/edittextbg"
                             android:inputType="number"
                             android:paddingLeft="20dp"
-                            android:paddingRight="10dp" >
-                        </EditText>
+                            android:paddingRight="10dp"></EditText>
 
                         <TextView
                             android:text="@string/asterisco"
@@ -239,7 +232,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <TextView
                             android:layout_gravity="center"
@@ -257,7 +250,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <TextView
                             android:layout_gravity="center"
@@ -275,7 +268,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <Spinner
                             android:id="@+id/Elemento_G"
@@ -284,8 +277,7 @@
                             android:layout_span="2"
                             android:background="@drawable/spin"
                             android:paddingLeft="20dp"
-                            android:paddingRight="45dp" >
-                        </Spinner>
+                            android:paddingRight="45dp"></Spinner>
 
                         <Spinner
                             android:id="@+id/Elemento_H"
@@ -294,14 +286,13 @@
                             android:layout_span="2"
                             android:background="@drawable/spin"
                             android:paddingLeft="20dp"
-                            android:paddingRight="45dp" >
-                        </Spinner>
+                            android:paddingRight="45dp"></Spinner>
                     </TableRow>
 
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <TextView
                             android:layout_gravity="center"
@@ -319,7 +310,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <TextView
                             android:layout_gravity="center"
@@ -337,7 +328,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <EditText
                             android:id="@+id/Elemento_I"
@@ -346,8 +337,7 @@
                             android:background="@drawable/edittextbg"
                             android:inputType="number"
                             android:paddingLeft="20dp"
-                            android:paddingRight="20dp" >
-                        </EditText>
+                            android:paddingRight="20dp"></EditText>
 
                         <TextView
                             android:text="@string/asterisco"
@@ -363,14 +353,13 @@
                             android:inputType="number"
                             android:maxLength="4"
                             android:paddingLeft="20dp"
-                            android:paddingRight="45dp" >
-                        </EditText>
+                            android:paddingRight="45dp"></EditText>
                     </TableRow>
 
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <TextView
                             android:layout_gravity="center"
@@ -388,7 +377,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <TextView
                             android:layout_gravity="center"
@@ -406,7 +395,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <EditText
                             android:id="@+id/Elemento_K"
@@ -418,8 +407,7 @@
                             android:inputType="number"
                             android:maxLength="2"
                             android:paddingLeft="20dp"
-                            android:paddingRight="45dp" >
-                        </EditText>
+                            android:paddingRight="45dp"></EditText>
 
                         <Spinner
                             android:id="@+id/Elemento_L"
@@ -428,14 +416,13 @@
                             android:layout_span="2"
                             android:background="@drawable/spin"
                             android:paddingLeft="20dp"
-                            android:paddingRight="45dp" >
-                        </Spinner>
+                            android:paddingRight="45dp"></Spinner>
                     </TableRow>
 
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <TextView
                             android:layout_gravity="center"
@@ -453,7 +440,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <TextView
                             android:layout_gravity="center"
@@ -465,7 +452,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <EditText
                             android:id="@+id/Elemento_M"
@@ -475,14 +462,13 @@
                             android:background="@drawable/edittextbg"
                             android:inputType=""
                             android:paddingLeft="30dp"
-                            android:paddingRight="20dp" >
-                        </EditText>
+                            android:paddingRight="20dp"></EditText>
                     </TableRow>
 
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <TextView
                             android:layout_gravity="center"
@@ -494,7 +480,7 @@
                     <TableRow
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp" >
+                        android:layout_margin="1dp">
 
                         <Button
                             android:id="@+id/Enviar"
@@ -502,8 +488,7 @@
                             android:background="@drawable/button"
                             android:text="@string/guardar"
                             android:textColor="@color/gray_text"
-                            android:textStyle="bold" >
-                        </Button>
+                            android:textStyle="bold"></Button>
 
                         <Button
                             android:id="@+id/Cancelar"
@@ -511,8 +496,7 @@
                             android:background="@drawable/button"
                             android:text="@string/cancelar"
                             android:textColor="@color/gray_text"
-                            android:textStyle="bold" >
-                        </Button>
+                            android:textStyle="bold"></Button>
                     </TableRow>
 
                     <!-- edittext span 2 column -->

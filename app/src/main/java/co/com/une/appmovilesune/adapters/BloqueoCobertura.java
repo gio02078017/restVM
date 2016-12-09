@@ -2,89 +2,90 @@ package co.com.une.appmovilesune.adapters;
 
 public class BloqueoCobertura {
 
-	private boolean coberturaHFC;
-	private boolean coberturaREDCO;
-	private boolean disponibilidadHFC;
-	private boolean disponibilidadREDCO;
-	private String tipoCobertura;
-	private String defaulCobertura;
-	private String medioTV = "";
-	private String consultaMedioTV = "";
-	private boolean HFCDigital = false;
-	public BloqueoCobertura() {
+    private boolean coberturaHFC;
+    private boolean coberturaREDCO;
+    private boolean disponibilidadHFC;
+    private boolean disponibilidadREDCO;
+    private String tipoCobertura;
+    private String defaulCobertura;
+    private String medioTV = "";
+    private String consultaMedioTV = "";
+    private boolean HFCDigital = false;
 
-	}
+    public BloqueoCobertura() {
 
-	public String getTipoCobertura() {
-		return tipoCobertura;
-	}
+    }
 
-	public void setTipoCobertura(String tipoCobertura) {
-		this.tipoCobertura = tipoCobertura;
-	}
+    public String getTipoCobertura() {
+        return tipoCobertura;
+    }
 
-	public String getDefaulCobertura() {
-		return defaulCobertura;
-	}
+    public void setTipoCobertura(String tipoCobertura) {
+        this.tipoCobertura = tipoCobertura;
+    }
 
-	public void setDefaulCobertura(String defaulCobertura) {
-		this.defaulCobertura = defaulCobertura;
-	}
+    public String getDefaulCobertura() {
+        return defaulCobertura;
+    }
 
-	public boolean isCoberturaHFC() {
-		return coberturaHFC;
-	}
+    public void setDefaulCobertura(String defaulCobertura) {
+        this.defaulCobertura = defaulCobertura;
+    }
 
-	public void setCoberturaHFC(boolean coberturaHFC) {
-		this.coberturaHFC = coberturaHFC;
-	}
+    public boolean isCoberturaHFC() {
+        return coberturaHFC;
+    }
 
-	public boolean isCoberturaREDCO() {
-		return coberturaREDCO;
-	}
+    public void setCoberturaHFC(boolean coberturaHFC) {
+        this.coberturaHFC = coberturaHFC;
+    }
 
-	public void setCoberturaREDCO(boolean coberturaREDCO) {
-		this.coberturaREDCO = coberturaREDCO;
-	}
+    public boolean isCoberturaREDCO() {
+        return coberturaREDCO;
+    }
 
-	public boolean isDisponibilidadHFC() {
-		return disponibilidadHFC;
-	}
+    public void setCoberturaREDCO(boolean coberturaREDCO) {
+        this.coberturaREDCO = coberturaREDCO;
+    }
 
-	public void setDisponibilidadHFC(boolean disponibilidadHFC) {
-		this.disponibilidadHFC = disponibilidadHFC;
-	}
+    public boolean isDisponibilidadHFC() {
+        return disponibilidadHFC;
+    }
 
-	public boolean isDisponibilidadREDCO() {
-		return disponibilidadREDCO;
-	}
+    public void setDisponibilidadHFC(boolean disponibilidadHFC) {
+        this.disponibilidadHFC = disponibilidadHFC;
+    }
 
-	public void setDisponibilidadREDCO(boolean disponibilidadREDCO) {
-		this.disponibilidadREDCO = disponibilidadREDCO;
-	}
+    public boolean isDisponibilidadREDCO() {
+        return disponibilidadREDCO;
+    }
 
-	public String getMedioTV() {
-		return medioTV;
-	}
+    public void setDisponibilidadREDCO(boolean disponibilidadREDCO) {
+        this.disponibilidadREDCO = disponibilidadREDCO;
+    }
 
-	public void setMedioTV(String medioTV) {
-		this.medioTV = medioTV;
-	}
+    public String getMedioTV() {
+        return medioTV;
+    }
 
-	public String getConsultaMedioTV() {
-		return consultaMedioTV;
-	}
+    public void setMedioTV(String medioTV) {
+        this.medioTV = medioTV;
+    }
 
-	public void setConsultaMedioTV(String consultaMedioTV) {
-		this.consultaMedioTV = consultaMedioTV;
-	}
+    public String getConsultaMedioTV() {
+        return consultaMedioTV;
+    }
 
-	public boolean isHFCDigital() {
-		return HFCDigital;
-	}
+    public void setConsultaMedioTV(String consultaMedioTV) {
+        this.consultaMedioTV = consultaMedioTV;
+    }
+
+    public boolean isHFCDigital() {
+        return HFCDigital;
+    }
 
 
-	public void setHFCDigital(boolean hFCDigital) {
-		HFCDigital = hFCDigital;
-	}
+    public void setHFCDigital(boolean hFCDigital) {
+        HFCDigital = hFCDigital;
+    }
 }

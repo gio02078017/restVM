@@ -8,7 +8,7 @@
     android:layout_marginRight="5dp"
     android:layout_marginTop="5dp"
     android:background="@drawable/bg_title_resumen"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/imgAdicional"

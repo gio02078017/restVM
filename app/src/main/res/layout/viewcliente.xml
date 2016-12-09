@@ -3,12 +3,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/texture"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <co.com.une.appmovilesune.components.TituloPrincipal
             android:id="@+id/tlpPrincipal"
@@ -18,12 +18,12 @@
         <TabHost
             android:id="@android:id/tabhost"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent">
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TabWidget
                     android:id="@android:id/tabs"
@@ -33,7 +33,7 @@
                 <FrameLayout
                     android:id="@android:id/tabcontent"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" >
+                    android:layout_height="fill_parent">
 
                     <LinearLayout
                         android:id="@+id/infoCliente"
@@ -41,12 +41,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:orientation="vertical"
-                        android:weightSum="1" >
+                        android:weightSum="1">
 
                         <ScrollView
                             android:id="@+id/scrollView1"
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent" >
+                            android:layout_height="fill_parent">
 
                             <TableLayout
                                 android:layout_width="match_parent"
@@ -54,14 +54,14 @@
                                 android:background="#FFF"
                                 android:padding="5dp"
                                 android:shrinkColumns="*"
-                                android:stretchColumns="*" >
+                                android:stretchColumns="*">
 
                                 <TableRow
                                     android:id="@+id/trTablaClienteNombre"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -137,7 +137,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -189,7 +189,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -216,7 +216,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -240,7 +240,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -264,7 +264,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -279,7 +279,7 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_span="8"
-                                        android:orientation="horizontal" >
+                                        android:orientation="horizontal">
 
                                         <EditText
                                             android:id="@+id/txtCodigoHogar"
@@ -306,7 +306,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -330,7 +330,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -357,7 +357,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -372,7 +372,7 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_span="8"
-                                        android:orientation="horizontal" >
+                                        android:orientation="horizontal">
 
                                         <EditText
                                             android:id="@+id/txtDireccion"
@@ -399,7 +399,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="gone" >
+                                    android:visibility="gone">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -425,7 +425,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -451,7 +451,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="gone" >
+                                    android:visibility="gone">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -478,7 +478,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -504,7 +504,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -530,7 +530,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="gone" >
+                                    android:visibility="gone">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -555,7 +555,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -570,7 +570,7 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_span="8"
-                                        android:orientation="horizontal" >
+                                        android:orientation="horizontal">
 
                                         <EditText
                                             android:id="@+id/txtTelefonoServicio"
@@ -598,7 +598,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -625,7 +625,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -652,7 +652,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -679,7 +679,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -694,7 +694,7 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_span="8"
-                                        android:orientation="horizontal" >
+                                        android:orientation="horizontal">
 
                                         <EditText
                                             android:id="@+id/txtMail"
@@ -716,13 +716,13 @@
                                             android:text="" />
                                     </LinearLayout>
                                 </TableRow>
-                                
+
                                 <TableRow
                                     android:id="@+id/trTablaClienteMailDominio"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -731,7 +731,7 @@
                                         android:text=""
                                         android:textColor="#6F6F6F"
                                         android:textStyle="bold" />
-                                    
+
                                     <Spinner
                                         android:id="@+id/spnDominio"
                                         android:layout_width="fill_parent"
@@ -741,7 +741,7 @@
                                         android:paddingLeft="25dp"
                                         android:paddingRight="45dp" />
 
-                                    
+
                                 </TableRow>
 
                                 <TableRow
@@ -749,7 +749,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -764,7 +764,7 @@
                                         android:layout_width="fill_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_span="8"
-                                        android:orientation="horizontal" >
+                                        android:orientation="horizontal">
 
                                         <EditText
                                             android:id="@+id/txtLogin"
@@ -785,13 +785,13 @@
                                             android:onClick="buscar_login" />
                                     </LinearLayout>
                                 </TableRow>
-                                
+
                                 <TableRow
                                     android:id="@+id/trTablaClientePinHotPack"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -818,7 +818,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="gone" >
+                                    android:visibility="gone">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -846,7 +846,7 @@
                                     android:id="@+id/trTablaClienteBoton"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="10dp" >
+                                    android:layout_marginBottom="10dp">
 
                                     <ImageButton
                                         android:id="@+id/btnSiguiente"
@@ -872,25 +872,25 @@
                         android:layout_marginBottom="5dp"
                         android:orientation="vertical"
                         android:weightSum="1"
-                        android:visibility="gone" >
+                        android:visibility="gone">
 
                         <ScrollView
                             android:id="@+id/svInfoContacto"
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent" >
+                            android:layout_height="fill_parent">
 
                             <TableLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:padding="5dp"
                                 android:shrinkColumns="*"
-                                android:stretchColumns="*" >
+                                android:stretchColumns="*">
 
                                 <TableRow
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="1dp"
-                                    android:background="@drawable/bg_title_resumen_sim" >
+                                    android:background="@drawable/bg_title_resumen_sim">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -909,7 +909,7 @@
                                     android:layout_height="wrap_content"
                                     android:background="#FFF"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -937,7 +937,7 @@
                                     android:layout_height="wrap_content"
                                     android:background="#FFF"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -965,7 +965,7 @@
                                     android:layout_height="wrap_content"
                                     android:background="#FFF"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -994,7 +994,7 @@
                                     android:layout_height="wrap_content"
                                     android:background="#FFF"
                                     android:padding="10dp"
-                                    android:visibility="gone" >
+                                    android:visibility="gone">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1024,7 +1024,7 @@
                                     android:layout_marginBottom="10dp"
                                     android:background="#FFF"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1051,7 +1051,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="1dp"
                                     android:background="@drawable/bg_title_resumen_sim"
-                                    android:visibility="gone" >
+                                    android:visibility="gone">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -1071,7 +1071,7 @@
                                     android:layout_height="wrap_content"
                                     android:background="#FFF"
                                     android:padding="10dp"
-                                    android:visibility="gone" >
+                                    android:visibility="gone">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1099,7 +1099,7 @@
                                     android:layout_height="wrap_content"
                                     android:background="#FFF"
                                     android:padding="10dp"
-                                    android:visibility="gone" >
+                                    android:visibility="gone">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1127,7 +1127,7 @@
                                     android:layout_height="wrap_content"
                                     android:background="#FFF"
                                     android:padding="10dp"
-                                    android:visibility="gone" >
+                                    android:visibility="gone">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1156,7 +1156,7 @@
                                     android:layout_height="wrap_content"
                                     android:background="#FFF"
                                     android:padding="10dp"
-                                    android:visibility="gone" >
+                                    android:visibility="gone">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1185,7 +1185,7 @@
                                     android:layout_height="wrap_content"
                                     android:background="#FFF"
                                     android:padding="10dp"
-                                    android:visibility="gone" >
+                                    android:visibility="gone">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1219,26 +1219,26 @@
                         android:background="#FFF"
                         android:orientation="vertical"
                         android:visibility="gone"
-                        android:weightSum="1" >
+                        android:weightSum="1">
 
                         <ScrollView
                             android:id="@+id/svSocioEconomico"
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent" >
+                            android:layout_height="fill_parent">
 
                             <TableLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:padding="5dp"
                                 android:shrinkColumns="*"
-                                android:stretchColumns="*" >
-                                
+                                android:stretchColumns="*">
+
                                 <TableRow
                                     android:id="@+id/trTablaTecnologia"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1262,7 +1262,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="gone" >
+                                    android:visibility="gone">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1280,13 +1280,13 @@
                                         android:paddingLeft="25dp"
                                         android:paddingRight="45dp" />
                                 </TableRow>
-                                
+
                                 <TableRow
                                     android:id="@+id/trTablaDomiciliacion"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1310,7 +1310,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1322,7 +1322,7 @@
 
                                     <Spinner
                                         android:id="@+id/sltNivelEstudio"
-                                        android:layout_height="wrap_content" 
+                                        android:layout_height="wrap_content"
                                         android:layout_span="8"
                                         android:background="@drawable/spin"
                                         android:paddingLeft="25dp"
@@ -1334,7 +1334,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1358,7 +1358,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1382,7 +1382,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1406,7 +1406,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1430,7 +1430,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1454,7 +1454,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1478,7 +1478,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1502,7 +1502,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1526,7 +1526,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1550,7 +1550,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1576,7 +1576,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1594,13 +1594,13 @@
                                         android:paddingLeft="25dp"
                                         android:paddingRight="45dp" />
                                 </TableRow>
-                                
-								<TableRow
+
+                                <TableRow
                                     android:id="@+id/trTablaMigrar4G"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1624,7 +1624,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1648,7 +1648,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="gone" >
+                                    android:visibility="gone">
 
                                     <ImageButton
                                         android:id="@+id/btnPrueba"
@@ -1661,7 +1661,7 @@
                                         android:onClick="preLLenar"
                                         android:src="@drawable/buttons_src" />
                                 </TableRow>
-                                
+
                             </TableLayout>
                         </ScrollView>
                     </LinearLayout>
@@ -1676,26 +1676,26 @@
                         android:background="#FFF"
                         android:orientation="vertical"
                         android:visibility="gone"
-                        android:weightSum="1" >
+                        android:weightSum="1">
 
                         <ScrollView
                             android:id="@+id/svFacturacion"
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent" >
+                            android:layout_height="fill_parent">
 
                             <TableLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:padding="5dp"
                                 android:shrinkColumns="*"
-                                android:stretchColumns="*" >
+                                android:stretchColumns="*">
 
                                 <TableRow
                                     android:id="@+id/trTablaClienteFacturacion1"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1719,7 +1719,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1743,7 +1743,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1769,7 +1769,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -1788,7 +1788,7 @@
                                         android:inputType="textNoSuggestions"
                                         android:paddingLeft="25dp"
                                         android:paddingRight="25dp" />
-                                    
+
                                 </TableRow>
                             </TableLayout>
                         </ScrollView>

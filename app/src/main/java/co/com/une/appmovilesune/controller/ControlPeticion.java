@@ -26,110 +26,110 @@ import android.widget.Spinner;
 
 public class ControlPeticion extends Activity {
 
-	private Peticion peticion;
+    private Peticion peticion;
 
-	private Spinner sltTransacciones;
-	private SelectorProductos slpProductos;
-	private EditText txtOtraTransaccion, txtEvento, txtPedido, txtCun;
+    private Spinner sltTransacciones;
+    private SelectorProductos slpProductos;
+    private EditText txtOtraTransaccion, txtEvento, txtPedido, txtCun;
 
-	private Dialogo dialogoProductos;
+    private Dialogo dialogoProductos;
 
-	private TituloPrincipal tp;
+    private TituloPrincipal tp;
 
-	ArrayAdapter<String> adaptador;
+    ArrayAdapter<String> adaptador;
 
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.viewpeticiones);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.viewpeticiones);
 
-		tp = (TituloPrincipal) findViewById(R.id.tlpPrincipal);
-		tp.setTitulo("Petición");
+        tp = (TituloPrincipal) findViewById(R.id.tlpPrincipal);
+        tp.setTitulo("Petición");
 
-		dialogoProductos = new Dialogo(this, Dialogo.DIALOGO_SELECTOR_PRODUCTO, "");
-		dialogoProductos.dialogo.setOnDismissListener(dlp);
+        dialogoProductos = new Dialogo(this, Dialogo.DIALOGO_SELECTOR_PRODUCTO, "");
+        dialogoProductos.dialogo.setOnDismissListener(dlp);
 
-		peticion = new Peticion();
+        peticion = new Peticion();
 
-		asignarCampos();
-		llenarSpiners();
+        asignarCampos();
+        llenarSpiners();
 
-		Bundle reicieveParams = getIntent().getExtras();
-		if (reicieveParams != null) {
-			peticion = (Peticion) reicieveParams.getSerializable("peticion");
-			if (peticion != null) {
-				llenarCampos();
-			}
+        Bundle reicieveParams = getIntent().getExtras();
+        if (reicieveParams != null) {
+            peticion = (Peticion) reicieveParams.getSerializable("peticion");
+            if (peticion != null) {
+                llenarCampos();
+            }
 
-		} else {
-			// System.out.println("no peticion");
-		}
-	}
+        } else {
+            // System.out.println("no peticion");
+        }
+    }
 
-	@Override
-	public void onStart() {
-		super.onStart();
-		if (MainActivity.seguimiento) {
-			EasyTracker.getInstance(this).activityStart(this);
-		}
-	}
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (MainActivity.seguimiento) {
+            EasyTracker.getInstance(this).activityStart(this);
+        }
+    }
 
-	@Override
-	public void onStop() {
-		super.onStop();
-		if (MainActivity.seguimiento) {
-			EasyTracker.getInstance(this).activityStop(this);
-		}
-	}
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (MainActivity.seguimiento) {
+            EasyTracker.getInstance(this).activityStop(this);
+        }
+    }
 
-	private void asignarCampos() {
-		sltTransacciones = (Spinner) findViewById(R.id.sltTransaccion);
-		slpProductos = (SelectorProductos) findViewById(R.id.slpPeticion);
-		txtOtraTransaccion = (EditText) findViewById(R.id.txtOtraTransaccion);
-		txtEvento = (EditText) findViewById(R.id.txtEvento);
-		txtPedido = (EditText) findViewById(R.id.txtPedido);
-		txtCun = (EditText) findViewById(R.id.txtCun);
-	}
+    private void asignarCampos() {
+        sltTransacciones = (Spinner) findViewById(R.id.sltTransaccion);
+        slpProductos = (SelectorProductos) findViewById(R.id.slpPeticion);
+        txtOtraTransaccion = (EditText) findViewById(R.id.txtOtraTransaccion);
+        txtEvento = (EditText) findViewById(R.id.txtEvento);
+        txtPedido = (EditText) findViewById(R.id.txtPedido);
+        txtCun = (EditText) findViewById(R.id.txtCun);
+    }
 
-	private void llenarSpiners() {
-		adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
-				peticion.obtenerListaTransaccion());
-		sltTransacciones.setAdapter(adaptador);
-	}
+    private void llenarSpiners() {
+        adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+                peticion.obtenerListaTransaccion());
+        sltTransacciones.setAdapter(adaptador);
+    }
 
-	private void llenarCampos() {
-		sltTransacciones.setSelection(adaptador.getPosition(peticion.getTransaccion()));
-		slpProductos.setTexto(peticion.getProductos());
-		txtOtraTransaccion.setText(peticion.getCual());
-		txtEvento.setText(peticion.getEvento());
-		txtPedido.setText(peticion.getPedido());
-		txtCun.setText(peticion.getCun());
-	}
+    private void llenarCampos() {
+        sltTransacciones.setSelection(adaptador.getPosition(peticion.getTransaccion()));
+        slpProductos.setTexto(peticion.getProductos());
+        txtOtraTransaccion.setText(peticion.getCual());
+        txtEvento.setText(peticion.getEvento());
+        txtPedido.setText(peticion.getPedido());
+        txtCun.setText(peticion.getCun());
+    }
 
-	public void procesarPeticion(View v) {
-		peticion = new Peticion(sltTransacciones.getSelectedItem().toString(), txtOtraTransaccion.getText().toString(),
-				slpProductos.getTexto(), txtEvento.getText().toString(), txtPedido.getText().toString(),
-				txtCun.getText().toString());
-		Intent intent = new Intent();
-		intent.putExtra("peticion", peticion);
-		setResult(MainActivity.OK_RESULT_CODE, intent);
-		finish();
-	}
+    public void procesarPeticion(View v) {
+        peticion = new Peticion(sltTransacciones.getSelectedItem().toString(), txtOtraTransaccion.getText().toString(),
+                slpProductos.getTexto(), txtEvento.getText().toString(), txtPedido.getText().toString(),
+                txtCun.getText().toString());
+        Intent intent = new Intent();
+        intent.putExtra("peticion", peticion);
+        setResult(MainActivity.OK_RESULT_CODE, intent);
+        finish();
+    }
 
-	public void mostrarDialogo(View v) {
-		dialogoProductos.dialogo.show();
-	}
+    public void mostrarDialogo(View v) {
+        dialogoProductos.dialogo.show();
+    }
 
-	OnDismissListener dlp = new OnDismissListener() {
+    OnDismissListener dlp = new OnDismissListener() {
 
-		@Override
-		public void onDismiss(DialogInterface arg0) {
+        @Override
+        public void onDismiss(DialogInterface arg0) {
 
-			// TODO Auto-generated method stub
-			// System.out.println(dialogoProductos.isSeleccion());
-			if (dialogoProductos.isSeleccion()) {
-				slpProductos.setTexto(dialogoProductos.getProductos().toString());
-			}
+            // TODO Auto-generated method stub
+            // System.out.println(dialogoProductos.isSeleccion());
+            if (dialogoProductos.isSeleccion()) {
+                slpProductos.setTexto(dialogoProductos.getProductos().toString());
+            }
 
-		}
-	};
+        }
+    };
 }

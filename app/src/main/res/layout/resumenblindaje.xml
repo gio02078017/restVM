@@ -4,17 +4,17 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:background="@drawable/bg_info"
-    android:padding="5dp" >
+    android:padding="5dp">
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp" >
+        android:padding="10dp">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="4dp" >
+            android:paddingBottom="4dp">
 
             <TextView
                 android:id="@+id/lblDireccionCliente"
@@ -36,7 +36,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="4dp" >
+            android:paddingBottom="4dp">
 
             <TextView
                 android:id="@+id/lblBarrioCliente"
@@ -58,7 +58,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="4dp" >
+            android:paddingBottom="4dp">
 
             <TextView
                 android:id="@+id/lblEstratoCliente"
@@ -80,7 +80,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="4dp" >
+            android:paddingBottom="4dp">
 
             <TextView
                 android:id="@+id/lblCiudadCliente"
@@ -102,7 +102,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="4dp" >
+            android:paddingBottom="4dp">
 
             <TextView
                 android:id="@+id/lblProductosCliente"
@@ -124,7 +124,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="4dp" >
+            android:paddingBottom="4dp">
 
             <TextView
                 android:id="@+id/lblRegaloCliente"
@@ -146,7 +146,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="4dp" >
+            android:paddingBottom="4dp">
 
             <TextView
                 android:id="@+id/lblOferta1Cliente"
@@ -168,7 +168,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="4dp" >
+            android:paddingBottom="4dp">
 
             <TextView
                 android:id="@+id/lblOferta2Cliente"

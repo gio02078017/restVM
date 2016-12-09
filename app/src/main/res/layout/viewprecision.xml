@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:background="@drawable/texture"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <co.com.une.appmovilesune.components.TituloPrincipal
         android:id="@+id/tlpPrincipal"
@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/buttonIr"
@@ -40,7 +40,7 @@
             android:text="@string/goback" />
 
         <Button
-            android:id="@+id/buttonIr" 
+            android:id="@+id/buttonIr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/orange"
@@ -49,7 +49,7 @@
             android:onClick="siguiente"
             android:background="@drawable/bg_buttons_main"
             android:text="@string/gonext" />
-        
+
     </LinearLayout>
 
     <WebView

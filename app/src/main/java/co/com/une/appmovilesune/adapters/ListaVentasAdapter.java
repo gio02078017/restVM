@@ -11,69 +11,70 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.Subject;
 
 public class ListaVentasAdapter extends BaseAdapter {
 
-	protected Activity activity;
-	protected ArrayList<ListaVentas> items;
-	public ListaVentas item;
-	Context ctx;
+    protected Activity activity;
+    protected ArrayList<ListaVentas> items;
+    public ListaVentas item;
+    Context ctx;
 
-	private String type;
-	private Observer observer;
+    private String type;
+    private Observer observer;
 
-	public ListaVentasAdapter(Activity activity, ArrayList<ListaVentas> items, Context ctx) {
-		this.activity = activity;
-		this.items = items;
-		this.ctx = ctx;
-		this.type = type;
-	}
+    public ListaVentasAdapter(Activity activity, ArrayList<ListaVentas> items, Context ctx) {
+        this.activity = activity;
+        this.items = items;
+        this.ctx = ctx;
+        this.type = type;
+    }
 
-	public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
-		View vi = convertView;
+        View vi = convertView;
 
-		final ListaVentas item = items.get(position);
+        final ListaVentas item = items.get(position);
 
-		LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		vi = inflater.inflate(R.layout.itemlistaventas, null);
+        vi = inflater.inflate(R.layout.itemlistaventas, null);
 
-		TextView lblFecha = (TextView) vi.findViewById(R.id.lblFecha);
-		TextView lblHora = (TextView) vi.findViewById(R.id.lblHora);
-		TextView lblCliente = (TextView) vi.findViewById(R.id.lblCliente);
-		TextView lblVenta = (TextView) vi.findViewById(R.id.lblVenta);
+        TextView lblFecha = (TextView) vi.findViewById(R.id.lblFecha);
+        TextView lblHora = (TextView) vi.findViewById(R.id.lblHora);
+        TextView lblCliente = (TextView) vi.findViewById(R.id.lblCliente);
+        TextView lblVenta = (TextView) vi.findViewById(R.id.lblVenta);
 
-		lblFecha.setText(item.getFecha());
-		lblHora.setText(item.getHora());
-		lblCliente.setText(item.getCliente());
-		lblVenta.setText(item.getVentaID());
+        lblFecha.setText(item.getFecha());
+        lblHora.setText(item.getHora());
+        lblCliente.setText(item.getCliente());
+        lblVenta.setText(item.getVentaID());
 
-		return vi;
-	}
+        return vi;
+    }
 
-	public Object getItem(int position) {
-		return items.get(position);
-	}
+    public Object getItem(int position) {
+        return items.get(position);
+    }
 
-	public long getItemId(int position) {
-		return items.get(position).getId();
-	}
+    public long getItemId(int position) {
+        return items.get(position).getId();
+    }
 
-	public int getCount() {
-		return items.size();
-	}
+    public int getCount() {
+        return items.size();
+    }
 
-	OnClickListener eliminar = new OnClickListener() {
+    OnClickListener eliminar = new OnClickListener() {
 
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
+        @Override
+        public void onClick(View v) {
+            // TODO Auto-generated method stub
 
-		}
-	};
+        }
+    };
 
 }

@@ -4,12 +4,12 @@
     android:layout_height="fill_parent"
     android:layout_gravity="center_vertical"
     android:background="@drawable/texture"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal"
-            android:paddingTop="15dp" >
+            android:paddingTop="15dp">
 
             <ProgressBar
                 android:id="@+id/pgbInicializar"
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal"
-            android:paddingTop="15dp" >
+            android:paddingTop="15dp">
 
             <ImageButton
                 android:id="@+id/btnReload"
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal"
-            android:paddingTop="15dp" >
+            android:paddingTop="15dp">
 
             <ImageButton
                 android:id="@+id/btnDownload"

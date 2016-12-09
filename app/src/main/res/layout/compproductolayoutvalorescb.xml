@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cargobasicotarificadorind"
-            style="@style/textcompproductobackgroundorange"/>
+            style="@style/textcompproductobackgroundorange" />
 
         <TextView
             android:id="@+id/txtvalorcargobasicoind"
@@ -20,7 +20,7 @@
             android:layout_alignParentRight="true"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="$ 0.oo"/>
+            android:text="$ 0.oo" />
 
     </RelativeLayout>
 
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cargobasicotarificadoremp"
-            style="@style/textcompproductobackgroundorange"/>
+            style="@style/textcompproductobackgroundorange" />
 
         <TextView
             android:id="@+id/txtvalorcargobasicoemp"
@@ -42,7 +42,7 @@
             android:layout_alignParentRight="true"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="$ 0.oo"/>
+            android:text="$ 0.oo" />
 
     </RelativeLayout>
 
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/descuentocargobasicotarificador"
-            style="@style/textcompproductobackgroundorange"/>
+            style="@style/textcompproductobackgroundorange" />
 
         <TextView
             android:id="@+id/txtvalordescuentocargobasico"
@@ -64,7 +64,7 @@
             android:layout_alignParentRight="true"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="0 %"/>
+            android:text="0 %" />
 
     </RelativeLayout>
 
@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/duraciondescuentocargobasicotarificador"
-            style="@style/textcompproductobackgroundorange"/>
+            style="@style/textcompproductobackgroundorange" />
 
         <TextView
             android:id="@+id/txtduraciondescuentocargobasico"
@@ -86,7 +86,7 @@
             android:layout_alignParentRight="true"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="0 Meses"/>
+            android:text="0 Meses" />
 
     </RelativeLayout>
 

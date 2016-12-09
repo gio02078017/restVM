@@ -3,13 +3,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:baselineAligned="true"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <HorizontalScrollView
         android:id="@+id/Scroll"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" >
+        android:layout_gravity="center_horizontal">
 
         <TableLayout
             android:id="@+id/Tabla"
@@ -17,12 +17,12 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:paddingLeft="5dp"
-            android:paddingRight="5dp" >
+            android:paddingRight="5dp">
 
             <TableRow
                 android:id="@+id/tr0"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/txt00"
@@ -89,7 +89,7 @@
             <TableRow
                 android:id="@+id/tr1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/txt10"
@@ -147,7 +147,7 @@
             <TableRow
                 android:id="@+id/tr2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/txt20"
@@ -205,7 +205,7 @@
             <TableRow
                 android:id="@+id/tr3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/txt30"
@@ -265,7 +265,7 @@
             <TableRow
                 android:id="@+id/tr4"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/txt40"
@@ -323,7 +323,7 @@
             <TableRow
                 android:id="@+id/tr5"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/txt50"
@@ -380,7 +380,7 @@
             <TableRow
                 android:id="@+id/tr6"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/txt60"
@@ -438,7 +438,7 @@
             <TableRow
                 android:id="@+id/tr7"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/txt70"

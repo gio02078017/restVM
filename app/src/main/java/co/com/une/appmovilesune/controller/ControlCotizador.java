@@ -2,6 +2,7 @@ package co.com.une.appmovilesune.controller;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,7 @@ import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.adapters.BloqueoCobertura;
 import co.com.une.appmovilesune.adapters.ItemKeyValue2;
 import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
+import co.com.une.appmovilesune.adapters.ItemTarificador;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
 import co.com.une.appmovilesune.complements.Validaciones;
@@ -579,16 +581,16 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 if (codigoPA.equalsIgnoreCase("00")) {
                     productos.get(i).setAplicaPA(true);
                     cliente.setPagoAnticipado("SI");
-                } else if (codigoPA.equalsIgnoreCase("02")){
+                } else if (codigoPA.equalsIgnoreCase("02")) {
                     if (Utilidades.excluirEstadosPagoAnticipado()
                             .contains(cliente.getScooringune().getRazonScooring())) {
                         productos.get(i).setAplicaPA(true);
                         cliente.setPagoAnticipado("SI");
-                    }else {
+                    } else {
                         productos.get(i).setAplicaPA(false);
                         cliente.setPagoAnticipado("NO");
                     }
-                }else {
+                } else {
                     productos.get(i).setAplicaPA(false);
                     cliente.setPaginaAsignacion("NO");
                 }
@@ -611,9 +613,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 }
                 if (productos.get(i).getTipoPeticion().equals("N")) {
                     totalPagoParcial += productos.get(i).getTotalPagoParcial();
-                    if(codigoPA.equalsIgnoreCase("00")){
+                    if (codigoPA.equalsIgnoreCase("00")) {
                         totalPagoAnticipado += productos.get(i).getPagoAnticipado();
-                    }else{
+                    } else {
                         totalPagoAnticipado = 0;
                     }
 
@@ -929,7 +931,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                     if (validarDigital()) {
                                         if (validarTelefonoServicio) {
                                             if (Utilidades.validarTelefonos(cliente, this)) {
-                                                if (validarEstandarizacion || cliente.isControlCerca()) {
+
+                                                System.out.println("Estandarizar validarEstandarizacion "+validarEstandarizacion);
+                                                System.out.println("Estandarizar cliente.isControlCerca() "+cliente.isControlCerca());
+                                                System.out.println("Estandarizar Utilidades.CoberturaRural(cliente) "+Utilidades.CoberturaRural(cliente));
+
+                                                if (UtilidadesTarificadorNew.validarEstandarizacion(cotizacion,cliente, this) || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
 
                                                     System.out.println("direccion " + cliente.getDireccion());
                                                     System.out.println("tipoDocumento " + cliente.getTipoDocumento());
@@ -1632,7 +1639,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     public boolean validarCarrusel() {
         boolean validar = true;
 
-        if (Utilidades.validarPermiso("carrusel") || cliente.isControlCerca()) {
+        if (Utilidades.validarPermiso("carrusel") || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
             return true;
         }
 

@@ -9,7 +9,7 @@
         android:id="@+id/spntipeticionproducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:entries="@array/tipoPeticion"/>
+        android:entries="@array/tipoPeticion" />
 
     <Spinner
         android:id="@+id/spnSelectorPlan"

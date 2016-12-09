@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.change.Utilidades;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,101 +19,101 @@ import android.widget.TextView;
 
 public class ListaAgendamientoAdapter extends BaseAdapter {
 
-	protected Activity activity;
-	protected ArrayList<ListaAgendamiento> items;
-	public ListaAgendamiento item;
-	Context ctx;
+    protected Activity activity;
+    protected ArrayList<ListaAgendamiento> items;
+    public ListaAgendamiento item;
+    Context ctx;
 
-	public ListaAgendamientoAdapter(Activity activity, ArrayList<ListaAgendamiento> items, Context ctx) {
-		this.activity = activity;
-		this.items = items;
-		this.ctx = ctx;
-	}
+    public ListaAgendamientoAdapter(Activity activity, ArrayList<ListaAgendamiento> items, Context ctx) {
+        this.activity = activity;
+        this.items = items;
+        this.ctx = ctx;
+    }
 
-	public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
-		int disManana = 0, disTarde = 0;
-		View vi = convertView;
+        int disManana = 0, disTarde = 0;
+        View vi = convertView;
 
-		final ListaAgendamiento item = items.get(position);
+        final ListaAgendamiento item = items.get(position);
 
-		LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		vi = inflater.inflate(R.layout.itemagendamiento, null);
+        vi = inflater.inflate(R.layout.itemagendamiento, null);
 
-		disManana = Utilidades.parserDisponibilidad(item.getDisManana());
-		disTarde = Utilidades.parserDisponibilidad(item.getDisTarde());
+        disManana = Utilidades.parserDisponibilidad(item.getDisManana());
+        disTarde = Utilidades.parserDisponibilidad(item.getDisTarde());
 
-		TextView lblFecha = (TextView) vi.findViewById(R.id.lblFecha);
-		TextView lblPorcentajeManana = (TextView) vi.findViewById(R.id.lblPorcentajeManana);
-		TextView lblDispinibilidadManana = (TextView) vi.findViewById(R.id.lblDispinibilidadManana);
+        TextView lblFecha = (TextView) vi.findViewById(R.id.lblFecha);
+        TextView lblPorcentajeManana = (TextView) vi.findViewById(R.id.lblPorcentajeManana);
+        TextView lblDispinibilidadManana = (TextView) vi.findViewById(R.id.lblDispinibilidadManana);
 
-		TextView lblPorcentajeTarde = (TextView) vi.findViewById(R.id.lblPorcentajeTarde);
-		ProgressBar pgbTarde = (ProgressBar) vi.findViewById(R.id.pgbTarde);
-		ProgressBar pgbManana = (ProgressBar) vi.findViewById(R.id.pgbManana);
-		TextView lblDispinibilidadTarde = (TextView) vi.findViewById(R.id.lblDispinibilidadTarde);
+        TextView lblPorcentajeTarde = (TextView) vi.findViewById(R.id.lblPorcentajeTarde);
+        ProgressBar pgbTarde = (ProgressBar) vi.findViewById(R.id.pgbTarde);
+        ProgressBar pgbManana = (ProgressBar) vi.findViewById(R.id.pgbManana);
+        TextView lblDispinibilidadTarde = (TextView) vi.findViewById(R.id.lblDispinibilidadTarde);
 
-		if (disManana <= 0 && disTarde <= 0) {
-			vi.setVisibility(View.GONE);
-			lblFecha.setVisibility(View.GONE);
-			lblPorcentajeManana.setVisibility(View.INVISIBLE);
-			pgbManana.setVisibility(View.INVISIBLE);
-			lblDispinibilidadManana.setVisibility(View.INVISIBLE);
-			lblPorcentajeTarde.setVisibility(View.INVISIBLE);
-			pgbTarde.setVisibility(View.INVISIBLE);
-			lblDispinibilidadTarde.setVisibility(View.INVISIBLE);
-		} else {
+        if (disManana <= 0 && disTarde <= 0) {
+            vi.setVisibility(View.GONE);
+            lblFecha.setVisibility(View.GONE);
+            lblPorcentajeManana.setVisibility(View.INVISIBLE);
+            pgbManana.setVisibility(View.INVISIBLE);
+            lblDispinibilidadManana.setVisibility(View.INVISIBLE);
+            lblPorcentajeTarde.setVisibility(View.INVISIBLE);
+            pgbTarde.setVisibility(View.INVISIBLE);
+            lblDispinibilidadTarde.setVisibility(View.INVISIBLE);
+        } else {
 
-			lblFecha.setText(item.getFecha());
+            lblFecha.setText(item.getFecha());
 
-			if (disManana <= 0) {
+            if (disManana <= 0) {
 
-				lblPorcentajeManana.setText("100");
+                lblPorcentajeManana.setText("100");
 
-				pgbManana.setMax(100);
-				pgbManana.setProgress(100);
+                pgbManana.setMax(100);
+                pgbManana.setProgress(100);
 
-				lblDispinibilidadManana.setText("0");
-			} else {
-				lblPorcentajeManana.setText(item.getPorcManana());
+                lblDispinibilidadManana.setText("0");
+            } else {
+                lblPorcentajeManana.setText(item.getPorcManana());
 
-				pgbManana.setMax(100);
-				pgbManana.setProgress(Integer.parseInt(item.getPorcManana()));
+                pgbManana.setMax(100);
+                pgbManana.setProgress(Integer.parseInt(item.getPorcManana()));
 
-				lblDispinibilidadManana.setText(item.getDisManana());
-			}
-			if (disTarde <= 0) {
+                lblDispinibilidadManana.setText(item.getDisManana());
+            }
+            if (disTarde <= 0) {
 
-				lblPorcentajeTarde.setText("100");
+                lblPorcentajeTarde.setText("100");
 
-				pgbTarde.setMax(100);
-				pgbTarde.setProgress(100);
+                pgbTarde.setMax(100);
+                pgbTarde.setProgress(100);
 
-				lblDispinibilidadTarde.setText("0");
-			} else {
-				lblPorcentajeTarde.setText(item.getPorcTarde());
+                lblDispinibilidadTarde.setText("0");
+            } else {
+                lblPorcentajeTarde.setText(item.getPorcTarde());
 
-				pgbTarde.setMax(100);
-				pgbTarde.setProgress(Integer.parseInt(item.getPorcTarde()));
+                pgbTarde.setMax(100);
+                pgbTarde.setProgress(Integer.parseInt(item.getPorcTarde()));
 
-				lblDispinibilidadTarde.setText(item.getDisTarde());
-			}
+                lblDispinibilidadTarde.setText(item.getDisTarde());
+            }
 
-		}
+        }
 
-		return vi;
-	}
+        return vi;
+    }
 
-	public Object getItem(int position) {
-		return items.get(position);
-	}
+    public Object getItem(int position) {
+        return items.get(position);
+    }
 
-	public long getItemId(int position) {
-		return items.get(position).getId();
-	}
+    public long getItemId(int position) {
+        return items.get(position).getId();
+    }
 
-	public int getCount() {
-		return items.size();
-	}
+    public int getCount() {
+        return items.size();
+    }
 
 }
