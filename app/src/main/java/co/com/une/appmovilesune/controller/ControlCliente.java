@@ -48,6 +48,7 @@ import co.com.une.appmovilesune.components.SelectorFecha;
 import co.com.une.appmovilesune.components.TituloPrincipal;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.model.Cliente;
+import co.com.une.appmovilesune.model.CoberturaRural;
 import co.com.une.appmovilesune.model.Simulador;
 import co.com.une.appmovilesune.model.Venta;
 
@@ -150,6 +151,9 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
     private ArrayList<ItemKeyValue> claveValorLugarExp = new ArrayList<ItemKeyValue>();
     private ArrayList<ProyectosRurales> arrayProyectosRurales = new ArrayList<ProyectosRurales>();
 
+    private boolean controlProyecto = false;
+    private boolean controlEstandarizar = true;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewcliente);
@@ -243,7 +247,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         rowClientePinHotPack = (TableRow) findViewById(R.id.trTablaClientePinHotPack);
 
         rowProyectosRurales = (TableRow) findViewById(R.id.trTablaProyectos);
-        rowProyectosRurales.setVisibility(View.GONE);
+        rowTipoZona = (TableRow)findViewById(R.id.trTipoZona);
 
         txtNombrePredio = (EditText) findViewById(R.id.txtNombrePredio);
 
@@ -396,6 +400,10 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
             cliente.setControlFacturacion(true);
         }
 
+        if (Utilidades.visible("estandarizarDireccion", cliente.getCiudad())) {
+            rowTipoZona.setVisibility(View.VISIBLE);
+        }
+
         tabs.setCurrentTab(0);
 
         for (int i = 0; i < tabs.getTabWidget().getChildCount(); i++) {
@@ -447,11 +455,11 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
         chkValidar.setOnCheckedChangeListener(validar);
 
-          //txtProyectosRurales.setOnItemSelectedListener(eventoProyectoRural);
+        //txtProyectosRurales.setOnItemSelectedListener(eventoProyectoRural);
         txtProyectosRurales.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position,long arg3) {
-                Utilidades.MensajesToast(txtProyectosRurales.getText().toString(),MainActivity.context);
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                Utilidades.MensajesToast(txtProyectosRurales.getText().toString(), MainActivity.context);
                 validarProyecto(txtProyectosRurales.getText().toString());
             }
 
@@ -461,21 +469,31 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
     }
 
-    public void validarProyecto(String proyecto){
-        boolean control =false;
+    public void validarProyecto(String proyecto) {
+        boolean control = false;
         for (int i = 0; i < arrayProyectosRurales.size(); i++) {
-             if(arrayProyectosRurales.get(i).getDescripcion().equalsIgnoreCase(proyecto)){
-                 System.out.println("proyecto descripcion "+arrayProyectosRurales.get(i).getDescripcion());
-                 System.out.println("proyecto cobertura "+arrayProyectosRurales.get(i).getCobertura());
-                 System.out.println("proyecto proyecto "+arrayProyectosRurales.get(i).getProyecto());
+            if (arrayProyectosRurales.get(i).getDescripcion().equalsIgnoreCase(proyecto)) {
 
-                 validarCoberturaNew(Utilidades.coberturaProyecto(arrayProyectosRurales.get(i).getCobertura()));
-                 cliente.setCoberRural(true);
-             }
+                System.out.println("proyecto descripcion " + arrayProyectosRurales.get(i).getDescripcion());
+                System.out.println("proyecto cobertura " + arrayProyectosRurales.get(i).getCobertura());
+                System.out.println("proyecto proyecto " + arrayProyectosRurales.get(i).getProyecto());
+
+                validarCoberturaNew(Utilidades.coberturaProyecto(arrayProyectosRurales.get(i).getCobertura()));
+                //cliente.setCoberRural(true);
+                control = true;
+                cliente.coberturaRural.setCoberturaRural(true);
+                cliente.coberturaRural.setCoberturaSeleccionada(arrayProyectosRurales.get(i).getCobertura());
+                cliente.coberturaRural.setCodigoProyecto(arrayProyectosRurales.get(i).getProyecto());
+                cliente.coberturaRural.setProyectoSeleccionado(arrayProyectosRurales.get(i).getDescripcion());
+            }
         }
 
-        if(!control){
-            cliente.setCoberRural(false);
+        if (!control) {
+            //cliente.setCoberRural(false);
+            cliente.coberturaRural.setCoberturaRural(false);
+            cliente.coberturaRural.setCoberturaSeleccionada("");
+            cliente.coberturaRural.setCodigoProyecto("");
+            cliente.coberturaRural.setProyectoSeleccionado("");
         }
     }
 
@@ -621,6 +639,13 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
         txtProyectosRurales.setTextColor(getResources().getColor(R.color.black));
 
+        System.out.println("rural cliente.coberturaRural.isCoberturaRural() " + cliente.coberturaRural.isCoberturaRural());
+
+        if (cliente.coberturaRural.isCoberturaRural()) {
+            System.out.println("rural cliente.coberturaRural.getProyectoSeleccionado() " + cliente.coberturaRural.getProyectoSeleccionado());
+            txtProyectosRurales.setText(cliente.coberturaRural.getProyectoSeleccionado());
+        }
+
     }
 
     public void pintarMunicipioREDCO() {
@@ -731,19 +756,27 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
             System.out.println("Zona rural tipoZona" + tipoZona);
             System.out.println("Zona rural barrio" + barrio);
+            System.out.println("Zona rural controlProyecto" + controlProyecto);
 
             if (tipoZona.equalsIgnoreCase("Rural")) {
                 if (!barrio.equalsIgnoreCase("")) {
-                    ConsultarProyectos();
-                    rowProyectosRurales.setVisibility(View.VISIBLE);
+                    if (!controlProyecto) {
+                        ConsultarProyectos();
+                        rowProyectosRurales.setVisibility(View.VISIBLE);
+                        controlEstandarizar = false;
+                    }
                 } else {
                     limpiarSpnTipoZona();
+                    controlProyecto = false;
+                    controlEstandarizar = true;
                 }
             } else {
                 //limpiar
                 arrayProyectosRurales.clear();
                 llenarProyectosRurales(arrayProyectosRurales);
                 rowProyectosRurales.setVisibility(View.GONE);
+                controlProyecto = false;
+                controlEstandarizar = true;
             }
         }
 
@@ -776,7 +809,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 //                llenarProyectosRurales(arrayProyectosRurales);
 //                rowProyectosRurales.setVisibility(View.GONE);
 //            }
-            Utilidades.MensajesToast(txtProyectosRurales.getText().toString(),MainActivity.context);
+            Utilidades.MensajesToast(txtProyectosRurales.getText().toString(), MainActivity.context);
         }
 
         @Override
@@ -985,6 +1018,26 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         adaptador = (ArrayAdapter<String>) sltParentescoContacto2.getAdapter();
         sltParentescoContacto2.setSelection(adaptador.getPosition(cliente.getContacto2().getParentesco()));
 
+        if (!cliente.getBarrio().equals("")) {
+            adaptador = (ArrayAdapter<String>) spnTipoZona.getAdapter();
+            spnTipoZona.setSelection(adaptador.getPosition(cliente.getTipoZona()));
+
+            System.out.println("rural cliente.getTipoZona(" + cliente.getTipoZona());
+
+            if (cliente.getTipoZona().equals("Rural")) {
+                System.out.println("rural cliente.coberturaRural.getArrayProyectosRurales() " + cliente.coberturaRural.getArrayProyectosRurales());
+                if (cliente.coberturaRural.getArrayProyectosRurales().size() > 0) {
+
+                    arrayProyectosRurales = cliente.coberturaRural.getArrayProyectosRurales();
+                    llenarProyectosRurales(arrayProyectosRurales);
+                    controlProyecto = true;
+                    rowProyectosRurales.setVisibility(View.VISIBLE);
+                }
+            }
+
+            System.out.println("rural txtProyectosRurales.getVisibility() " + txtProyectosRurales.getVisibility());
+        }
+
         txtNombrePredio.setText(cliente.getNombrePredio());
 
         txtNombreContacto1.setText(cliente.getContacto1().getNombres());
@@ -1045,6 +1098,10 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
             trTablaClienteBotonPrueba.setVisibility(View.VISIBLE);
         }
 
+        if (cliente.coberturaRural != null) {
+            System.out.println("cliente.coberturaRural.getProyectoSeleccionado() " + cliente.coberturaRural.getProyectoSeleccionado());
+        }
+
     }
 
     public void preLLenar(View v) {
@@ -1065,7 +1122,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         }
 
         if (cliente.consolidarCliente() == null || cliente.getCedula().equalsIgnoreCase("")) {
-            txtDocumento.setText("43744607");
+            txtDocumento.setText("1111241111");
         }
 
         System.out.println("cliente.getCiudad() " + cliente.getCiudad());
@@ -1076,7 +1133,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
                 //txtDireccion.setText("CL 18 B CR 88 A -26");
                 //txtDireccion.setText("CL 79 C CR 75 -37 (INTERIOR 516 )");
                 //txtDireccion.setText("CL 88 A  # 67 - 46 APT 601");
-                txtDireccion.setText("CL 29 C CR 35 -130 (INTERIOR 531 )");
+                txtDireccion.setText("CL 88 A # 67 - 46 APT 301");
             } else {
                 txtDireccion.setText("CL 25 # 15 - 25");
             }
@@ -1268,35 +1325,37 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         if (!txtDireccion.getText().toString().equalsIgnoreCase("")
                 && !txtBarrio.getText().toString().equalsIgnoreCase("")) {
 
-            JSONObject jo = new JSONObject();
+         if(controlEstandarizar) {
+             JSONObject jo = new JSONObject();
 
-            try {
+             try {
 
-                if (cliente.getCiudad().equalsIgnoreCase("BogotaREDCO")
-                        || cliente.getCiudad().equalsIgnoreCase("BogotaHFC")) {
-                    municipio = "Bogota";
-                } else {
-                    municipio = cliente.getCiudad();
-                }
+                 if (cliente.getCiudad().equalsIgnoreCase("BogotaREDCO")
+                         || cliente.getCiudad().equalsIgnoreCase("BogotaHFC")) {
+                     municipio = "Bogota";
+                 } else {
+                     municipio = cliente.getCiudad();
+                 }
 
-                if (cliente.getDepartamento().equalsIgnoreCase("Antioquia")) {
-                    tipoEstandar = "1";
-                } else {
-                    tipoEstandar = "0";
-                }
+                 if (cliente.getDepartamento().equalsIgnoreCase("Antioquia")) {
+                     tipoEstandar = "1";
+                 } else {
+                     tipoEstandar = "0";
+                 }
 
-                jo.put("Direccion", txtDireccion.getText().toString());
-                jo.put("Municipio", municipio);
-                jo.put("MunicipioFenix", Utilidades.ciudadFenix(cliente.getCiudad(), cliente.getDepartamento()));
-                jo.put("DepartamentoFenix", Utilidades.departamentoFenix(cliente.getDepartamento()));
-                jo.put("CodigoBarrioFenix", Utilidades.traducirCodigoBarrio(txtBarrio.getText().toString()));
-                jo.put("NombreBarrio", txtBarrio.getText().toString());
-                jo.put("tipoEstandar", tipoEstandar);
+                 jo.put("Direccion", txtDireccion.getText().toString());
+                 jo.put("Municipio", municipio);
+                 jo.put("MunicipioFenix", Utilidades.ciudadFenix(cliente.getCiudad(), cliente.getDepartamento()));
+                 jo.put("DepartamentoFenix", Utilidades.departamentoFenix(cliente.getDepartamento()));
+                 jo.put("CodigoBarrioFenix", Utilidades.traducirCodigoBarrio(txtBarrio.getText().toString()));
+                 jo.put("NombreBarrio", txtBarrio.getText().toString());
+                 jo.put("tipoEstandar", tipoEstandar);
 
-                VerificarDireccion(jo.toString());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                 VerificarDireccion(jo.toString());
+             } catch (JSONException e) {
+                 e.printStackTrace();
+             }
+         }
         } else if (!txtBarrio.getText().toString().equalsIgnoreCase("")) {
             Intent intent = new Intent(MainActivity.MODULO_DIRECCIONES);
             startActivityForResult(intent, MainActivity.REQUEST_CODE);
@@ -1361,7 +1420,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
     public void buscar_login(View v) {
         // Identificadores();
         /*
-		 * Intent intent = new Intent(MainActivity.MODULO_DIRECCIONES);
+         * Intent intent = new Intent(MainActivity.MODULO_DIRECCIONES);
 		 * startActivityForResult(intent, MainActivity.REQUEST_CODE);
 		 */
         System.out.println("Evento login");
@@ -1549,6 +1608,8 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
         cliente.actualizarCliente();
 
+        cliente.setTipoZona((String) spnTipoZona.getSelectedItem());
+
         System.out.println("validacion correo " + Utilidades.validateEmail(cliente.getCorreo()));
 
         llenadoCamposInvisibles();
@@ -1689,7 +1750,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         }
     }
 
-    public void validarCoberturaNew(String cobertura){
+    public void validarCoberturaNew(String cobertura) {
         String tec = Utilidades.obtenerCobertura(cobertura, this);
         if (!tec.equalsIgnoreCase("N/D")) {
             cliente.setTecnologia(tec);
@@ -1989,11 +2050,14 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
                         arrayProyectosRurales.add(new ProyectosRurales(dataProyecto.getString("Proyecto"), dataProyecto.getString("Descripcion"), dataProyecto.getString("Cobertura")));
                         llenarProyectosRurales(arrayProyectosRurales);
+                        cliente.coberturaRural.setArrayProyectosRurales(arrayProyectosRurales);
+                        cliente.coberturaRural.setBarrioConsulta(cliente.getBarrio());
                     }
                 }
             } else {
                 arrayProyectosRurales.clear();
                 llenarProyectosRurales(arrayProyectosRurales);
+                cliente.coberturaRural.limpiar();
             }
 
 

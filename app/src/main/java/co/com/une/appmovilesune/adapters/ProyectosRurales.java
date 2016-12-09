@@ -1,10 +1,12 @@
 package co.com.une.appmovilesune.adapters;
 
+import java.io.Serializable;
+
 /**
  * Created by Gospina on 18/11/2016.
  */
 
-public class ProyectosRurales {
+public class ProyectosRurales implements Serializable{
     String Proyecto;
     String Descripcion;
     String Cobertura;
