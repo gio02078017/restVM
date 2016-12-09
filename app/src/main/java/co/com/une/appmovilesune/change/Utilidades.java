@@ -1319,36 +1319,9 @@ public class Utilidades {
 
         }
 
-        String[] Internet3G = venta.getInternet3G();
-        if (!Internet3G[0].equalsIgnoreCase("-")) {
-            listVenta.add(new ListaDefault(0, "Productos Internet 3G", "Titulo"));
-            listVenta.add(new ListaDefault(1, "Internet 3G", Internet3G[0]));
-            listVenta.add(new ListaDefault(1, "Precio", Internet3G[1]));
-
-            listVenta.add(new ListaDefault(2, "Nuevo o Migración",
-                    "Migración: " + Internet3G[7] + " - Tipo Migración: " + Internet3G[8]));
-            listVenta.add(new ListaDefault(2, "Promociones",
-                    "Promoción: " + Internet3G[9] + " - Duración: " + Internet3G[10] + " - Precio: " + Internet3G[11]));
-            listVenta.add(new ListaDefault(2, "Modem",
-                    "Modem: " + Internet3G[2] + " - Financiación: " + Internet3G[3] + " - Porcentaje: " + Internet3G[4]
-                            + " - Precio: " + Internet3G[5] + " - Entrega: " + Internet3G[6]));
-
-        }
-
-        String[] Internet4G = venta.getInternet4G();
-        if (!Internet3G[0].equalsIgnoreCase("-")) {
-            listVenta.add(new ListaDefault(0, "Productos Internet 3G", "Titulo"));
-            listVenta.add(new ListaDefault(1, "Internet 4G", Internet4G[0]));
-            listVenta.add(new ListaDefault(1, "Precio", Internet4G[1]));
-            listVenta.add(new ListaDefault(2, "Promociones",
-                    "Promoción: " + Internet4G[2] + " - Duración: " + Internet4G[3] + " - Precio: " + Internet4G[4]));
-        }
 
         String[] Documentacion = venta.getDocumentacion();
         listVenta.add(new ListaDefault(0, "Documentación", "Titulo"));
-		String[] Documentacion = venta.getDocumentacion();
-		listVenta.add(new ListaDefault(0, "Documentación", "Titulo"));
-
         listVenta.add(new ListaDefault(1, "Identificador Validación IVR", Documentacion[0]));
         listVenta.add(new ListaDefault(1, "Horario Atención", venta.getHorarioAtencion()));
         listVenta.add(new ListaDefault(1, "Observacion", venta.getObservaciones()));
