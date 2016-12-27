@@ -122,6 +122,8 @@ public class ControlActualizacion extends Activity implements Observer {
 	public void update(Object value) {
 		// TODO Auto-generated method stub
 		ArrayList<Object> res = (ArrayList<Object>) value;
+		System.out.println("update actualizar res "+res);
+
 		if (res.get(0).equals("Listas Generales")) {
 			icgListasGenerales.setInvisible();
 			if ((Boolean) res.get(1)) {
@@ -163,6 +165,20 @@ public class ControlActualizacion extends Activity implements Observer {
 			}
 			counterUpdateChck++;
 		} else if (res.get(0).equals("Productos")) {
+//			icgProductos.setInvisible();
+//			if ((Boolean) res.get(1)) {
+//				icgProductos.setOK();
+//			} else {
+//				icgProductos.setWRONG();
+//			}
+			if ((Boolean) res.get(1)) {
+				ejecutarActualizacion("CondicionesxTarifas");
+			} else {
+				icgProductos.setInvisible();
+				icgProductos.setWRONG();
+			}
+			counterUpdateChck++;
+		}else if (res.get(0).equals("CondicionesxTarifas")) {
 			icgProductos.setInvisible();
 			if ((Boolean) res.get(1)) {
 				icgProductos.setOK();
@@ -271,6 +287,8 @@ public class ControlActualizacion extends Activity implements Observer {
 		Actualizacion act = new Actualizacion();
 		act.addObserver(this);
 
+		System.out.println("ejecutarActualizacion item "+item);
+
 		if (item.equals("Listas Generales")) {
 			icgListasGenerales.setVisible();
 			act.execute("Listas Generales");
@@ -317,6 +335,8 @@ public class ControlActualizacion extends Activity implements Observer {
 			act.execute("Decos");
 		} else if (item.equals("CondicionesxDecos")) {
 			act.execute("CondicionesxDecos");
+		} else if (item.equals("CondicionesxTarifas")) {
+			act.execute("CondicionesxTarifas");
 		} /*
 			 * else if (item.equals("Promociones Movilidad")) {
 			 * icgPromocionesMovilidad.setVisible(); act.execute(

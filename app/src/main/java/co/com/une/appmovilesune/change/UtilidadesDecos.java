@@ -656,7 +656,7 @@ public class UtilidadesDecos {
 				+ "AND c3.Clave='PlanTV' AND c3.valor like '%" + planTV + "%') " + filtro
 				+ " group by dec.id_confdeco,dec.caracteristica,dec.configuracion";
 
-		// System.out.println("decodificadores query " + query);
+		System.out.println("decodificadores query " + query);
 
 		ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar2(query);
 

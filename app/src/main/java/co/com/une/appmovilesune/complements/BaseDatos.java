@@ -18,7 +18,7 @@ public class BaseDatos extends SQLiteOpenHelper {
 	public static final String NOMBRE = "ventamovil";
 	public static final int VERSION = 1;
 
-	private String estructura[] = new String[38];
+	private String estructura[] = new String[39];
 
 	public BaseDatos(Context context, String name, CursorFactory factory, int version) {
 		super(context, name, factory, version);
@@ -54,8 +54,8 @@ public class BaseDatos extends SQLiteOpenHelper {
 		estructura[6] = "CREATE TABLE IF NOT EXISTS ventas(id INTEGER PRIMARY KEY AUTOINCREMENT,id_asesoria INTEGER,Observaciones TEXT,Documentacion TEXT,Telefonia TEXT,PrecioTelefonia TEXT,NuevoMigracionTO TEXT,PlanActualTO TEXT,PromoTO TEXT,TiempoPromoTO TEXT,PrecioPromoTO TEXT,Linea TEXT,PagoLinea TEXT,Television TEXT,PrecioTelevision TEXT,Extensiones TEXT,AdicionalTV TEXT,PreciosIndividualesAdicionalesTV TEXT,PrecioAdicionalTV TEXT,PromoTV TEXT,TiempoPromoTV TEXT,PrecioPromoTV TEXT,NuevoMigracionTV TEXT,PlanActualTV TEXT,Internet TEXT,PrecioInternet TEXT,PromoBA TEXT,TiempoPromoBA TEXT,PrecioPromoBA TEXT,Wifi TEXT,NuevoMigracionBA TEXT,PlanActualBA TEXT,InternetMovil TEXT,PrecioInternetMovil TEXT,NuevoMigracioIM TEXT,PlanActualIM TEXT,PromoIM TEXT,TiempoPromoIM TEXT,PrecioPromoIM TEXT,Modem TEXT,FinanciacionModem TEXT,PorcentajeModem TEXT,PrecioModem TEXT,EntregaModem TEXT,Internet4G TEXT,PrecioInternet4G TEXT,Promo4G TEXT,TiempoPromo4G TEXT,PrecioPromo4G TEXT,OtrasPromociones TEXT,Total TEXT,Empaquetamiento TEXT,Fecha TEXT,Hora TEXT,HorarioAtencion TEXT,Scooring TEXT)";
 		estructura[7] = "CREATE TABLE IF NOT EXISTS competencias(id INTEGER PRIMARY KEY AUTOINCREMENT,id_asesoria INTEGER,Competencia TEXT,OtrasCompetencias TEXT,Productos TEXT,Empaquetado TEXT,VigenciaContrato DATE,PagoMensual REAL,NoUne TEXT,Observaciones TEXT,Fecha DATE,Hora TIME)";
 		estructura[8] = "CREATE TABLE IF NOT EXISTS Promociones (Codigo INTEGER PRIMARY KEY,departamento TEXT,nombre TEXT,descripcion TEXT ,inicia TEXT,termina TEXT,aplica TEXT , activa TEXT)";
-		estructura[9] = "CREATE TABLE IF NOT EXISTS Precios (Codigo INTEGER PRIMARY KEY,departamento TEXT,tipo_producto TEXT,Producto TEXT,ProductoHomologado TEXT ,estrato TEXT,tipo_paquete TEXT,individual INTEGER , individual_iva INTEGER,empaquetado INTEGER , empaquetado_iva INTEGER,Nuevo INTEGER,Oferta TEXT,cantidadproductos INTEGER,homoPrimeraLinea TEXT,homoSegundaLinea TEXT, valorGota TEXT,valorGotaIva TEXT,velocidadGota TEXT, tecnologia TEXT)";
-		estructura[10] = "CREATE TABLE IF NOT EXISTS Productos (codigo INTEGER PRIMARY KEY AUTOINCREMENT,Departamento TEXT,Producto TEXT,ProductoHomologado TEXT ,Tipo_Producto TEXT,Nuevo INTEGER,Oferta TEXT,FechaCarga TEXT,Estrato TEXT,Tecnologia TEXT)";
+		estructura[9] = "CREATE TABLE IF NOT EXISTS Precios (Codigo INTEGER PRIMARY KEY,departamento TEXT,tipo_producto TEXT,Producto TEXT,ProductoHomologado TEXT ,estrato TEXT,tipo_paquete TEXT,individual INTEGER , individual_iva INTEGER,empaquetado INTEGER , empaquetado_iva INTEGER,Nuevo INTEGER,Oferta TEXT,cantidadproductos INTEGER,homoPrimeraLinea TEXT,homoSegundaLinea TEXT, valorGota TEXT,valorGotaIva TEXT,velocidadGota TEXT, tecnologia TEXT,idTarifa INTEGER, departamentoTarifa TEXT )";
+		estructura[10] = "CREATE TABLE IF NOT EXISTS Productos (codigo INTEGER PRIMARY KEY AUTOINCREMENT,Departamento TEXT,Producto TEXT,ProductoHomologado TEXT ,Tipo_Producto TEXT,Nuevo INTEGER,Oferta TEXT,FechaCarga TEXT,Estrato TEXT,Tecnologia TEXT,idTarifa INTEGER, departamentoTarifa TEXT)";
 		estructura[11] = "CREATE TABLE IF NOT EXISTS Descuentos (codigo INTEGER PRIMARY KEY AUTOINCREMENT,Ciudad TEXT,Descuentos Text,Tipo_Producto TEXT,Producto TEXT,Individual INTEGER,Individual_Iva INTEGER,Empaquetado INTEGER,Empaquetado_Iva INTEGER,Estrato Text)";
 		estructura[12] = "CREATE TABLE IF NOT EXISTS Extensiones_HFC (codigo INTEGER PRIMARY KEY AUTOINCREMENT,Departamento TEXT,hfc TEXT,Producto TEXT)";
 		estructura[13] = "CREATE TABLE IF NOT EXISTS Otras_Promociones (codigo INTEGER PRIMARY KEY AUTOINCREMENT,Departamento TEXT,Estrato Text, Precio INTEGER,Descripcion Text)";
@@ -83,6 +83,7 @@ public class BaseDatos extends SQLiteOpenHelper {
 		estructura[35] = "CREATE TABLE IF NOT EXISTS permisos(rol TEXT, accion TEXT)";
 		estructura[36] = "CREATE TABLE IF NOT EXISTS pagoparcialanticipado(producto TEXT, servicio TEXT, pagoparcial DOUBLE, descuento TEXT, pagoanticipado DOUBLE)";
 		estructura[37] = "CREATE TABLE IF NOT EXISTS valorconexion(productos TEXT, valor DOUBLE)";
+		estructura[38] = "CREATE TABLE IF NOT EXISTS condicionesxtarifas(id_tarifa INTEGER,id_condicion INTEGER,activo INTEGER )";
 
  	}
 

@@ -38,6 +38,8 @@ public class Actualizacion extends AsyncTask<String, integer, ArrayList<Object>>
 			resultado = MainActivity.config.obtenerAdicionales();
 		} else if (arg0[0].equals("Productos")) {
 			resultado = MainActivity.config.obtenerProductos();
+		} else if (arg0[0].equals("CondicionesxTarifas")) {
+			resultado = MainActivity.config.obtenerCondicionesxTarifas();
 		} else if (arg0[0].equals("Precios")) {
 			resultado = MainActivity.config.obtenerPrecios();
 		} else if (arg0[0].equals("Reglas")) {

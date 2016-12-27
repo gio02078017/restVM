@@ -366,6 +366,8 @@ public class Configuracion implements Serializable {
 				cv.put("valorGotaIva", jo.getString("valorGotaIva"));
 				cv.put("velocidadGota", jo.getString("velocidadGota"));
 				cv.put("tecnologia", jo.getString("tecnologia"));
+				cv.put("idTarifa", jo.getString("idTarifa"));
+				cv.put("departamentoTarifa", jo.getString("departamentoTarifa"));
 				reg.add(MainActivity.basedatos.insertar("Precios", cv));
 			}
 		} catch (JSONException e) {
@@ -637,6 +639,8 @@ public class Configuracion implements Serializable {
 				String fechaCarga = jo.getString("fechaCarga");
 				String estrato = jo.getString("Estrato");
 				String tecnologia = jo.getString("tecnologia");
+				String idTarifa = jo.getString("idTarifa");
+				String departamentoTarifa = jo.getString("departamentoTarifa");
 
 				if (Departamento.equalsIgnoreCase("Distrito Capital De Bogota") && producto.contains("Existente")) {
 					System.out.println("entro ");
@@ -649,7 +653,8 @@ public class Configuracion implements Serializable {
 					cv.put("FechaCarga", fechaCarga);
 					cv.put("Estrato", estrato);
 					cv.put("Tecnologia", tecnologia);
-
+					cv.put("idTarifa", idTarifa);
+					cv.put("departamentoTarifa", departamentoTarifa);
 					// jo.getString("fechaCarga");
 					reg.add(MainActivity.basedatos.insertar("Productos", cv));
 					cv.put("departamento", "BogotaREDCO");
@@ -661,6 +666,8 @@ public class Configuracion implements Serializable {
 					cv.put("FechaCarga", fechaCarga);
 					cv.put("Estrato", estrato);
 					cv.put("Tecnologia", tecnologia);
+					cv.put("idTarifa", idTarifa);
+					cv.put("departamentoTarifa", departamentoTarifa);
 					// jo.getString("fechaCarga");
 					reg.add(MainActivity.basedatos.insertar("Productos", cv));
 				} else {
@@ -673,6 +680,8 @@ public class Configuracion implements Serializable {
 					cv.put("FechaCarga", fechaCarga);
 					cv.put("Estrato", estrato);
 					cv.put("Tecnologia", tecnologia);
+					cv.put("idTarifa", idTarifa);
+					cv.put("departamentoTarifa", departamentoTarifa);
 					// jo.getString("fechaCarga");
 					reg.add(MainActivity.basedatos.insertar("Productos", cv));
 				}
@@ -686,6 +695,38 @@ public class Configuracion implements Serializable {
 		Editor editor = MainActivity.preferencias.edit();
 		if (!reg.contains(false)) {
 			editor.putBoolean("cfgProductos", true);
+			editor.commit();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean obtenerCondicionesxTarifas() {
+		MainActivity.basedatos.eliminar("condicionesxtarifas", null, null);
+		ArrayList<Boolean> reg = new ArrayList<Boolean>();
+		try {
+			JSONObject jo = new JSONObject();
+			ArrayList<String[]> parametros = new ArrayList<String[]>();
+			parametros.add(new String[] { "Tipo", "condicionesxtarifas" });
+			parametros.add(new String[] { "Departamentos", Departamento });
+			JSONArray ja = new JSONArray(MainActivity.conexion.ejecutarSoap("Tarifas", parametros));
+			for (int i = 0; i < ja.length(); i++) {
+				ContentValues cv = new ContentValues();
+				jo = ja.getJSONObject(i);
+				cv.put("id_tarifa", jo.getString("id_tarifa"));
+				cv.put("id_condicion", jo.getString("id_condicion"));
+				cv.put("activo", jo.getString("activo"));
+				reg.add(MainActivity.basedatos.insertar("condicionesxtarifas", cv));
+			}
+		} catch (JSONException e) {
+			reg.add(false);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Editor editor = MainActivity.preferencias.edit();
+		if (!reg.contains(false)) {
+			editor.putBoolean("cfgCondicionesxDecos", true);
 			editor.commit();
 			return true;
 		} else {
