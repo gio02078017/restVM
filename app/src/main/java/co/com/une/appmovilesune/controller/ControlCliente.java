@@ -400,7 +400,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
             cliente.setControlFacturacion(true);
         }
 
-        if (Utilidades.visible("estandarizarDireccion", cliente.getCiudad())) {
+        if (Utilidades.visible("tipoZona", cliente.getCiudad())) {
             rowTipoZona.setVisibility(View.VISIBLE);
         }
 
