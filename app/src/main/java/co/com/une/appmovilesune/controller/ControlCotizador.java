@@ -566,7 +566,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         // UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 
-        boolean trioNuevo = UtilidadesTarificadorNew.isTrioNuevo(productos);
+        boolean trioDuoNuevo = UtilidadesTarificadorNew.isTrioDuoNuevo(productos);
 
         if (productos != null) {
             for (int i = 0; i < productos.size(); i++) {
@@ -594,8 +594,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 }
 
 
-                if (trioNuevo) {
-                    productos.get(i).aplciarDescuentoTrio();
+                if (trioDuoNuevo) {
+                    if(productos.get(i).getTipoPeticion().equals("N")){
+                        productos.get(i).aplciarDescuentoTrio();
+                    }
                 }
 
                 switch (productos.get(i).getTipo()) {

@@ -112,9 +112,9 @@ public class UtilidadesTarificadorNew {
          }
     }
 
-    public static boolean isTrioNuevo(ArrayList<ProductoCotizador> productos){
+    public static boolean isTrioDuoNuevo(ArrayList<ProductoCotizador> productos){
 
-        boolean trioNuevo = false;
+        boolean trioDuoNuevo = false;
 
         ArrayList<Boolean> nuevos = new ArrayList<Boolean>();
 
@@ -124,10 +124,10 @@ public class UtilidadesTarificadorNew {
             }
         }
 
-        if(nuevos.size() == 3){
-            trioNuevo = true;
+        if(nuevos.size() >= 2){
+            trioDuoNuevo = true;
         }
 
-        return trioNuevo;
+        return trioDuoNuevo;
     }
 }
