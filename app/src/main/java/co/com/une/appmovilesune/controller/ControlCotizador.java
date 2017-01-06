@@ -1726,7 +1726,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     if (cliente.getScooringune().isValidarScooring()) {
                         if (!cliente.getScooringune().isPasaScooring()) {
                             if (productosNuevos()) {
-                                if (codigoPA.equalsIgnoreCase("00") || codigoPA.equalsIgnoreCase("02")) {
+                                if (codigoPA.equalsIgnoreCase("00")) {
                                     if (Utilidades.excluirEstadosPagoAnticipado()
                                             .contains(cliente.getScooringune().getRazonScooring())) {
                                         valid = true;
