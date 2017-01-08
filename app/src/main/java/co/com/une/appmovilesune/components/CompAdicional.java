@@ -268,6 +268,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     @Override
     public void seleccionarPlan(String plan) {
+        System.out.println("plan adicional "+plan);
         cargarAdicionales(plan);
     }
 

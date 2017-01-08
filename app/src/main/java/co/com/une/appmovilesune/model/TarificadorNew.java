@@ -184,13 +184,27 @@ public class TarificadorNew {
                 Precios("0", "0", "0", "0", "", "0", tipo_producto, "", "", "", "", "", "");
             } else {
 
-                ArrayList<String> precios = MainActivity.basedatos.consultar(false, "Precios",
+               /* ArrayList<String> precios = MainActivity.basedatos.consultar(false, "Precios",
                         new String[]{"individual", "individual_iva", "empaquetado", "empaquetado_iva", "Oferta",
                                 "cantidadproductos", "homoPrimeraLinea", "homoSegundaLinea", "valorGota",
                                 "valorGotaIva", "ProductoHomologado", "velocidadGota"},
                         "departamento=? and tipo_producto=? and Producto=? and estrato like ? and tipo_paquete Like ?",
-                        new String[]{depto, tipo_producto, producto, "%" + estrato + "%", "%" + paquete + "%"}, null,
-                        null, null).get(0);
+                        new String[]{depto, tipo_producto, producto, "%" + estrato + "%", "%" +  + "%"}, null,
+                        null, null).get(0);*/
+
+                String datos = "individual, individual_iva,empaquetado,empaquetado_iva,Oferta,cantidadproductos,homoPrimeraLinea," +
+                                "homoSegundaLinea,valorGota,valorGotaIva,ProductoHomologado,velocidadGota";
+
+                String query ="select " + datos+" from Precios p " +
+                        UtilidadesTarificadorNew.innerJoinTarifas+
+                        " where cxt.id_condicion in ("+ UtilidadesTarificadorNew.queryInternoTarifas(depto,ciudadCliente)+")" +
+                        " and estrato like '%"+estrato+"%' and Tipo_Producto = '"+tipo_producto+"' and producto ='"+producto+"' and tipo_paquete like '%"+paquete+"%'";
+
+                System.out.println("query consulta precios "+query);
+
+                ArrayList<String> precios = MainActivity.basedatos.consultar2(query).get(0);
+
+
 
                 System.out.println("consultaNT precios " + precios);
                 System.out.println("consultaNT tipoProducto " + tipo_producto);

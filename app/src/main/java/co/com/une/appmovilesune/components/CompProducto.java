@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.change.Utilidades;
+import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
 import co.com.une.appmovilesune.interfaces.ObserverDecodificadores;
@@ -30,6 +31,7 @@ import co.com.une.appmovilesune.interfaces.Subject;
 import co.com.une.appmovilesune.interfaces.SubjectAdicionales;
 import co.com.une.appmovilesune.interfaces.SubjectDecodificadores;
 import co.com.une.appmovilesune.interfaces.SubjectTotales;
+import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.ProductoCotizador;
 
 /**
@@ -75,9 +77,11 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     private int tipo;
     private String departamento;
+    private String ciudad;
     private int estrato;
     private String tecnologia;
     private String oferta;
+    private Cliente cliente;
 
     private ProductoCotizador producto;
 
@@ -186,12 +190,14 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     }
 
-    public void cargarPlanes(String departamento, int estrato, String tecnologia, String oferta) {
+    public void cargarPlanes(Cliente cliente, int estrato, String oferta) {
 
-        this.departamento = departamento;
+        this.departamento = cliente.getDepartamento();
+        this.ciudad = cliente.getCiudad();
         this.estrato = estrato;
-        this.tecnologia = tecnologia;
+        this.tecnologia = cliente.getTecnologia();
         this.oferta = oferta;
+        this.cliente = cliente;
 
         String clausula = "";
         String[] valores = null;
@@ -202,27 +208,27 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
             oferta = "";
         }
 
+        String queryProducto = "";
+
         if (traducirTipoPeticion().equals("0") || traducirTipoPeticion().equals("1")) {
 
-            clausula = "Departamento=? and Tipo_Producto=? and Nuevo IN(?,?) and Estrato like ? and Tecnologia like ? and Oferta = ?";
-            valores = new String[]{departamento, traducirProducto(), traducirTipoPeticion(), "2", "%" + estrato + "%",
-                    "%" + tecnologia + "%", oferta};
+            queryProducto = "select distinct Producto from Precios p " +
+                    UtilidadesTarificadorNew.innerJoinTarifas +
+                    " where cxt.id_condicion in (" + UtilidadesTarificadorNew.queryInternoTarifas(cliente.getDepartamento(), cliente.getCiudad()) + ")" +
+                    " and estrato like '%" + estrato + "%' and Tipo_Producto = '" + traducirProducto() + "' and Tecnologia like '%" + tecnologia + "%' and Nuevo IN('" + traducirTipoPeticion() + "','2') " +
+                    " and Oferta = '" + oferta + "'";
 
         } else {
-            clausula = "Departamento=? and Tipo_Producto=? and Nuevo IN(?) and Estrato like ? and Tecnologia like ?";
-            valores = new String[]{departamento, traducirProducto(), traducirTipoPeticion(), "%" + estrato + "%",
-                    "%" + tecnologia + "%"};
+
+            queryProducto = "select distinct Producto from Productos where Nuevo IN('" + traducirTipoPeticion() + "')and  Tecnologia like '%" + tecnologia + "%' and  Tipo_Producto ='" + traducirProducto() + "'";
+
         }
 
-//        System.out.println("cargarPlanes clausula "+clausula);
-//
-//        for (int i = 0; i < valores.length; i++) {
-//            System.out.println("cargarPlanes valores "+valores[i]+" posicion("+i+")");
-//        }
+        System.out.println("queryProducto " + queryProducto);
 
-
-        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Productos", new String[]{"Producto"}, clausula,
-                valores, null, null, null);
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar2(queryProducto);
+       /* ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Productos", new String[]{"Producto"}, clausula,
+                valores, null, null, null);*/
 
 //        System.out.println("cargarPlanes respuesta ofertas "+respuesta +" oferta "+oferta+" tipoProducto "+traducirProducto());
 
@@ -281,7 +287,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
     AdapterView.OnItemSelectedListener seleccionarTipoTransaccion = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            cargarPlanes(departamento, estrato, tecnologia, oferta);
+            cargarPlanes(cliente, estrato, oferta);
         }
 
         @Override

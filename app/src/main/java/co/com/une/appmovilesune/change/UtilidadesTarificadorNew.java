@@ -130,4 +130,18 @@ public class UtilidadesTarificadorNew {
 
         return trioNuevo;
     }
+
+    public static String innerJoinTarifas = "inner join condicionesxtarifas cxt on p.idTarifa = cxt.id_tarifa " +
+            "inner join condiciones c on c.id = cxt.id_condicion ";
+
+    public static String queryInternoTarifas(String departamento, String ciudad){
+        boolean valido = false;
+
+        String query ="SELECT DISTINCT(c1.id) FROM condiciones c1 " +
+                      "INNER JOIN condiciones c2 ON c1.id=c2.id " +
+                      "WHERE c1.clave='Departamento' AND (c1.valor = 'N/A' or c1.valor like '%"+departamento+"%') and c1.tipo ='Tarifa'" +
+                      "AND c2.clave='Ciudad' AND (c2.valor = 'N/A' or c2.valor like '%"+ciudad+"%') and c2.tipo ='Tarifa' ";
+
+        return query;
+    }
 }
