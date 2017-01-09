@@ -923,6 +923,10 @@ public class Validaciones {
 
 				System.out.println("valicionDecos " + valicionDecos);
 
+				if(venta.getTelevision()[0].contains("Existente")){
+					valicionDecos = true;
+				}
+
 				if (valicionDecos) {
 					reg.add(true);
 				} else {
