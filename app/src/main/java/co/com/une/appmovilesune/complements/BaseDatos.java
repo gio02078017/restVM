@@ -59,7 +59,7 @@ public class BaseDatos extends SQLiteOpenHelper {
 		estructura[11] = "CREATE TABLE IF NOT EXISTS Descuentos (codigo INTEGER PRIMARY KEY AUTOINCREMENT,Ciudad TEXT,Descuentos Text,Tipo_Producto TEXT,Producto TEXT,Individual INTEGER,Individual_Iva INTEGER,Empaquetado INTEGER,Empaquetado_Iva INTEGER,Estrato Text)";
 		estructura[12] = "CREATE TABLE IF NOT EXISTS Extensiones_HFC (codigo INTEGER PRIMARY KEY AUTOINCREMENT,Departamento TEXT,hfc TEXT,Producto TEXT)";
 		estructura[13] = "CREATE TABLE IF NOT EXISTS Otras_Promociones (codigo INTEGER PRIMARY KEY AUTOINCREMENT,Departamento TEXT,Estrato Text, Precio INTEGER,Descripcion Text)";
-		estructura[14] = "CREATE TABLE IF NOT EXISTS Adicionales (Codigo INTEGER PRIMARY KEY,departamento TEXT,tipoProducto TEXT, producto TEXT,adicional TEXT,tarifa INTEGER,tarifaIva INTEGER,estrato TEXT,oferta TEXT,tecnologia TEXT)";
+		estructura[14] = "CREATE TABLE IF NOT EXISTS Adicionales (Codigo INTEGER PRIMARY KEY,departamento TEXT,tipoProducto TEXT, producto TEXT,adicional TEXT,tarifa INTEGER,tarifaIva INTEGER,estrato TEXT,plan TEXT,oferta TEXT,tecnologia TEXT)";
 		estructura[15] = "CREATE TABLE IF NOT EXISTS Registro_Tarificador (Id INTEGER PRIMARY KEY AUTOINCREMENT,Codigo_Asesor TEXT, Fecha TEXT,Hora TEXT)";
 		estructura[16] = "CREATE TABLE IF NOT EXISTS GPS (Id INTEGER PRIMARY KEY AUTOINCREMENT,Codigo_Asesor TEXT, Fecha TEXT,Hora TEXT,Localizacion TEXT,Tipo Text)";
 		estructura[17] = "CREATE TABLE IF NOT EXISTS Control_GPS (Id INTEGER PRIMARY KEY AUTOINCREMENT,Codigo_Asesor TEXT, Fecha TEXT,Hora TEXT,Activo TEXT,Tipo TEXT)";
