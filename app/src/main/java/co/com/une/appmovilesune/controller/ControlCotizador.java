@@ -357,7 +357,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cprdInternet.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem());
         cprdTelefonia.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem());
         if (cotizacion != null) {
-            rellenarCotizacion();
+            //rellenarCotizacion();
         }
     }
 
