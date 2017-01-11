@@ -860,6 +860,7 @@ public class Configuracion implements Serializable {
 				cv.put("tarifaIva", jo.getString("tarifaIva"));
 				cv.put("estrato", jo.getString("estrato"));
 				cv.put("oferta", jo.getString("oferta"));
+				cv.put("tecnologia", jo.getString("tecnologia"));
 				reg.add(MainActivity.basedatos.insertar("Adicionales", cv));
 			}
 		} catch (JSONException e) {

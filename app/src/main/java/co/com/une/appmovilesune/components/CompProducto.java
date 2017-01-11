@@ -306,7 +306,11 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
             if (observerAdicionales != null) {
                 observerAdicionales.limpiarAdicionales();
-                observerAdicionales.seleccionarPlan(Utilidades.traducirPlanOfertaDigital((String) parent.getSelectedItem()));
+                if(tipo == TELEVISION) {
+                    observerAdicionales.seleccionarPlan(Utilidades.traducirPlanOfertaDigital((String) parent.getSelectedItem()));
+                }else if (tipo == TELEFONIA){
+                    observerAdicionales.seleccionarPlan((String) parent.getSelectedItem());
+                }
             }
 
             if (observerDecodificadores != null) {

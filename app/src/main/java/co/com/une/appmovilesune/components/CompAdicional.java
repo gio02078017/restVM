@@ -119,11 +119,41 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         spnSelectorAdicionales.setAdapter(adaptador);
     }
 
-    private void consultarAdicional(String adicional) {
+    private void cargarAdicionalesTo(String plan) {
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Adicionales",
+                new String[]{"adicional"}, "departamento=? and tipoProducto=? and estrato like ? and tecnologia like ?",
+                new String[]{cliente.getDepartamento(), "to", "%" + cliente.getEstrato() + "%", "%" + cliente.getTecnologia() + "%"}, null, null, null);
+
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item);
+        adaptador.add("-- Seleccione Adicional --");
+        if (respuesta != null) {
+            for (ArrayList<String> arrayList : respuesta) {
+                // adaptador.add(arrayList.get(0));
+                System.out.println("adicional name " + arrayList.get(0));
+                adaptador.add(arrayList.get(0));
+
+            }
+        }
+        spnSelectorAdicionales.setAdapter(adaptador);
+    }
+
+    private void consultarAdicional(String adicional, int tipo) {
+
+        String parametros = "";
+        String[] datos = null;
+
+        if (tipo == TELEVISION) {
+            parametros = "departamento like ? and (producto like ? or producto like ?) and tipoProducto = ? and estrato like ? and adicional = ?";
+            datos = new String[]{"%" + cliente.getDepartamento() + "%", "%HFC%", "%IPTV%", "tv", "%" + cliente.getEstrato() + "%", adicional};
+        } else if (tipo == TELEFONIA) {
+            parametros = "departamento like ? and tipoProducto = ? and estrato like ? and adicional = ?";
+            datos = new String[]{"%" + cliente.getDepartamento() + "%",  "to", "%" + cliente.getEstrato() + "%", adicional};
+        }
+
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Adicionales",
                 new String[]{"adicional", "tarifa", "tarifaIva"},
-                "departamento like ? and (producto like ? or producto like ?) and tipoProducto = ? and estrato like ? and adicional = ?",
-                new String[]{"%" + cliente.getDepartamento() + "%", "%HFC%", "%IPTV%", "tv", "%" + cliente.getEstrato() + "%", adicional},
+                parametros, datos,
                 null, "producto,adicional ASC", null);
 
         System.out.println("Respuesta Adicionales " + respuesta);
@@ -220,9 +250,9 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         String[][] arrayAd = new String[contAdicionales][2];
 
         for (int i = 0; i < adicionales.size(); i++) {
-            System.out.println("adicionales.get(i).getDescuento() "+adicionales.get(i).getAdicional());
-            System.out.println("adicionales.get(i).getDescuento() "+adicionales.get(i).getDescuento());
-            System.out.println("adicionales.get(i).getDuracion() "+adicionales.get(i).getDuracion());
+            System.out.println("adicionales.get(i).getDescuento() " + adicionales.get(i).getAdicional());
+            System.out.println("adicionales.get(i).getDescuento() " + adicionales.get(i).getDescuento());
+            System.out.println("adicionales.get(i).getDuracion() " + adicionales.get(i).getDuracion());
             if (!adicionales.get(i).getDescuento().equalsIgnoreCase("") && !adicionales.get(i).getDescuento().equalsIgnoreCase("-")) {
 
                 String meses;
@@ -257,7 +287,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
     AdapterView.OnItemSelectedListener seleccionarAdicional = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            consultarAdicional((String) parent.getSelectedItem());
+            consultarAdicional((String) parent.getSelectedItem(),tipo);
         }
 
         @Override
@@ -268,8 +298,12 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     @Override
     public void seleccionarPlan(String plan) {
-        System.out.println("plan adicional "+plan);
-        cargarAdicionales(plan);
+        System.out.println("plan adicional " + plan);
+        if (tipo == TELEVISION) {
+            cargarAdicionales(plan);
+        } else if (tipo == TELEFONIA) {
+            cargarAdicionalesTo(plan);
+        }
     }
 
     @Override
