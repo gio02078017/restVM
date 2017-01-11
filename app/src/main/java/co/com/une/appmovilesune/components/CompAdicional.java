@@ -120,10 +120,17 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
     }
 
     private void consultarAdicional(String adicional) {
+
+        String departamento = cliente.getDepartamento();
+
+        if(cliente.getDepartamento().equalsIgnoreCase("Distrito Capital De Bogota")){
+            departamento = cliente.getCiudad();
+        }
+
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Adicionales",
                 new String[]{"adicional", "tarifa", "tarifaIva"},
                 "departamento like ? and (producto like ? or producto like ?) and tipoProducto = ? and estrato like ? and adicional = ?",
-                new String[]{"%" + cliente.getDepartamento() + "%", "%HFC%", "%IPTV%", "tv", "%" + cliente.getEstrato() + "%", adicional},
+                new String[]{"%" + departamento + "%", "%HFC%", "%IPTV%", "tv", "%" + cliente.getEstrato() + "%", adicional},
                 null, "producto,adicional ASC", null);
 
         System.out.println("Respuesta Adicionales " + respuesta);

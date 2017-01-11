@@ -279,7 +279,7 @@ public class MainActivity extends Activity implements Observer {
                                 modulo = MODULO_COTIZADOR;
 
                             } else {
-                                Toast.makeText(this, getResources().getString(R.string.seleccionartecnologia),
+                                        Toast.makeText(this, getResources().getString(R.string.seleccionartecnologia),
                                         Toast.LENGTH_SHORT).show();
                             }
                         } else {

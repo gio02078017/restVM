@@ -353,9 +353,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     }
 
     private void parametrizarComponentes() {
-        cprdTelevision.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem());
-        cprdInternet.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem());
-        cprdTelefonia.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem());
+        cprdTelevision.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem(), cliente.getCiudad());
+        cprdInternet.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem(), cliente.getCiudad());
+        cprdTelefonia.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem(), cliente.getCiudad());
         if (cotizacion != null) {
             //rellenarCotizacion();
         }
