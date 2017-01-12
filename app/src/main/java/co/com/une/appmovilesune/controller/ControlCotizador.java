@@ -580,9 +580,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 System.out.println("tipoProducto " + productos.get(i).getTipo());
                 System.out.println("tipoPeticion " + productos.get(i).getTipoPeticion());
 
-                System.out.println("BanderaPA codigoPA "+codigoPA);
+                System.out.println("BanderaPA codigoPA " + codigoPA);
 
-                if(codigoPA.equalsIgnoreCase("00") || codigoPA.equalsIgnoreCase("02")){
+                if (codigoPA.equalsIgnoreCase("00")) {
+                    productos.get(i).setAplicaPA(true);
+                    cliente.setPagoAnticipado("SI");
+                } else if (codigoPA.equalsIgnoreCase("02")){
                     if (Utilidades.excluirEstadosPagoAnticipado()
                             .contains(cliente.getScooringune().getRazonScooring())) {
                         productos.get(i).setAplicaPA(true);
@@ -591,7 +594,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                         productos.get(i).setAplicaPA(false);
                         cliente.setPagoAnticipado("NO");
                     }
-
                 }else {
                     productos.get(i).setAplicaPA(false);
                     cliente.setPaginaAsignacion("NO");
@@ -631,7 +633,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         String cadenaConexion = obtenerCadenaValorConexion();
         double valorConexion = obtenerValorConexion(cadenaConexion);
         double valorDescuentoComercial = valorConexion - totalPagoParcial;
-        cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal(), valorConexion, totalPagoParcial, valorDescuentoComercial);
+        cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal(), valorConexion, totalPagoParcial, valorDescuentoComercial, totalPagoAnticipado);
 
     }
 
