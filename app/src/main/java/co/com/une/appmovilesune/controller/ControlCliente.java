@@ -474,9 +474,9 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         for (int i = 0; i < arrayProyectosRurales.size(); i++) {
             if (arrayProyectosRurales.get(i).getDescripcion().equalsIgnoreCase(proyecto)) {
 
-                System.out.println("proyecto descripcion " + arrayProyectosRurales.get(i).getDescripcion());
+               /* System.out.println("proyecto descripcion " + arrayProyectosRurales.get(i).getDescripcion());
                 System.out.println("proyecto cobertura " + arrayProyectosRurales.get(i).getCobertura());
-                System.out.println("proyecto proyecto " + arrayProyectosRurales.get(i).getProyecto());
+                System.out.println("proyecto proyecto " + arrayProyectosRurales.get(i).getProyecto());*/
 
                 validarCoberturaNew(Utilidades.coberturaProyecto(arrayProyectosRurales.get(i).getCobertura()));
                 //cliente.setCoberRural(true);
@@ -640,9 +640,9 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
             // System.out.println("barrios => " + barr.get(i).get(0));
         }
 
-        ArrayAdapter<String> adaptadorBarrios = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+        ArrayAdapter<String> adaptadorProyectos = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                 dat);
-        txtProyectosRurales.setAdapter(adaptadorBarrios);
+        txtProyectosRurales.setAdapter(adaptadorProyectos);
 
         txtProyectosRurales.setTextColor(getResources().getColor(R.color.black));
 
@@ -2053,9 +2053,9 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
                     JSONArray proyectos = resultValidacion.getJSONArray("Proyectos");
                     for (int i = 0; i < proyectos.length(); i++) {
                         JSONObject dataProyecto = proyectos.getJSONObject(i);
-                        System.out.println("Cobertura " + dataProyecto.getString("Cobertura"));
+                        /*System.out.println("Cobertura " + dataProyecto.getString("Cobertura"));
                         System.out.println("Descripcion " + dataProyecto.getString("Descripcion"));
-                        System.out.println("Proyecto " + dataProyecto.getString("Proyecto"));
+                        System.out.println("Proyecto " + dataProyecto.getString("Proyecto"));*/
 
                         arrayProyectosRurales.add(new ProyectosRurales(dataProyecto.getString("Proyecto"), dataProyecto.getString("Descripcion"), dataProyecto.getString("Cobertura")));
                         llenarProyectosRurales(arrayProyectosRurales);
