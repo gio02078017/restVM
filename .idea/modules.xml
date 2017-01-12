@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/UNE.ventamovil.iml" filepath="$PROJECT_DIR$/UNE.ventamovil.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/appVentaMovil.iml" filepath="$PROJECT_DIR$/appVentaMovil.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appMovilesUne.iml" filepath="$PROJECT_DIR$/appMovilesUne.iml" />
     </modules>
   </component>
 </project>
