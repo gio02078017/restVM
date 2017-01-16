@@ -179,6 +179,7 @@ public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Ob
 			System.out.println("Conexion 149 => " + cliente);
 			canal.debug = true;
 			canal.call(accion, paquete);
+			canal.getConnection().disconnect();
 			System.out.println("Log servicios " + canal.requestDump);
 			Editor editor = MainActivity.preferencias.edit();
 			editor.putString("xml", canal.requestDump);
