@@ -39,7 +39,6 @@ import co.com.une.appmovilesune.model.UneMas;
 import co.com.une.appmovilesune.model.Venta;
 import co.com.une.appmovilesune.threads.Enviar;
 import co.com.une.appmovilesune.R;
-
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
