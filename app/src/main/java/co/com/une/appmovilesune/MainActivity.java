@@ -39,7 +39,6 @@ import co.com.une.appmovilesune.model.UneMas;
 import co.com.une.appmovilesune.model.Venta;
 import co.com.une.appmovilesune.threads.Enviar;
 import co.com.une.appmovilesune.R;
-
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -113,7 +112,7 @@ public class MainActivity extends Activity implements Observer {
 
     /* Servidor de conexion */
     public static boolean debug = true;
-    public static String servidor = Conexion.SERVIDOR_PRODUCCION;//
+    public static String servidor = Conexion.SERVIDOR_DESARROLLO;//
     public static boolean seguimiento;
 
 	/* Para ponerles los titulos en el component */

@@ -81,7 +81,7 @@
                 <LinearLayout
                     android:id="@+id/Cartera"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
                     android:weightSum="1" >
@@ -237,27 +237,20 @@
 
                     <LinearLayout
                         android:id="@+id/linerScooring"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:weightSum="1" >
-                        
-                      	<ScrollView 
-                      	    android:layout_width="match_parent"
-                      	    android:layout_height="match_parent">
                       	    
-                      	    <ListView
-	                            android:id="@+id/viewScooring"
-	                            android:layout_width="match_parent"
-	                            android:layout_height="fill_parent"
-	                            android:layout_marginLeft="5dp"
-	                            android:layout_marginRight="5dp"
-	                            android:layout_marginTop="-15dp"
-	                            android:textSize="10sp" />
-                      	    
-                      	</ScrollView>
+                        <ListView
+                            android:id="@+id/viewScooring"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="-15dp"
+                            android:textSize="10sp" />
 
-                        
                     </LinearLayout>
                 </LinearLayout>
 

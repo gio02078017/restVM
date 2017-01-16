@@ -629,7 +629,7 @@ public class Validaciones {
 				if (!competencia.getNoUne().equals("-- Seleccione Motivo --")) {
 					reg.add(true);
 
-					if (competencia.getNoUne().equalsIgnoreCase("CREDITO Y CARTERA")) {
+					if (competencia.getNoUne().equalsIgnoreCase("CREDITO Y CARTERA") || competencia.getNoUne().equalsIgnoreCase("MOTIVO DE NO PAGO")) {
 
 						mensajeCartera = true;
 
@@ -715,6 +715,21 @@ public class Validaciones {
 							ja.put(Utilidades.jsonMensajes("CREDITO Y CARTERA",
 									"Para realizar esta acción se debe haber consultado previamente Scoring."));
 						}
+
+						if(competencia.getNoUne().equalsIgnoreCase("MOTIVO DE NO PAGO")){
+							if (cliente.isValidarCorreo()) {
+								System.out.println("validacion correo " + Utilidades.validateEmail(cliente.getCorreo()));
+								if (Utilidades.validateEmail(cliente.getCorreo())) {
+									reg.add(true);
+								} else {
+									reg.add(false);
+									ja.put(Utilidades.jsonMensajes("Correo", "Sin Seleccionar, Debe Ser Un Correo Valido"));
+								}
+							} else {
+								cliente.setCorreo("");
+							}
+						}
+
 					}else if (competencia.getNoUne().equalsIgnoreCase("DECISION DEL CLIENTE")) {
 						if (!Utilidades.excluir("excluirCompetencia", cliente.getCiudad())) {
 							if (competencia.Competencia != null && competencia.Competencia.size() >0) {
