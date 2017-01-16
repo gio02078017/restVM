@@ -1114,8 +1114,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     "" + productoCotizador.getCargoBasicoEmp(), "0", "0", descuento.get(0).toString(), descuento.get(1).toString(), "",
                     "", getTipoTecnologiaExistente("TO"));
 
-            cotizacion.setPlanFacturacionTo_I(String.valueOf(productoCotizador.getCargoBasicoInd()));
-            cotizacion.setPlanFacturacionTo_P(String.valueOf(productoCotizador.getCargoBasicoEmp()));
+            cotizacion.setPlanFacturacionTo_I(String.valueOf(productoCotizador.getPlanFacturacionInd()));
+            cotizacion.setPlanFacturacionTo_P(String.valueOf(productoCotizador.getPlanFacturacionEmp()));
 
             cotizacion.TelefoniaCargos(String.valueOf(productoCotizador.getPagoAnticipado()), String.valueOf(productoCotizador.getTotalPagoParcial()));
 
