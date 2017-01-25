@@ -2,6 +2,7 @@ package co.com.une.appmovilesune.controller;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ import co.com.une.appmovilesune.adapters.ItemKeyValue2;
 import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
+import co.com.une.appmovilesune.complements.Dialogo;
 import co.com.une.appmovilesune.complements.Validaciones;
 import co.com.une.appmovilesune.components.CompAdicional;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
@@ -55,6 +57,8 @@ import co.com.une.appmovilesune.model.TarificadorNew;
  */
 
 public class ControlCotizador extends Activity implements Observer, SubjectTotales {
+
+    public static final String TAG = "ControlCotizador";
 
     private TituloPrincipal tlpPrincipal;
 
@@ -108,6 +112,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     private String codigoPP = "";
     private String codigoPA = "";
+
+    private Dialogo dialogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -1038,7 +1044,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                             Toast.LENGTH_SHORT).show();
                                     cliente.setCarrusel(true);
                                     cliente.setProductosCarrusel(UtilidadesTarificador.productosCotizacionCarrusel(cotizacion));
-                                    resultCotizador("gerencia de ruta");
+
+                                    dialogo = new Dialogo(this,Dialogo.DIALOGO_CUSTOM,"Carrusel",getResources().getString(R.string.mensajeCarrusel),"Prospectar","Recotizar",carruselOK,carruselCANCEL);
+                                    dialogo.dialogo.show();
+                                    //resultCotizador("gerencia de ruta");
                                 }
                             } else {
                                 Toast.makeText(this,
@@ -1634,6 +1643,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     public boolean validarCarrusel() {
         boolean validar = true;
 
+        ArrayList<String> productosLog = new ArrayList<String>();
+
         if (Utilidades.validarPermiso("carrusel") || cliente.isControlCerca()) {
             return true;
         }
@@ -1650,22 +1661,30 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                     if (!UtilidadesTarificador.validarCarruselProductos(
                                             cotizacion.getTipoCotizacionTo(), cotizacion.getTelefonia(), this)) {
                                         validar = false;
+                                        productosLog.add("TO");
                                         break;
                                     }
                                 } else if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("TV")) {
                                     if (!UtilidadesTarificador.validarCarruselProductos(
                                             cotizacion.getTipoCotizacionTv(), cotizacion.getTelevision(), this)) {
                                         validar = false;
+                                        productosLog.add("TV");
                                         break;
                                     }
                                 } else if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("BA")) {
                                     if (!UtilidadesTarificador.validarCarruselProductos(
                                             cotizacion.getTipoCotizacionBa(), cotizacion.getInternet(), this)) {
                                         validar = false;
+                                        productosLog.add("BA");
                                         break;
                                     }
                                 }
                             }
+
+                            for (String prod: productosLog) {
+                                Log.i(TAG,"LOG "+prod);
+                            }
+
                         }
                     } else if (cliente.getCodigoCarrusel().equals("01")) {
                     }
@@ -1718,8 +1737,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     public boolean validarScooring() {
 
         boolean valid = true;
-
-        System.out.println();
         if (!scooring.isValidarCartera()) {
             if (cliente.getScooringune() != null) {
                 if (cliente.getScooringune().getDocumentoScooring().equalsIgnoreCase(cliente.getCedula())) {
@@ -2110,6 +2127,20 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             e.printStackTrace();
         }
     }
+
+    DialogInterface.OnClickListener carruselOK = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            Log.i(TAG,"Prospectar");
+        }
+    };
+
+    DialogInterface.OnClickListener carruselCANCEL = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            Log.i(TAG,"Reconfigurar");
+        }
+    };
 
     @Override
     public void addObserver(ObserverTotales o) {

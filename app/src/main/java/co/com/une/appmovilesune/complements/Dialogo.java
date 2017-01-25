@@ -36,6 +36,7 @@ public class Dialogo extends Dialog {
 	public static final int DIALOGO_SELECTOR_TIPO_ASESORIA = 10;
 	public static final int DIALOGO_SELECTOR_HOBBIES = 11;
 	public static final int DIALOGO_FORMULARIO_COMPETENCIA = 12;
+	public static final int DIALOGO_CUSTOM = 13;
 
 	private String[] StHobbies = { "Cine", "Teatro", "Musica", "TV", "Lectura", "Deportes", "Otros" };
 	private String[] StProductos = { "TO", "TV", "BA", "3G", "4G" };
@@ -220,6 +221,23 @@ public class Dialogo extends Dialog {
 		default:
 			break;
 		}
+	}
+
+	public Dialogo(Context context, int Tipo, String titulo, String mensaje, String tituloBotonOK, String tituloBotonCancel, OnClickListener accionBotonOK, OnClickListener accionBotonCancel) {
+		super(context);
+		this.context = context;
+		this.Tipo = Tipo;
+
+		AlertDialog.Builder dialogCustom = new AlertDialog.Builder(context);
+		dialogCustom.setInverseBackgroundForced(true);
+		dialogCustom.setIcon(R.drawable.icon_dialogo);
+		dialogCustom.setCancelable(false);
+		dialogCustom.setTitle(titulo);
+		dialogCustom.setMessage(mensaje);
+		dialogCustom.setPositiveButton(tituloBotonOK, accionBotonOK);
+		dialogCustom.setNegativeButton(tituloBotonCancel, accionBotonCancel);
+		dialogo = dialogCustom.create();
+
 	}
 
 	protected void onCreate(Bundle savedInstanceState) {
