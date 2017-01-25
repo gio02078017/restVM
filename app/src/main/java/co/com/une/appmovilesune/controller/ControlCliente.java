@@ -2058,10 +2058,10 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
                         System.out.println("Proyecto " + dataProyecto.getString("Proyecto"));*/
 
                         arrayProyectosRurales.add(new ProyectosRurales(dataProyecto.getString("Proyecto"), dataProyecto.getString("Descripcion"), dataProyecto.getString("Cobertura")));
-                        llenarProyectosRurales(arrayProyectosRurales);
                         cliente.coberturaRural.setArrayProyectosRurales(arrayProyectosRurales);
                         cliente.coberturaRural.setBarrioConsulta(cliente.getBarrio());
                     }
+                    llenarProyectosRurales(arrayProyectosRurales);
                 }
             } else {
                 arrayProyectosRurales.clear();
