@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:background="@drawable/texture"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <co.com.une.appmovilesune.components.TituloPrincipal
         android:id="@+id/tlpPrincipal"
@@ -13,12 +13,12 @@
     <TabHost
         android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
             <TabWidget
                 android:id="@android:id/tabs"
@@ -28,25 +28,25 @@
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent" >
 
                 <LinearLayout
                     android:id="@+id/Factura"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:weightSum="1">
+                    android:weightSum="1" >
 
                     <ScrollView
                         android:id="@+id/scroll"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content" >
 
                         <LinearLayout
                             android:id="@+id/fac"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical" >
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                                 android:layout_marginLeft="50dp"
                                 android:layout_marginRight="50dp"
                                 android:layout_marginTop="10dp"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal" >
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -81,10 +81,10 @@
                 <LinearLayout
                     android:id="@+id/Cartera"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical"
-                    android:weightSum="1">
+                    android:weightSum="1" >
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                         android:layout_marginLeft="50dp"
                         android:layout_marginRight="50dp"
                         android:layout_marginTop="10dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal" >
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
                     <ScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp">
+                        android:layout_margin="10dp" >
 
                         <TableLayout
                             android:id="@+id/TableCartera"
@@ -126,13 +126,13 @@
                             android:layout_height="wrap_content"
                             android:shrinkColumns="*"
                             android:stretchColumns="*"
-                            android:visibility="visible">
+                            android:visibility="visible" >
 
                             <TableRow
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="1dp"
-                                android:background="@drawable/bg_title_resumen_sim">
+                                android:background="@drawable/bg_title_resumen_sim" >
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -150,7 +150,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="-10dp"
                                 android:background="#FFF"
-                                android:padding="10dp">
+                                android:padding="10dp" >
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -172,7 +172,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="-10dp"
                                 android:background="#FFF"
-                                android:padding="10dp">
+                                android:padding="10dp" >
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -194,7 +194,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="-10dp"
                                 android:background="#FFF"
-                                android:padding="10dp">
+                                android:padding="10dp" >
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -216,7 +216,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="-10dp"
                                 android:background="#FFF"
-                                android:padding="10dp">
+                                android:padding="10dp" >
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -237,26 +237,19 @@
 
                     <LinearLayout
                         android:id="@+id/linerScooring"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:weightSum="1">
-
-                        <ScrollView
+                        android:weightSum="1" >
+                      	    
+                        <ListView
+                            android:id="@+id/viewScooring"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ListView
-                                android:id="@+id/viewScooring"
-                                android:layout_width="match_parent"
-                                android:layout_height="fill_parent"
-                                android:layout_marginLeft="5dp"
-                                android:layout_marginRight="5dp"
-                                android:layout_marginTop="-15dp"
-                                android:textSize="10sp" />
-
-                        </ScrollView>
-
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="-15dp"
+                            android:textSize="10sp" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -268,17 +261,17 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="vertical"
-                    android:weightSum="1">
+                    android:weightSum="1" >
 
                     <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content" >
 
                         <LinearLayout
                             android:id="@+id/con"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical" >
 
                             <RadioGroup
                                 android:id="@+id/radioGroupRespuestasCobertura"
@@ -286,7 +279,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_margin="10dp"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal" >
 
                                 <RadioButton
                                     android:id="@+id/radio_telefono_Cobertura"
@@ -339,7 +332,7 @@
                                 android:layout_margin="5dp"
                                 android:background="@drawable/bg_info"
                                 android:shrinkColumns="*"
-                                android:stretchColumns="*">
+                                android:stretchColumns="*" >
 
                                 <TableRow
                                     android:id="@+id/campoCedulaCobertura"
@@ -347,7 +340,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="5dp"
                                     android:padding="5dp"
-                                    android:visibility="gone">
+                                    android:visibility="gone" >
 
                                     <TextView
                                         android:id="@+id/TextView01"
@@ -371,7 +364,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:padding="5dp"
-                                    android:visibility="gone">
+                                    android:visibility="gone" >
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -396,7 +389,7 @@
                                     android:id="@+id/campoNodosCobertura"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:padding="5dp">
+                                    android:padding="5dp" >
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -420,7 +413,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:padding="5dp"
-                                    android:visibility="gone">
+                                    android:visibility="gone" >
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -443,7 +436,7 @@
                                     android:id="@+id/campoTelefonoCobertura"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:padding="5dp">
+                                    android:padding="5dp" >
 
                                     <TextView
                                         android:id="@+id/textView2"
@@ -466,7 +459,7 @@
                                     android:id="@+id/campoDireccionCobertura"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:padding="5dp">
+                                    android:padding="5dp" >
 
                                     <TextView
                                         android:id="@+id/textView4"
@@ -489,7 +482,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="5dp"
-                                    android:padding="5dp">
+                                    android:padding="5dp" >
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -527,17 +520,17 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="vertical"
-                    android:weightSum="1">
+                    android:weightSum="1" >
 
                     <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content" >
 
                         <LinearLayout
                             android:id="@+id/con"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical" >
 
                             <RadioGroup
                                 android:id="@+id/radioGroupRespuestasPortafolio"
@@ -545,7 +538,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_margin="10dp"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal" >
 
                                 <RadioButton
                                     android:id="@+id/radio_telefono_Portafolio"
@@ -587,7 +580,7 @@
                                 android:layout_margin="5dp"
                                 android:background="@drawable/bg_info"
                                 android:shrinkColumns="*"
-                                android:stretchColumns="*">
+                                android:stretchColumns="*" >
 
                                 <TableRow
                                     android:id="@+id/campoCedulaPortafolio"
@@ -595,7 +588,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
                                     android:padding="5dp"
-                                    android:visibility="gone">
+                                    android:visibility="gone" >
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -619,7 +612,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:padding="5dp"
-                                    android:visibility="gone">
+                                    android:visibility="gone" >
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -645,7 +638,7 @@
                                     android:id="@+id/campoTelefonoPortafolio"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:padding="5dp">
+                                    android:padding="5dp" >
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -668,7 +661,7 @@
                                     android:id="@+id/campoDireccionPortafolio"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:padding="5dp">
+                                    android:padding="5dp" >
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -692,7 +685,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:padding="5dp">
+                                    android:padding="5dp" >
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -716,13 +709,13 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:shrinkColumns="*"
-                                android:stretchColumns="*">
+                                android:stretchColumns="*" >
 
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="-20dp"
-                                    android:padding="5dp">
+                                    android:padding="5dp" >
 
                                     <ListView
                                         android:id="@+id/viewPortafolio"
@@ -741,18 +734,18 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="vertical"
-                    android:weightSum="1">
+                    android:weightSum="1" >
 
                     <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content" >
 
                         <LinearLayout
                             android:id="@+id/layoutBlindajeAntioquia"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
-                            android:visibility="gone">
+                            android:visibility="gone" >
 
                             <RadioGroup
                                 android:id="@+id/radioGroupRespuestasBlindaje"
@@ -760,7 +753,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_margin="10dp"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal" >
 
                                 <RadioButton
                                     android:id="@+id/radio_telefono_Blindaje"
@@ -802,14 +795,14 @@
                                 android:layout_margin="5dp"
                                 android:background="@drawable/bg_info"
                                 android:shrinkColumns="*"
-                                android:stretchColumns="*">
+                                android:stretchColumns="*" >
 
                                 <TableRow
                                     android:id="@+id/campoBusquedaBlindaje"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
-                                    android:padding="5dp">
+                                    android:padding="5dp" >
 
                                     <TextView
                                         android:id="@+id/viewbusquedaBlindaje"
@@ -834,13 +827,13 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:shrinkColumns="*"
-                                android:stretchColumns="*">
+                                android:stretchColumns="*" >
 
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="-20dp"
-                                    android:padding="5dp">
+                                    android:padding="5dp" >
 
                                     <ListView
                                         android:id="@+id/viewListBlindaje"

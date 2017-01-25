@@ -355,11 +355,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     }
 
     private void parametrizarComponentes() {
-        cprdTelevision.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem());
-        cprdInternet.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem());
-        cprdTelefonia.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem());
+        cprdTelevision.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem(), cliente.getCiudad());
+        cprdInternet.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem(), cliente.getCiudad());
+        cprdTelefonia.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem(), cliente.getCiudad());
         if (cotizacion != null) {
-            rellenarCotizacion();
+            //rellenarCotizacion();
         }
     }
 
@@ -568,7 +568,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         // UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 
-        boolean trioNuevo = UtilidadesTarificadorNew.isTrioNuevo(productos);
+        boolean trioDuoNuevo = UtilidadesTarificadorNew.isTrioDuoNuevo(productos);
 
         if (productos != null) {
             for (int i = 0; i < productos.size(); i++) {
@@ -596,8 +596,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 }
 
 
-                if (trioNuevo) {
-                    productos.get(i).aplciarDescuentoTrio();
+                if (trioDuoNuevo) {
+                    if(productos.get(i).getTipoPeticion().equals("N")){
+                        productos.get(i).aplciarDescuentoTrio();
+                    }
                 }
 
                 switch (productos.get(i).getTipo()) {
@@ -1119,8 +1121,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     "" + productoCotizador.getCargoBasicoEmp(), "0", "0", descuento.get(0).toString(), descuento.get(1).toString(), "",
                     "", getTipoTecnologiaExistente("TO"));
 
-            cotizacion.setPlanFacturacionTo_I(String.valueOf(productoCotizador.getCargoBasicoInd()));
-            cotizacion.setPlanFacturacionTo_P(String.valueOf(productoCotizador.getCargoBasicoEmp()));
+            cotizacion.setPlanFacturacionTo_I(String.valueOf(productoCotizador.getPlanFacturacionInd()));
+            cotizacion.setPlanFacturacionTo_P(String.valueOf(productoCotizador.getPlanFacturacionEmp()));
 
             cotizacion.TelefoniaCargos(String.valueOf(productoCotizador.getPagoAnticipado()), String.valueOf(productoCotizador.getTotalPagoParcial()));
 
@@ -1731,7 +1733,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     if (cliente.getScooringune().isValidarScooring()) {
                         if (!cliente.getScooringune().isPasaScooring()) {
                             if (productosNuevos()) {
-                                if (codigoPA.equalsIgnoreCase("00") || codigoPA.equalsIgnoreCase("02")) {
+                                if (codigoPA.equalsIgnoreCase("00")) {
                                     if (Utilidades.excluirEstadosPagoAnticipado()
                                             .contains(cliente.getScooringune().getRazonScooring())) {
                                         valid = true;
