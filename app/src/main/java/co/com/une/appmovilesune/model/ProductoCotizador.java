@@ -211,7 +211,7 @@ public class ProductoCotizador {
     }
 
 
-    private String traducirProducto(){
+    public String traducirProducto(){
 
         String productoAbreviacion = "";
 

@@ -94,6 +94,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     private ArrayList<ItemKeyValue2> countValidacion = new ArrayList<ItemKeyValue2>();
     private ArrayList<String> countValidacion2 = new ArrayList<String>();
 
+    private ArrayList<String> productosLog;
+
     private boolean validarAdicionales = true;
     private boolean validarEstandarizacion = true;
     private boolean validarTelefonoServicio = true;
@@ -521,9 +523,16 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 //mostarComponenteDecos(resultado.get(1).toString());
             } else if (resultado != null && resultado.get(0).equals("consultarPagoParcialAnticipado")) {
                 tratarPagoParcialAnticipado(resultado.get(1).toString());
+            } else if (resultado != null && resultado.get(0).equals("guardarLogCarruselAutomatico")) {
+                Log.d(TAG,"guardarLogCarruselAutomatico "+resultado.get(1).toString());
+                dialogo = new Dialogo(this,Dialogo.DIALOGO_CUSTOM,"Carrusel",getResources().getString(R.string.mensajeCarrusel),"Prospectar","Recotizar",carruselOK,carruselCANCEL);
+                dialogo.dialogo.show();
+                //tratarPagoParcialAnticipado(resultado.get(1).toString());
             } else if (resultado != null && resultado.get(0).equals("decos")) {
 
             }
+
+
 
         } catch (Exception e) {
             Log.w("error update", e.getMessage());
@@ -1045,9 +1054,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                     cliente.setCarrusel(true);
                                     cliente.setProductosCarrusel(UtilidadesTarificador.productosCotizacionCarrusel(cotizacion));
 
-                                    dialogo = new Dialogo(this,Dialogo.DIALOGO_CUSTOM,"Carrusel",getResources().getString(R.string.mensajeCarrusel),"Prospectar","Recotizar",carruselOK,carruselCANCEL);
-                                    dialogo.dialogo.show();
-                                    //resultCotizador("gerencia de ruta");
+                                    enviarLogCarruselAutomatico();
                                 }
                             } else {
                                 Toast.makeText(this,
@@ -1071,6 +1078,68 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         } else {
             Toast.makeText(this, "Seleccione productos para cotizar", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    private void enviarLogCarruselAutomatico(){
+
+        try{
+
+            ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
+
+            JSONObject  dataLogCarrusel = new JSONObject();
+            dataLogCarrusel.put("documento",cliente.getCedula());
+            dataLogCarrusel.put("tipoDocumento",cliente.getTipoDocumento());
+            dataLogCarrusel.put("departamento",cliente.getDepartamento());
+            dataLogCarrusel.put("municipio",cliente.getCiudadAmc());
+            dataLogCarrusel.put("direccion",cliente.getDireccion());
+            dataLogCarrusel.put("codigoAsesor",MainActivity.config.getCodigo_asesor());
+            dataLogCarrusel.put("nombreAsesor",MainActivity.config.getNombre_asesor());
+            dataLogCarrusel.put("codigoCanal",MainActivity.config.getCanal());
+            dataLogCarrusel.put("nombreCanal","");
+            dataLogCarrusel.put("motivo","VALIDACION SEGUNDO NIVEL");
+            dataLogCarrusel.put("submotivo","Carrusel");
+            dataLogCarrusel.put("crm",cliente.getCrmCarrusel());
+
+            JSONArray dataLogCarruselProductos = new JSONArray();
+
+            for (ProductoCotizador producto:productos) {
+                JSONObject productoJson = new JSONObject();
+                productoJson.put("tipo",producto.traducirProducto().toUpperCase());
+                productoJson.put("plan",producto.getPlan());
+                if(productosLog.contains(producto.traducirProducto().toUpperCase())){
+                    productoJson.put("carrusel","1");
+                }else{
+                    productoJson.put("carrusel","0");
+                }
+                dataLogCarruselProductos.put(productoJson);
+            }
+
+            dataLogCarrusel.put("productos",dataLogCarruselProductos);
+
+            Log.i(TAG,"JSON Automatico "+dataLogCarrusel.toString());
+
+            Simulador simulador = new Simulador();
+            simulador.setManual(this);
+            simulador.addObserver(this);
+
+            ArrayList<String> parametros = new ArrayList<String>();
+            parametros.add(dataLogCarrusel.toString());
+
+            ArrayList<Object> params = new ArrayList<Object>();
+            params.add(MainActivity.config.getCodigo());
+            params.add("guardarLogCarruselAutomatico");
+            params.add(parametros);
+
+            simulador.execute(params);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -1643,7 +1712,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     public boolean validarCarrusel() {
         boolean validar = true;
 
-        ArrayList<String> productosLog = new ArrayList<String>();
+        productosLog = new ArrayList<String>();
 
         if (Utilidades.validarPermiso("carrusel") || cliente.isControlCerca()) {
             return true;
@@ -1652,38 +1721,43 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         if (Utilidades.excluir("MunicipiosCarrusel", cliente.getCiudad())) {
             if (cliente.isControlCarrusel()) {
                 if (cliente.getCodigoCarrusel().equals("02") || cliente.getCodigoCarrusel().equals("-1")) {
-                } else if (cliente.getCedula().equalsIgnoreCase(cliente.getDocumentoCarrusel())
-                        && cliente.getDireccion().equalsIgnoreCase(cliente.getDireccionCarrusel())) {
+                } else if (cliente.getDireccion().equalsIgnoreCase(cliente.getDireccionCarrusel())) {
                     if (cliente.getCodigoCarrusel().equals("00") && cliente.getArraycarrusel() != null) {
                         if (cliente.getArraycarrusel().size() > 0) {
                             for (int i = 0; i < cliente.getArraycarrusel().size(); i++) {
                                 if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("TO")) {
-                                    if (!UtilidadesTarificador.validarCarruselProductos(
-                                            cotizacion.getTipoCotizacionTo(), cotizacion.getTelefonia(), this)) {
-                                        validar = false;
-                                        productosLog.add("TO");
-                                        break;
+                                    if(cprdTelefonia.isActivo()){
+                                        if (!UtilidadesTarificador.validarCarruselProductos(
+                                                cotizacion.getTipoCotizacionTo(), cotizacion.getTelefonia(), this)) {
+                                            productosLog.add("TO");
+                                        }
                                     }
                                 } else if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("TV")) {
-                                    if (!UtilidadesTarificador.validarCarruselProductos(
-                                            cotizacion.getTipoCotizacionTv(), cotizacion.getTelevision(), this)) {
-                                        validar = false;
-                                        productosLog.add("TV");
-                                        break;
+                                    if(cprdTelevision.isActivo()){
+                                        if (!UtilidadesTarificador.validarCarruselProductos(
+                                                cotizacion.getTipoCotizacionTv(), cotizacion.getTelevision(), this)) {
+                                            productosLog.add("TV");
+                                        }
                                     }
+
                                 } else if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("BA")) {
-                                    if (!UtilidadesTarificador.validarCarruselProductos(
-                                            cotizacion.getTipoCotizacionBa(), cotizacion.getInternet(), this)) {
-                                        validar = false;
-                                        productosLog.add("BA");
-                                        break;
+                                    if(cprdInternet.isActivo()){
+                                        if (!UtilidadesTarificador.validarCarruselProductos(
+                                                cotizacion.getTipoCotizacionBa(), cotizacion.getInternet(), this)) {
+                                            productosLog.add("BA");
+                                        }
                                     }
                                 }
                             }
 
-                            for (String prod: productosLog) {
-                                Log.i(TAG,"LOG "+prod);
+                            if(productosLog.size() > 0){
+                                validar = false;
+                                for (String prod: productosLog) {
+                                    Log.i(TAG,"LOG "+prod);
+                                }
                             }
+
+
 
                         }
                     } else if (cliente.getCodigoCarrusel().equals("01")) {
@@ -2132,6 +2206,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         @Override
         public void onClick(DialogInterface dialog, int which) {
             Log.i(TAG,"Prospectar");
+            resultCotizador("gerencia de ruta");
         }
     };
 

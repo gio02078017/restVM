@@ -173,6 +173,9 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
 		} else if(accion.equals("consultarPagoParcialAnticipado")){
 			parametros = (ArrayList<String>) params[0].get(2);
 			resultados.add(consultarPagoParcialAnticipado(parametros));
+		} else if(accion.equals("guardarLogCarruselAutomatico")){
+			parametros = (ArrayList<String>) params[0].get(2);
+			resultados.add(guardarLogCarruselAutomatico(parametros));
 		}
 
 		return resultados;
@@ -478,7 +481,12 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
 			System.out.println("result " + result);
 			resultado = result;
 			notifyObserver();
-		}else if(accion.equals("consultarPagoParcialAnticipado")){
+		} else if(accion.equals("consultarPagoParcialAnticipado")){
+			System.out.println("Simulador 161 Consultar Respuesta => " + observer);
+			System.out.println("result " + result);
+			resultado = result;
+			notifyObserver();
+		} else if(accion.equals("guardarLogCarruselAutomatico")){
 			System.out.println("Simulador 161 Consultar Respuesta => " + observer);
 			System.out.println("result " + result);
 			resultado = result;
@@ -1084,6 +1092,19 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
 
 		// return "";
 		return MainActivity.conexion.ejecutarSoap("consultarPagoParcialAnticipado", param);
+
+	}
+
+	public String guardarLogCarruselAutomatico(ArrayList<String> parametros){
+
+		System.out.println("parametros " + parametros);
+		ArrayList<String[]> param = new ArrayList<String[]>();
+
+		param.add(new String[] { "parametros", parametros.get(0)});
+		param.add(new String[] { "debug", "false" });
+		param.add(new String[] { "profundidad", "0" });
+
+		return MainActivity.conexion.ejecutarSoap("logAutomaticoCarrusel", param);
 
 	}
 
