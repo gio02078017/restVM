@@ -406,7 +406,7 @@
     <string name="carrusel">Validar Retiro</string>
     <string name="paquete">Paquete</string>
     <string name="fecharetiro">Fecha Retiro</string>
-    <string name="mensajeCarrusel">Por políticas de la compañía, la venta que intentas ingresar no es posible procesarla. Por favor proceder con la prospección.</string>
+    <string name="mensajeCarrusel">No es posible ingresar la venta. Productos con carrusel: </string>
     <string name="mensajeRetiros">Para continuar debe validar primero el módulo de retiros.</string>
     <string name="direccioncercaa">Esta dirección contiene cerca a, la cual cobertura es asignada manualmente desde el campo tecnológia en la pestaña de Socioeconómico</string>
     <string name="valdiacionconfronta">Validación confronta</string>
@@ -465,4 +465,7 @@
     <string name="totalpagoconexion">Total Pago por Conexión</string>
     <string name="totalpagoparcial">Total Pago Parcial por Conexión</string>
     <string name="valordescuentoconexion">Valor Descuento por Conexión</string>
+
+    <string name="logautomaticocarrusel">Hubo algún problema guardando el log automático</string>
+
 </resources>

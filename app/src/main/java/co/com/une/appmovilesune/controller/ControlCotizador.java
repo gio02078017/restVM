@@ -525,8 +525,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 tratarPagoParcialAnticipado(resultado.get(1).toString());
             } else if (resultado != null && resultado.get(0).equals("guardarLogCarruselAutomatico")) {
                 Log.d(TAG,"guardarLogCarruselAutomatico "+resultado.get(1).toString());
-                dialogo = new Dialogo(this,Dialogo.DIALOGO_CUSTOM,"Carrusel",getResources().getString(R.string.mensajeCarrusel),"Prospectar","Recotizar",carruselOK,carruselCANCEL);
-                dialogo.dialogo.show();
                 tratarLogAutomaticoCarrusel(resultado.get(1).toString());
             } else if (resultado != null && resultado.get(0).equals("decos")) {
 
@@ -2160,6 +2158,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 Toast.makeText(this, getResources().getString(R.string.mensajevalidacionpagoparcial), Toast.LENGTH_LONG).show();
             }
         } catch (JSONException e) {
+            Toast.makeText(this, getResources().getString(R.string.mensajevalidacionpagoparcial), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 
@@ -2204,9 +2203,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     private void tratarLogAutomaticoCarrusel(String respuesta){
 
-        Log.i("JSon", respuesta);
-
-        /*try {
+        try {
             JSONObject json = new JSONObject(respuesta);
 
             if (Configuracion.validarIntegridad(json.getString("data"), json.getString("crc"))) {
@@ -2214,20 +2211,27 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 json = new JSONObject(data);
 
-                codigoPP = json.getJSONObject("codigoRespuesta").getString("pagoParcial");
-                codigoPA = json.getJSONObject("codigoRespuesta").getString("pagoAnticipado");
+                if(json.getString("codigoMensaje").equalsIgnoreCase("00")){
+                    cliente.setIdGerenciaExistente(json.get("idGerencia").toString());
 
-                JSONArray jsonProdutos = json.getJSONObject("data").getJSONArray("productos");
-                JSONArray jsonValoresConexion = json.getJSONObject("data").getJSONArray("valorConexion");
+                }else {
+                    Toast.makeText(this, getResources().getString(R.string.logautomaticocarrusel), Toast.LENGTH_LONG).show();
+                }
 
-                guardarPagoParcialAnticipado(jsonProdutos);
-                guardarValorConexion(jsonValoresConexion);
+                String prodcutosCarrusel = "";
+                for(String producto: productosLog){
+                    prodcutosCarrusel += producto+"-";
+                }
+
+                dialogo = new Dialogo(this,Dialogo.DIALOGO_CUSTOM,"Carrusel",getResources().getString(R.string.mensajeCarrusel)+prodcutosCarrusel.substring(0,prodcutosCarrusel.length()-1),"Prospectar","Recotizar",carruselOK,carruselCANCEL);
+                dialogo.dialogo.show();
+
             } else {
-                Toast.makeText(this, getResources().getString(R.string.mensajevalidacionpagoparcial), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.logautomaticocarrusel), Toast.LENGTH_LONG).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }*/
+        }
 
     }
 

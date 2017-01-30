@@ -23,6 +23,7 @@ public class Competencia implements Serializable {
 	private String Hora;
 	private String Atencion;
 	private String SubMotivo;
+	private String idGerencia;
 
 	public Competencia() {
 		Atencion = "";
@@ -33,6 +34,7 @@ public class Competencia implements Serializable {
 		Fecha = "";
 		Hora = "";
 		SubMotivo = "";
+		idGerencia = "";
 	}
 
 	public Competencia(String Atencion, ArrayList<ItemCompetencia> Competencia, String NoUne, String Observaciones) {
@@ -43,6 +45,7 @@ public class Competencia implements Serializable {
 		this.Observaciones = Observaciones;
 		this.Fecha = Calendario.getFecha();
 		this.Hora = Calendario.getHora();
+		idGerencia = "";
 
 	}
 
@@ -86,6 +89,14 @@ public class Competencia implements Serializable {
 			jo.put("observacion", Observaciones);
 			jo.put("fecha", Fecha + " " + Hora);
 			jo.put("atencion", Atencion);
+			jo.put("idGerencia", idGerencia);
+			if(!idGerencia.equalsIgnoreCase("")){
+				jo.put("accion","Update");
+			}else{
+				jo.put("accion","Insert");
+			}
+
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -147,5 +158,13 @@ public class Competencia implements Serializable {
 
 	public void setSubMotivo(String subMotivo) {
 		SubMotivo = subMotivo;
+	}
+
+	public String getIdGerencia() {
+		return idGerencia;
+	}
+
+	public void setIdGerencia(String idGerencia) {
+		this.idGerencia = idGerencia;
 	}
 }

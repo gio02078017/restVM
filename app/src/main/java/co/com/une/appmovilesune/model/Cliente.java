@@ -150,6 +150,8 @@ public class Cliente implements Serializable, Observer, Subject {
 
 	private String pagoAnticipado;
 
+	private String idGerenciaExistente;
+
 	public Cliente() {
 		TipoDocumento = "";
 		Cedula = "";
@@ -1988,6 +1990,14 @@ public class Cliente implements Serializable, Observer, Subject {
 
 	public void setPagoAnticipado(String pagoAnticipado){
 		this.pagoAnticipado = pagoAnticipado;
+	}
+
+	public String getIdGerenciaExistente() {
+		return idGerenciaExistente;
+	}
+
+	public void setIdGerenciaExistente(String idGerenciaExistente) {
+		this.idGerenciaExistente = idGerenciaExistente;
 	}
 
 	@Override
