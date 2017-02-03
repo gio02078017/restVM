@@ -764,6 +764,16 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
             System.out.println("Zona rural controlProyecto" + controlProyecto);
 
             if (tipoZona.equalsIgnoreCase("Rural")) {
+                txtPaginacion.setText("");
+                txtDireccionFacturacion.setText("");
+                txtDireccionNormalizada.setText("");
+                if(!cliente.coberturaRural.isCoberturaRural()) {
+                    spnTecnologia.setSelection(0);
+                }
+                cliente.setPaginaAsignacion("");
+                cliente.setPaginacion("");
+                cliente.setDireccionNormalizada("");
+
                 if (!barrio.equalsIgnoreCase("")) {
                     if (!controlProyecto) {
                         ConsultarProyectos();
@@ -1334,7 +1344,13 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         if (!txtDireccion.getText().toString().equalsIgnoreCase("")
                 && !txtBarrio.getText().toString().equalsIgnoreCase("")) {
 
-            if (controlEstandarizar) {
+            System.out.println("controlEstandarizar "+controlEstandarizar);
+
+            String tipoZona = (String)spnTipoZona.getSelectedItem();
+
+            System.out.println("tipoZona "+tipoZona);
+
+            if (controlEstandarizar && !tipoZona.equalsIgnoreCase("Rural")) {
                 JSONObject jo = new JSONObject();
 
                 try {
