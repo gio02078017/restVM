@@ -275,6 +275,9 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
                 slide_down(getContext(), llyProducto);
                 llyProducto.setVisibility(VISIBLE);
             } else {
+                spntipeticionproducto.setSelection(0);
+                spnSelectorPlan.setSelection(0);
+                observer.update(null);
                 slide_up(getContext(), llyProducto);
                 llyProducto.setVisibility(GONE);
             }

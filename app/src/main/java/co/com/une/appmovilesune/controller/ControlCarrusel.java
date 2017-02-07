@@ -131,11 +131,11 @@ public class ControlCarrusel extends Activity implements Observer {
 
 			}
 
-			if (cliente.getCedula().equalsIgnoreCase("")) {
+			/*if (cliente.getCedula().equalsIgnoreCase("")) {
 				controlDatos = false;
 				ja.put(Utilidades.jsonMensajes("Documento", "Sin Diligenciar"));
 
-			}
+			}*/
 
 			if (crm.equalsIgnoreCase("FENIX_ATC")) {
 				if (!cliente.isControlNormalizada()) {
@@ -167,7 +167,12 @@ public class ControlCarrusel extends Activity implements Observer {
 
 				dataCarrusel.put("crm", crm);
 				dataCarrusel.put("apporigen", "VM");
-				dataCarrusel.put("documento", cliente.getCedula());
+				if(!cliente.getCedula().equalsIgnoreCase("")){
+					dataCarrusel.put("documento", cliente.getCedula());
+				}else{
+					dataCarrusel.put("documento", "1234567");
+				}
+
 				dataCarrusel.put("direccion", cliente.getDireccion());
 				dataCarrusel.put("municipio", ciudad);
 				dataCarrusel.put("departamento", departamento);
