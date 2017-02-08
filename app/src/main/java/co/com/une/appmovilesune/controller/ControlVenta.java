@@ -48,6 +48,7 @@ import co.com.une.appmovilesune.adapters.ListaAgendamientoAdapter;
 import co.com.une.appmovilesune.adapters.ListaChecked;
 import co.com.une.appmovilesune.adapters.ListaCheckedAdapter;
 import co.com.une.appmovilesune.change.Utilidades;
+import co.com.une.appmovilesune.change.UtilidadesDecos;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
 import co.com.une.appmovilesune.complements.Conexion;
 import co.com.une.appmovilesune.complements.Dialogo;
@@ -628,7 +629,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
                 System.out.println("listaAdicionales.get(i).getDuracion() " + listaAdicionales.get(i).getDescuento());
                 System.out.println("listaAdicionales.get(i).getDuracion() " + listaAdicionales.get(i).getDuracion());
-				/*
+                /*
 				 * adicional.put("demo",
 				 * Utilidades.claveValor(cotizacion.getOferta(),
 				 * listaAdicionales.get(i).getAdicional()));
@@ -1912,6 +1913,21 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                             }
                         }
 
+                        if (venta.getItemDecodificadors() != null && venta.getItemDecodificadors().size() > 0) {
+                            for (int i = 0; i < venta.getItemDecodificadors().size(); i++) {
+
+                                String precio = venta.getItemDecodificadors().get(i).getPrecio();
+                                String tipoAlquiler = venta.getItemDecodificadors().get(i).getTipoAlquiler();
+                                String tipoDeco = venta.getItemDecodificadors().get(i).getOriginal();
+
+                                if (tipoAlquiler.equalsIgnoreCase("AL") && !precio.equals("0") && !precio.equals("0.0")) {
+                                    System.out.println("itemDecodificadors.get(i) entro ");
+                                    cotizacion.put(Utilidades.jsonProductos("ADTV", "Decodificador " + tipoDeco + " (Adicional)", precio, "0", "0", "0"));
+                                }
+
+                            }
+                        }
+
                         IVR.put("tipo", "insert");
                         IVR.put("codigoasesor", consolidado.get(0));
                         IVR.put("telefono", consolidado.get(2));
@@ -1999,6 +2015,21 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                             // System.out.println("lista
                             // "+listObjectAdicionales.get(i));
                             cotizacion.put(listObjectAdicionales.get(i));
+                        }
+                    }
+
+                    if (venta.getItemDecodificadors() != null && venta.getItemDecodificadors().size() > 0) {
+                        for (int i = 0; i < venta.getItemDecodificadors().size(); i++) {
+
+                            String precio = venta.getItemDecodificadors().get(i).getPrecio();
+                            String tipoAlquiler = venta.getItemDecodificadors().get(i).getTipoAlquiler();
+                            String tipoDeco = venta.getItemDecodificadors().get(i).getOriginal();
+
+                            if (tipoAlquiler.equalsIgnoreCase("AL") && !precio.equals("0") && !precio.equals("0.0")) {
+                                System.out.println("itemDecodificadors.get(i) entro ");
+                                cotizacion.put(Utilidades.jsonProductos("ADTV", "Decodificador " + tipoDeco + " (Adicional)", precio, "0", "0", "0"));
+                            }
+
                         }
                     }
 

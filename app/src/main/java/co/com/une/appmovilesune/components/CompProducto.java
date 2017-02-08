@@ -78,6 +78,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
     private int estrato;
     private String tecnologia;
     private String oferta;
+    private String ciudad;
 
     private ProductoCotizador producto;
 
@@ -186,9 +187,14 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     }
 
-    public void cargarPlanes(String departamento, int estrato, String tecnologia, String oferta) {
+    public void cargarPlanes(String departamento, int estrato, String tecnologia, String oferta, String ciudad) {
 
-        this.departamento = departamento;
+        if(departamento.equalsIgnoreCase("Distrito Capital De Bogota")){
+            this.departamento = ciudad;
+        } else {
+            this.departamento = departamento;
+        }
+
         this.estrato = estrato;
         this.tecnologia = tecnologia;
         this.oferta = oferta;
@@ -214,11 +220,11 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
                     "%" + tecnologia + "%"};
         }
 
-//        System.out.println("cargarPlanes clausula "+clausula);
-//
-//        for (int i = 0; i < valores.length; i++) {
-//            System.out.println("cargarPlanes valores "+valores[i]+" posicion("+i+")");
-//        }
+        System.out.println("cargarPlanes clausula "+clausula);
+
+        for (int i = 0; i < valores.length; i++) {
+            System.out.println("cargarPlanes valores "+valores[i]+" posicion("+i+")");
+        }
 
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Productos", new String[]{"Producto"}, clausula,
@@ -281,7 +287,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
     AdapterView.OnItemSelectedListener seleccionarTipoTransaccion = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            cargarPlanes(departamento, estrato, tecnologia, oferta);
+            cargarPlanes(departamento, estrato, tecnologia, oferta, ciudad);
         }
 
         @Override

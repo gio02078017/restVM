@@ -21,22 +21,22 @@ import co.com.une.appmovilesune.model.ProductoCotizador;
 
 public class UtilidadesTarificadorNew {
 
-    public UtilidadesTarificadorNew() {
+    public UtilidadesTarificadorNew(){
 
     }
 
-    public static ArrayList<String> aplicarDescuentos(String promocion, String duracion) {
+    public static ArrayList<String> aplicarDescuentos(String promocion,String duracion) {
 
-        ArrayList<String> descuento = new ArrayList<String>();
+      ArrayList<String> descuento = new ArrayList<String>();
 
-        if (promocion.equalsIgnoreCase("0") || promocion.equalsIgnoreCase("0.0")) {
+        if(promocion.equalsIgnoreCase("0") || promocion.equalsIgnoreCase("0.0")){
             descuento.add("Sin Promocion");
             descuento.add("N/A");
-        } else {
+        }else{
             descuento.add(promocion + "%");
-            if (duracion.equalsIgnoreCase("1")) {
+            if(duracion.equalsIgnoreCase("1")){
                 descuento.add(duracion + " Mes ");
-            } else {
+            }else{
                 descuento.add(duracion + " Meses ");
             }
         }
@@ -84,55 +84,55 @@ public class UtilidadesTarificadorNew {
         return segundaTO;
     }
 
-    public static void imprimirProductosCotizacion(ArrayList<ProductoCotizador> productos) {
+    public static void imprimirProductosCotizacion(ArrayList<ProductoCotizador> productos){
 
         System.out.println("************imprimirProductosCotizacion**********Inicio********");
         for (int i = 0; i < productos.size(); i++) {
 
-            System.out.println("************Producto**********Posicion(" + i + ")********");
-            System.out.println("************tipo**********" + productos.get(i).getTipo() + "********");
-            System.out.println("************tipoPeticion**********" + productos.get(i).getTipoPeticion() + "********");
-            System.out.println("************plan**********" + productos.get(i).getPlan() + "********");
-            System.out.println("************planFacturacionInd**********" + productos.get(i).getPlanFacturacionInd() + "********");
-            System.out.println("************planFacturacionEmp**********" + productos.get(i).getPlanFacturacionEmp() + "********");
-            System.out.println("************cargoBasicoInd**********" + productos.get(i).getCargoBasicoInd() + "********");
-            System.out.println("************cargoBasicoEmp**********" + productos.get(i).getCargoBasicoEmp() + "********");
-            System.out.println("************cargoBasicoInd**********" + productos.get(i).getCargoBasicoInd() + "********");
-            System.out.println("************descuentoCargobasico**********" + productos.get(i).getDescuentoCargobasico() + "********");
-            System.out.println("************duracionDescuento**********" + productos.get(i).getDuracionDescuento() + "********");
-            System.out.println("************velocidad**********" + productos.get(i).getVelocidad() + "********");
+            System.out.println("************Producto**********Posicion("+i+")********");
+            System.out.println("************tipo**********"+productos.get(i).getTipo()+"********");
+            System.out.println("************tipoPeticion**********"+productos.get(i).getTipoPeticion()+"********");
+            System.out.println("************plan**********"+productos.get(i).getPlan()+"********");
+            System.out.println("************planFacturacionInd**********"+productos.get(i).getPlanFacturacionInd()+"********");
+            System.out.println("************planFacturacionEmp**********"+productos.get(i).getPlanFacturacionEmp()+"********");
+            System.out.println("************cargoBasicoInd**********"+productos.get(i).getCargoBasicoInd()+"********");
+            System.out.println("************cargoBasicoEmp**********"+productos.get(i).getCargoBasicoEmp()+"********");
+            System.out.println("************cargoBasicoInd**********"+productos.get(i).getCargoBasicoInd()+"********");
+            System.out.println("************descuentoCargobasico**********"+productos.get(i).getDescuentoCargobasico()+"********");
+            System.out.println("************duracionDescuento**********"+productos.get(i).getDuracionDescuento()+"********");
+            System.out.println("************velocidad**********"+productos.get(i).getVelocidad()+"********");
         }
 
         System.out.println("************imprimirProductosCotizacion**********Fin********");
     }
 
-    public static void imprimirDescuentos(ArrayList<ArrayList<String>> descuentos) {
-        if (descuentos != null) {
-            for (int i = 0; i < descuentos.size(); i++) {
-                System.out.println("impresion descuentos tipoProducto " + descuentos.get(i).get(0));
-                System.out.println("impresion descuentos descuento " + descuentos.get(i).get(1));
-                System.out.println("impresion descuentos tiempo " + descuentos.get(i).get(2));
-            }
-        }
+    public static void imprimirDescuentos(ArrayList<ArrayList<String>> descuentos){
+         if(descuentos != null){
+             for (int i = 0; i <descuentos.size() ; i++) {
+                 System.out.println("impresion descuentos tipoProducto "+descuentos.get(i).get(0));
+                 System.out.println("impresion descuentos descuento "+descuentos.get(i).get(1));
+                 System.out.println("impresion descuentos tiempo "+descuentos.get(i).get(2));
+             }
+         }
     }
 
-    public static boolean isTrioNuevo(ArrayList<ProductoCotizador> productos) {
+    public static boolean isTrioDuoNuevo(ArrayList<ProductoCotizador> productos){
 
-        boolean trioNuevo = false;
+        boolean trioDuoNuevo = false;
 
         ArrayList<Boolean> nuevos = new ArrayList<Boolean>();
 
-        for (ProductoCotizador producto : productos) {
-            if (producto.getTipoPeticion().equals("N")) {
+        for (ProductoCotizador producto: productos) {
+            if(producto.getTipoPeticion().equals("N")){
                 nuevos.add(true);
             }
         }
 
-        if (nuevos.size() == 3) {
-            trioNuevo = true;
+        if(nuevos.size() >= 2){
+            trioDuoNuevo = true;
         }
 
-        return trioNuevo;
+        return trioDuoNuevo;
     }
 
     public static boolean validarEstandarizacion(Cotizacion cotizacion, Cliente cliente, Context contex) {
