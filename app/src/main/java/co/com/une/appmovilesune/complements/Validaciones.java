@@ -405,7 +405,7 @@ public class Validaciones {
 
 			if (Utilidades.visible("estandarizarDireccion", cliente.getCiudad())) {
 				System.out.println("validar Direccion " + cliente.isControlNormalizada());
-				if (cliente.isControlNormalizada() || venta.medioIngreso.equalsIgnoreCase("Cross") || cliente.isControlCerca()) {
+				if (cliente.isControlNormalizada() || venta.medioIngreso.equalsIgnoreCase("Cross") || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
 					reg.add(true);
 				} else {
 					reg.add(false);
