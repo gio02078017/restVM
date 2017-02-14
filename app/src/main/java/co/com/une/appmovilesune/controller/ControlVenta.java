@@ -231,7 +231,11 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                             tabs.setCurrentTab(0);
                         } else {
                             txtBarrio.setText(Barrio);
-                            llenarAgendamiento();
+                            if (Utilidades.camposUnicos("ConsultaAgenda").equalsIgnoreCase("Actual")) {
+                                llenarAgendamiento();
+                            } else if (Utilidades.camposUnicos("ConsultaAgenda").equalsIgnoreCase("Nueva")) {
+                                llenarAgendamientoFenix();
+                            }
                         }
                     } else if (Municipio.equals("BogotaREDCO")) {
                         System.out.println("hola agenda REDCO");
@@ -243,7 +247,11 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         System.out.println("hola agenda Elite");
                         lanzarAgendaRedco("Elite");
                     } else {
-                        llenarAgendamiento();
+                        if (Utilidades.camposUnicos("ConsultaAgenda").equalsIgnoreCase("Actual")) {
+                            llenarAgendamiento();
+                        } else if (Utilidades.camposUnicos("ConsultaAgenda").equalsIgnoreCase("Nueva")) {
+                            llenarAgendamientoFenix();
+                        }
                     }
                 }
 
@@ -630,7 +638,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 System.out.println("listaAdicionales.get(i).getDuracion() " + listaAdicionales.get(i).getDescuento());
                 System.out.println("listaAdicionales.get(i).getDuracion() " + listaAdicionales.get(i).getDuracion());
                 /*
-				 * adicional.put("demo",
+                 * adicional.put("demo",
 				 * Utilidades.claveValor(cotizacion.getOferta(),
 				 * listaAdicionales.get(i).getAdicional()));
 				 */
@@ -690,6 +698,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         String clienteExistente = "";
         String cobertura = "";
         String Direccionalidad = "";
+        String Paginacion = "";
 
         if (Departamento.equals("Distrito Capital De Bogota")) {
             // parametros.add(new String[] { "Departamento", "Cundinamarca" });
@@ -697,15 +706,20 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         } else {
             // parametros.add(new String[] { "Departamento", Departamento });
             parametros.add(Departamento);
+
         }
 
         if (Municipio.equals("BogotaHFC")) {
             // parametros.add(new String[] { "Municipio", "Bogota D.C." });
             parametros.add("Bogota D.C.");
+
         } else {
             // parametros.add(new String[] { "Municipio", Municipio });
             parametros.add(Municipio);
         }
+
+
+        clienteExistente = "No";
 
         if (!cotizacion.getTelefonia().equalsIgnoreCase("-")) {
             Productos += "TO+";
@@ -774,28 +788,14 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         System.out.println("coberHFCBidi " + coberHFCBidi);
 
-		/*
-		 * parametros.add(new String[] { "Barrio", Barrio });
-		 * 
-		 * parametros.add(new String[] { "Estrato", cotizacion.getEstrato() });
-		 * 
-		 * parametros.add(new String[] { "Productos", Productos });
-		 * 
-		 * parametros.add(new String[] { "Urbanizacion", UnidadResidencia });
-		 */
-
         parametros.add(Barrio);
-
         parametros.add(cotizacion.getEstrato());
-
         parametros.add(Productos);
 
+
         parametros.add(UnidadResidencia);
-
         parametros.add(cobertura);
-
         parametros.add(Direccionalidad);
-
         parametros.add(clienteExistente);
 
         System.out.println("cliente.getPaginacion() " + cliente.getPaginacion());
@@ -810,6 +810,210 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         parametros.add(agendableDomingo);
 
+        ArrayList<Object> params = new ArrayList<Object>();
+        params.add(MainActivity.config.getCodigo());
+        params.add("ConsultarAgenda");
+        params.add(parametros);
+        Simulador simulador = new Simulador();
+        simulador.setManual(this);
+        simulador.addObserver(this);
+        simulador.execute(params);
+
+        // ArrayList<Object> params = new ArrayList<Object>();
+        // params.add("ConsultarAgenda");
+        // params.add(parametros);
+        //
+        // MainActivity.crearConexion();
+        // MainActivity.conexion.setManual(this);
+        // MainActivity.conexion.addObserver(this);
+        // MainActivity.conexion.execute(params);
+        //
+        // try {
+        // final ArrayList<ListaAgendamiento> agenda = new
+        // ArrayList<ListaAgendamiento>();
+        //
+        // JSONArray ja = new JSONArray(MainActivity.conexion.ejecutarSoap(
+        // "ConsultarAgenda", parametros));
+        // for (int i = 0; i < ja.length(); i++) {
+        // JSONObject jo = ja.getJSONObject(i);
+        // if (!jo.getString("cuposam").equals("0")
+        // || !jo.getString("cupospm").equals("0")) {
+        // agenda.add(new ListaAgendamiento(jo.getString("fecha"), jo
+        // .getString("cuposam"), jo
+        // .getString("porcentageocuam"), jo
+        // .getString("cupospm"), jo
+        // .getString("porcentageocupm")));
+        // }
+        //
+        // }
+        //
+        // ListaAgendamientoAdapter adaptador = new ListaAgendamientoAdapter(
+        // this, agenda, this);
+        // lstAgendamineto.setAdapter(adaptador);
+        // lstAgendamineto.setOnItemClickListener(new OnItemClickListener() {
+        // public void onItemClick(AdapterView<?> arg0, View arg1,
+        // int arg2, long arg3) {
+        // // ListaAgendamiento item = agenda.get(arg2);
+        // fecha = agenda.get(arg2).getFecha();
+        // cuposAM = agenda.get(arg2).getDisManana();
+        // cuposPM = agenda.get(arg2).getDisTarde();
+        // dialogo.dialogo.show();
+        // }
+        // });
+        //
+        // } catch (JSONException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+
+    }
+
+    private void llenarAgendamientoFenix() {
+
+        // ArrayList<String[]> parametros = new ArrayList<String[]>();
+
+        ArrayList<String> parametros = new ArrayList<String>();
+
+        String Productos = "";
+        String UnidadResidencia = "0";
+        boolean InstalacionNueva = true;
+        boolean coberHFCBidi = false;
+        String clienteExistente = "";
+        String cobertura = "";
+        String Direccionalidad = "";
+        String Paginacion = "";
+
+        JSONObject agenda = new JSONObject();
+        JSONArray productos = new JSONArray();
+
+        try {
+
+            if (Departamento.equals("Distrito Capital De Bogota")) {
+                agenda.put("departamentoName", "Cundinamarca");
+            } else {
+                agenda.put("departamentoName", Departamento);
+            }
+
+            if (Municipio.equals("BogotaHFC")) {
+                agenda.put("ciudadName", "Bogota D.C.");
+            } else {
+                agenda.put("ciudadName", Municipio);
+            }
+
+
+            clienteExistente = "No";
+
+            if (!cotizacion.getTelefonia().equalsIgnoreCase("-")) {
+                Productos += "TO+";
+                if (cotizacion.getTipoTo().equalsIgnoreCase("E") || cotizacion.getTipoTo().equalsIgnoreCase("C")) {
+                    InstalacionNueva = false;
+                    clienteExistente = "Si";
+                }
+            }
+
+            if (!cotizacion.getTelevision().equalsIgnoreCase("-")) {
+                Productos += "TV+";
+                if (cotizacion.getTipoTv().equalsIgnoreCase("E") || cotizacion.getTipoTv().equalsIgnoreCase("C")) {
+                    InstalacionNueva = false;
+                    clienteExistente = "Si";
+                }
+            }
+
+            if (!cotizacion.getInternet().equalsIgnoreCase("-")) {
+                Productos += "BA+";
+                if (cotizacion.getTipoBa().equalsIgnoreCase("E") || cotizacion.getTipoBa().equalsIgnoreCase("C")) {
+                    InstalacionNueva = false;
+                    clienteExistente = "Si";
+                }
+            }
+
+            if (tipoPredio != null) {
+                if (tipoPredio.equalsIgnoreCase("Unidad Residencial")) {
+                    UnidadResidencia = "1";
+                }
+            }
+
+            if (tipoPropiedad != null) {
+                if (tipoPropiedad.equalsIgnoreCase("Conjunto Residencial")
+                        && Utilidades.excluirNacional("habilitarUnidadResidencia", "habilitarUnidadResidencia")) {
+                    UnidadResidencia = "1";
+                }
+            }
+
+            System.out.println("InstalacionNueva " + InstalacionNueva);
+
+            if (cliente.getCobertura() != null/* && !InstalacionNueva */) {
+                System.out.println("cliente.getCobertura() " + cliente.getCobertura());
+
+                try {
+                    JSONObject cober = new JSONObject(cliente.getCobertura());
+                    if (cober.has("codigoMensaje")) {
+                        if (cober.getString("codigoMensaje").equalsIgnoreCase("00")) {
+                            if (cober.has("Cobertura")) {
+                                JSONObject datacober = cober.getJSONObject("Cobertura");
+                                if (datacober.has("COBERTURA_HFC") && datacober.has("DIRECCIONALIDAD")) {
+                                    if (datacober.getString("COBERTURA_HFC").equalsIgnoreCase("SI")
+                                            && datacober.getString("DIRECCIONALIDAD").equalsIgnoreCase("B")) {
+                                        coberHFCBidi = true;
+                                        cobertura = "HFC";
+                                        Direccionalidad = "B";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    Log.w("Error", e.getMessage());
+                }
+                // if()
+            }
+
+            System.out.println("coberHFCBidi " + coberHFCBidi);
+
+            agenda.put("barrioName", cliente.getBarrio());
+            agenda.put("estrato", cliente.getEstrato());
+
+            parametros.add(Productos);
+
+            if (!cotizacion.getTelefonia().equalsIgnoreCase("-")) {
+                productos.put(
+                        Utilidades.productosAgendaFenix("TO", cotizacion.getTipoCotizacionTo()));
+            }
+
+
+            if (!cotizacion.getInternet().equalsIgnoreCase("-")) {
+                productos.put(
+                        Utilidades.productosAgendaFenix("BA", cotizacion.getTipoCotizacionBa()));
+            }
+
+            if (!cotizacion.getTelevision().equalsIgnoreCase("-")) {
+                productos.put(
+                        Utilidades.productosAgendaFenix("TV", cotizacion.getTipoCotizacionTv()));
+            }
+
+
+            agenda.put("productos", productos);
+            agenda.put("urbanizacion", UnidadResidencia);
+            agenda.put("tecnologia", cobertura);
+            agenda.put("direccionalidad", Direccionalidad);
+            agenda.put("clienteExistente", clienteExistente);
+            agenda.put("autorizaCobroDomingo", agendableDomingo);
+
+            if (Departamento.equals("Antioquia")) {
+                parametros.add(cliente.getPaginacion());
+                agenda.put("paginaServicio", cliente.getPaginacion());
+            } else {
+                parametros.add(cliente.getPaginaAsignacion());
+                agenda.put("paginaServicio", cliente.getPaginaAsignacion());
+            }
+
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        System.out.println("agenda json " + agenda.toString());
+
         // if(cliente.)
 
         // ArrayList<String> parametros = new ArrayList<String>();
@@ -817,8 +1021,8 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         // parametros.add(MainActivity.config.getCodigo());
         ArrayList<Object> params = new ArrayList<Object>();
         params.add(MainActivity.config.getCodigo());
-        params.add("ConsultarAgenda");
-        params.add(parametros);
+        params.add("ConsultarAgendaFenix");
+        params.add(agenda.toString());
         Simulador simulador = new Simulador();
         simulador.setManual(this);
         simulador.addObserver(this);
@@ -1170,7 +1374,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 lblTotalDescuento.setText(String
                         .valueOf(Utilidades.convertirDouble(cotizacion.getTotalIndDescuento(),
                                 "cotizacion.getTotalIndDescuento()")/*
-																	 * Double.
+                                                                     * Double.
 																	 * parseDouble(
 																	 * cotizacion.
 																	 * getTotalIndDescuento
@@ -1347,7 +1551,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                             mostrarDialgo();
                         }
                     } else {
-						/*
+                        /*
 						 * System.out .println(
 						 * "Los datos no se descargaron correctamente" );
 						 */
@@ -2391,40 +2595,10 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-        } else if (resultado.get(0).equals("ConsultarAgenda")) {
+        } else if (resultado.get(0).equals("ConsultarAgenda") || resultado.get(0).equals("ConsultarAgendaFenix")) {
             JSONObject jop;
 
-            System.out.println("resultado.get(1).toString() " + resultado.get(1).toString());
-
-            // try {
-            // jop = new JSONObject(resultado.get(1).toString());
-            //
-            // // String data = jop.get("data").toString();
-            // // if (MainActivity.config.validarIntegridad(data, jop.get("crc")
-            // // .toString())) {
-            // // data = new String(Base64.decode(data));
-            // //
-            // // JSONArray ja = new JSONArray(data);
-            // // System.out.println("ja " + ja);
-            // // JSONObject jo = ja.getJSONObject(0);
-            // // System.out.println("jo " + jo);
-            // //
-            // // if (jo.getString("completo").equals("0")) {
-            // // Toast.makeText(this, "Complete el ivr",
-            // // Toast.LENGTH_SHORT).show();
-            // // } else {
-            // //
-            // // LanzarLLamada(id, "5");
-            // //
-            // // }
-            // // } else {
-            // // System.out
-            // // .println("Los datos no se descargaron correctamente");
-            // // }
-            // // } catch (JSONException e) {
-            // // // TODO Auto-generated catch block
-            // // e.printStackTrace();
-            // // }
+            System.out.println("resultado ConsultarAgenda o  ConsultarAgendaFenix" + resultado.get(1).toString());
 
             try {
 

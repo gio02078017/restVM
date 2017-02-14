@@ -159,6 +159,9 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
         } else if (accion.equals("ConsultarAgenda")) {
             parametros = (ArrayList<String>) params[0].get(2);
             resultados.add(ConsultarAgenda(parametros));
+        } else if (accion.equals("ConsultarAgendaFenix")) {
+            System.out.println("params[0].get(2).toString() "+params[0].get(2).toString());
+            resultados.add(ConsultarAgendaFenix(params[0].get(2).toString()));
         } else if (accion.equals("ConsultarAgendaSiebel")) {
             parametros = (ArrayList<String>) params[0].get(2);
             resultados.add(ConsultarAgendaSiebel(parametros));
@@ -335,7 +338,7 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
             // MainActivity.btnCarteraUne.setInvisible();
             // System.out.println(result);
             /*
-			 * System.out.println("Simulador 161 => " + observer);
+             * System.out.println("Simulador 161 => " + observer);
 			 * System.out.println("result " + result);
 			 */
             resultado = result;
@@ -452,6 +455,12 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
             System.out.println("resultado " + resultado);
             notifyObserver();
         } else if (result.get(0).equals("ConsultarAgenda")) {
+            // MainActivity.btnPortafolio.setInvisible();
+            System.out.println("Simulador 88 => " + result.get(1));
+            resultado = result;
+            System.out.println("resultado " + resultado);
+            notifyObserver();
+        } else if (result.get(0).equals("ConsultarAgendaFenix")) {
             // MainActivity.btnPortafolio.setInvisible();
             System.out.println("Simulador 88 => " + result.get(1));
             resultado = result;
@@ -1052,6 +1061,19 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
         return MainActivity.conexion.ejecutarSoap("ConsultarAgenda", param);
 
     }
+
+    public String ConsultarAgendaFenix(String parametros) {
+
+        System.out.println("parametros " + parametros);
+        ArrayList<String[]> param = new ArrayList<String[]>();
+
+        param.add(new String[]{"parametros", parametros});
+
+        // return "";
+        return MainActivity.conexion.ejecutarSoap("ConsultarAgendaFenix", param);
+
+    }
+
 
     public String ConsultarAgendaSiebel(ArrayList<String> parametros) {
 

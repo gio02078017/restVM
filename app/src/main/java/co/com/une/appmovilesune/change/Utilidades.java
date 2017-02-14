@@ -2047,6 +2047,30 @@ public class Utilidades {
         return producto;
     }
 
+    public static JSONObject productosAgendaFenix(String tipo, String transaccion) {
+        JSONObject producto = new JSONObject();
+        try {
+            producto.put("producto", tipo);
+            switch (Integer.parseInt(transaccion)) {
+                case 0:
+                    producto.put("tipoSolicitud", "Cambio Plan");
+                    break;
+                case 1:
+                    producto.put("tipoSolicitud", "Nuevo Producto");
+                    break;
+                case 3:
+                    producto.put("tipoSolicitud", "Existente");
+                    break;
+
+            }
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return producto;
+    }
+
     public static String portaFolioSiebel() {
 
         // String portafolio =
@@ -2242,7 +2266,7 @@ public class Utilidades {
     }
 
 	/*
-	 * Utilidades para amigo cuentas digital
+     * Utilidades para amigo cuentas digital
 	 */
 
     public static boolean mostrarTVDigital(String clave) {
@@ -2484,7 +2508,7 @@ public class Utilidades {
 
                 if (gpon.equalsIgnoreCase("SI")) {
                     respuesta = true;
-					/*
+                    /*
 					 * if(cober.has("DISPONIBILIDAD_GPON")){
 					 * if(cober.getString("DISPONIBILIDAD_GPON").
 					 * equalsIgnoreCase("SI")){ respuesta = true; }else{
@@ -3554,7 +3578,7 @@ public class Utilidades {
 
             cober.put("CodigoMensaje", "00");
 
-            System.out.println("Cobertura Proyecto "+cober.toString());
+            System.out.println("Cobertura Proyecto " + cober.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
