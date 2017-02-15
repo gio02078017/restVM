@@ -22,6 +22,7 @@ import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
 import co.com.une.appmovilesune.adapters.ListaAdicionales;
 import co.com.une.appmovilesune.adapters.ListaAdicionalesAdapter;
 import co.com.une.appmovilesune.change.ControlSimulador;
+import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
@@ -120,9 +121,16 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
     }
 
     private void cargarAdicionalesTo(String plan) {
+
+        System.out.println("plan to"+plan);
+
+        String homologarPlanTO =  Utilidades.claveValor("homologarPlanTO",plan);
+
+        System.out.println("homologarPlanTO "+homologarPlanTO);
+
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Adicionales",
-                new String[]{"adicional"}, "departamento=? and tipoProducto=? and estrato like ? and tecnologia like ?",
-                new String[]{cliente.getDepartamento(), "to", "%" + cliente.getEstrato() + "%", "%" + cliente.getTecnologia() + "%"}, null, null, null);
+                new String[]{"adicional"}, "departamento=? and tipoProducto=? and estrato like ? and tecnologia like ? and plan=?",
+                new String[]{cliente.getDepartamento(), "to", "%" + cliente.getEstrato() + "%", "%" + cliente.getTecnologia() + "%", homologarPlanTO}, null, null, null);
 
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item);
