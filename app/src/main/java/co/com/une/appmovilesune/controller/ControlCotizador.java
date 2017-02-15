@@ -1047,8 +1047,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                         }
                                     }
                                 } else {
-                                    Toast.makeText(this, getResources().getString(R.string.mensajeCarrusel),
-                                            Toast.LENGTH_SHORT).show();
                                     cliente.setCarrusel(true);
                                     cliente.setProductosCarrusel(UtilidadesTarificador.productosCotizacionCarrusel(cotizacion));
 
@@ -2213,9 +2211,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 if(json.getString("codigoMensaje").equalsIgnoreCase("00")){
                     cliente.setIdGerenciaExistente(json.get("idGerencia").toString());
-
                 }else {
-                    Toast.makeText(this, getResources().getString(R.string.logautomaticocarrusel), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(this, getResources().getString(R.string.logautomaticocarrusel), Toast.LENGTH_LONG).show();
                 }
 
                 String prodcutosCarrusel = "";
@@ -2227,7 +2224,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 dialogo.dialogo.show();
 
             } else {
-                Toast.makeText(this, getResources().getString(R.string.logautomaticocarrusel), Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, getResources().getString(R.string.logautomaticocarrusel), Toast.LENGTH_LONG).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();
