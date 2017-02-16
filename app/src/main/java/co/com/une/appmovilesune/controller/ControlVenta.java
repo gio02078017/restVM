@@ -989,6 +989,8 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 Utilidades.SI_NO);
         sltEmpaquetado.setAdapter(adaptador);
 
+        System.out.println("Empaquetamiento oferta "+cotizacion.getOferta());
+
         if (cotizacion.getOferta() != null) {
             if (!cotizacion.getOferta().equalsIgnoreCase("")) {
                 sltEmpaquetado.setEnabled(false);
@@ -1000,8 +1002,19 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         try {
             int contador = Integer.parseInt(cotizacion.getContadorProductos());
             if (contador > 1) {
-                sltEmpaquetado.setSelection(0);
-                Venta_Empaquetada();
+
+                System.out.println("Empaquetamiento contador "+contador);
+
+                if(Utilidades.validarNacionalValor("ofertaIndividual",cotizacion.getOferta())){
+                    System.out.println("Empaquetamiento ofertaIndividual ");
+                    sltEmpaquetado.setSelection(1);
+                    Venta_Individual();
+                }else{
+                    System.out.println("Empaquetamiento paquete ");
+                    sltEmpaquetado.setSelection(0);
+                    Venta_Empaquetada();
+                }
+
             } else {
                 sltEmpaquetado.setSelection(1);
                 sltEmpaquetado.setEnabled(false);

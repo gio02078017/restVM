@@ -1703,6 +1703,8 @@ public class Utilidades {
 
 		boolean validar = false;
 
+		System.out.println("validarNacionalValor nombre "+nombre +" clave "+clave);
+
 		ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "listasvalores",
 				new String[] { "lst_valor" }, "lst_nombre=? and lst_clave=?", new String[] { nombre, clave }, null,
 				null, null);

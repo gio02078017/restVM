@@ -363,7 +363,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cprdInternet.cargarPlanes(cliente, Integer.parseInt((String) spnestrato.getSelectedItem()), (String) spnoferta.getSelectedItem());
         cprdTelefonia.cargarPlanes(cliente, Integer.parseInt((String) spnestrato.getSelectedItem()), (String) spnoferta.getSelectedItem());
         if (cotizacion != null) {
-            rellenarCotizacion();
+            //rellenarCotizacion();
         }
     }
 
@@ -559,7 +559,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 cprdInternet.getPeticionProducto(), cprdInternet.getPlan(), adicionales,
                 0, (String) spnestrato.getSelectedItem(), false, cliente,
                 UtilidadesTarificador.jsonDatos(cliente, cliente.getSmartPromo(), cliente.getTecnologia(), aplicarAnaloga), this,
-                0);
+                0,(String)spnoferta.getSelectedItem());
 
         // ArrayList<ProductoCotizador> productos = tarificador.cotizacionVenta();
 
@@ -570,7 +570,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
 
-        // UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
+        UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 
         boolean trioNuevo = UtilidadesTarificadorNew.isTrioNuevo(productos);
 

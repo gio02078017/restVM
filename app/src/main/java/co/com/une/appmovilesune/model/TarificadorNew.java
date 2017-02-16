@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 
+import org.kobjects.util.Util;
+
 import java.util.ArrayList;
 
 import co.com.une.appmovilesune.MainActivity;
@@ -65,6 +67,8 @@ public class TarificadorNew {
 
     private String jsonDatos;
 
+    private String oferta = "";
+
 
     public TarificadorNew() {
 
@@ -72,7 +76,7 @@ public class TarificadorNew {
 
     public void
     Consulta_Tarifaz(String planTo, String telefonia, String planTv, String television, String planBa, String internet, String[][] descripcion_Ad, double precio_ad, String estrato, boolean nuevo,
-                     Cliente cliente, String jsonDatos, Context context, double totalDecodificadores) {
+                     Cliente cliente, String jsonDatos, Context context, double totalDecodificadores, String oferta) {
 
         this.estrato = estrato;
         this.telefonia = telefonia;
@@ -100,12 +104,15 @@ public class TarificadorNew {
 
         this.totalDecodificadores = totalDecodificadores;
 
+        this.oferta = oferta;
+
         // System.out.println("desTelefonia " + desTelefonia);
 
         System.out.println("Consulta_Tarifaz telefonia " + telefonia + " plan " + planTo);
         System.out.println("Consulta_Tarifaz television " + television + " plan " + planTv);
         System.out.println("Consulta_Tarifaz internet " + internet + " plan " + planTv);
-        System.out.println("json " + jsonDatos);
+        System.out.println("Consulta_Tarifaz json " + jsonDatos);
+        System.out.println("Consulta_Tarifaz  oferta " + oferta);
 
         limpiar();
 
@@ -164,7 +171,7 @@ public class TarificadorNew {
         String paquete = "";
 
         Contador_Paquete = Contador_Productos();
-        if (Contador_Paquete == 1) {
+        if (Contador_Paquete == 1 || Utilidades.validarNacionalValor("ofertaIndividual", oferta)) {
             paquete = "Ind";
         } else if (Contador_Paquete == 2) {
             paquete = "Duo";
@@ -193,17 +200,16 @@ public class TarificadorNew {
                         null, null).get(0);*/
 
                 String datos = "individual, individual_iva,empaquetado,empaquetado_iva,Oferta,cantidadproductos,homoPrimeraLinea," +
-                                "homoSegundaLinea,valorGota,valorGotaIva,ProductoHomologado,velocidadGota";
+                        "homoSegundaLinea,valorGota,valorGotaIva,ProductoHomologado,velocidadGota";
 
-                String query ="select " + datos+" from Precios p " +
-                        UtilidadesTarificadorNew.innerJoinTarifas+
-                        " where cxt.id_condicion in ("+ UtilidadesTarificadorNew.queryInternoTarifas(depto,ciudadCliente)+")" +
-                        " and estrato like '%"+estrato+"%' and Tipo_Producto = '"+tipo_producto+"' and producto ='"+producto+"' and tipo_paquete like '%"+paquete+"%'";
+                String query = "select " + datos + " from Precios p " +
+                        UtilidadesTarificadorNew.innerJoinTarifas +
+                        " where cxt.id_condicion in (" + UtilidadesTarificadorNew.queryInternoTarifas(depto, ciudadCliente) + ")" +
+                        " and estrato like '%" + estrato + "%' and Tipo_Producto = '" + tipo_producto + "' and producto ='" + producto + "' and tipo_paquete like '%" + paquete + "%'";
 
-                System.out.println("query consulta precios "+query);
+                System.out.println("query consulta precios " + query);
 
                 ArrayList<String> precios = MainActivity.basedatos.consultar2(query).get(0);
-
 
 
                 System.out.println("consultaNT precios " + precios);
@@ -766,9 +772,18 @@ public class TarificadorNew {
                         }
                     }
                 }
+
+                if (Utilidades.validarNacionalValor("ofertaIndividual", oferta)) {
+                    control = true;
+                }
             } else {
-                control = false;
-                System.out.println("Salida por comparacion");
+                if (Utilidades.validarNacionalValor("ofertaIndividual", oferta)) {
+                    control = true;
+                } else {
+                    control = false;
+                    System.out.println("Salida por comparacion");
+                }
+
             }
         }
 
