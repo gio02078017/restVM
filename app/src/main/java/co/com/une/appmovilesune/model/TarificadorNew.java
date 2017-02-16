@@ -775,6 +775,7 @@ public class TarificadorNew {
 
                 if (Utilidades.validarNacionalValor("ofertaIndividual", oferta)) {
                     control = true;
+                    controlDependencia = oferta;
                 }
             } else {
                 if (Utilidades.validarNacionalValor("ofertaIndividual", oferta)) {
