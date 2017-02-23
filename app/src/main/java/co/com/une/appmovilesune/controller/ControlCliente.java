@@ -39,6 +39,7 @@ import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
 import co.com.une.appmovilesune.complements.Dialogo;
 import co.com.une.appmovilesune.components.SelectorFecha;
+import co.com.une.appmovilesune.components.SelectorHora;
 import co.com.une.appmovilesune.components.TituloPrincipal;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.model.Cliente;
@@ -53,6 +54,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 	private Venta venta;
 	private Context context;
 	private Dialogo dialogo;
+	private Dialogo dialogoHora;
 
 	private TituloPrincipal tp;
 	private SelectorFecha slfCliente, sltFechaNacimiento;
@@ -136,6 +138,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 	private TableRow rowClientePinHotPack;
 
 	public SelectorFecha sfp;
+	public SelectorHora shp;
 
 	private ArrayList<ItemKeyValue> claveValorLugarExp = new ArrayList<ItemKeyValue>();
 
@@ -145,6 +148,9 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
 		dialogo = new Dialogo(this, Dialogo.DIALOGO_FECHA, "");
 		dialogo.dialogo.setOnDismissListener(dl);
+
+		dialogoHora = new Dialogo(this, Dialogo.DIALOGO_HORA, "");
+		dialogoHora.dialogo.setOnDismissListener(dlh);
 
 		tp = (TituloPrincipal) findViewById(R.id.tlpPrincipal);
 		tp.setTitulo("Cliente");
@@ -1461,6 +1467,11 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 		dialogo.dialogo.show();
 	}
 
+	public void mostrarDialogoHora(View v){
+		shp = (SelectorHora) v.getParent().getParent();
+		dialogoHora.dialogo.show();
+	}
+
 	OnDismissListener dl = new OnDismissListener() {
 
 		@Override
@@ -1471,6 +1482,19 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 				sfp.setTexto(dialogo.getFechaSeleccion());
 			}
 			dialogo.setSeleccion(false);
+		}
+	};
+
+	OnDismissListener dlh = new OnDismissListener() {
+
+		@Override
+		public void onDismiss(DialogInterface arg0) {
+
+			// TODO Auto-generated method stub
+			if (dialogoHora.isSeleccion()) {
+				shp.setTexto(dialogoHora.getFechaSeleccion());
+			}
+			dialogoHora.setSeleccion(false);
 		}
 	};
 
