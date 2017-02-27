@@ -1017,6 +1017,16 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
 			if (cmpConfTO.getPlan().equalsIgnoreCase("Telefonia Existente")) {
 				planTo = "E";
 				toTeccr = cmpConfTO.getProducto().tecnologiacr;
+				if (ac != null) {
+					if (ac.productosPortafolio != null) {
+						for (int i = 0; i < ac.productosPortafolio.size(); i++) {
+							if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("TO")) {
+								idTelefonia = ac.productosPortafolio.get(i).identificador;
+								paTelefonia = ac.productosPortafolio.get(i).plan;
+							}
+						}
+					}
+				}
 			} else {
 				if (ac != null) {
 					if (ac.productosPortafolio != null) {
@@ -1049,6 +1059,17 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
 			if (cmpConfTV.getPlan().equalsIgnoreCase("HFC Existente")) {
 				planTv = "E";
 				tvTeccr = cmpConfTV.getProducto().tecnologiacr;
+				if (ac != null) {
+					if (ac.productosPortafolio != null) {
+						for (int i = 0; i < ac.productosPortafolio.size(); i++) {
+							if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("TV")
+									|| ac.productosPortafolio.get(i).producto.contains("TELEV")) {
+								idTelevision = ac.productosPortafolio.get(i).identificador;
+								paTelevision = ac.productosPortafolio.get(i).plan;
+							}
+						}
+					}
+				}
 			} else {
 				if (ac != null) {
 					if (ac.productosPortafolio != null) {
@@ -1082,6 +1103,16 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
 			if (cmpConfBA.getPlan().equalsIgnoreCase("Internet Existente")) {
 				planBa = "E";
 				baTeccr = cmpConfBA.getProducto().tecnologiacr;
+				if (ac != null) {
+					if (ac.productosPortafolio != null) {
+						for (int i = 0; i < ac.productosPortafolio.size(); i++) {
+							if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("BA")) {
+								idInternet = ac.productosPortafolio.get(i).identificador;
+								paInternet = ac.productosPortafolio.get(i).plan;
+							}
+						}
+					}
+				}
 			} else {
 				if (ac != null) {
 					if (ac.productosPortafolio != null) {
