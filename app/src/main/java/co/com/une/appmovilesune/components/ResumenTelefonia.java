@@ -22,6 +22,7 @@ import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.adapters.ListaPrecios;
 import co.com.une.appmovilesune.adapters.ListaPreciosAdapter;
+import co.com.une.appmovilesune.adapters.ListaAdicionales;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
 
@@ -49,6 +50,8 @@ public class ResumenTelefonia extends LinearLayout {
 
 	String[][] adicionales;
 	String precioAdicionales;
+
+	private ArrayList<ListaAdicionales> adicionalesTo = new ArrayList<ListaAdicionales>();
 
 	ListaPreciosAdapter adaptador;
 
@@ -184,41 +187,6 @@ public class ResumenTelefonia extends LinearLayout {
 		sltTipoMigracion.setAdapter(adaptador);
 	}
 
-	public void llenarAdicionales() {
-
-		ArrayList<ListaPrecios> adicional = new ArrayList<ListaPrecios>();
-		// System.out.println("adicionales resumen tv => " + adicionales);
-		if (adicionales != null) {
-			for (int i = 0; i < adicionales.length; i++) {
-				adicional.add(new ListaPrecios(adicionales[i][0], adicionales[i][1]));
-			}
-		}
-
-		/*
-		 * adicional.add(new ListaPrecios("Impuesto Telefonico",
-		 * UtilidadesTarificador.ImpuestoTelefonico(, , estrato)));
-		 */
-
-		adaptador = new ListaPreciosAdapter(activity, adicional, context);
-		lstAdicionales.setAdapter(adaptador);
-		setListViewHeightBasedOnChildren(lstAdicionales);
-
-		lblValorAdicionales.setText(precioAdicionales);
-	}
-
-	public void agregarImpuestoTelefonico(String municipio, String departamento, String estrato) {
-
-		double valor = UtilidadesTarificador.ImpuestoTelefonico(municipio, departamento, estrato);
-		if (valor >= 0) {
-			adicionales = new String[1][2];
-
-			adicionales[0][0] = "Impuesto Telefonico";
-			adicionales[0][1] = String.valueOf(valor);
-
-			llenarAdicionales();
-		}
-
-	}
 
 	public void asignarPlan(String plan) {
 		lblPlan.setText(plan);
@@ -331,7 +299,58 @@ public class ResumenTelefonia extends LinearLayout {
 			chkLineaAdicional.setChecked(false);
 		}
 
+		ArrayAdicionales();
+
 		llenarAdicionales();
+
+	}
+
+	public void ArrayAdicionales() {
+		adicionalesTo.clear();
+		if (adicionales != null) {
+			for (int i = 0; i < adicionales.length; i++) {
+				adicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "", ""));
+			}
+		}
+	}
+
+
+	public void llenarAdicionales() {
+
+		imprimirAdicionales();
+
+		ArrayList<ListaPrecios> adicional = new ArrayList<ListaPrecios>();
+		// System.out.println("adicionales resumen tv => " + adicionales);
+		if (adicionalesTo.size() > 0) {
+			for (int i = 0; i < adicionalesTo.size(); i++) {
+				adicional.add(new ListaPrecios(adicionalesTo.get(i).getAdicional(), adicionalesTo.get(i).getPrecio()));
+			}
+		}
+
+		adaptador = new ListaPreciosAdapter(activity, adicional, context);
+		lstAdicionales.setAdapter(adaptador);
+		setListViewHeightBasedOnChildren(lstAdicionales);
+
+		lblValorAdicionales.setText(precioAdicionales);
+	}
+
+	public void imprimirAdicionales() {
+
+		for (int i = 0; i < adicionalesTo.size(); i++) {
+			System.out.println("adicionales to impresion adicional " + adicionalesTo.get(i).getAdicional());
+			System.out.println("adicionales to impresion precio " + adicionalesTo.get(i).getPrecio());
+		}
+	}
+
+	public void agregarImpuestoTelefonico(String municipio, String departamento, String estrato) {
+
+		double valor = UtilidadesTarificador.ImpuestoTelefonico(municipio, departamento, estrato);
+		if (valor >= 0) {
+
+			adicionalesTo.add(new ListaAdicionales("Impuesto Telefonico", String.valueOf(valor), "", ""));
+
+			llenarAdicionales();
+		}
 
 	}
 

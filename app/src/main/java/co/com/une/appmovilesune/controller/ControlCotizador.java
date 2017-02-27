@@ -1131,10 +1131,16 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 cotizacion.setSegundaTelefonia(UtilidadesTarificadorNew.validarSegundaTelefonia(cliente));
             }
+
+            cotizacion.setAdicionalesTo(cadcTelefonia.arrayAdicionales());
+            cotizacion.setTotalAdicionalesTo(String.valueOf(cadcTelefonia.calcularTotal()));
+
         } else {
             System.out.println("llenado To limpiar");
             cotizacion.Telefonia(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), String.valueOf(productoCotizador.getCargoBasicoInd()),
                     String.valueOf(productoCotizador.getCargoBasicoEmp()));
+            cotizacion.setAdicionalesTo(cadcTelefonia.arrayAdicionales());
+            cotizacion.setTotalAdicionalesTo(String.valueOf(cadcTelefonia.calcularTotal()));
         }
 
         //contProductos++;
@@ -1845,6 +1851,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         String precioAdicional = "";
         String promocion = "";
         String duracion = "";
+        String adicional = null;
 
         try {
             nProductos = Integer.parseInt(cantidaProductos);
@@ -1862,7 +1869,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         }
 
         System.out.println("planFactura " + planFactura);
-        String adicional = Utilidades.adicionalesGratis("adicionalesGratis", planFactura);
+        if(planFactura != null && !planFactura.equalsIgnoreCase("null")) {
+            adicional = Utilidades.adicionalesGratis("adicionalesGratis", planFactura);
+        }
 
         System.out.println("Adiciolan gratis " + adicional);
 

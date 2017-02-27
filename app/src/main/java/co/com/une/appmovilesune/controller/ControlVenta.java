@@ -504,16 +504,19 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         System.out.println("Adicionales To -> " + adicionales);
 
-        if (adicionales == null) {
+        /*if (adicionales == null) {
             adicionales = new String[1][2];
             adicionales[0][0] = "Impuesto Telefonico";
             adicionales[0][1] = String.valueOf(UtilidadesTarificador.ImpuestoTelefonico(cliente.getCiudad(),
                     cliente.getDepartamento(), cliente.getEstrato()));
-        }
+        }*/
 
         for (int i = 0; i < adicionales.length; i++) {
             listaAdicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses"));
         }
+
+        listaAdicionalesTo.add(new ListaAdicionales("Impuesto Telefonico", String.valueOf(UtilidadesTarificador.ImpuestoTelefonico(cliente.getCiudad(),
+                cliente.getDepartamento(), cliente.getEstrato())), "-", "0 Meses"));
 
         for (int i = 0; i < listaAdicionalesTo.size(); i++) {
 
