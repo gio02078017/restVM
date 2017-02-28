@@ -82,7 +82,6 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
     private String tecnologia;
     private String oferta;
     private Cliente cliente;
-    private String ciudad;
 
     private ProductoCotizador producto;
 
@@ -193,10 +192,10 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     public void cargarPlanes(Cliente cliente, int estrato, String oferta) {
 
+        this.departamento = cliente.getDepartamento();
+
         if(departamento.equalsIgnoreCase("Distrito Capital De Bogota")){
             this.departamento = cliente.getCiudad();
-        } else {
-            this.departamento = cliente.getDepartamento();
         }
 
         this.ciudad = cliente.getCiudad();
