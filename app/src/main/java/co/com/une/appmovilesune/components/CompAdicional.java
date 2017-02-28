@@ -22,6 +22,7 @@ import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
 import co.com.une.appmovilesune.adapters.ListaAdicionales;
 import co.com.une.appmovilesune.adapters.ListaAdicionalesAdapter;
 import co.com.une.appmovilesune.change.ControlSimulador;
+import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
@@ -119,18 +120,48 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         spnSelectorAdicionales.setAdapter(adaptador);
     }
 
-    private void consultarAdicional(String adicional) {
+    private void cargarAdicionalesTo(String plan) {
 
-        String departamento = cliente.getDepartamento();
+        System.out.println("plan to"+plan);
 
-        if(cliente.getDepartamento().equalsIgnoreCase("Distrito Capital De Bogota")){
-            departamento = cliente.getCiudad();
+        String homologarPlanTO =  Utilidades.claveValor("homologarPlanTO",plan);
+
+        System.out.println("homologarPlanTO "+homologarPlanTO);
+
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Adicionales",
+                new String[]{"adicional"}, "departamento=? and tipoProducto=? and estrato like ? and tecnologia like ? and plan=?",
+                new String[]{cliente.getDepartamento(), "to", "%" + cliente.getEstrato() + "%", "%" + cliente.getTecnologia() + "%", homologarPlanTO}, null, null, null);
+
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item);
+        adaptador.add("-- Seleccione Adicional --");
+        if (respuesta != null) {
+            for (ArrayList<String> arrayList : respuesta) {
+                // adaptador.add(arrayList.get(0));
+                System.out.println("adicional name " + arrayList.get(0));
+                adaptador.add(arrayList.get(0));
+
+            }
+        }
+        spnSelectorAdicionales.setAdapter(adaptador);
+    }
+
+    private void consultarAdicional(String adicional, int tipo) {
+
+        String parametros = "";
+        String[] datos = null;
+
+        if (tipo == TELEVISION) {
+            parametros = "departamento like ? and (producto like ? or producto like ?) and tipoProducto = ? and estrato like ? and adicional = ?";
+            datos = new String[]{"%" + cliente.getDepartamento() + "%", "%HFC%", "%IPTV%", "tv", "%" + cliente.getEstrato() + "%", adicional};
+        } else if (tipo == TELEFONIA) {
+            parametros = "departamento like ? and tipoProducto = ? and estrato like ? and adicional = ?";
+            datos = new String[]{"%" + cliente.getDepartamento() + "%",  "to", "%" + cliente.getEstrato() + "%", adicional};
         }
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Adicionales",
                 new String[]{"adicional", "tarifa", "tarifaIva"},
-                "departamento like ? and (producto like ? or producto like ?) and tipoProducto = ? and estrato like ? and adicional = ?",
-                new String[]{"%" + departamento + "%", "%HFC%", "%IPTV%", "tv", "%" + cliente.getEstrato() + "%", adicional},
+                parametros, datos,
                 null, "producto,adicional ASC", null);
 
         System.out.println("Respuesta Adicionales " + respuesta);
@@ -264,7 +295,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
     AdapterView.OnItemSelectedListener seleccionarAdicional = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            consultarAdicional((String) parent.getSelectedItem());
+            consultarAdicional((String) parent.getSelectedItem(),tipo);
         }
 
         @Override
@@ -275,7 +306,12 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     @Override
     public void seleccionarPlan(String plan) {
-        cargarAdicionales(plan);
+        System.out.println("plan adicional " + plan);
+        if (tipo == TELEVISION) {
+            cargarAdicionales(plan);
+        } else if (tipo == TELEFONIA) {
+            cargarAdicionalesTo(plan);
+        }
     }
 
     @Override

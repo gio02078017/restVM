@@ -1705,9 +1705,9 @@ public class Utilidades {
 
         boolean validar = false;
 
-        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "listasvalores",
-                new String[]{"lst_valor"}, "lst_nombre=? and lst_clave=?", new String[]{nombre, clave}, null,
-                null, null);
+		ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "listasvalores",
+				new String[] { "lst_valor" }, "lst_nombre=? and lst_clave=?", new String[] { nombre, clave }, null,
+				null, null);
 
         System.out.println("respuesta " + respuesta);
 
