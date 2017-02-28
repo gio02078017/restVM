@@ -1722,7 +1722,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         productosLog = new ArrayList<String>();
 
-        if (Utilidades.validarPermiso("carrusel") || cliente.isControlCerca()) {
         if (Utilidades.validarPermiso("carrusel") || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
             return true;
         }

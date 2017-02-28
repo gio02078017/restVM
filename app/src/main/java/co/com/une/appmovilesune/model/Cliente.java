@@ -155,49 +155,7 @@ public class Cliente implements Serializable, Observer, Subject {
     public CoberturaRural coberturaRural;
     private String tipoZona;
 
-    public Cliente() {
-        TipoDocumento = "";
-        Cedula = "";
-        Expedicion = "";
-        LugarExpedicion = "";
-        Nombre = "";
-        Apellido = "";
-        FechaNacimiento = "";
-        Telefono = "";
-        TelefonoDestino = "";
-        Telefono2 = "";
-        Celular = "";
-        Celular2 = "";
-        Estrato = "";
-        Barrio = "";
-        CodigoBarrio = "";
-        Direccion = "";
-        Paginacion = "";
-        PuntoReferencia = "";
-        departamento = "";
-        ciudad = "";
-        TipoServicio = "";
-        Contrato = "";
-        Correo = "";
-        dominioCorreo = "";
-        usermail = "";
-        Login = "";
-        pinhp = "";
-        observacion = "";
-        NivelEstudio = "";
-        Profesion = "";
-        Ocupacion = "";
-        Cargo = "";
-        NivelIngresos = "";
-        EstadoCivil = "";
-        Genero = "";
-        PersonasCargo = "";
-        TipoVivienda = "";
-        TipoPredio = "";
-        TipoPropiedad = "";
-        NombrePredio = "";
-        DaneLugarExpedicion = "";
-	private String idGerenciaExistente;
+    private String idGerenciaExistente;
 
 	public Cliente() {
 		TipoDocumento = "";
@@ -2070,19 +2028,13 @@ public class Cliente implements Serializable, Observer, Subject {
         this.tipoZona = tipoZona;
     }
 
-    @Override
-    public void update(Object value) {
-        // TODO Auto-generated method stub
-        ArrayList<Object> resultado = null;
-        System.out.println("value update cliente " + value);
-        if (value != null) {
-	public String getIdGerenciaExistente() {
-		return idGerenciaExistente;
-	}
+    public String getIdGerenciaExistente() {
+        return idGerenciaExistente;
+    }
 
-	public void setIdGerenciaExistente(String idGerenciaExistente) {
-		this.idGerenciaExistente = idGerenciaExistente;
-	}
+    public void setIdGerenciaExistente(String idGerenciaExistente) {
+        this.idGerenciaExistente = idGerenciaExistente;
+    }
 
 	@Override
 	public void update(Object value) {
