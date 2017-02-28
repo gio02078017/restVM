@@ -3,22 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_background"
-    android:orientation="vertical" >
-    
-	<co.com.une.appmovilesune.components.TituloPrincipal
+    android:orientation="vertical">
+
+    <co.com.une.appmovilesune.components.TituloPrincipal
         android:id="@+id/tlpPrincipal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-	
-	<TabHost
+
+    <TabHost
         android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-        
-	    <LinearLayout
+        android:layout_height="fill_parent">
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TabWidget
                 android:id="@android:id/tabs"
@@ -28,115 +28,114 @@
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" >
-                
-                <ScrollView 
+                android:layout_height="fill_parent">
+
+                <ScrollView
                     android:id="@+id/svPortafolioAmCuentas"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    
-                    <LinearLayout 
-	                    android:id="@+id/llyPortafolioAmCuentas"
-	                    android:layout_width="match_parent"
-	                    android:layout_height="wrap_content"
-	                    android:orientation="vertical" />
- 
+
+                    <LinearLayout
+                        android:id="@+id/llyPortafolioAmCuentas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
                 </ScrollView>
-                
-                
-                
-                <ScrollView 
+
+
+                <ScrollView
                     android:id="@+id/svOfertaSuper"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                   	
-                   	<LinearLayout 
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-                    
-	                    <LinearLayout 
-		                    android:id="@+id/llyOfertaSuper"
-		                    android:layout_width="match_parent"
-		                    android:layout_height="wrap_content"
-		                    android:orientation="vertical" />
-	                    
-	                    <Button 
+
+                        <LinearLayout
+                            android:id="@+id/llyOfertaSuper"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+
+                        <Button
                             android:id="@+id/btnSeleccionarSuper"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:text="@string/sel_oferta"
-                            android:onClick="seleccionSuper"/>
-	                
-	                </LinearLayout>
-                    
+                            android:onClick="seleccionSuper" />
+
+                    </LinearLayout>
+
                 </ScrollView>
-                
-                <ScrollView 
+
+                <ScrollView
                     android:id="@+id/svOfertaBasica"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    
-                    <LinearLayout 
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-                    
-	                    <LinearLayout 
-		                    android:id="@+id/llyOfertaBasica"
-		                    android:layout_width="match_parent"
-		                    android:layout_height="wrap_content"
-		                    android:orientation="vertical" />
-	                    
-	                    <Button 
+
+                        <LinearLayout
+                            android:id="@+id/llyOfertaBasica"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+
+                        <Button
                             android:id="@+id/btnSeleccionarBasica"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:text="@string/sel_oferta"
-                            android:onClick="seleccionBasica"/>
-	                
-	                </LinearLayout>
-                    
+                            android:onClick="seleccionBasica" />
+
+                    </LinearLayout>
+
                 </ScrollView>
-                
-                <ScrollView 
+
+                <ScrollView
                     android:id="@+id/svOfertaRetencion"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    
-                    <LinearLayout 
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-                        
-                        <LinearLayout 
-		                    android:id="@+id/llyOfertaRetencion"
-		                    android:layout_width="match_parent"
-		                    android:layout_height="wrap_content"
-		                    android:orientation="vertical" />
-                        
-                        <Button 
+
+                        <LinearLayout
+                            android:id="@+id/llyOfertaRetencion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+
+                        <Button
                             android:id="@+id/btnSeleccionarRetencion"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:text="@string/sel_oferta"
-                            android:onClick="seleccionRetencion"/>
-                        
+                            android:onClick="seleccionRetencion" />
+
                     </LinearLayout>
-                    
+
                 </ScrollView>
-                
-			</FrameLayout>
-			
+
+            </FrameLayout>
+
         </LinearLayout>
-        
-   </TabHost>
-	
-    
+
+    </TabHost>
+
+
 </LinearLayout>

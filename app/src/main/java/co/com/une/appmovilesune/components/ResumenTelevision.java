@@ -20,6 +20,7 @@ import co.com.une.appmovilesune.change.ControlSimulador;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesDecos;
 import co.com.une.appmovilesune.model.Cotizacion;
+
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -41,773 +42,772 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class ResumenTelevision extends LinearLayout {
 
-	public Spinner sltTelevisores, sltTipoMigracion, sltExtensiones, sltTipoTecnologia;
-	TextView lblPlan, lblDescuento, lblValor, lblValorDescuento, lblValorAdicionales, lblDuracion, lblDescuentoA,
-			tituloValorDescuento;
+    public Spinner sltTelevisores, sltTipoMigracion, sltExtensiones, sltTipoTecnologia;
+    TextView lblPlan, lblDescuento, lblValor, lblValorDescuento, lblValorAdicionales, lblDuracion, lblDescuentoA,
+            tituloValorDescuento;
 
-	TextView lblExtensiones, lblDecos_SD, lblDecos_HD;
+    TextView lblExtensiones, lblDecos_SD, lblDecos_HD;
 
-	CheckBox chkMigracion;
+    CheckBox chkMigracion;
 
-	private TableRow trlTipoMigracion;
+    private TableRow trlTipoMigracion;
 
-	ListaPreciosAdapter adaptador;
-	ListaResumenDecodificadoresAdapter adaptadorDecos;
-	ArrayList<ItemDecodificador> decodificadores;
+    ListaPreciosAdapter adaptador;
+    ListaResumenDecodificadoresAdapter adaptadorDecos;
+    ArrayList<ItemDecodificador> decodificadores;
 
-	private ListView lstAdicionales;
-	private ListView lstDecodificadores;
-	private String descuento;
-	private String television;
-	private String planFacturacion;
-	private String tecnologia;
-	private String ciudad;
+    private ListView lstAdicionales;
+    private ListView lstDecodificadores;
+    private String descuento;
+    private String television;
+    private String planFacturacion;
+    private String tecnologia;
+    private String ciudad;
 
-	private Activity activity;
+    private Activity activity;
 
-	private boolean migracion;
+    private boolean migracion;
 
-	String[][] adicionales;
-	String precioAdicionales;
+    String[][] adicionales;
+    String precioAdicionales;
 
-	int ext = 0;
-	int totalTelevisores;
+    int ext = 0;
+    int totalTelevisores;
 
-	private boolean validarTelevisores = false;
-	private boolean validarDecosPago = true;
-	private boolean habilitarEventos = false;
+    private boolean validarTelevisores = false;
+    private boolean validarDecosPago = true;
+    private boolean habilitarEventos = false;
 
-	String decos = "";
+    String decos = "";
 
-	private String tecnologiacr;
+    private String tecnologiacr;
 
-	Context context;
-	
-	private Cotizacion cotizacion; 
+    Context context;
 
-	public ResumenTelevision(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		// TODO Auto-generated constructor stub
-	}
+    private Cotizacion cotizacion;
 
-	protected void onFinishInflate() {
+    public ResumenTelevision(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        // TODO Auto-generated constructor stub
+    }
 
-		super.onFinishInflate();
+    protected void onFinishInflate() {
 
-		((Activity) getContext()).getLayoutInflater().inflate(R.layout.resumentelevision, this);
+        super.onFinishInflate();
 
-		sltTelevisores = (Spinner) findViewById(R.id.sltTelevisores);
-		lblDuracion = (TextView) findViewById(R.id.lblDuracion);
-		lblDescuentoA = (TextView) findViewById(R.id.lblDescuentoA);
-		sltTipoMigracion = (Spinner) findViewById(R.id.sltTipoMigracion);
-		sltTipoTecnologia = (Spinner) findViewById(R.id.sltTipoTecnologia);
+        ((Activity) getContext()).getLayoutInflater().inflate(R.layout.resumentelevision, this);
 
-		lblPlan = (TextView) findViewById(R.id.lblPlan);
-		lblDescuento = (TextView) findViewById(R.id.lblDescuento);
-		lblValor = (TextView) findViewById(R.id.lblValor);
-		lblValorDescuento = (TextView) findViewById(R.id.lblValorDescuento);
-		lblValorAdicionales = (TextView) findViewById(R.id.lblValorAdicionales);
-		tituloValorDescuento = (TextView) findViewById(R.id.tituloValorDescuento);
+        sltTelevisores = (Spinner) findViewById(R.id.sltTelevisores);
+        lblDuracion = (TextView) findViewById(R.id.lblDuracion);
+        lblDescuentoA = (TextView) findViewById(R.id.lblDescuentoA);
+        sltTipoMigracion = (Spinner) findViewById(R.id.sltTipoMigracion);
+        sltTipoTecnologia = (Spinner) findViewById(R.id.sltTipoTecnologia);
 
-		sltExtensiones = (Spinner) findViewById(R.id.sltExtensiones);
-		lstAdicionales = (ListView) findViewById(R.id.lstAdicionales);
-		lstDecodificadores = (ListView) findViewById(R.id.lstresumendecodificadores);
+        lblPlan = (TextView) findViewById(R.id.lblPlan);
+        lblDescuento = (TextView) findViewById(R.id.lblDescuento);
+        lblValor = (TextView) findViewById(R.id.lblValor);
+        lblValorDescuento = (TextView) findViewById(R.id.lblValorDescuento);
+        lblValorAdicionales = (TextView) findViewById(R.id.lblValorAdicionales);
+        tituloValorDescuento = (TextView) findViewById(R.id.tituloValorDescuento);
 
-		trlTipoMigracion = (TableRow) findViewById(R.id.trlTipoMigracion);
+        sltExtensiones = (Spinner) findViewById(R.id.sltExtensiones);
+        lstAdicionales = (ListView) findViewById(R.id.lstAdicionales);
+        lstDecodificadores = (ListView) findViewById(R.id.lstresumendecodificadores);
 
-		chkMigracion = (CheckBox) findViewById(R.id.chkMigracion);
+        trlTipoMigracion = (TableRow) findViewById(R.id.trlTipoMigracion);
 
-		chkMigracion.setOnCheckedChangeListener(cambioMigracion);
+        chkMigracion = (CheckBox) findViewById(R.id.chkMigracion);
 
-	}
+        chkMigracion.setOnCheckedChangeListener(cambioMigracion);
 
-	public void llenarExtensiones(String tecnologia) {
-		ArrayAdapter<Integer> adaptador = null;
+    }
 
-		ext = 0;
+    public void llenarExtensiones(String tecnologia) {
+        ArrayAdapter<Integer> adaptador = null;
 
-		if (tecnologia.equalsIgnoreCase("HFC")) {
+        ext = 0;
 
-			if (Utilidades.excluirNacional("planesDigitales", television)) {
-				ext = 2;
-			}
-		} else {
-			ext = 0;
-		}
+        if (tecnologia.equalsIgnoreCase("HFC")) {
 
-		ArrayList<Integer> extensiones = new ArrayList<Integer>();
+            if (Utilidades.excluirNacional("planesDigitales", television)) {
+                ext = 2;
+            }
+        } else {
+            ext = 0;
+        }
 
-		if (ext == 0) {
-			extensiones.add(0);
-		} else {
-			if (!Utilidades.excluirNacional("planesDigitales", television)) {
-				for (int i = 0; i < ext; i++) {
-					extensiones.add(i + 1);
-				}
-			} else {
-				for (int i = 0; i <= ext; i++) {
-					extensiones.add(i);
-				}
-			}
-		}
-		
-		System.out.println("Nodos Digitales cotizacion.isHFCDigital() "+cotizacion.isHFCDigital());
-		if(cotizacion.isHFCDigital()){
-			extensiones.clear();
-			extensiones.add(0);
-			Utilidades.MensajesToast(
-					getResources().getString(R.string.mensaje_extensiones), context);
-		}
+        ArrayList<Integer> extensiones = new ArrayList<Integer>();
 
-		System.out.println("extensiones " + extensiones);
+        if (ext == 0) {
+            extensiones.add(0);
+        } else {
+            if (!Utilidades.excluirNacional("planesDigitales", television)) {
+                for (int i = 0; i < ext; i++) {
+                    extensiones.add(i + 1);
+                }
+            } else {
+                for (int i = 0; i <= ext; i++) {
+                    extensiones.add(i);
+                }
+            }
+        }
 
-		adaptador = new ArrayAdapter<Integer>(context, android.R.layout.simple_spinner_item, extensiones);
-		sltExtensiones.setAdapter(adaptador);
+        System.out.println("Nodos Digitales cotizacion.isHFCDigital() " + cotizacion.isHFCDigital());
+        if (cotizacion.isHFCDigital()) {
+            extensiones.clear();
+            extensiones.add(0);
+            Utilidades.MensajesToast(
+                    getResources().getString(R.string.mensaje_extensiones), context);
+        }
 
-	}
+        System.out.println("extensiones " + extensiones);
 
-	private void llenarTipoMigracion() {
+        adaptador = new ArrayAdapter<Integer>(context, android.R.layout.simple_spinner_item, extensiones);
+        sltExtensiones.setAdapter(adaptador);
 
-		ArrayAdapter<String> adaptador = null;
-		String tipoMigracion = "";
+    }
 
-		ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasgenerales",
-				new String[] { "lst_item" }, "lst_nombre = ?", new String[] { "Tipo Migracion TV" }, null, null, null);
+    private void llenarTipoMigracion() {
 
-		ArrayList<String> listTipoMigracion = new ArrayList<String>();
-		if (resultado != null && chkMigracion.isChecked()) {
-			listTipoMigracion.add("-- Seleccione Cambio de Plan --");
+        ArrayAdapter<String> adaptador = null;
+        String tipoMigracion = "";
 
-			for (int i = 0; i < resultado.size(); i++) {
-				listTipoMigracion.add(resultado.get(i).get(0));
-			}
+        ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasgenerales",
+                new String[]{"lst_item"}, "lst_nombre = ?", new String[]{"Tipo Migracion TV"}, null, null, null);
 
-		} else {
-			listTipoMigracion.add("N/A");
-		}
+        ArrayList<String> listTipoMigracion = new ArrayList<String>();
+        if (resultado != null && chkMigracion.isChecked()) {
+            listTipoMigracion.add("-- Seleccione Cambio de Plan --");
 
-		adaptador = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listTipoMigracion);
-		sltTipoMigracion.setAdapter(adaptador);
+            for (int i = 0; i < resultado.size(); i++) {
+                listTipoMigracion.add(resultado.get(i).get(0));
+            }
 
-	}
+        } else {
+            listTipoMigracion.add("N/A");
+        }
 
-	private void llenarTecnologia(String television, String ciudad) {
+        adaptador = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listTipoMigracion);
+        sltTipoMigracion.setAdapter(adaptador);
 
-		ArrayAdapter<String> adaptador = null;
-		String tipoTecnologia = "";
+    }
 
-		System.out.println("television " + television + "ciudad " + ciudad);
+    private void llenarTecnologia(String television, String ciudad) {
 
-		ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
-				new String[] { "lst_valor" }, "lst_nombre = ? and lst_clave = ? and lst_ciudad = ?",
-				new String[] { "tipoTecnologiaTV", television, ciudad }, null, null, null);
+        ArrayAdapter<String> adaptador = null;
+        String tipoTecnologia = "";
 
-		ArrayList<String> listTipoTecnologia = new ArrayList<String>();
+        System.out.println("television " + television + "ciudad " + ciudad);
 
-		System.out.println("resultado " + resultado);
+        ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
+                new String[]{"lst_valor"}, "lst_nombre = ? and lst_clave = ? and lst_ciudad = ?",
+                new String[]{"tipoTecnologiaTV", television, ciudad}, null, null, null);
 
-		if (resultado != null) {
-			if (resultado.size() > 1) {
-				listTipoTecnologia.add(Utilidades.inicial_opcion);
-			}
-
-			for (int i = 0; i < resultado.size(); i++) {
-				listTipoTecnologia.add(resultado.get(i).get(0));
-			}
-
-		} else {
-			listTipoTecnologia.add("N/A");
-		}
-
-		adaptador = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listTipoTecnologia);
-		sltTipoTecnologia.setAdapter(adaptador);
+        ArrayList<String> listTipoTecnologia = new ArrayList<String>();
 
-		sltTipoTecnologia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			public void onItemSelected(AdapterView<?> parent, android.view.View v, int position, long id) {
+        System.out.println("resultado " + resultado);
 
-				llenarExtensiones((String) sltTipoTecnologia.getSelectedItem());
-				sltTelevisores.setSelection(0);
+        if (resultado != null) {
+            if (resultado.size() > 1) {
+                listTipoTecnologia.add(Utilidades.inicial_opcion);
+            }
 
-			}
+            for (int i = 0; i < resultado.size(); i++) {
+                listTipoTecnologia.add(resultado.get(i).get(0));
+            }
+
+        } else {
+            listTipoTecnologia.add("N/A");
+        }
+
+        adaptador = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, listTipoTecnologia);
+        sltTipoTecnologia.setAdapter(adaptador);
 
-			public void onNothingSelected(AdapterView<?> parent) {
-				// lblMensaje.setText("");
-			}
-		});
-	}
+        sltTipoTecnologia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, android.view.View v, int position, long id) {
 
-	public void Television(Activity activity, Context context, String tipo, String television, String precio,
-			String descuento, String Duracion, String precioDescuento, String[][] adicionales, String precioAdicionales,
-			String planFacturacion, String estrato, String ciudad, String planAnt, String tecnologiacr,
-			boolean aplicarDescuentos, String tipoTecnologia, ArrayList<ItemPromocionesAdicionales> promoAdicionales,
-			ArrayList<ItemDecodificador> decodificadores, Cotizacion cotizacion) {
+                llenarExtensiones((String) sltTipoTecnologia.getSelectedItem());
+                sltTelevisores.setSelection(0);
 
-		this.activity = activity;
-		this.context = context;
-		this.descuento = descuento;
-		this.television = television;
-		this.ciudad = ciudad;
-		this.decodificadores = decodificadores;
-		this.cotizacion = cotizacion;
-		tecnologia = tipoTecnologia;
-
-		this.tecnologiacr = tecnologiacr;
+            }
 
-		System.out.println("rtvTelevision->tecnologiacr " + this.tecnologiacr);
+            public void onNothingSelected(AdapterView<?> parent) {
+                // lblMensaje.setText("");
+            }
+        });
+    }
 
-		sltTipoTecnologia.setEnabled(false);
+    public void Television(Activity activity, Context context, String tipo, String television, String precio,
+                           String descuento, String Duracion, String precioDescuento, String[][] adicionales, String precioAdicionales,
+                           String planFacturacion, String estrato, String ciudad, String planAnt, String tecnologiacr,
+                           boolean aplicarDescuentos, String tipoTecnologia, ArrayList<ItemPromocionesAdicionales> promoAdicionales,
+                           ArrayList<ItemDecodificador> decodificadores, Cotizacion cotizacion) {
 
-		asignarPlan(television);
-		asignarValor(precio);
-		setPlanFacturacion(planFacturacion);
+        this.activity = activity;
+        this.context = context;
+        this.descuento = descuento;
+        this.television = television;
+        this.ciudad = ciudad;
+        this.decodificadores = decodificadores;
+        this.cotizacion = cotizacion;
+        tecnologia = tipoTecnologia;
 
-		setAdicionales(adicionales);
-		setPrecioAdicionales(precioAdicionales);
+        this.tecnologiacr = tecnologiacr;
 
-		if (aplicarDescuentos && descuento.contains("%")) {
+        System.out.println("rtvTelevision->tecnologiacr " + this.tecnologiacr);
 
-			ArrayList<Object> listDescuentos = Utilidades.precioDescuento(descuento, precio);
+        sltTipoTecnologia.setEnabled(false);
 
-			if ((Boolean) listDescuentos.get(0)) {
+        asignarPlan(television);
+        asignarValor(precio);
+        setPlanFacturacion(planFacturacion);
 
-				if (!listDescuentos.get(2).equals(0.0) && !listDescuentos.get(2).equals(0)) {
-					tituloValorDescuento.setVisibility(View.GONE);
-					precioDescuento = "(" + listDescuentos.get(2) + ")";
-				} else {
-					tituloValorDescuento.setVisibility(View.VISIBLE);
-				}
-			}
+        setAdicionales(adicionales);
+        setPrecioAdicionales(precioAdicionales);
 
-		}
+        if (aplicarDescuentos && descuento.contains("%")) {
 
-		if (descuento != null) {
-			if (descuento.equalsIgnoreCase("-")) {
-				precioDescuento = "N/A";
-			}
+            ArrayList<Object> listDescuentos = Utilidades.precioDescuento(descuento, precio);
 
-			if (descuento.equalsIgnoreCase("Sin Promocion")) {
-				limpiarDuracion();
-			} else if (television.contains("Existente")) {
-				limpiarDuracion();
-			} else {
-				asignarDuracion(Duracion);
-				asignarDescuento(descuento);
-				asignarValorDescuento(precioDescuento);
-			}
-		} else {
-			precioDescuento = "N/A";
-		}
-
-		llenarExtensiones(tipoTecnologia);
-		llenarDecodificadores(decodificadores);
-		llenarAdicionales();
+            if ((Boolean) listDescuentos.get(0)) {
 
-		if (tipo != null) {
-			if (tipo.equalsIgnoreCase("C")) {
-				chkMigracion.setChecked(true);
-			} else {
-				chkMigracion.setEnabled(false);
-			}
-		}
+                if (!listDescuentos.get(2).equals(0.0) && !listDescuentos.get(2).equals(0)) {
+                    tituloValorDescuento.setVisibility(View.GONE);
+                    precioDescuento = "(" + listDescuentos.get(2) + ")";
+                } else {
+                    tituloValorDescuento.setVisibility(View.VISIBLE);
+                }
+            }
 
-		llenarTipoMigracion();
-		if (!planAnt.equals("")) {
-			setTipoMigracion(planAnt);
-			sltTipoMigracion.setEnabled(false);
-		}
-		llenarTecnologia(television, ciudad);
+        }
 
-		setTecnologia(tipoTecnologia);
+        if (descuento != null) {
+            if (descuento.equalsIgnoreCase("-")) {
+                precioDescuento = "N/A";
+            }
 
-	}
+            if (descuento.equalsIgnoreCase("Sin Promocion")) {
+                limpiarDuracion();
+            } else if (television.contains("Existente")) {
+                limpiarDuracion();
+            } else {
+                asignarDuracion(Duracion);
+                asignarDescuento(descuento);
+                asignarValorDescuento(precioDescuento);
+            }
+        } else {
+            precioDescuento = "N/A";
+        }
 
-	public void validarDecosPago(String tecnologia, boolean decosPagoSD, boolean decosPagoHD, boolean decosPagoPVR) {
+        llenarExtensiones(tipoTecnologia);
+        llenarDecodificadores(decodificadores);
+        llenarAdicionales();
 
-		System.out.println("Entro ");
+        if (tipo != null) {
+            if (tipo.equalsIgnoreCase("C")) {
+                chkMigracion.setChecked(true);
+            } else {
+                chkMigracion.setEnabled(false);
+            }
+        }
 
-		validarDecosPago = true;
+        llenarTipoMigracion();
+        if (!planAnt.equals("")) {
+            setTipoMigracion(planAnt);
+            sltTipoMigracion.setEnabled(false);
+        }
+        llenarTecnologia(television, ciudad);
 
-		ArrayList<Boolean> validacion = new ArrayList<Boolean>();
+        setTecnologia(tipoTecnologia);
 
-		if (tecnologia.equalsIgnoreCase("HFC")) {
-			if (decosPagoSD) {
-				validacion.add(buscarCanalestipoDeco("SD"));
-			}
+    }
 
-			if (decosPagoHD) {
-				validacion.add(buscarCanalestipoDeco("HD"));
-			}
+    public void validarDecosPago(String tecnologia, boolean decosPagoSD, boolean decosPagoHD, boolean decosPagoPVR) {
 
-			if (decosPagoPVR) {
-				validacion.add(buscarCanalestipoDeco("HD"));
-			}
-		} else {
-			if (decosPagoHD) {
-				validacion.add(buscarCanalestipoDeco("HD"));
-			}
+        System.out.println("Entro ");
 
-			if (decosPagoPVR) {
-				validacion.add(buscarCanalestipoDeco("HD"));
-			}
-		}
+        validarDecosPago = true;
 
-		System.out.println("validacion " + validacion);
+        ArrayList<Boolean> validacion = new ArrayList<Boolean>();
 
-		if (validacion.contains(false)) {
-			validarDecosPago = false;
-		}
+        if (tecnologia.equalsIgnoreCase("HFC")) {
+            if (decosPagoSD) {
+                validacion.add(buscarCanalestipoDeco("SD"));
+            }
 
-		System.out.println("validarDecosPago " + validarDecosPago);
+            if (decosPagoHD) {
+                validacion.add(buscarCanalestipoDeco("HD"));
+            }
 
-	}
+            if (decosPagoPVR) {
+                validacion.add(buscarCanalestipoDeco("HD"));
+            }
+        } else {
+            if (decosPagoHD) {
+                validacion.add(buscarCanalestipoDeco("HD"));
+            }
 
-	public boolean buscarCanalestipoDeco(String tipo) {
+            if (decosPagoPVR) {
+                validacion.add(buscarCanalestipoDeco("HD"));
+            }
+        }
 
-		boolean localizado = false;
+        System.out.println("validacion " + validacion);
 
-		String decos_pago = "N/A";
+        if (validacion.contains(false)) {
+            validarDecosPago = false;
+        }
 
-		ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
-				new String[] { "lst_clave" }, "lst_nombre = ? and lst_valor = ?",
-				new String[] { "decos_gratis_adicionales", tipo }, null, null, null);
+        System.out.println("validarDecosPago " + validarDecosPago);
 
-		System.out.println("resultado " + resultado);
-		if (resultado != null) {
-			// decos_pago = resultado.get(0).get(0);}
-			// System.out.println("resultado.get(0).get(0) "
-			// + resultado.get(0).get(0));
-			for (int i = 0; i < resultado.size(); i++) {
-				System.out.println("resultado [" + i + "]" + resultado.get(i).get(0));
-				if (adicionales != null) {
-					for (int j = 0; j < adicionales.length; j++) {
-						// adicional.add(new ListaPrecios(adicionales[i][0],
-						// adicionales[i][1]));
+    }
 
-						if (adicionales[j][0].equalsIgnoreCase(resultado.get(i).get(0))) {
-							localizado = true;
-							break;
-						}
+    public boolean buscarCanalestipoDeco(String tipo) {
 
-						// String deco_gratis =
-						// decos_gratis_adicionales(adicionales[i][0]);
-					}
-				}
-				// System.out.println("resultado
-				// ["+i+"]"+resultado.get(0).get(i));
-			}
-			// System.out.println("consulta decos_pago "+decos_pago);
-		}
+        boolean localizado = false;
 
-		// return decos_pago;
+        String decos_pago = "N/A";
 
-		System.out.println("localizado " + localizado);
+        ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
+                new String[]{"lst_clave"}, "lst_nombre = ? and lst_valor = ?",
+                new String[]{"decos_gratis_adicionales", tipo}, null, null, null);
 
-		return localizado;
+        System.out.println("resultado " + resultado);
+        if (resultado != null) {
+            // decos_pago = resultado.get(0).get(0);}
+            // System.out.println("resultado.get(0).get(0) "
+            // + resultado.get(0).get(0));
+            for (int i = 0; i < resultado.size(); i++) {
+                System.out.println("resultado [" + i + "]" + resultado.get(i).get(0));
+                if (adicionales != null) {
+                    for (int j = 0; j < adicionales.length; j++) {
+                        // adicional.add(new ListaPrecios(adicionales[i][0],
+                        // adicionales[i][1]));
 
-	}
+                        if (adicionales[j][0].equalsIgnoreCase(resultado.get(i).get(0))) {
+                            localizado = true;
+                            break;
+                        }
 
-	public boolean validarDecos(String tipo) {
+                        // String deco_gratis =
+                        // decos_gratis_adicionales(adicionales[i][0]);
+                    }
+                }
+                // System.out.println("resultado
+                // ["+i+"]"+resultado.get(0).get(i));
+            }
+            // System.out.println("consulta decos_pago "+decos_pago);
+        }
 
-		boolean validado = false;
+        // return decos_pago;
 
-		String decos_gratis_adicional = "N/A";
+        System.out.println("localizado " + localizado);
 
-		ArrayList<String> canales = new ArrayList<String>();
+        return localizado;
 
-		ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
-				new String[] { "lst_clave" }, "lst_nombre = ? and  lst_valor = ?",
-				new String[] { "decos_gratis_adicionales", tipo }, null, null, null);
+    }
 
-		// System.out.println("resultado " + resultado);
+    public boolean validarDecos(String tipo) {
 
-		if (resultado != null) {
-			// System.out.println("resultado.get(0) " + resultado.get(0));
+        boolean validado = false;
 
-			for (int i = 0; i < resultado.size(); i++) {
-				canales.add(resultado.get(i).get(0));
-			}
-			// decos_gratis_adicional = resultado.get(0).get(0);
-		}
+        String decos_gratis_adicional = "N/A";
 
-		for (int i = 0; i < canales.size(); i++) {
-			for (int j = 0; j < adicionales.length; j++) {
-				// System.out.println("canales " + canales.get(i)
-				// + " adicionales[j] " + adicionales[j][0]);
+        ArrayList<String> canales = new ArrayList<String>();
 
-				if (adicionales[j][0].equals(canales.get(i))) {
-					validado = true;
-					break;
-				}
-			}
+        ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
+                new String[]{"lst_clave"}, "lst_nombre = ? and  lst_valor = ?",
+                new String[]{"decos_gratis_adicionales", tipo}, null, null, null);
 
-		}
+        // System.out.println("resultado " + resultado);
 
-		System.out.println("canales " + canales);
-		System.out.println("validado " + validado + " tipo " + tipo);
+        if (resultado != null) {
+            // System.out.println("resultado.get(0) " + resultado.get(0));
 
-		return validado;
-	}
+            for (int i = 0; i < resultado.size(); i++) {
+                canales.add(resultado.get(i).get(0));
+            }
+            // decos_gratis_adicional = resultado.get(0).get(0);
+        }
 
-	public String getDecos() {
+        for (int i = 0; i < canales.size(); i++) {
+            for (int j = 0; j < adicionales.length; j++) {
+                // System.out.println("canales " + canales.get(i)
+                // + " adicionales[j] " + adicionales[j][0]);
 
-		int datoExt = (Integer) sltExtensiones.getSelectedItem();
+                if (adicionales[j][0].equals(canales.get(i))) {
+                    validado = true;
+                    break;
+                }
+            }
 
-		System.out.println("ext " + ext);
+        }
 
-		JSONObject datosDecos = UtilidadesDecos.datosValidarDecos(decodificadores, datoExt);
+        System.out.println("canales " + canales);
+        System.out.println("validado " + validado + " tipo " + tipo);
 
-		try {
-			totalTelevisores = datosDecos.getInt("totalTelevisores");
-		} catch (JSONException e) {
-			Log.w("Error " + e.getMessage());
-		}
+        return validado;
+    }
 
-		return datosDecos.toString();
+    public String getDecos() {
 
-	}
+        int datoExt = (Integer) sltExtensiones.getSelectedItem();
 
-	public boolean isValidarTelevisores() {
-		return validarTelevisores;
-	}
+        System.out.println("ext " + ext);
 
-	public boolean isValidarDecosPago() {
-		return validarDecosPago;
-	}
+        JSONObject datosDecos = UtilidadesDecos.datosValidarDecos(decodificadores, datoExt);
 
-	public void setValidarDecosPago(boolean validarDecosPago) {
-		this.validarDecosPago = validarDecosPago;
-	}
+        try {
+            totalTelevisores = datosDecos.getInt("totalTelevisores");
+        } catch (JSONException e) {
+            Log.w("Error " + e.getMessage());
+        }
 
-	public String getTecnologiacr() {
-		return tecnologiacr;
-	}
+        return datosDecos.toString();
 
-	public void setTecnologiacr(String tecnologiacr) {
-		this.tecnologiacr = tecnologiacr;
-	}
+    }
 
-	public String Tipo_Tecnologia() {
-		String Tecnologia = "";
+    public boolean isValidarTelevisores() {
+        return validarTelevisores;
+    }
 
-		ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
-				new String[] { "lst_valor" }, "lst_nombre = ? and lst_clave = ?",
-				new String[] { "Tecnologia_TV", television }, null, null, null);
+    public boolean isValidarDecosPago() {
+        return validarDecosPago;
+    }
 
-		if (resultado != null) {
-			Tecnologia = resultado.get(0).get(0);
-		}
+    public void setValidarDecosPago(boolean validarDecosPago) {
+        this.validarDecosPago = validarDecosPago;
+    }
 
-		return Tecnologia;
-	}
+    public String getTecnologiacr() {
+        return tecnologiacr;
+    }
 
-	public String decos_gratis(String tecnologia) {
-		String decos_gratis = "";
+    public void setTecnologiacr(String tecnologiacr) {
+        this.tecnologiacr = tecnologiacr;
+    }
 
-		ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
-				new String[] { "lst_valor" }, "lst_nombre = ? and lst_clave = ?",
-				new String[] { "decos_gratis", tecnologia }, null, null, null);
+    public String Tipo_Tecnologia() {
+        String Tecnologia = "";
 
-		if (resultado != null) {
-			decos_gratis = resultado.get(0).get(0);
-		}
+        ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
+                new String[]{"lst_valor"}, "lst_nombre = ? and lst_clave = ?",
+                new String[]{"Tecnologia_TV", television}, null, null, null);
 
-		return decos_gratis;
-	}
+        if (resultado != null) {
+            Tecnologia = resultado.get(0).get(0);
+        }
 
-	public String decos_gratis_adicionales(String adicional) {
-		String decos_gratis_adicional = "N/A";
+        return Tecnologia;
+    }
 
-		ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
-				new String[] { "lst_valor" }, "lst_nombre = ? and lst_clave = ?",
-				new String[] { "decos_gratis_adicionales", adicional }, null, null, null);
+    public String decos_gratis(String tecnologia) {
+        String decos_gratis = "";
 
-		if (resultado != null) {
-			decos_gratis_adicional = resultado.get(0).get(0);
-		}
+        ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
+                new String[]{"lst_valor"}, "lst_nombre = ? and lst_clave = ?",
+                new String[]{"decos_gratis", tecnologia}, null, null, null);
 
-		return decos_gratis_adicional;
-	}
+        if (resultado != null) {
+            decos_gratis = resultado.get(0).get(0);
+        }
 
-	public String decos_pago(String adicional) {
-		String decos_pago = "N/A";
+        return decos_gratis;
+    }
 
-		ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
-				new String[] { "lst_valor" }, "lst_nombre = ? and lst_clave = ?",
-				new String[] { "decos_pago", adicional }, null, null, null);
+    public String decos_gratis_adicionales(String adicional) {
+        String decos_gratis_adicional = "N/A";
 
-		if (resultado != null) {
-			decos_pago = resultado.get(0).get(0);
-			// System.out.println("consulta decos_pago "+decos_pago);
-		}
+        ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
+                new String[]{"lst_valor"}, "lst_nombre = ? and lst_clave = ?",
+                new String[]{"decos_gratis_adicionales", adicional}, null, null, null);
 
-		return decos_pago;
-	}
+        if (resultado != null) {
+            decos_gratis_adicional = resultado.get(0).get(0);
+        }
 
-	public void llenarAdicionales() {
+        return decos_gratis_adicional;
+    }
 
-		ArrayList<ListaPrecios> adicional = new ArrayList<ListaPrecios>();
-		// System.out.println("adicionales resumen tv => " + adicionales);
-		if (adicionales != null) {
-			for (int i = 0; i < adicionales.length; i++) {
-				adicional.add(new ListaPrecios(adicionales[i][0], adicionales[i][1]));
-			}
-		}
+    public String decos_pago(String adicional) {
+        String decos_pago = "N/A";
 
-		if(adicional.size() >0) {
-			adaptador = new ListaPreciosAdapter(activity, adicional, context);
-			lstAdicionales.setAdapter(adaptador);
-			setListViewHeightBasedOnChildren(lstAdicionales);
-			double total = Double.parseDouble(lblValor.getText().toString()) + totalDecodificadores();
+        ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
+                new String[]{"lst_valor"}, "lst_nombre = ? and lst_clave = ?",
+                new String[]{"decos_pago", adicional}, null, null, null);
 
-			lblValorAdicionales.setText(getPrecioAdicionales());
+        if (resultado != null) {
+            decos_pago = resultado.get(0).get(0);
+            // System.out.println("consulta decos_pago "+decos_pago);
+        }
 
-			asignarValor(String.valueOf(total));
-		}
-	}
+        return decos_pago;
+    }
 
-	private double totalDecodificadores() {
-		double totalDecos = 0;
+    public void llenarAdicionales() {
 
-		if (decodificadores != null) {
-			for (ItemDecodificador itemDecodificador : decodificadores) {
-				totalDecos += Double.parseDouble(itemDecodificador.getPrecio());
-			}
-		}
+        ArrayList<ListaPrecios> adicional = new ArrayList<ListaPrecios>();
+        // System.out.println("adicionales resumen tv => " + adicionales);
+        if (adicionales != null) {
+            for (int i = 0; i < adicionales.length; i++) {
+                adicional.add(new ListaPrecios(adicionales[i][0], adicionales[i][1]));
+            }
+        }
 
-		return totalDecos;
-	}
+        if (adicional.size() > 0) {
+            adaptador = new ListaPreciosAdapter(activity, adicional, context);
+            lstAdicionales.setAdapter(adaptador);
+            setListViewHeightBasedOnChildren(lstAdicionales);
+            double total = Double.parseDouble(lblValor.getText().toString()) + totalDecodificadores();
 
-	public void llenarDecodificadores(ArrayList<ItemDecodificador> decodificadores) {
+            lblValorAdicionales.setText(getPrecioAdicionales());
 
-		if (decodificadores != null) {
+            asignarValor(String.valueOf(total));
+        }
+    }
 
-			// UtilidadesDecos.imprimirDecos("Resument TV", decodificadores);
+    private double totalDecodificadores() {
+        double totalDecos = 0;
 
-			adaptadorDecos = new ListaResumenDecodificadoresAdapter(activity, decodificadores, context);
-			lstDecodificadores.setAdapter(adaptadorDecos);
-			setListViewHeightBasedOnChildren(lstDecodificadores);
-		}
+        if (decodificadores != null) {
+            for (ItemDecodificador itemDecodificador : decodificadores) {
+                totalDecos += Double.parseDouble(itemDecodificador.getPrecio());
+            }
+        }
 
-		lblValorAdicionales.setText(getPrecioAdicionales());
+        return totalDecos;
+    }
 
-	}
+    public void llenarDecodificadores(ArrayList<ItemDecodificador> decodificadores) {
 
-	OnCheckedChangeListener cambioMigracion = new OnCheckedChangeListener() {
+        if (decodificadores != null) {
 
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-			// TODO Auto-generated method stub
-			if (isChecked) {
-				trlTipoMigracion.setVisibility(VISIBLE);
-				llenarTipoMigracion();
-			} else {
-				trlTipoMigracion.setVisibility(GONE);
-			}
-			migracion = isChecked;
-			llenarTipoMigracion();
-		}
+            // UtilidadesDecos.imprimirDecos("Resument TV", decodificadores);
 
-	};
+            adaptadorDecos = new ListaResumenDecodificadoresAdapter(activity, decodificadores, context);
+            lstDecodificadores.setAdapter(adaptadorDecos);
+            setListViewHeightBasedOnChildren(lstDecodificadores);
+        }
 
-	public static void setListViewHeightBasedOnChildren(ListView listView) {
-		ListAdapter listAdapter = listView.getAdapter();
-		// System.out.println("listView " + listView);
-		// System.out.println("listAdapter " + listAdapter);
-		if (listAdapter == null) {
-			// pre-condition
-			return;
-		}
+        lblValorAdicionales.setText(getPrecioAdicionales());
 
-		int totalHeight = 0;
-		int desiredWidth = MeasureSpec.makeMeasureSpec(listView.getWidth(), MeasureSpec.UNSPECIFIED);
-		for (int i = 0; i < listAdapter.getCount(); i++) {
-			View listItem = listAdapter.getView(i, null, listView);
-			listItem.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
-			totalHeight += listItem.getMeasuredHeight();
-		}
+    }
 
-		ViewGroup.LayoutParams params = listView.getLayoutParams();
-		params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-		listView.setLayoutParams(params);
-		listView.requestLayout();
-	}
+    OnCheckedChangeListener cambioMigracion = new OnCheckedChangeListener() {
 
-	public void setContext(Context context) {
-		this.context = context;
-	}
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            // TODO Auto-generated method stub
+            if (isChecked) {
+                trlTipoMigracion.setVisibility(VISIBLE);
+                llenarTipoMigracion();
+            } else {
+                trlTipoMigracion.setVisibility(GONE);
+            }
+            migracion = isChecked;
+            llenarTipoMigracion();
+        }
 
-	public void asignarPlan(String plan) {
-		lblPlan.setText(plan);
-	}
+    };
 
-	public void limpiarDuracion() {
-		asignarDuracion("0 Meses");
-		asignarDescuento("-");
-		asignarValorDescuento("0");
-	}
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        // System.out.println("listView " + listView);
+        // System.out.println("listAdapter " + listAdapter);
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
 
-	public void asignarDuracion(String Duracion) {
-		lblDuracion.setText(Duracion);
-	}
+        int totalHeight = 0;
+        int desiredWidth = MeasureSpec.makeMeasureSpec(listView.getWidth(), MeasureSpec.UNSPECIFIED);
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
+            totalHeight += listItem.getMeasuredHeight();
+        }
 
-	public String getDuracion() {
-		return lblDuracion.getText().toString();
-	}
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
 
-	public void asignarDescuento(String descuento) {
+    public void setContext(Context context) {
+        this.context = context;
+    }
 
-		lblDescuento.setText(descuento);
+    public void asignarPlan(String plan) {
+        lblPlan.setText(plan);
+    }
 
-	}
+    public void limpiarDuracion() {
+        asignarDuracion("0 Meses");
+        asignarDescuento("-");
+        asignarValorDescuento("0");
+    }
 
-	public void asignarValor(String valor) {
-		lblValor.setText(valor);
-	}
+    public void asignarDuracion(String Duracion) {
+        lblDuracion.setText(Duracion);
+    }
 
-	public void asignarValorDescuento(String valor) {
-		lblValorDescuento.setText(valor);
-	}
+    public String getDuracion() {
+        return lblDuracion.getText().toString();
+    }
 
-	public String getExtensiones() {
+    public void asignarDescuento(String descuento) {
 
-		return "" + totalTelevisores;
-	}
+        lblDescuento.setText(descuento);
 
-	public void setExtensiones(String extensiones) {
-		// ArrayAdapter<String> adaptador = (ArrayAdapter<String>)
-		// sltTelevisores.getAdapter();
-		// sltTelevisores.setSelection(adaptador.getPosition(extensiones),
-		// true);
+    }
 
-	}
+    public void asignarValor(String valor) {
+        lblValor.setText(valor);
+    }
 
-	public String getPlan() {
-		return lblPlan.getText().toString();
-	}
+    public void asignarValorDescuento(String valor) {
+        lblValorDescuento.setText(valor);
+    }
 
-	public String getDescuento() {
-		return lblDescuento.getText().toString();
-	}
+    public String getExtensiones() {
 
-	public String getValor() {
-		return lblValor.getText().toString();
-	}
+        return "" + totalTelevisores;
+    }
 
-	public String getValorDescuento() {
-		return lblValorDescuento.getText().toString();
-	}
+    public void setExtensiones(String extensiones) {
+        // ArrayAdapter<String> adaptador = (ArrayAdapter<String>)
+        // sltTelevisores.getAdapter();
+        // sltTelevisores.setSelection(adaptador.getPosition(extensiones),
+        // true);
 
-	public String getMigracion() {
-		String Migracion = "";
-		if (chkMigracion.isChecked()) {
-			Migracion = "Cambio";
-		} else {
-			Migracion = "Nueva";
-		}
+    }
 
-		return Migracion;
-	}
+    public String getPlan() {
+        return lblPlan.getText().toString();
+    }
 
-	public void setMigracion(String migracion) {
-		if (migracion.equalsIgnoreCase("Cambio")) {
-			chkMigracion.setChecked(true);
-		} else {
-			chkMigracion.setChecked(false);
-		}
-	}
+    public String getDescuento() {
+        return lblDescuento.getText().toString();
+    }
 
-	public boolean isMigracion() {
-		return migracion;
-	}
+    public String getValor() {
+        return lblValor.getText().toString();
+    }
 
-	public String getTipoMigracion() {
-		return (String) sltTipoMigracion.getSelectedItem();
-	}
+    public String getValorDescuento() {
+        return lblValorDescuento.getText().toString();
+    }
 
-	public void setTipoMigracion(String tipoMigracion) {
-		ArrayAdapter<String> adaptador = (ArrayAdapter<String>) sltTipoMigracion.getAdapter();
-		if (adaptador.getPosition(tipoMigracion) == -1) {
-			adaptador.add(tipoMigracion);
-			sltTipoMigracion.setAdapter(adaptador);
-		}
+    public String getMigracion() {
+        String Migracion = "";
+        if (chkMigracion.isChecked()) {
+            Migracion = "Cambio";
+        } else {
+            Migracion = "Nueva";
+        }
 
-		sltTipoMigracion.setSelection(adaptador.getPosition(tipoMigracion), true);
-	}
+        return Migracion;
+    }
 
-	public String[][] getAdicionales() {
-		return adicionales;
-	}
+    public void setMigracion(String migracion) {
+        if (migracion.equalsIgnoreCase("Cambio")) {
+            chkMigracion.setChecked(true);
+        } else {
+            chkMigracion.setChecked(false);
+        }
+    }
 
-	public String getAdicionalesCadena() {
-		String adicionalesCadena = "";
-		for (int i = 0; i < adicionales.length; i++) {
-			adicionalesCadena += adicionales[i][0] + ",";
-		}
+    public boolean isMigracion() {
+        return migracion;
+    }
 
-		return adicionalesCadena;
-	}
+    public String getTipoMigracion() {
+        return (String) sltTipoMigracion.getSelectedItem();
+    }
 
-	public String getPreciosAdicionalesCadena() {
-		String preciosAdicionalesCadena = "";
-		for (int i = 0; i < adicionales.length; i++) {
-			preciosAdicionalesCadena += adicionales[i][1] + ",";
-		}
-		return preciosAdicionalesCadena;
-	}
+    public void setTipoMigracion(String tipoMigracion) {
+        ArrayAdapter<String> adaptador = (ArrayAdapter<String>) sltTipoMigracion.getAdapter();
+        if (adaptador.getPosition(tipoMigracion) == -1) {
+            adaptador.add(tipoMigracion);
+            sltTipoMigracion.setAdapter(adaptador);
+        }
 
-	public void setAdicionales(String[][] adicionales) {
-		this.adicionales = adicionales;
-	}
+        sltTipoMigracion.setSelection(adaptador.getPosition(tipoMigracion), true);
+    }
 
-	public String getPrecioAdicionales() {
-		return precioAdicionales;
-	}
+    public String[][] getAdicionales() {
+        return adicionales;
+    }
 
-	public void setPrecioAdicionales(String precioAdicionales) {
-		this.precioAdicionales = precioAdicionales;
-	}
+    public String getAdicionalesCadena() {
+        String adicionalesCadena = "";
+        for (int i = 0; i < adicionales.length; i++) {
+            adicionalesCadena += adicionales[i][0] + ",";
+        }
 
-	public Activity getActivity() {
-		return activity;
-	}
+        return adicionalesCadena;
+    }
 
-	public void setActivity(Activity activity) {
-		this.activity = activity;
-	}
+    public String getPreciosAdicionalesCadena() {
+        String preciosAdicionalesCadena = "";
+        for (int i = 0; i < adicionales.length; i++) {
+            preciosAdicionalesCadena += adicionales[i][1] + ",";
+        }
+        return preciosAdicionalesCadena;
+    }
 
-	public String getPlanFacturacion() {
-		return planFacturacion;
-	}
+    public void setAdicionales(String[][] adicionales) {
+        this.adicionales = adicionales;
+    }
 
-	public void setPlanFacturacion(String planFacturacion) {
-		this.planFacturacion = planFacturacion;
-	}
+    public String getPrecioAdicionales() {
+        return precioAdicionales;
+    }
 
-	public String getTecnologia() {
+    public void setPrecioAdicionales(String precioAdicionales) {
+        this.precioAdicionales = precioAdicionales;
+    }
 
-		String tecno = (String) sltTipoTecnologia.getSelectedItem();
+    public Activity getActivity() {
+        return activity;
+    }
 
-		if (tecno != null && !tecno.equals("")) {
-			return tecno;
-		} else {
-			return tecnologia;
-		}
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
 
-	}
-	
-	
+    public String getPlanFacturacion() {
+        return planFacturacion;
+    }
 
-	public void setTecnologia(String TipoTecnologia) {
+    public void setPlanFacturacion(String planFacturacion) {
+        this.planFacturacion = planFacturacion;
+    }
 
-		ArrayAdapter<String> adaptador = (ArrayAdapter<String>) sltTipoTecnologia.getAdapter();
+    public String getTecnologia() {
 
-		System.out.println("TipoTecnologia " + TipoTecnologia);
+        String tecno = (String) sltTipoTecnologia.getSelectedItem();
 
-		if (TipoTecnologia.equalsIgnoreCase("REDCO")) {
-			TipoTecnologia = "IPTV";
-		}
+        if (tecno != null && !tecno.equals("")) {
+            return tecno;
+        } else {
+            return tecnologia;
+        }
 
-		sltTipoTecnologia.setSelection(adaptador.getPosition(TipoTecnologia));
-	}
+    }
+
+
+    public void setTecnologia(String TipoTecnologia) {
+
+        ArrayAdapter<String> adaptador = (ArrayAdapter<String>) sltTipoTecnologia.getAdapter();
+
+        System.out.println("TipoTecnologia " + TipoTecnologia);
+
+        if (TipoTecnologia.equalsIgnoreCase("REDCO")) {
+            TipoTecnologia = "IPTV";
+        }
+
+        sltTipoTecnologia.setSelection(adaptador.getPosition(TipoTecnologia));
+    }
 
 }

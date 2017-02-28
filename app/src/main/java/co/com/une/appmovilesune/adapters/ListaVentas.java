@@ -1,55 +1,55 @@
 package co.com.une.appmovilesune.adapters;
 
 public class ListaVentas {
-	private String fecha, hora, cliente, vta_id;
-	protected long id;
+    private String fecha, hora, cliente, vta_id;
+    protected long id;
 
-	public ListaVentas(String fecha, String hora, String cliente, String vta_id) {
-		super();
-		this.fecha = fecha;
-		this.hora = hora;
-		this.cliente = cliente;
-		this.vta_id = vta_id;
-	}
+    public ListaVentas(String fecha, String hora, String cliente, String vta_id) {
+        super();
+        this.fecha = fecha;
+        this.hora = hora;
+        this.cliente = cliente;
+        this.vta_id = vta_id;
+    }
 
-	public String getFecha() {
-		return fecha;
-	}
+    public String getFecha() {
+        return fecha;
+    }
 
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
 
-	public String getHora() {
-		return hora;
-	}
+    public String getHora() {
+        return hora;
+    }
 
-	public void setHora(String hora) {
-		this.hora = hora;
-	}
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
 
-	public String getCliente() {
-		return cliente;
-	}
+    public String getCliente() {
+        return cliente;
+    }
 
-	public void setCliente(String cliente) {
-		this.cliente = cliente;
-	}
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
 
-	public String getVentaID() {
-		return vta_id;
-	}
+    public String getVentaID() {
+        return vta_id;
+    }
 
-	public void setVentaID(String vta_id) {
-		this.vta_id = vta_id;
-	}
+    public void setVentaID(String vta_id) {
+        this.vta_id = vta_id;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
 }

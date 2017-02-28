@@ -6,6 +6,6 @@
     android:checkMark="@drawable/style_radiobtn"
     android:gravity="center_vertical"
     android:paddingLeft="6dip"
-    android:paddingRight="6dip" 
+    android:paddingRight="6dip"
     android:textAppearance="?android:attr/textAppearanceSmall"
     android:textColor="#FF000000" />

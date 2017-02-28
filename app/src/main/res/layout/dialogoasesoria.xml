@@ -3,141 +3,141 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:orientation="vertical" 
-    android:background="#FFF" >
-    
-    <LinearLayout 
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal"
-       android:layout_marginLeft="5dp"
-       android:layout_marginRight="5dp"
-       android:background="@drawable/bg_alert">
-       	        
-       <TextView 
-           android:id="@+id/lblFecha"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center_vertical"
-           android:text="@string/confirmacion"
-           android:textColor="@color/purple"
-           android:textStyle="bold"
-           android:paddingLeft="40dp"/>
-       
-   </LinearLayout>
-		        
-    <ScrollView  
+    android:orientation="vertical"
+    android:background="#FFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/bg_alert">
+
+        <TextView
+            android:id="@+id/lblFecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/confirmacion"
+            android:textColor="@color/purple"
+            android:textStyle="bold"
+            android:paddingLeft="40dp" />
+
+    </LinearLayout>
+
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_margin="7dp">
-        
-        <LinearLayout 
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            
-            <LinearLayout 
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:orientation="horizontal"
-		        android:layout_marginTop="10dp">
-		        
-		        <ImageView 
-		            android:contentDescription="@string/documento_desc"
-		           	android:layout_width="wrap_content"
-		           	android:layout_height="wrap_content"
-		           	android:src="@drawable/documento" />
-		        
-		        <Spinner 
-		            android:id="@+id/sltCiudad"
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-		            android:background="@drawable/spin"
-		            android:paddingLeft="20dp"
-		            android:paddingRight="45dp" 
-		            android:layout_marginLeft="5dp"/>
-		        
-		    </LinearLayout>
-		    
-		    <LinearLayout 
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:orientation="horizontal"
-		        android:layout_marginTop="10dp">
-		        
-		        <ImageView 
-		            android:contentDescription="@string/documento_desc"
-		           	android:layout_width="wrap_content"
-		           	android:layout_height="wrap_content"
-		           	android:src="@drawable/documento" />
-		        
-		        <EditText 
-		            android:id="@+id/txtDocumento"
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-		            android:inputType="number"
-		            android:maxLength="12"
-		            android:hint="@string/documento"
-		            android:background="@drawable/edittextbg"
-		            android:paddingLeft="20dp"
-		            android:paddingRight="20dp"
-		            android:layout_marginLeft="5dp" />
-		        
-		    </LinearLayout>
-		    
-		    <LinearLayout 
-		        android:layout_width="match_parent" 
-		        android:layout_height="wrap_content"
-		        android:orientation="horizontal"
-		        android:layout_marginTop="10dp">
-		        
-		        <ImageView 
-		           	android:layout_width="wrap_content"
-		           	android:contentDescription="@string/desc_telefono"
-		           	android:layout_height="wrap_content"
-		           	android:src="@drawable/telefono" />
-		        
-		        <EditText 
-		            android:id="@+id/txtTelefono"
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-		            android:inputType="number"
-		            android:maxLength="7"
-		            android:hint="@string/telefono"
-		            android:background="@drawable/edittextbg"
-		            android:paddingLeft="20dp"
-		            android:paddingRight="20dp"
-		            android:layout_marginLeft="5dp" />
-		        
-		    </LinearLayout>
-		    
-		    <LinearLayout 
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:orientation="horizontal"
-		        android:layout_marginTop="10dp">
-		        
-		        <ImageView 
-		           	android:layout_width="wrap_content"
-		           	android:contentDescription="@string/desc_dir"
-		           	android:layout_height="wrap_content"
-		           	android:src="@drawable/direccion" />
-		        
-		        <EditText 
-		            android:id="@+id/txtDireccion"
-		            android:layout_width="fill_parent"
-		            android:layout_height="wrap_content"
-		            android:inputType="textNoSuggestions"
-		            android:hint="@string/direccion"
-		            android:background="@drawable/edittextbg"
-		            android:paddingLeft="20dp"
-		            android:paddingRight="20dp"
-		            android:layout_marginLeft="5dp" />
-		        
-		    </LinearLayout>
-            
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:contentDescription="@string/documento_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/documento" />
+
+                <Spinner
+                    android:id="@+id/sltCiudad"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/spin"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="45dp"
+                    android:layout_marginLeft="5dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:contentDescription="@string/documento_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/documento" />
+
+                <EditText
+                    android:id="@+id/txtDocumento"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:hint="@string/documento"
+                    android:background="@drawable/edittextbg"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_marginLeft="5dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:contentDescription="@string/desc_telefono"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/telefono" />
+
+                <EditText
+                    android:id="@+id/txtTelefono"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="7"
+                    android:hint="@string/telefono"
+                    android:background="@drawable/edittextbg"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_marginLeft="5dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:contentDescription="@string/desc_dir"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/direccion" />
+
+                <EditText
+                    android:id="@+id/txtDireccion"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textNoSuggestions"
+                    android:hint="@string/direccion"
+                    android:background="@drawable/edittextbg"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_marginLeft="5dp" />
+
+            </LinearLayout>
+
         </LinearLayout>
-        
+
     </ScrollView>
-    
+
 </LinearLayout>

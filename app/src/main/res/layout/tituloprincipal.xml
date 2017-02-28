@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="#DEE0DF"
     android:gravity="right"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/txtTitulo"

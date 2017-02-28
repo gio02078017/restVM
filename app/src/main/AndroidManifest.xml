@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res/co.com.une.appmovilesune"
-    package="co.com.une.appmovilesune" >
+    package="co.com.une.appmovilesune">
 
     <uses-sdk android:minSdkVersion="7" />
 
@@ -26,11 +26,11 @@
         android:allowBackup="true"
         android:icon="@drawable/logoune"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name="co.com.une.appmovilesune.MainActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,7 +40,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlVenta"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlVenta" />
 
@@ -50,7 +50,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlActualizacion"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlActualizacion" />
 
@@ -60,7 +60,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlResumen"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlResumen" />
 
@@ -70,7 +70,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlCompetencia"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlCompetencia" />
 
@@ -80,7 +80,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlCliente"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlCliente" />
 
@@ -90,7 +90,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlPeticion"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlPeticion" />
 
@@ -100,7 +100,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlBlindaje"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlBlindaje" />
 
@@ -110,7 +110,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlDetalleBlindaje"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlDetalleBlindaje" />
 
@@ -120,7 +120,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlTarificador"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlTarificador" />
 
@@ -130,7 +130,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlCotizador"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlCotizador" />
 
@@ -140,7 +140,7 @@
         <activity
             android:name="co.com.une.appmovilesune.change.ControlSimulador"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.Simulador" />
 
@@ -150,7 +150,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlPedido"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlPedido" />
 
@@ -160,7 +160,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlValidador"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlValidador" />
 
@@ -170,7 +170,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlPrecision"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlPrecision" />
 
@@ -180,7 +180,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlTablet"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlTablet" />
 
@@ -190,7 +190,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlInicializacion"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlInicializacion" />
 
@@ -200,7 +200,7 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlProspecto"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlProspecto" />
 
@@ -210,7 +210,7 @@
         <activity
             android:name="co.com.une.appmovilesune.complements.Autenticacion"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.Autenticacion" />
 
@@ -221,7 +221,7 @@
             android:name="co.com.une.appmovilesune.complements.Direcciones"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@android:style/Theme.Dialog">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.Direcciones" />
 
@@ -232,7 +232,7 @@
             android:name="co.com.une.appmovilesune.complements.AgendaBogota"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@android:style/Theme.Dialog">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.AgendaBogota" />
 
@@ -243,7 +243,7 @@
             android:name="co.com.une.appmovilesune.complements.Resumen"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@android:style/Theme.Dialog">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.Resumen" />
 
@@ -254,7 +254,7 @@
             android:name="co.com.une.appmovilesune.complements.Listas"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@android:style/Theme.Dialog">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.Listas" />
 
@@ -265,7 +265,7 @@
             android:name="co.com.une.appmovilesune.complements.Mensajes"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@android:style/Theme.Dialog">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.Mensajes" />
 
@@ -275,65 +275,65 @@
         <activity
             android:name="co.com.une.appmovilesune.controller.ControlUneMas"
             android:configChanges="keyboardHidden|orientation"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="co.com.une.appmovilesune.ControlUneMas" />
 
-               	<category android:name="android.intent.category.DEFAULT" />
-           </intent-filter>
-       	</activity>
-       	
-       	<activity
-           android:name="co.com.une.appmovilesune.controller.ControlBusquedaAmigoCuentas"
-           android:configChanges="keyboardHidden|orientation"
-           android:label="@string/app_name" >
-           <intent-filter>
-               <action android:name="co.com.une.appmovilesune.ControlBusquedaAmigoCuentas" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
-               <category android:name="android.intent.category.DEFAULT" />
-           </intent-filter>
-       </activity>
-       <activity
-         android:name="co.com.une.appmovilesune.controller.ControlAmigoCuentas"
-         android:configChanges="keyboardHidden|orientation"
-         android:label="@string/app_name" >
-         <intent-filter>
-             <action android:name="co.com.une.appmovilesune.ControlAmigoCuentas" />
+        <activity
+            android:name="co.com.une.appmovilesune.controller.ControlBusquedaAmigoCuentas"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="co.com.une.appmovilesune.ControlBusquedaAmigoCuentas" />
 
-             <category android:name="android.intent.category.DEFAULT" />
-         </intent-filter>
-       </activity>
-       <activity
-         android:name="co.com.une.appmovilesune.controller.ControlAmigoCuentasDigital"
-         android:configChanges="keyboardHidden|orientation"
-         android:label="@string/app_name" >
-         <intent-filter>
-             <action android:name="co.com.une.appmovilesune.ControlAmigoCuentasDigital" />
-             
-             <category android:name="android.intent.category.DEFAULT" />
-         </intent-filter>
-       </activity>
-       <activity
-         android:name="co.com.une.appmovilesune.controller.ControlCarrusel"
-         android:configChanges="keyboardHidden|orientation"
-         android:label="@string/app_name" >
-         <intent-filter>
-             <action android:name="co.com.une.appmovilesune.ControlCarrusel" />
-             
-             <category android:name="android.intent.category.DEFAULT" />
-         </intent-filter>
-       </activity>
-       <activity
-         android:name="co.com.une.appmovilesune.controller.ControlDetalleProducto"
-         android:configChanges="keyboardHidden|orientation"
-         android:label="@string/app_name"
-         android:theme="@android:style/Theme.Dialog" >
-         <intent-filter>
-             <action android:name="co.com.une.appmovilesune.ControlDetalleProducto" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="co.com.une.appmovilesune.controller.ControlAmigoCuentas"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="co.com.une.appmovilesune.ControlAmigoCuentas" />
 
-             <category android:name="android.intent.category.DEFAULT" />
-         </intent-filter>
-       </activity>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="co.com.une.appmovilesune.controller.ControlAmigoCuentasDigital"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="co.com.une.appmovilesune.ControlAmigoCuentasDigital" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="co.com.une.appmovilesune.controller.ControlCarrusel"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="co.com.une.appmovilesune.ControlCarrusel" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="co.com.une.appmovilesune.controller.ControlDetalleProducto"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Dialog">
+            <intent-filter>
+                <action android:name="co.com.une.appmovilesune.ControlDetalleProducto" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service android:name="co.com.une.appmovilesune.PlayerGPS" />
     </application>

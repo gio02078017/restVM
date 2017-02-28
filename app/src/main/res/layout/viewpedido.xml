@@ -3,17 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/texture"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TabHost
         android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <co.com.une.appmovilesune.components.TituloPrincipal
                 android:id="@+id/tlpPrincipal"
@@ -30,7 +30,7 @@
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <!-- **************************************************************************************************************************** -->
                 <!-- ***********************************************ESTADO PEDIDO***************************************************** -->
@@ -42,18 +42,18 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:paddingBottom="10dp"
-                    android:visibility="visible" >
+                    android:visibility="visible">
 
                     <ScrollView
                         android:id="@+id/scrollView3"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" >
+                        android:layout_height="wrap_content">
 
                         <LinearLayout
                             android:id="@+id/ped"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical" >
+                            android:orientation="vertical">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginRight="10dp"
                                 android:layout_marginTop="10dp"
-                                android:orientation="horizontal" >
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -101,26 +101,26 @@
                     android:id="@+id/llyVenta"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ScrollView
                         android:id="@+id/scrollView1"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" >
+                        android:layout_height="wrap_content">
 
                         <TableLayout
                             android:id="@+id/tlytTablaVentas"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:shrinkColumns="*"
-                            android:stretchColumns="*" >
+                            android:stretchColumns="*">
 
                             <TableRow
                                 android:id="@+id/tlytTablaVentasTipo"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -145,7 +145,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -171,7 +171,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -197,7 +197,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -222,7 +222,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -250,7 +250,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -278,7 +278,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -306,7 +306,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -339,26 +339,26 @@
                     android:id="@+id/llyGerencia"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ScrollView
                         android:id="@+id/scrollView1"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" >
+                        android:layout_height="wrap_content">
 
                         <TableLayout
                             android:id="@+id/tlytTablaGerencia"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:shrinkColumns="*"
-                            android:stretchColumns="*" >
+                            android:stretchColumns="*">
 
                             <TableRow
                                 android:id="@+id/tlytTablaGerenciaTipo"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -383,7 +383,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -409,7 +409,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -435,7 +435,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -460,7 +460,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -488,7 +488,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -516,7 +516,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -544,7 +544,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -578,26 +578,26 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:orientation="vertical"
-                    android:visibility="gone" >
+                    android:visibility="gone">
 
                     <ScrollView
                         android:id="@+id/scrollView1"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" >
+                        android:layout_height="wrap_content">
 
                         <TableLayout
                             android:id="@+id/tlytTablaVentasBlindaje"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:shrinkColumns="*"
-                            android:stretchColumns="*" >
+                            android:stretchColumns="*">
 
                             <TableRow
                                 android:id="@+id/tlytTablaVentasBlindajeCabecera"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -622,7 +622,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -650,7 +650,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -675,30 +675,30 @@
                         </TableLayout>
                     </ScrollView>
                 </LinearLayout>
-                
+
                 <!-- **************************************************VENTAS POR DIA *********************************************************** -->
                 <!-- **************************************************************************************************************************** -->
-                
+
                 <LinearLayout
                     android:id="@+id/llyConsultaVentas"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:background="@color/white"
-                    android:orientation="vertical" >
-                    
+                    android:orientation="vertical">
+
                     <co.com.une.appmovilesune.components.SelectorFecha
-                         android:id="@+id/slfFecha"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:layout_margin="10dp "
-                         android:layout_span="8" />
-                    
-                     <ListView 
-                         android:id="@+id/lstListaVentas"
-                         android:background="@color/white"
-                         android:layout_width="match_parent"
-                         android:layout_height="match_parent" />
-                    
+                        android:id="@+id/slfFecha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp "
+                        android:layout_span="8" />
+
+                    <ListView
+                        android:id="@+id/lstListaVentas"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

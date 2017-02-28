@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -10,13 +10,13 @@
         android:orientation="horizontal"
         android:padding="7dp"
         android:shrinkColumns="*"
-        android:stretchColumns="*" >
+        android:stretchColumns="*">
 
         <TableRow
             android:id="@+id/tableRow1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp" >
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/lblTelefonia"
@@ -32,7 +32,7 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:padding="5dp"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/mensajeTelefonia"
@@ -48,7 +48,7 @@
             android:id="@+id/tableRow2"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:padding="5dp" >
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/planTelefonia"
@@ -67,12 +67,12 @@
                 android:textColor="@color/purple"
                 android:textStyle="bold" />
         </TableRow>
-        
+
         <TableRow
             android:id="@+id/TableRow16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp" >
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/lblAdicionalesTO"
@@ -87,7 +87,7 @@
             android:id="@+id/TableRow17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp" >
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/strAdicionalesTO"
@@ -102,7 +102,7 @@
             android:id="@+id/tableRow3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp" >
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/lblTelevision"
@@ -117,7 +117,7 @@
             android:id="@+id/TableRow4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp" >
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/planTelevision"
@@ -141,7 +141,7 @@
             android:id="@+id/TableRow5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp" >
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/lblAdicionales"
@@ -156,7 +156,7 @@
             android:id="@+id/TableRow6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp" >
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/strAdicionales"
@@ -171,7 +171,7 @@
             android:id="@+id/TableRow7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp" >
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/lblInternet"
@@ -186,7 +186,7 @@
             android:id="@+id/TableRow8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp" >
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/planInternet"
@@ -210,7 +210,7 @@
             android:id="@+id/TableRow13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp" >
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/lblTotal"
@@ -226,7 +226,7 @@
             android:id="@+id/TableRow14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp" >
+            android:padding="5dp">
 
             <TextView
                 android:id="@+id/totalVenta"
@@ -242,7 +242,7 @@
             android:id="@+id/TableRow15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp" >
+            android:padding="5dp">
 
             <Button
                 android:id="@+id/btnAceptarVenta"

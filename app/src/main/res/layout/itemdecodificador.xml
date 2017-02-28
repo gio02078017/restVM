@@ -5,85 +5,85 @@
     android:layout_gravity="center_vertical"
     android:orientation="vertical"
     android:padding="5dp">
-    
-    <RelativeLayout 
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        
-        <RelativeLayout 
+
+        <RelativeLayout
             android:id="@+id/rlyBorrarElimiarDecos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-		    android:layout_alignParentLeft="true"
-		    android:minWidth="50dp">
-            
-	        <CheckBox 
-		        android:id="@+id/chkEliminarDeco"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:button="@drawable/style_checkboxes"
-		        android:layout_centerVertical="true"
-		        android:layout_alignParentLeft="true"
-		        android:visibility="gone"/>
-	        
-	        <TextView 
-	            android:id="@+id/txtBorrarDecodificador"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_centerVertical="true"
-	            android:layout_margin="5dp"
-	            android:text="@string/cerrar"
-	            android:textStyle="bold"
-	            android:textColor="@color/red"
-	            android:minWidth="50dp"
-	            android:textSize="30sp"
-	            android:visibility="gone" />
-              
-       	</RelativeLayout>  
-	    
-	    <TextView 
-	        android:id="@+id/lblNombreDeco"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_toRightOf="@id/rlyBorrarElimiarDecos"
-	        android:layout_toEndOf="@id/rlyBorrarElimiarDecos"
-	        android:layout_centerVertical="true"
-	        android:layout_marginRight="5dp"
-	        android:minWidth="30dp"
-	        android:text="@string/dvr"/>
-	    
-	    <TextView 
-	        android:id="@+id/lblValorDeco"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:layout_centerVertical="true"
-	        android:minWidth="40dp"
-	        android:gravity="right"
-	        android:text="@string/precio"/>
-	    
-	    <CheckBox 
-	        android:id="@+id/chkFideliza"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_toLeftOf="@id/lblValorDeco"
-	        android:layout_toStartOf="@id/lblValorDeco"
-	        android:layout_centerVertical="true"
-	        android:button="@drawable/style_checkboxes"/>
-	    
-	    <Spinner 
-	        android:id="@+id/spnTipoDeco" 
-	        android:layout_width="20dp"
-	        android:layout_height="wrap_content"
-	        android:layout_toRightOf="@id/lblNombreDeco"
-	        android:layout_toEndOf="@id/lblNombreDeco"
-	        android:layout_toLeftOf="@id/chkFideliza"
-	        android:layout_toStartOf="@id/chkFideliza"
-	        android:layout_marginRight="5dp"
-	        android:layout_centerVertical="true"
-	        android:background="@drawable/spin" />
-        
+            android:layout_alignParentLeft="true"
+            android:minWidth="50dp">
+
+            <CheckBox
+                android:id="@+id/chkEliminarDeco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/style_checkboxes"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/txtBorrarDecodificador"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="5dp"
+                android:text="@string/cerrar"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:minWidth="50dp"
+                android:textSize="30sp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/lblNombreDeco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/rlyBorrarElimiarDecos"
+            android:layout_toEndOf="@id/rlyBorrarElimiarDecos"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:minWidth="30dp"
+            android:text="@string/dvr" />
+
+        <TextView
+            android:id="@+id/lblValorDeco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:minWidth="40dp"
+            android:gravity="right"
+            android:text="@string/precio" />
+
+        <CheckBox
+            android:id="@+id/chkFideliza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/lblValorDeco"
+            android:layout_toStartOf="@id/lblValorDeco"
+            android:layout_centerVertical="true"
+            android:button="@drawable/style_checkboxes" />
+
+        <Spinner
+            android:id="@+id/spnTipoDeco"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/lblNombreDeco"
+            android:layout_toEndOf="@id/lblNombreDeco"
+            android:layout_toLeftOf="@id/chkFideliza"
+            android:layout_toStartOf="@id/chkFideliza"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/spin" />
+
     </RelativeLayout>
-    
+
 </LinearLayout>

@@ -1,38 +1,38 @@
 package co.com.une.appmovilesune.adapters;
 
 public class ItemKeyValue {
-	private String Key, Values;
+    private String Key, Values;
 
-	protected long id;
+    protected long id;
 
-	public long getId() {
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public ItemKeyValue(String key, String values) {
-		super();
-		Key = key;
-		Values = values;
-	}
+    public ItemKeyValue(String key, String values) {
+        super();
+        Key = key;
+        Values = values;
+    }
 
-	public String getKey() {
-		return Key;
-	}
+    public String getKey() {
+        return Key;
+    }
 
-	public void setKey(String key) {
-		Key = key;
-	}
+    public void setKey(String key) {
+        Key = key;
+    }
 
-	public String getValues() {
-		return Values;
-	}
+    public String getValues() {
+        return Values;
+    }
 
-	public void setValues(String values) {
-		Values = values;
-	}
+    public void setValues(String values) {
+        Values = values;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
 }

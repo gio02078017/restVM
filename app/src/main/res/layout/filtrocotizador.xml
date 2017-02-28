@@ -16,14 +16,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/hogarnuevo"/>
+            android:text="@string/hogarnuevo" />
 
         <CheckBox
             android:id="@+id/chkAnaloga"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/analoga"/>
+            android:text="@string/analoga" />
 
     </LinearLayout>
 
@@ -37,27 +37,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/estrato"/>
+            android:text="@string/estrato" />
 
         <Spinner
             android:id="@+id/spnestrato"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:entries="@array/estratos"/>
+            android:entries="@array/estratos" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/tipooferta"/>
+            android:text="@string/tipooferta" />
 
         <Spinner
             android:id="@+id/spntipooferta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:entries="@array/tipoofertaarray"/>
+            android:entries="@array/tipoofertaarray" />
 
 
     </LinearLayout>
@@ -73,12 +73,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="@string/oferta"/>
+            android:text="@string/oferta" />
 
         <Spinner
             android:id="@+id/spnoferta"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

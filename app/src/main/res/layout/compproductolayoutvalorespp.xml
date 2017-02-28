@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pagoparcial"
-            style="@style/textcompproductobackgroundorange"/>
+            style="@style/textcompproductobackgroundorange" />
 
         <TextView
             android:id="@+id/txtvalorpagoparcial"
@@ -20,7 +20,7 @@
             android:layout_alignParentRight="true"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="$ 0.oo"/>
+            android:text="$ 0.oo" />
 
     </RelativeLayout>
 

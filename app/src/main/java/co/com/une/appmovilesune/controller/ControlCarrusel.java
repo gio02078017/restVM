@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TableRow;
 import android.widget.TextView;
+
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.adapters.ItemCarrusel;
@@ -37,99 +38,99 @@ import co.com.une.appmovilesune.model.Cliente;
 
 public class ControlCarrusel extends Activity implements Observer {
 
-	private TituloPrincipal tp;
-	private ListView listacarrusel;
-	private ImageButton consulta;
-	private ProgressDialog dialogo;
-	private Carrusel carrusel;
-	private Cliente cliente;
-	private EditText txtDocumento;
-	private EditText txtDireccion;
-	private TextView mensajecarrusel;
-	private TableRow rowMensaje;
-	private String crm;
-	
+    private TituloPrincipal tp;
+    private ListView listacarrusel;
+    private ImageButton consulta;
+    private ProgressDialog dialogo;
+    private Carrusel carrusel;
+    private Cliente cliente;
+    private EditText txtDocumento;
+    private EditText txtDireccion;
+    private TextView mensajecarrusel;
+    private TableRow rowMensaje;
+    private String crm;
 
-	public static JSONObject mensajes;
 
-	ArrayList<ItemCarrusel> arraycarrusel = new ArrayList<ItemCarrusel>();
+    public static JSONObject mensajes;
 
-	protected static final int REQUEST_CODE = 10;
-	private static final int OK_RESULT_CODE = 1;
+    ArrayList<ItemCarrusel> arraycarrusel = new ArrayList<ItemCarrusel>();
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    protected static final int REQUEST_CODE = 10;
+    private static final int OK_RESULT_CODE = 1;
 
-		setContentView(R.layout.viewcarrusel);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		tp = (TituloPrincipal) findViewById(R.id.tlpPrincipal);
-		listacarrusel = (ListView) findViewById(R.id.listacarrusel);
-		consulta = (ImageButton) findViewById(R.id.consulta);
-		txtDocumento = (EditText) findViewById(R.id.txtDocumento);
-		txtDireccion = (EditText) findViewById(R.id.txtDireccion);
-		mensajecarrusel = (TextView) findViewById(R.id.mensajeCarrusel);
-		rowMensaje = (TableRow) findViewById(R.id.rowMensaje);
+        setContentView(R.layout.viewcarrusel);
 
-		Bundle reicieveParams = getIntent().getExtras();
+        tp = (TituloPrincipal) findViewById(R.id.tlpPrincipal);
+        listacarrusel = (ListView) findViewById(R.id.listacarrusel);
+        consulta = (ImageButton) findViewById(R.id.consulta);
+        txtDocumento = (EditText) findViewById(R.id.txtDocumento);
+        txtDireccion = (EditText) findViewById(R.id.txtDireccion);
+        mensajecarrusel = (TextView) findViewById(R.id.mensajeCarrusel);
+        rowMensaje = (TableRow) findViewById(R.id.rowMensaje);
 
-		if (reicieveParams != null) {
-			cliente = (Cliente) reicieveParams.getSerializable("cliente");
-		}
+        Bundle reicieveParams = getIntent().getExtras();
 
-	}
+        if (reicieveParams != null) {
+            cliente = (Cliente) reicieveParams.getSerializable("cliente");
+        }
 
-	@Override
-	protected void onResume() {
-		super.onResume();
+    }
 
-		tp.setTitulo(getResources().getString(R.string.carrusel));
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-		txtDocumento.setText(cliente.getCedula());
-		txtDireccion.setText(cliente.getDireccion());
-		mensajecarrusel.setText("");
-		rowMensaje.setVisibility(View.GONE);
+        tp.setTitulo(getResources().getString(R.string.carrusel));
 
-		consulta.setOnClickListener(consultapresionado);
+        txtDocumento.setText(cliente.getCedula());
+        txtDireccion.setText(cliente.getDireccion());
+        mensajecarrusel.setText("");
+        rowMensaje.setVisibility(View.GONE);
 
-	}
+        consulta.setOnClickListener(consultapresionado);
 
-	OnClickListener consultapresionado = new OnClickListener() {
+    }
 
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-			// mostrarCarrusel();
-			consultarCarrusel();
-		}
-	};
+    OnClickListener consultapresionado = new OnClickListener() {
 
-	private void consultarCarrusel() {
+        @Override
+        public void onClick(View v) {
+            // TODO Auto-generated method stub
+            // mostrarCarrusel();
+            consultarCarrusel();
+        }
+    };
 
-		carrusel = new Carrusel(this);
-		carrusel.addObserver(this);
-		mensajecarrusel.setText("");
-		rowMensaje.setVisibility(View.GONE);
+    private void consultarCarrusel() {
 
-		ArrayList<Object> parametros = new ArrayList<Object>();
-		JSONObject dataCarrusel = new JSONObject();
-		try {
+        carrusel = new Carrusel(this);
+        carrusel.addObserver(this);
+        mensajecarrusel.setText("");
+        rowMensaje.setVisibility(View.GONE);
 
-			String ciudad;
-			String departamento;
-			String codigoDireccion = "";
-			boolean controlDatos = true;
-			mensajes = new JSONObject();
+        ArrayList<Object> parametros = new ArrayList<Object>();
+        JSONObject dataCarrusel = new JSONObject();
+        try {
 
-			crm = Utilidades.camposUnicosCiudad("CRMCarrusel", cliente.getCiudad());
+            String ciudad;
+            String departamento;
+            String codigoDireccion = "";
+            boolean controlDatos = true;
+            mensajes = new JSONObject();
 
-			JSONArray ja = new JSONArray();
+            crm = Utilidades.camposUnicosCiudad("CRMCarrusel", cliente.getCiudad());
 
-			if (cliente.getDireccion().equalsIgnoreCase("")) {
-				controlDatos = false;
-				ja.put(Utilidades.jsonMensajes(this.getResources().getString(R.string.direccion), "Sin Diligenciar"));
+            JSONArray ja = new JSONArray();
 
-			}
+            if (cliente.getDireccion().equalsIgnoreCase("")) {
+                controlDatos = false;
+                ja.put(Utilidades.jsonMensajes(this.getResources().getString(R.string.direccion), "Sin Diligenciar"));
+
+            }
 
 			/*if (cliente.getCedula().equalsIgnoreCase("")) {
 				controlDatos = false;
@@ -137,33 +138,33 @@ public class ControlCarrusel extends Activity implements Observer {
 
 			}*/
 
-			if (crm.equalsIgnoreCase("FENIX_ATC")) {
-				if (!cliente.isControlNormalizada()) {
-					controlDatos = false;
-					ja.put(Utilidades.jsonMensajes("Direccion",
-							this.getResources().getString(R.string.normailizardireccion)));
-				} else {
-					codigoDireccion = cliente.getPaginacion();
-				}
-			} else if (crm.equalsIgnoreCase("ELITE")) {
-				codigoDireccion = "0";
-			} else {
-				codigoDireccion = cliente.getPaginacion();
-			}
+            if (crm.equalsIgnoreCase("FENIX_ATC")) {
+                if (!cliente.isControlNormalizada()) {
+                    controlDatos = false;
+                    ja.put(Utilidades.jsonMensajes("Direccion",
+                            this.getResources().getString(R.string.normailizardireccion)));
+                } else {
+                    codigoDireccion = cliente.getPaginacion();
+                }
+            } else if (crm.equalsIgnoreCase("ELITE")) {
+                codigoDireccion = "0";
+            } else {
+                codigoDireccion = cliente.getPaginacion();
+            }
 
-			if (controlDatos) {
-				if (cliente.getCiudad().equalsIgnoreCase("BogotaREDCO")) {
-					ciudad = "BOGOTA";
-					departamento = "Cundinamarca";
-				} else if (cliente.getCiudad().equalsIgnoreCase("Buga")) {
-					ciudad = "";
-					departamento = "";
-				} else {
-					ciudad = cliente.getCiudad();
-					departamento = cliente.getDepartamento();
-				}
+            if (controlDatos) {
+                if (cliente.getCiudad().equalsIgnoreCase("BogotaREDCO")) {
+                    ciudad = "BOGOTA";
+                    departamento = "Cundinamarca";
+                } else if (cliente.getCiudad().equalsIgnoreCase("Buga")) {
+                    ciudad = "";
+                    departamento = "";
+                } else {
+                    ciudad = cliente.getCiudad();
+                    departamento = cliente.getDepartamento();
+                }
 
-				crm = Utilidades.camposUnicosCiudad("CRMCarrusel", cliente.getCiudad());
+                crm = Utilidades.camposUnicosCiudad("CRMCarrusel", cliente.getCiudad());
 
 				dataCarrusel.put("crm", crm);
 				dataCarrusel.put("apporigen", "VM");
@@ -194,128 +195,128 @@ public class ControlCarrusel extends Activity implements Observer {
 			Log.w("Error", e.getMessage());
 		}
 
-	}
+    }
 
-	public void mensajeValidaciones(String mensajes) {
-		Intent intent = new Intent(MainActivity.MODULO_MENSAJES);
-		intent.putExtra("mensajes", mensajes);
-		startActivityForResult(intent, MainActivity.REQUEST_CODE);
-	}
+    public void mensajeValidaciones(String mensajes) {
+        Intent intent = new Intent(MainActivity.MODULO_MENSAJES);
+        intent.putExtra("mensajes", mensajes);
+        startActivityForResult(intent, MainActivity.REQUEST_CODE);
+    }
 
-	private void mostrarCarrusel() {
-		// ArrayList<ItemCarrusel> carrusel = new ArrayList<ItemCarrusel>();
-		arraycarrusel.clear();
-		arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
-		arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
-		arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
-		arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
-		arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
-		arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
-		arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
-		arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
-		arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
-		arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
-		arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
+    private void mostrarCarrusel() {
+        // ArrayList<ItemCarrusel> carrusel = new ArrayList<ItemCarrusel>();
+        arraycarrusel.clear();
+        arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
+        arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
+        arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
+        arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
+        arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
+        arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
+        arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
+        arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
+        arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
+        arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
+        arraycarrusel.add(new ItemCarrusel("2016-05-02", "TO", "CARRUSEL", "PQ-12341xxxx"));
 
-		ListaCarruselAdapter adapter = new ListaCarruselAdapter(this, arraycarrusel, this);
+        ListaCarruselAdapter adapter = new ListaCarruselAdapter(this, arraycarrusel, this);
 
-		listacarrusel.setAdapter(adapter);
-		ControlSimulador.setListViewHeightBasedOnChildren(listacarrusel);
-	}
+        listacarrusel.setAdapter(adapter);
+        ControlSimulador.setListViewHeightBasedOnChildren(listacarrusel);
+    }
 
-	@Override
-	public void update(Object value) {
-		// TODO Auto-generated method stub
-		System.out.println(value);
-		arraycarrusel.clear();
-		try {
-			JSONObject jop = new JSONObject(value.toString());
-			cliente.setControlCarrusel(true);
-			if (jop.has("data")) {
-				String data = jop.get("data").toString();
-				if (MainActivity.config.validarIntegridad(data, jop.get("crc").toString())) {
-					data = new String(Base64.decode(data));
-					System.out.println("data => " + data);
-					JSONObject respuesta = new JSONObject(data);
+    @Override
+    public void update(Object value) {
+        // TODO Auto-generated method stub
+        System.out.println(value);
+        arraycarrusel.clear();
+        try {
+            JSONObject jop = new JSONObject(value.toString());
+            cliente.setControlCarrusel(true);
+            if (jop.has("data")) {
+                String data = jop.get("data").toString();
+                if (MainActivity.config.validarIntegridad(data, jop.get("crc").toString())) {
+                    data = new String(Base64.decode(data));
+                    System.out.println("data => " + data);
+                    JSONObject respuesta = new JSONObject(data);
 
-					System.out.println("respuesta " + respuesta);
+                    System.out.println("respuesta " + respuesta);
 
-					if (respuesta.has("codigo")) {
+                    if (respuesta.has("codigo")) {
 
-						cliente.setCodigoCarrusel(respuesta.getString("codigo"));
+                        cliente.setCodigoCarrusel(respuesta.getString("codigo"));
 
-						if (respuesta.has("direccion") && respuesta.getJSONObject("direccion").has("natural")) {
-							cliente.setDireccionCarrusel(respuesta.getJSONObject("direccion").getString("natural"));
-						}
+                        if (respuesta.has("direccion") && respuesta.getJSONObject("direccion").has("natural")) {
+                            cliente.setDireccionCarrusel(respuesta.getJSONObject("direccion").getString("natural"));
+                        }
 
-						if (respuesta.has("id_cliente")) {
-							cliente.setDocumentoCarrusel(respuesta.getString("id_cliente"));
-						}
-						
-						cliente.setCrmCarrusel(crm);
+                        if (respuesta.has("id_cliente")) {
+                            cliente.setDocumentoCarrusel(respuesta.getString("id_cliente"));
+                        }
 
-						if (respuesta.getString("codigo").equalsIgnoreCase("00")) {
+                        cliente.setCrmCarrusel(crm);
 
-							if (respuesta.has("productos")) {
-								JSONArray productos = respuesta.getJSONArray("productos");
+                        if (respuesta.getString("codigo").equalsIgnoreCase("00")) {
 
-								System.out.println("productos " + productos);
+                            if (respuesta.has("productos")) {
+                                JSONArray productos = respuesta.getJSONArray("productos");
 
-								for (int i = 0; i < productos.length(); i++) {
+                                System.out.println("productos " + productos);
 
-									String producto = productos.getJSONObject(i).getString("producto");
+                                for (int i = 0; i < productos.length(); i++) {
 
-									if (producto.equalsIgnoreCase("ba") || producto.equalsIgnoreCase("inter")) {
-										producto = "BA";
-									} else if (producto.equalsIgnoreCase("tv") || producto.equalsIgnoreCase("telev")) {
-										producto = "TV";
-									}
+                                    String producto = productos.getJSONObject(i).getString("producto");
 
-									arraycarrusel.add(new ItemCarrusel(
-											productos.getJSONObject(i).getString("fecha_retiro"), producto,
-											productos.getJSONObject(i).getString("motivo"), "PQ-12341xxxx"));
+                                    if (producto.equalsIgnoreCase("ba") || producto.equalsIgnoreCase("inter")) {
+                                        producto = "BA";
+                                    } else if (producto.equalsIgnoreCase("tv") || producto.equalsIgnoreCase("telev")) {
+                                        producto = "TV";
+                                    }
 
-								}
+                                    arraycarrusel.add(new ItemCarrusel(
+                                            productos.getJSONObject(i).getString("fecha_retiro"), producto,
+                                            productos.getJSONObject(i).getString("motivo"), "PQ-12341xxxx"));
 
-								System.out.println("arraycarrusel " + arraycarrusel);
+                                }
 
-								ListaCarruselAdapter adapter = new ListaCarruselAdapter(this, arraycarrusel, this);
+                                System.out.println("arraycarrusel " + arraycarrusel);
 
-								listacarrusel.setAdapter(adapter);
-								ControlSimulador.setListViewHeightBasedOnChildren(listacarrusel);
+                                ListaCarruselAdapter adapter = new ListaCarruselAdapter(this, arraycarrusel, this);
 
-								cliente.setArraycarrusel(arraycarrusel);
-							}
-						} else {
-							rowMensaje.setVisibility(View.VISIBLE);
-							mensajecarrusel.setText(respuesta.getString("mensaje"));
-						}
-					}
-				}
+                                listacarrusel.setAdapter(adapter);
+                                ControlSimulador.setListViewHeightBasedOnChildren(listacarrusel);
 
-			}
-		} catch (JSONException e) {
-			Log.w("Error", e.getMessage());
-		}
-	}
+                                cliente.setArraycarrusel(arraycarrusel);
+                            }
+                        } else {
+                            rowMensaje.setVisibility(View.VISIBLE);
+                            mensajecarrusel.setText(respuesta.getString("mensaje"));
+                        }
+                    }
+                }
 
-	// metodo que permite regresar a la actividad anterior
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		System.out.println("keyCode " + keyCode);
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			Intent intent = new Intent();
-			intent.putExtra("cliente", cliente);
-			setResult(MainActivity.OK_RESULT_CODE, intent);
-			super.onBackPressed();
-			finish();
-		}
-		return super.onKeyDown(keyCode, event);
-	}
+            }
+        } catch (JSONException e) {
+            Log.w("Error", e.getMessage());
+        }
+    }
 
-	public void onBackPressed() {
-		Intent intent = new Intent();
-		intent.putExtra("cliente", cliente);
-		// intent.putExtra("Scooring", scooring);
-		setResult(MainActivity.OK_RESULT_CODE, intent);
-	}
+    // metodo que permite regresar a la actividad anterior
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        System.out.println("keyCode " + keyCode);
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent();
+            intent.putExtra("cliente", cliente);
+            setResult(MainActivity.OK_RESULT_CODE, intent);
+            super.onBackPressed();
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("cliente", cliente);
+        // intent.putExtra("Scooring", scooring);
+        setResult(MainActivity.OK_RESULT_CODE, intent);
+    }
 }

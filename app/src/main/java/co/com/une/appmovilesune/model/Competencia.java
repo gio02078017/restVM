@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.ContentValues;
+
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.adapters.ItemCompetencia;
 import co.com.une.appmovilesune.complements.Calendario;
@@ -37,7 +38,7 @@ public class Competencia implements Serializable {
 		idGerencia = "";
 	}
 
-	public Competencia(String Atencion, ArrayList<ItemCompetencia> Competencia, String NoUne, String Observaciones) {
+    public Competencia(String Atencion, ArrayList<ItemCompetencia> Competencia, String NoUne, String Observaciones) {
 
 		this.Atencion = Atencion;
 		this.Competencia = Competencia;
@@ -47,42 +48,42 @@ public class Competencia implements Serializable {
 		this.Hora = Calendario.getHora();
 		idGerencia = "";
 
-	}
+    }
 
-	public void guardarCompetencia(String id_asesoria) {
-		ContentValues cv = new ContentValues();
-		cv.put("id_asesoria", id_asesoria);
-		cv.put("Empaquetado", Empaquetado);
-		cv.put("NoUne", NoUne);
-		cv.put("Observaciones", Observaciones);
-		cv.put("Fecha", Fecha);
-		cv.put("Hora", Hora);
+    public void guardarCompetencia(String id_asesoria) {
+        ContentValues cv = new ContentValues();
+        cv.put("id_asesoria", id_asesoria);
+        cv.put("Empaquetado", Empaquetado);
+        cv.put("NoUne", NoUne);
+        cv.put("Observaciones", Observaciones);
+        cv.put("Fecha", Fecha);
+        cv.put("Hora", Hora);
 
-		if (MainActivity.basedatos.insertar("competencias", cv)) {
-			ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "competencias",
-					new String[] { "id" }, "id_asesoria=?", new String[] { id_asesoria }, null, null, null);
-			if (resultado != null) {
-				id = resultado.get(0).get(0);
-			} else {
-				id = null;
-			}
+        if (MainActivity.basedatos.insertar("competencias", cv)) {
+            ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "competencias",
+                    new String[]{"id"}, "id_asesoria=?", new String[]{id_asesoria}, null, null, null);
+            if (resultado != null) {
+                id = resultado.get(0).get(0);
+            } else {
+                id = null;
+            }
 
-		} else {
-			id = null;
-		}
-	}
+        } else {
+            id = null;
+        }
+    }
 
-	public JSONObject consolidarCompetencia(String estrato) {
-		JSONObject jo = new JSONObject();
-		try {
+    public JSONObject consolidarCompetencia(String estrato) {
+        JSONObject jo = new JSONObject();
+        try {
 
-			JSONArray ja = new JSONArray();
-			for (int i = 0; i < Competencia.size(); i++) {
-				ja.put(Competencia.get(i).consolidarItemCompetencia());
-			}
+            JSONArray ja = new JSONArray();
+            for (int i = 0; i < Competencia.size(); i++) {
+                ja.put(Competencia.get(i).consolidarItemCompetencia());
+            }
 
-			jo.put("items", ja);
-			jo.put("Empaquetado", Empaquetado);
+            jo.put("items", ja);
+            jo.put("Empaquetado", Empaquetado);
 
 			jo.put("motivo", NoUne);
 			jo.put("submotivo", SubMotivo);
@@ -104,57 +105,57 @@ public class Competencia implements Serializable {
 		return jo;
 	}
 
-	public String getEmpaquetado() {
-		return Empaquetado;
-	}
+    public String getEmpaquetado() {
+        return Empaquetado;
+    }
 
-	public void setEmpaquetado(String empaquetado) {
-		Empaquetado = empaquetado;
-	}
+    public void setEmpaquetado(String empaquetado) {
+        Empaquetado = empaquetado;
+    }
 
-	public String getNoUne() {
-		return NoUne;
-	}
+    public String getNoUne() {
+        return NoUne;
+    }
 
-	public void setNoUne(String noUne) {
-		NoUne = noUne;
-	}
+    public void setNoUne(String noUne) {
+        NoUne = noUne;
+    }
 
-	public String getObservaciones() {
-		return Observaciones;
-	}
+    public String getObservaciones() {
+        return Observaciones;
+    }
 
-	public void setObservaciones(String observaciones) {
-		Observaciones = observaciones;
-	}
+    public void setObservaciones(String observaciones) {
+        Observaciones = observaciones;
+    }
 
-	public String getFecha() {
-		return Fecha;
-	}
+    public String getFecha() {
+        return Fecha;
+    }
 
-	public void setFecha(String fecha) {
-		Fecha = fecha;
-	}
+    public void setFecha(String fecha) {
+        Fecha = fecha;
+    }
 
-	public String getHora() {
-		return Hora;
-	}
+    public String getHora() {
+        return Hora;
+    }
 
-	public void setHora(String hora) {
-		Hora = hora;
-	}
+    public void setHora(String hora) {
+        Hora = hora;
+    }
 
-	public String getAtencion() {
-		return Atencion;
-	}
+    public String getAtencion() {
+        return Atencion;
+    }
 
-	public void setAtencion(String atencion) {
-		Atencion = atencion;
-	}
+    public void setAtencion(String atencion) {
+        Atencion = atencion;
+    }
 
-	public String getSubMotivo() {
-		return SubMotivo;
-	}
+    public String getSubMotivo() {
+        return SubMotivo;
+    }
 
 	public void setSubMotivo(String subMotivo) {
 		SubMotivo = subMotivo;

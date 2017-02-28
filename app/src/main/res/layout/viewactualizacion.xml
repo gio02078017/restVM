@@ -5,173 +5,173 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white">
-    
-    <ScrollView 
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="7dp">
-    
-	    <LinearLayout 
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:orientation="vertical">
-	    	
-	        <LinearLayout 
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:background="@drawable/bg_lists"
-	             android:orientation="vertical">
-	            
-	            <TextView 
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="@string/seleccionar_todos"
-	                android:paddingTop="7dp"
-	                android:textSize="14sp"
-	                android:paddingLeft="20dp"
-	                android:gravity="center_vertical"
-	                android:textStyle="bold"
-	                android:layout_marginTop="7dp"
-	                android:layout_weight="0"/>
-	            
-	            <CheckBox
-				    android:id="@+id/chkTodo"
-				    android:button="@drawable/style_checkboxes"
-				    android:layout_marginTop="-25dp"
-	       			android:layout_marginRight="15dp"
-				    android:layout_width="wrap_content"
-	     			android:layout_height="wrap_content"
-				    android:layout_gravity="right"
-				    android:gravity="right"
-				    android:layout_alignParentRight="true"/>
-			            
-	        </LinearLayout>
-		    
-		    
-		    <co.com.une.appmovilesune.components.ItemConfiguracion
-		        android:id="@+id/icgListasGenerales"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        app:text="Listas Generales"
-		        android:background="@drawable/bg_info" />
-		    
-		    <co.com.une.appmovilesune.components.ItemConfiguracion
-		        android:id="@+id/icgListasEstratos"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        app:text="Listas Estratos"
-		        android:background="@drawable/bg_info" />
-		        
-		    <co.com.une.appmovilesune.components.ItemConfiguracion
-		        android:id="@+id/icgListasValores"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        app:text="Listas Valores"
-		        android:background="@drawable/bg_info" />
-		    
-		    <co.com.une.appmovilesune.components.ItemConfiguracion
-		        android:id="@+id/icgCiudades"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        app:text="Ciudades"
-		        android:background="@drawable/bg_lists" />
-		    
-		    <co.com.une.appmovilesune.components.ItemConfiguracion
-		        android:id="@+id/icgBarrios"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        app:text="Barrios"
-		        android:background="@drawable/bg_info" />
-		    
-		    <co.com.une.appmovilesune.components.ItemConfiguracion
-		        android:id="@+id/icgProductos"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        app:text="Productos"
-		        android:background="@drawable/bg_lists" />
-		    
-		    <co.com.une.appmovilesune.components.ItemConfiguracion
-		        android:id="@+id/icgPrecios"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        app:text="Precios"
-		        android:background="@drawable/bg_info" />
-		    
-<!-- 		    <co.com.une.appmovilesune.components.ItemConfiguracion -->
-<!-- 		        android:id="@+id/icgPromociones" -->
-<!-- 		        android:layout_width="match_parent" -->
-<!-- 		        android:layout_height="wrap_content" -->
-<!-- 		        app:text="Promociones" -->
-<!-- 		        android:background="@drawable/bg_lists" /> -->
-		    
-		    <co.com.une.appmovilesune.components.ItemConfiguracion 
-		        android:id="@+id/icgAdicionales"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        app:text="Adicionales"
-		        android:background="@drawable/bg_lists" />
-		    
-		    <co.com.une.appmovilesune.components.ItemConfiguracion
-		        android:id="@+id/icgImpuestos"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        app:text="Impuestos"
-		        android:background="@drawable/bg_info" />
-		    
-		    <co.com.une.appmovilesune.components.ItemConfiguracion
-				android:id="@+id/icgExtensionesHFC"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				app:text="Extensiones HFC"
-				android:background="@drawable/bg_lists" />
-		    
-		    
-		    <co.com.une.appmovilesune.components.ItemConfiguracion
-		        android:id="@+id/icgReglas"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        app:text="Reglas"
-		        android:background="@drawable/bg_lists" />
-		    
-		    <co.com.une.appmovilesune.components.ItemConfiguracion
-		        android:id="@+id/icgCondiciones"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        app:text="Condiciones"
-		        android:background="@drawable/bg_lists" />
-		    
-		    <co.com.une.appmovilesune.components.ItemConfiguracion
-		        android:id="@+id/icgDecos"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        app:text="Decos"
-		        android:background="@drawable/bg_lists" />
-		    
-<!-- 		    <co.com.une.appmovilesune.components.ItemConfiguracion -->
-<!-- 		        android:id="@+id/icgPromocionesMovilidad" -->
-<!-- 		        android:layout_width="match_parent" -->
-<!-- 		        android:layout_height="wrap_content" -->
-<!-- 		        app:text="Promociones Movilidad" -->
-<!-- 		        android:background="@drawable/bg_lists" /> -->
-		    
-<!-- 		    <co.com.une.appmovilesune.components.ItemConfiguracion -->
-<!-- 		        android:id="@+id/icgGpon" -->
-<!-- 		        android:layout_width="match_parent" -->
-<!-- 		        android:layout_height="wrap_content" -->
-<!-- 		        app:text="Gpon" -->
-<!-- 		        android:background="@drawable/bg_lists" /> -->
-		    
-		    <ImageButton 
-		    	android:contentDescription="@string/desc_finalizar"
-		        android:id="@+id/btnActualizar"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:background="@drawable/buttons"
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_lists"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/seleccionar_todos"
+                    android:paddingTop="7dp"
+                    android:textSize="14sp"
+                    android:paddingLeft="20dp"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:layout_marginTop="7dp"
+                    android:layout_weight="0" />
+
+                <CheckBox
+                    android:id="@+id/chkTodo"
+                    android:button="@drawable/style_checkboxes"
+                    android:layout_marginTop="-25dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:layout_alignParentRight="true" />
+
+            </LinearLayout>
+
+
+            <co.com.une.appmovilesune.components.ItemConfiguracion
+                android:id="@+id/icgListasGenerales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="Listas Generales"
+                android:background="@drawable/bg_info" />
+
+            <co.com.une.appmovilesune.components.ItemConfiguracion
+                android:id="@+id/icgListasEstratos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="Listas Estratos"
+                android:background="@drawable/bg_info" />
+
+            <co.com.une.appmovilesune.components.ItemConfiguracion
+                android:id="@+id/icgListasValores"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="Listas Valores"
+                android:background="@drawable/bg_info" />
+
+            <co.com.une.appmovilesune.components.ItemConfiguracion
+                android:id="@+id/icgCiudades"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="Ciudades"
+                android:background="@drawable/bg_lists" />
+
+            <co.com.une.appmovilesune.components.ItemConfiguracion
+                android:id="@+id/icgBarrios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="Barrios"
+                android:background="@drawable/bg_info" />
+
+            <co.com.une.appmovilesune.components.ItemConfiguracion
+                android:id="@+id/icgProductos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="Productos"
+                android:background="@drawable/bg_lists" />
+
+            <co.com.une.appmovilesune.components.ItemConfiguracion
+                android:id="@+id/icgPrecios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="Precios"
+                android:background="@drawable/bg_info" />
+
+            <!-- 		    <co.com.une.appmovilesune.components.ItemConfiguracion -->
+            <!-- 		        android:id="@+id/icgPromociones" -->
+            <!-- 		        android:layout_width="match_parent" -->
+            <!-- 		        android:layout_height="wrap_content" -->
+            <!-- 		        app:text="Promociones" -->
+            <!-- 		        android:background="@drawable/bg_lists" /> -->
+
+            <co.com.une.appmovilesune.components.ItemConfiguracion
+                android:id="@+id/icgAdicionales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="Adicionales"
+                android:background="@drawable/bg_lists" />
+
+            <co.com.une.appmovilesune.components.ItemConfiguracion
+                android:id="@+id/icgImpuestos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="Impuestos"
+                android:background="@drawable/bg_info" />
+
+            <co.com.une.appmovilesune.components.ItemConfiguracion
+                android:id="@+id/icgExtensionesHFC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="Extensiones HFC"
+                android:background="@drawable/bg_lists" />
+
+
+            <co.com.une.appmovilesune.components.ItemConfiguracion
+                android:id="@+id/icgReglas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="Reglas"
+                android:background="@drawable/bg_lists" />
+
+            <co.com.une.appmovilesune.components.ItemConfiguracion
+                android:id="@+id/icgCondiciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="Condiciones"
+                android:background="@drawable/bg_lists" />
+
+            <co.com.une.appmovilesune.components.ItemConfiguracion
+                android:id="@+id/icgDecos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:text="Decos"
+                android:background="@drawable/bg_lists" />
+
+            <!-- 		    <co.com.une.appmovilesune.components.ItemConfiguracion -->
+            <!-- 		        android:id="@+id/icgPromocionesMovilidad" -->
+            <!-- 		        android:layout_width="match_parent" -->
+            <!-- 		        android:layout_height="wrap_content" -->
+            <!-- 		        app:text="Promociones Movilidad" -->
+            <!-- 		        android:background="@drawable/bg_lists" /> -->
+
+            <!-- 		    <co.com.une.appmovilesune.components.ItemConfiguracion -->
+            <!-- 		        android:id="@+id/icgGpon" -->
+            <!-- 		        android:layout_width="match_parent" -->
+            <!-- 		        android:layout_height="wrap_content" -->
+            <!-- 		        app:text="Gpon" -->
+            <!-- 		        android:background="@drawable/bg_lists" /> -->
+
+            <ImageButton
+                android:contentDescription="@string/desc_finalizar"
+                android:id="@+id/btnActualizar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttons"
                 android:src="@drawable/buttons_src"
-		        android:onClick="buscar"/>
-		    
-	    </LinearLayout>
+                android:onClick="buscar" />
+
+        </LinearLayout>
 
     </ScrollView>
-    
+
 </LinearLayout>

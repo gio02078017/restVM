@@ -3,14 +3,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/texture"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/Competencias"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:weightSum="1" >
+        android:weightSum="1">
 
         <co.com.une.appmovilesune.components.TituloPrincipal
             android:id="@+id/tlpPrincipal"
@@ -20,7 +20,7 @@
         <ScrollView
             android:id="@+id/scrollView1"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent">
 
             <TableLayout
                 android:id="@+id/tlytTablaCompetencia"
@@ -28,14 +28,14 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:shrinkColumns="*"
-                android:stretchColumns="*" >
+                android:stretchColumns="*">
 
                 <TableRow
                     android:id="@+id/trTablaCompetenciaAtencion"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:visibility="visible" >
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:visibility="visible" >
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -85,7 +85,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:visibility="visible" >
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -111,7 +111,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:visibility="visible" >
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -135,7 +135,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:visibility="visible" >
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -161,7 +161,7 @@
                     android:id="@+id/trTablaCompetenciaVigenciaContrato"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp" >
+                    android:layout_marginBottom="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -176,7 +176,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_span="8"
-                        android:orientation="horizontal" >
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/txtFechaExpCompetencia"
@@ -203,7 +203,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:visibility="visible" >
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -230,7 +230,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:visibility="visible" >
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -245,7 +245,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_span="8"
-                        android:orientation="horizontal" >
+                        android:orientation="horizontal">
 
                         <EditText
                             android:id="@+id/txtDireccionCompetencia"
@@ -272,7 +272,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:visibility="visible" >
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -326,18 +326,18 @@
                     android:id="@+id/trTablaCompetenciaInfo"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp" >
+                    android:layout_marginBottom="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_span="9"
-                        android:orientation="vertical" >
+                        android:orientation="vertical">
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/bg_title_resumen_sim" >
+                            android:background="@drawable/bg_title_resumen_sim">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -369,7 +369,7 @@
                     android:id="@+id/trTablaCompetenciaNoCompra"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp" >
+                    android:layout_marginBottom="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -394,7 +394,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:visibility="gone" >
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -418,7 +418,7 @@
                     android:id="@+id/trTablaCompetenciaObservaciones"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp" >
+                    android:layout_marginBottom="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -443,7 +443,7 @@
                 <TableRow
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp" >
+                    android:layout_marginBottom="10dp">
 
                     <ImageButton
                         android:id="@+id/btnSiguiente"

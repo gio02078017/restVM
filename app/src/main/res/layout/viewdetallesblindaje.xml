@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/texture"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <co.com.une.appmovilesune.components.TituloPrincipal
         android:id="@+id/tlpPrincipal"
@@ -13,12 +13,12 @@
     <TabHost
         android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TabWidget
                 android:id="@android:id/tabs"
@@ -28,29 +28,29 @@
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" >
+                android:layout_height="fill_parent">
 
                 <LinearLayout
                     android:id="@+id/blindajeDetalle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:weightSum="1" >
+                    android:weightSum="1">
 
                     <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
+                        android:layout_height="wrap_content">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical" >
+                            android:orientation="vertical">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
-                                android:orientation="horizontal" >
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/lblBlindajeNombre"
@@ -67,7 +67,7 @@
                                     android:layout_weight="1"
                                     android:background="@drawable/spin" />
                             </LinearLayout>
-                            
+
                             <TableLayout
                                 android:id="@+id/tlyFormulario"
                                 android:layout_width="match_parent"
@@ -77,14 +77,14 @@
                                 android:padding="10dp"
                                 android:shrinkColumns="*"
                                 android:stretchColumns="*"
-                                android:visibility="gone" >
-                                
-                                 <TableRow
+                                android:visibility="gone">
+
+                                <TableRow
                                     android:id="@+id/trTablaClienteNombre"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -110,7 +110,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -136,7 +136,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -160,7 +160,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -187,7 +187,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -212,7 +212,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -234,13 +234,13 @@
                                         android:paddingLeft="25dp"
                                         android:paddingRight="25dp" />
                                 </TableRow>
-                                
+
                                 <TableRow
                                     android:id="@+id/trTablaClienteTipoServico"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -259,13 +259,13 @@
                                         android:paddingLeft="25dp"
                                         android:paddingRight="45dp" />
                                 </TableRow>
-                                
+
                                 <TableRow
                                     android:id="@+id/trTCNContacto1"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -291,7 +291,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -311,13 +311,13 @@
                                         android:paddingLeft="25dp"
                                         android:paddingRight="25dp" />
                                 </TableRow>
-                                
+
                                 <TableRow
                                     android:id="@+id/trTCTContacto1"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -344,7 +344,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -370,7 +370,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -396,7 +396,7 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -418,7 +418,7 @@
                                         android:paddingRight="25dp" />
                                 </TableRow>
 
-                                
+
                             </TableLayout>
 
                             <TableLayout
@@ -426,13 +426,13 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
                                 android:background="@drawable/bg_info"
-                                android:padding="10dp" >
+                                android:padding="10dp">
 
                                 <TableRow
                                     android:id="@+id/tlrBlindajeTipoDocumento"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeTipoDocumento"
@@ -455,7 +455,7 @@
                                     android:id="@+id/tlrBlindajeDocumento"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeDocumento"
@@ -477,7 +477,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeCiudad"
@@ -499,7 +499,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeDireccion"
@@ -521,7 +521,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeBarrio"
@@ -543,7 +543,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeEstrato"
@@ -565,7 +565,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeComuna"
@@ -587,7 +587,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeUrbanizacion"
@@ -609,7 +609,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeProductos"
@@ -631,7 +631,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeTo"
@@ -653,7 +653,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeToPrecio"
@@ -675,7 +675,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajePlanCerrado"
@@ -697,7 +697,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeTv"
@@ -719,7 +719,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeTvIptv"
@@ -741,7 +741,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeBa"
@@ -763,7 +763,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeBaPrecio"
@@ -785,7 +785,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeBaGotica"
@@ -807,7 +807,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:paddingBottom="4dp" >
+                                    android:paddingBottom="4dp">
 
                                     <TextView
                                         android:id="@+id/lblBlindajeTotal"
@@ -834,17 +834,17 @@
                     android:id="@+id/blindajeOfertas"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
+                        android:layout_height="wrap_content">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="5dp" >
+                            android:padding="5dp">
 
                             <TableLayout
                                 android:id="@+id/tlyRegalo"
@@ -853,14 +853,14 @@
                                 android:layout_marginBottom="10dp"
                                 android:background="@drawable/bg_info"
                                 android:shrinkColumns="*"
-                                android:stretchColumns="*" >
+                                android:stretchColumns="*">
 
                                 <TableRow
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/bg_purple"
                                     android:padding="5dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -876,7 +876,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:id="@+id/txtBlindajeRegalo1"
@@ -903,7 +903,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:background="@drawable/bg_info"
                                 android:shrinkColumns="*"
-                                android:stretchColumns="*" >
+                                android:stretchColumns="*">
 
                                 <TableRow
                                     android:layout_width="fill_parent"
@@ -911,7 +911,7 @@
                                     android:layout_marginBottom="10dp"
                                     android:background="@drawable/bg_purple"
                                     android:padding="5dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -935,7 +935,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -957,7 +957,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -978,7 +978,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -999,7 +999,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -1022,7 +1022,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/bg_info"
                                 android:shrinkColumns="*"
-                                android:stretchColumns="*" >
+                                android:stretchColumns="*">
 
                                 <TableRow
                                     android:layout_width="fill_parent"
@@ -1030,7 +1030,7 @@
                                     android:layout_marginBottom="10dp"
                                     android:background="@drawable/bg_purple"
                                     android:padding="5dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -1054,7 +1054,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -1076,7 +1076,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -1097,7 +1097,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -1118,7 +1118,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -1139,7 +1139,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -1153,7 +1153,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_span="8"
                                         android:text="hola" />
-                                    
+
                                 </TableRow>
                             </TableLayout>
 
@@ -1163,14 +1163,14 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/bg_info"
                                 android:shrinkColumns="*"
-                                android:stretchColumns="*" >
+                                android:stretchColumns="*">
 
                                 <TableRow
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -1180,13 +1180,13 @@
                                         android:textStyle="bold" />
 
                                 </TableRow>
-                                
+
                                 <TableRow
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="10dp"
                                     android:padding="10dp"
-                                    android:visibility="visible" >
+                                    android:visibility="visible">
 
                                     <EditText
                                         android:id="@+id/txtObservacionesBlindaje"
@@ -1200,7 +1200,7 @@
                                         android:paddingRight="20dp" />
 
                                 </TableRow>
-                                
+
                             </TableLayout>
 
                             <ImageButton
@@ -1221,15 +1221,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone" >
+                    android:visibility="gone">
 
                     <ListView
                         android:id="@+id/lstBlindajeAgenda"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    
+
                 </LinearLayout>
-                
+
             </FrameLayout>
         </LinearLayout>
     </TabHost>

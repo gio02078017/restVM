@@ -5,7 +5,7 @@
     android:layout_margin="20dp"
     android:background="@drawable/bg_info"
     android:orientation="vertical"
-    android:padding="5dp" >
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/titulo_datos"

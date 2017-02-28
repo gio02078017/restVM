@@ -8,67 +8,68 @@ import co.com.une.appmovilesune.controller.ControlInicializacion;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.Subject;
 import co.com.une.appmovilesune.model.Configuracion;
+
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 
 public class Inicializar extends AsyncTask<String, Integer, Boolean> implements Subject {
 
-	Observer obsr;
+    Observer obsr;
 
-	boolean actualizado;
+    boolean actualizado;
 
-	@Override
-	protected void onPreExecute() {
+    @Override
+    protected void onPreExecute() {
 
-	}
+    }
 
-	@Override
-	protected Boolean doInBackground(String... params) {
-		// TODO Auto-generated method stub
-		ArrayList<Boolean> recolector = new ArrayList<Boolean>();
-		if (MainActivity.conexion.isConect(MainActivity.context)) {
-			crearBaseDatos();
-			inicializarConfiguracion();
-			obtenerVersion();
+    @Override
+    protected Boolean doInBackground(String... params) {
+        // TODO Auto-generated method stub
+        ArrayList<Boolean> recolector = new ArrayList<Boolean>();
+        if (MainActivity.conexion.isConect(MainActivity.context)) {
+            crearBaseDatos();
+            inicializarConfiguracion();
+            obtenerVersion();
 
 			/*
-			 * crearBaseDatos(); inicializarConfiguracion(); obtenerVersion();
+             * crearBaseDatos(); inicializarConfiguracion(); obtenerVersion();
 			 * seguimiento(); tiempoSesion();
 			 */
 
-		} else {
-			// System.out.println("Habilite las interfaces de comunicacion");
-		}
+        } else {
+            // System.out.println("Habilite las interfaces de comunicacion");
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	protected void onPostExecute(Boolean result) {
-		// System.out.println("Termino Ejecucion");
-		notifyObserver();
-	}
+    @Override
+    protected void onPostExecute(Boolean result) {
+        // System.out.println("Termino Ejecucion");
+        notifyObserver();
+    }
 
-	public Inicializar() {
-		crearBaseDatos();
-		MainActivity.config = new Configuracion(MainActivity.context);
-		MainActivity.config.precargarConfiguraciones();
+    public Inicializar() {
+        crearBaseDatos();
+        MainActivity.config = new Configuracion(MainActivity.context);
+        MainActivity.config.precargarConfiguraciones();
 
-	}
+    }
 
-	private void crearBaseDatos() {
-		MainActivity.basedatos = new BaseDatos(MainActivity.context, BaseDatos.NOMBRE, null, BaseDatos.VERSION);
-	}
+    private void crearBaseDatos() {
+        MainActivity.basedatos = new BaseDatos(MainActivity.context, BaseDatos.NOMBRE, null, BaseDatos.VERSION);
+    }
 
-	private void inicializarConfiguracion() {
-		MainActivity.config.obtenerConfiguraciones();
+    private void inicializarConfiguracion() {
+        MainActivity.config.obtenerConfiguraciones();
 
-	}
+    }
 
-	private void obtenerVersion() {
-		actualizado = MainActivity.config.obtenerVersion();
-		// System.out.println("");
-	}
+    private void obtenerVersion() {
+        actualizado = MainActivity.config.obtenerVersion();
+        // System.out.println("");
+    }
 
 	/*
 	 * 
@@ -109,27 +110,27 @@ public class Inicializar extends AsyncTask<String, Integer, Boolean> implements 
 	 * null)); } } }
 	 */
 
-	@Override
-	public void addObserver(Observer o) {
-		// TODO Auto-generated method stub
-		obsr = o;
-	}
+    @Override
+    public void addObserver(Observer o) {
+        // TODO Auto-generated method stub
+        obsr = o;
+    }
 
-	@Override
-	public void removeObserver(Observer o) {
-		// TODO Auto-generated method stub
-		obsr = null;
-	}
+    @Override
+    public void removeObserver(Observer o) {
+        // TODO Auto-generated method stub
+        obsr = null;
+    }
 
-	@Override
-	public void notifyObserver() {
-		// TODO Auto-generated method stub
-		// System.out.println("Actualizado => " + actualizado);
-		if (actualizado) {
-			obsr.update("Siga");
-		} else {
-			obsr.update("No Actualizado");
-		}
-	}
+    @Override
+    public void notifyObserver() {
+        // TODO Auto-generated method stub
+        // System.out.println("Actualizado => " + actualizado);
+        if (actualizado) {
+            obsr.update("Siga");
+        } else {
+            obsr.update("No Actualizado");
+        }
+    }
 
 }

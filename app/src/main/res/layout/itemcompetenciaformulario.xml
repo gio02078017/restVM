@@ -2,26 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
+    android:orientation="vertical">
+
     <ScrollView
-	    android:id="@+id/scrollView1"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent" >
-	
-	    <TableLayout
-	        android:id="@+id/tlytTablaCompetencia"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:padding="5dp"
-	        android:shrinkColumns="*"
-	        android:stretchColumns="*" >
-	        
-	        <TableRow
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TableLayout
+            android:id="@+id/tlytTablaCompetencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
+
+            <TableRow
                 android:id="@+id/trTablaCompetenciaCompetencia"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp" >
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -40,12 +40,12 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="45dp" />
             </TableRow>
-            
-	        <TableRow
+
+            <TableRow
                 android:id="@+id/trTablaCompetenciaProducto"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp" >
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -64,103 +64,103 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="45dp" />
             </TableRow>
-            
-	        <TableRow
-	            android:id="@+id/trTablaCompetenciaOtraCompetencia"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_marginBottom="10dp"
-	            android:visibility="visible" >
-	
-	            <TextView
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_gravity="center_vertical"
-	                android:text="@string/otra_competencia"
-	                android:textColor="#6F6F6F"
-	                android:textStyle="bold" />
-	
-	            <EditText
-	                android:id="@+id/txtOtraCompetencia"
-	                android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_span="8"
-                        android:background="@drawable/edittextbg"
-                        android:inputType="textNoSuggestions"
-                        android:paddingLeft="25dp"
-                        android:paddingRight="25dp" />
-	        </TableRow>
-	        
-	        <TableRow
-                    android:id="@+id/trTablaCompetenciaVigenciaContrato"
-                    android:layout_width="match_parent"
+
+            <TableRow
+                android:id="@+id/trTablaCompetenciaOtraCompetencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp" >
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/otra_competencia"
+                    android:textColor="#6F6F6F"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="@string/vigencia_contrato"
-                        android:textColor="#6F6F6F"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:id="@+id/llytSelectorFecha"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_span="8"
-                        android:orientation="horizontal" >
-
-                        <EditText
-                            android:id="@+id/txtVigenciaContrato"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:background="@drawable/campo_01"
-                            android:inputType="textNoSuggestions"
-                            android:paddingLeft="20dp" />
-
-                        <ImageButton
-                            android:id="@+id/btnPickDate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/selectorfecha"
-                            android:contentDescription="@string/selector_fecha"
-                            android:onClick="mostrarSelectorFecha" />
-                        
-                    </LinearLayout>
-                    
-                </TableRow>
-                
-                <TableRow
-                    android:id="@+id/trTablaCompetenciaPagoMensual"
+                <EditText
+                    android:id="@+id/txtOtraCompetencia"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp" >
+                    android:layout_span="8"
+                    android:background="@drawable/edittextbg"
+                    android:inputType="textNoSuggestions"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp" />
+            </TableRow>
 
-                    <TextView
+            <TableRow
+                android:id="@+id/trTablaCompetenciaVigenciaContrato"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/vigencia_contrato"
+                    android:textColor="#6F6F6F"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/llytSelectorFecha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="8"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/txtVigenciaContrato"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="@string/pago_mensual"
-                        android:textColor="#6F6F6F"
-                        android:textStyle="bold" />
+                        android:layout_weight="1"
+                        android:background="@drawable/campo_01"
+                        android:inputType="textNoSuggestions"
+                        android:paddingLeft="20dp" />
 
-                    <EditText
-                        android:id="@+id/txtPagoMensual"
-                        android:layout_width="fill_parent"
+                    <ImageButton
+                        android:id="@+id/btnPickDate"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_span="8"
-                        android:background="@drawable/edittextbg"
-                        android:inputType="number"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp" />
-                </TableRow>
-	        
-       	</TableLayout>
-       	
+                        android:background="@drawable/selectorfecha"
+                        android:contentDescription="@string/selector_fecha"
+                        android:onClick="mostrarSelectorFecha" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/trTablaCompetenciaPagoMensual"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/pago_mensual"
+                    android:textColor="#6F6F6F"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/txtPagoMensual"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="8"
+                    android:background="@drawable/edittextbg"
+                    android:inputType="number"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp" />
+            </TableRow>
+
+        </TableLayout>
+
     </ScrollView>
-    
+
 </LinearLayout>

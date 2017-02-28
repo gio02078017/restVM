@@ -74,6 +74,7 @@
     <string name="apellido">Apellidos</string>
     <string name="fecha_exped">Fecha Expedición</string>
     <string name="lugar_exped">Lugar Expedición</string>
+    <string name="proyectos_rurales">Proyectos Rurales</string>
     <string name="contrato">Contrato</string>
     <string name="unidad_residencial">Unidad Residencial</string>
     <string name="punto_referencia">Punto Referencia</string>
@@ -157,6 +158,7 @@
     <string name="pago_modem">Pago Modem</string>
     <string name="tipo_migracion">Plan Existente</string>
     <string name="tipo_tecnologia">Tecnología</string>
+    <string name="tipo_zona">Tipo Zona</string>
     <string name="modem">Modem</string>
     <string name="migracion">Cambio de Plan</string>
     <string name="fifty_percent">50%</string>
@@ -426,7 +428,7 @@
         <item>C</item>
         <item>E</item>
     </string-array>
-    
+
     <string name="hogarnuevo">Hogar Nuevo</string>
     <string name="analoga">Análoga</string>
     <string name="tipooferta">Tipo Oferta</string>
@@ -465,6 +467,8 @@
     <string name="totalpagoconexion">Total Pago por Conexión</string>
     <string name="totalpagoparcial">Total Pago Parcial por Conexión</string>
     <string name="valordescuentoconexion">Valor Descuento por Conexión</string>
+
+    <string name="validacionBarrio">El Barrio Deben Estar Diligenciados, Para seleccionar esta opción</string>
 
     <string name="logautomaticocarrusel">Hubo algún problema guardando el log automático</string>
 

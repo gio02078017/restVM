@@ -4,21 +4,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_info"
     android:orientation="vertical"
-    android:padding="7dp" >
+    android:padding="7dp">
 
     <ListView
         android:id="@+id/listasDefault"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="8" >
-    </ListView>
+        android:layout_weight="8"></ListView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:orientation="vertical"
-        android:padding="5dp" >
+        android:padding="5dp">
 
         <Button
             android:id="@+id/btnAceptarLista"

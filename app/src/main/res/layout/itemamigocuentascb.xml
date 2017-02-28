@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout 
+    <RelativeLayout
         android:id="@+id/llyEncabezado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,27 +13,27 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="0dp">
-        
+
         <ImageView
-			android:id="@+id/imgProducto"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_margin="7dp"
-			android:contentDescription="@string/desc_img"
-			android:src="@drawable/logo_tel" />
-          
-        <TextView 
-			android:id="@+id/lblTipoProducto"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="@string/telefonia"
-			android:layout_alignBottom="@+id/imgProducto"
-			android:layout_toRightOf="@+id/imgProducto"
-			android:textAppearance="?android:attr/textAppearanceLarge"
-			android:textColor="@color/purple"
-			android:textStyle="bold" />
-	        
-        <ImageView 
+            android:id="@+id/imgProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:contentDescription="@string/desc_img"
+            android:src="@drawable/logo_tel" />
+
+        <TextView
+            android:id="@+id/lblTipoProducto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/telefonia"
+            android:layout_alignBottom="@+id/imgProducto"
+            android:layout_toRightOf="@+id/imgProducto"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/purple"
+            android:textStyle="bold" />
+
+        <ImageView
             android:id="@+id/imgSuspendido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,12 +41,12 @@
             android:src="@drawable/suspension"
             android:layout_alignParentRight="true"
             android:layout_marginTop="15dp"
-            android:layout_marginRight="5dp"    
+            android:layout_marginRight="5dp"
             android:visibility="gone" />
-        
+
     </RelativeLayout>
-    
-    <LinearLayout 
+
+    <LinearLayout
         android:id="@+id/llyContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,168 +59,168 @@
         android:baselineAligned="false"
         android:background="@color/white"
         android:orientation="horizontal">
-        
-        <RelativeLayout 
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">
-            
-            <RelativeLayout 
+
+            <RelativeLayout
                 android:id="@+id/rlyInfoPlan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                
+
                 <Spinner
-			        android:id="@+id/spnProducto"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_marginEnd="3dp"
-			        android:visibility="gone"/>
-	            
-	            <TextView 
-	                android:id="@+id/lblPlan"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="@string/plan_points"
-	                android:textColor="@color/purple"
-	                android:textStyle="bold"
-	                android:textSize="17sp"
-	                android:layout_marginEnd="3dp" />
-	            
+                    android:id="@+id/spnProducto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="3dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/lblPlan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/plan_points"
+                    android:textColor="@color/purple"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:layout_marginEnd="3dp" />
+
             </RelativeLayout>
-            
-            <TextView 
+
+            <TextView
                 android:id="@+id/lblPlanFacturacion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rlyInfoPlan"
-                android:text="@string/planfacturacion"/>
-            
-            <TextView 
+                android:text="@string/planfacturacion" />
+
+            <TextView
                 android:id="@+id/lblIdentificador"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lblPlanFacturacion"
-                android:text="@string/identificador"/>
-            
-            <TextView 
+                android:text="@string/identificador" />
+
+            <TextView
                 android:id="@+id/lblVelocidad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lblIdentificador"
-                android:text="@string/velocidad"/>
-            
-            <TextView 
+                android:text="@string/velocidad" />
+
+            <TextView
                 android:id="@+id/lblVelocidadValor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lblIdentificador"
                 android:layout_toRightOf="@+id/lblVelocidad"
-                android:text="@string/velocidadvalor"/>
-            
-            <TextView 
+                android:text="@string/velocidadvalor" />
+
+            <TextView
                 android:id="@+id/lblClienteId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lblVelocidad"
-				android:text="@string/cliente"/>
-            
-            
+                android:text="@string/cliente" />
+
+
         </RelativeLayout>
-        
-        
-        <RelativeLayout 
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:layout_marginRight="10dp"
             android:layout_weight="1">
-            
-          	<TextView 
-          	    android:id="@+id/lblCargoBasico"
-          	    android:layout_width="wrap_content"
-          	    android:layout_height="wrap_content"
-          	    android:layout_marginStart="3dp"
-          	    android:layout_alignRight="@+id/lblTotal"
-          	    android:textColor="@color/purple"
-          	    android:text="@string/cargobasico" />
-          	
-          	<TextView 
-          	    android:id="@+id/lblCargoBasicoContenido"
-          	    android:layout_width="wrap_content"
-          	    android:layout_height="wrap_content"
-          	    android:layout_marginStart="3dp"
-          	    android:layout_toRightOf="@+id/lblCargoBasico"
-          	    android:layout_alignRight="@+id/lblTotalContenido"
-          	    android:gravity="right"
-          	    android:text="@string/cargobasico" />
-          	
-          	<TextView 
-          	    android:id="@+id/lblCargoAdicionales"
-          	    android:layout_width="wrap_content"
-          	    android:layout_height="wrap_content"
-          	    android:layout_marginStart="3dp"
-          	    android:layout_below="@+id/lblCargoBasico"
-          	    android:layout_alignRight="@+id/lblTotal"
-          	    android:textColor="@color/purple"
-          	    android:text="@string/cargoadicionales" />
-          	
-          	<TextView 
-          	    android:id="@+id/lblCargoAdicionalesContenido"
-          	    android:layout_width="wrap_content"
-          	    android:layout_height="wrap_content"
-          	    android:layout_marginStart="3dp"
-          	    android:layout_below="@+id/lblCargoBasicoContenido"
-          	    android:layout_toRightOf="@+id/lblCargoAdicionales"
-          	    android:layout_alignRight="@+id/lblTotalContenido"
-          	    android:gravity="right"
-          	    android:text="@string/cargoadicionales" />
-          	
-          	<TextView 
-          	    android:id="@+id/lblCargoFinanciero"
-          	    android:layout_width="wrap_content"
-          	    android:layout_height="wrap_content"
-          	    android:layout_marginStart="3dp"
-          	    android:layout_below="@+id/lblCargoAdicionales"
-          	    android:layout_alignRight="@+id/lblTotal"
-          	    android:textColor="@color/purple"
-          	    android:text="@string/cargofinanciero" />
-          	
-          	<TextView 
-          	    android:id="@+id/lblCargoFinancieroContenido"
-          	    android:layout_width="wrap_content"
-          	    android:layout_height="wrap_content"
-          	    android:layout_marginStart="3dp"
-          	    android:layout_below="@+id/lblCargoAdicionalesContenido"
-          	    android:layout_toRightOf="@+id/lblCargoFinanciero"
-          	    android:layout_alignRight="@+id/lblTotalContenido"
-          	    android:gravity="right"
-          	    android:text="@string/cargofinanciero" />
-          	
-          	<TextView 
-          	    android:id="@+id/lblTotal"
-          	    android:layout_width="wrap_content"
-          	    android:layout_height="wrap_content"
-          	    android:layout_marginStart="3dp"
-          	    android:layout_below="@+id/lblCargoFinanciero"
-          	    android:textColor="@color/purple"
-          	    android:text="@string/total_mayus" />
-          	
-          	<TextView 
-          	    android:id="@+id/lblTotalContenido"
-          	    android:layout_width="wrap_content"
-          	    android:layout_height="wrap_content"
-          	    android:layout_marginStart="3dp"
-          	    android:layout_below="@+id/lblCargoFinancieroContenido"
-          	    android:layout_toRightOf="@+id/lblTotal"
-          	    android:layout_marginLeft="30dp"
-          	    android:text="@string/total_mayus" />
-            
+
+            <TextView
+                android:id="@+id/lblCargoBasico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_alignRight="@+id/lblTotal"
+                android:textColor="@color/purple"
+                android:text="@string/cargobasico" />
+
+            <TextView
+                android:id="@+id/lblCargoBasicoContenido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_toRightOf="@+id/lblCargoBasico"
+                android:layout_alignRight="@+id/lblTotalContenido"
+                android:gravity="right"
+                android:text="@string/cargobasico" />
+
+            <TextView
+                android:id="@+id/lblCargoAdicionales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_below="@+id/lblCargoBasico"
+                android:layout_alignRight="@+id/lblTotal"
+                android:textColor="@color/purple"
+                android:text="@string/cargoadicionales" />
+
+            <TextView
+                android:id="@+id/lblCargoAdicionalesContenido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_below="@+id/lblCargoBasicoContenido"
+                android:layout_toRightOf="@+id/lblCargoAdicionales"
+                android:layout_alignRight="@+id/lblTotalContenido"
+                android:gravity="right"
+                android:text="@string/cargoadicionales" />
+
+            <TextView
+                android:id="@+id/lblCargoFinanciero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_below="@+id/lblCargoAdicionales"
+                android:layout_alignRight="@+id/lblTotal"
+                android:textColor="@color/purple"
+                android:text="@string/cargofinanciero" />
+
+            <TextView
+                android:id="@+id/lblCargoFinancieroContenido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_below="@+id/lblCargoAdicionalesContenido"
+                android:layout_toRightOf="@+id/lblCargoFinanciero"
+                android:layout_alignRight="@+id/lblTotalContenido"
+                android:gravity="right"
+                android:text="@string/cargofinanciero" />
+
+            <TextView
+                android:id="@+id/lblTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_below="@+id/lblCargoFinanciero"
+                android:textColor="@color/purple"
+                android:text="@string/total_mayus" />
+
+            <TextView
+                android:id="@+id/lblTotalContenido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_below="@+id/lblCargoFinancieroContenido"
+                android:layout_toRightOf="@+id/lblTotal"
+                android:layout_marginLeft="30dp"
+                android:text="@string/total_mayus" />
+
         </RelativeLayout>
-        
+
     </LinearLayout>
-    
-    <TextView 
+
+    <TextView
         android:id="@+id/txtDescuento"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -231,6 +231,6 @@
         android:layout_marginTop="0dp"
         android:textStyle="bold"
         android:textColor="@color/orange"
-        android:layout_below="@+id/llyContent"/>
-    
+        android:layout_below="@+id/llyContent" />
+
 </RelativeLayout>

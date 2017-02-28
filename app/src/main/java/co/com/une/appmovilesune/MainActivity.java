@@ -76,7 +76,7 @@ public class MainActivity extends Activity implements Observer {
 	 */
 
 	/*
-	 * proyecto integrado produccion direccionamiento IP y bronze 2, silver
+     * proyecto integrado produccion direccionamiento IP y bronze 2, silver
 	 * premium y carrusel
 	 */
 
@@ -640,7 +640,7 @@ public class MainActivity extends Activity implements Observer {
                             Toast.makeText(this, "Debe Seleccionar el Estrato.", Toast.LENGTH_SHORT).show();
                         }
 
-                    }else if (modulo.equals(MODULO_COTIZADOR)) {
+                    } else if (modulo.equals(MODULO_COTIZADOR)) {
 
                         if (!asesoria.cliente.getEstrato().equalsIgnoreCase(Utilidades.inicial_estrato)) {
 
@@ -706,7 +706,7 @@ public class MainActivity extends Activity implements Observer {
         try {
             if (requestCode == REQUEST_CODE) {
 
-                System.out.println("modulo onActivityResult "+modulo);
+                System.out.println("modulo onActivityResult " + modulo);
 
                 if (modulo.equals(MODULO_CLIENTE)) {
                     asesoria.cliente = (Cliente) data.getSerializableExtra("Cliente");
@@ -1533,19 +1533,19 @@ public class MainActivity extends Activity implements Observer {
         }
     }
 
-    private void validarPermanecia(String resultado){
+    private void validarPermanecia(String resultado) {
 
-        try{
+        try {
 
             JSONArray ja = new JSONArray(resultado);
             JSONObject jsonObject = ja.getJSONObject(0);
 
-            if(jsonObject.getString("cnf_permanencia").equals("0")
-                    || jsonObject.getString("cnf_permanencia").equals("null")){
+            if (jsonObject.getString("cnf_permanencia").equals("0")
+                    || jsonObject.getString("cnf_permanencia").equals("null")) {
                 asesoria.venta.quitarPagosParciales();
             }
 
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 

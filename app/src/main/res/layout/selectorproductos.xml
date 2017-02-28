@@ -3,25 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
-    android:orientation="horizontal" >
-    
-    <EditText 
+    android:orientation="horizontal">
+
+    <EditText
         android:id="@+id/txtTexto"
-       	android:layout_width="fill_parent"
-       	android:layout_height="wrap_content"
-       	android:layout_gravity="center_vertical"
-       	android:hint="Seleccione Productos" 
-       	android:layout_weight="1"
-       	android:background="@drawable/campo_01"
-       	android:paddingLeft="20dp" 
-       	android:textSize="14dp"/>
-    
-	    <ImageButton 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:hint="Seleccione Productos"
+        android:layout_weight="1"
+        android:background="@drawable/campo_01"
+        android:paddingLeft="20dp"
+        android:textSize="14dp" />
+
+    <ImageButton
         android:id="@+id/btnSeleccionador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="Lanzar Selector"
         android:background="@drawable/buscar"
         android:onClick="mostrarDialogo" />
-    
+
 </LinearLayout>

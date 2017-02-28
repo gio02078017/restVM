@@ -11,34 +11,34 @@ import android.widget.TextView;
 
 public class TituloPrincipal extends RelativeLayout {
 
-	private TextView titulo;
+    private TextView titulo;
 
-	public TituloPrincipal(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		init();
-	}
+    public TituloPrincipal(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
 
-	public TituloPrincipal(Context context, AttributeSet attrs, int defStyleAttr, TextView titulo) {
-		super(context, attrs, defStyleAttr);
-		init();
-	}
+    public TituloPrincipal(Context context, AttributeSet attrs, int defStyleAttr, TextView titulo) {
+        super(context, attrs, defStyleAttr);
+        init();
+    }
 
-	public TituloPrincipal(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes, TextView titulo) {
-		super(context, attrs, defStyleAttr, defStyleRes);
-		init();
-	}
+    public TituloPrincipal(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes, TextView titulo) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
 
-	private void init(){
-		String infService = Context.LAYOUT_INFLATER_SERVICE;
-		LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
+    private void init() {
+        String infService = Context.LAYOUT_INFLATER_SERVICE;
+        LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
 
-		li.inflate(R.layout.tituloprincipal, this, true);
+        li.inflate(R.layout.tituloprincipal, this, true);
 
-		titulo = (TextView) findViewById(R.id.txtTitulo);
-	}
+        titulo = (TextView) findViewById(R.id.txtTitulo);
+    }
 
-	public void setTitulo(String titulo) {
-		this.titulo.setText(titulo);
-	}
+    public void setTitulo(String titulo) {
+        this.titulo.setText(titulo);
+    }
 
 }

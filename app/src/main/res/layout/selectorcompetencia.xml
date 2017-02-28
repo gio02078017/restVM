@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <Spinner 
+    android:orientation="vertical">
+
+    <Spinner
         android:id="@+id/sltCompetenciaProducto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"/>
-	
-    <Spinner 
+        android:layout_margin="5dp" />
+
+    <Spinner
         android:id="@+id/sltCompetenciaNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
 
 </LinearLayout>

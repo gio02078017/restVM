@@ -3,17 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/texture"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TabHost
         android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <co.com.une.appmovilesune.components.TituloPrincipal
                 android:id="@+id/tlpPrincipal"
@@ -30,7 +30,7 @@
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <!-- **************************************************************************************************************************** -->
                 <!-- ***********************************************FORMULARIO DE TRIFICADOR***************************************************** -->
@@ -42,12 +42,12 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:paddingBottom="10dp"
-                    android:visibility="visible" >
+                    android:visibility="visible">
 
                     <ScrollView
                         android:id="@+id/scrollView3"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" >
+                        android:layout_height="wrap_content">
 
                         <TableLayout
                             android:id="@+id/tlytTablaAsesorias"
@@ -55,7 +55,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="15dp"
                             android:shrinkColumns="*"
-                            android:stretchColumns="*" >
+                            android:stretchColumns="*">
 
                             <TableRow
                                 android:id="@+id/tlytTablaProductosEstrato"
@@ -63,7 +63,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -101,7 +101,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -139,7 +139,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -177,7 +177,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:id="@+id/textView4"
@@ -216,7 +216,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:layout_marginLeft="10dp"
                                 android:paddingTop="5dp"
-                                android:visibility="invisible" >
+                                android:visibility="invisible">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -244,7 +244,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:layout_marginLeft="10dp"
                                 android:paddingTop="5dp"
-                                android:visibility="invisible" >
+                                android:visibility="invisible">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -275,19 +275,19 @@
                     android:id="@+id/llyDescuentos"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ScrollView
                         android:id="@+id/scrollView1"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" >
+                        android:layout_height="wrap_content">
 
                         <TableLayout
                             android:id="@+id/tlytTablaDescuentos"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:shrinkColumns="*"
-                            android:stretchColumns="*" >
+                            android:stretchColumns="*">
 
                             <TableRow
                                 android:id="@+id/tlytTablaDescuentosCabecera"
@@ -295,7 +295,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
                                 android:layout_marginLeft="10dp"
-                                android:paddingTop="5dp" >
+                                android:paddingTop="5dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -320,7 +320,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
-                                android:layout_marginLeft="10dp" >
+                                android:layout_marginLeft="10dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -345,7 +345,7 @@
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
-                                android:layout_marginLeft="10dp" >
+                                android:layout_marginLeft="10dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -371,7 +371,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
                                 android:layout_marginLeft="10dp"
-                                android:visibility="gone" >
+                                android:visibility="gone">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -397,7 +397,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
                                 android:layout_marginLeft="10dp"
-                                android:visibility="gone" >
+                                android:visibility="gone">
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -428,7 +428,7 @@
                     android:id="@+id/llyAdicionales"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <ListView
                         android:id="@+id/lsvAdicionales"
@@ -446,11 +446,11 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone" >
+                    android:visibility="gone">
 
                     <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="match_parent">
 
                         <co.com.une.appmovilesune.components.CompDecos
                             android:id="@+id/cmpDecosTarificador"
@@ -468,16 +468,16 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone" >
+                    android:visibility="gone">
 
                     <ScrollView
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" >
+                        android:layout_height="wrap_content">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical" >
+                            android:orientation="vertical">
 
                             <TableLayout
                                 android:layout_width="match_parent"
@@ -485,12 +485,12 @@
                                 android:layout_margin="5dp"
                                 android:background="@drawable/bg_info"
                                 android:shrinkColumns="*"
-                                android:stretchColumns="*" >
+                                android:stretchColumns="*">
 
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:padding="5dp" >
+                                    android:padding="5dp">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -510,7 +510,7 @@
                                 <TableRow
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:padding="5dp" >
+                                    android:padding="5dp">
 
                                     <TextView
                                         android:layout_width="wrap_content"
@@ -531,7 +531,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_marginBottom="7dp"
-                                    android:padding="5dp" >
+                                    android:padding="5dp">
 
                                     <TextView
                                         android:layout_width="wrap_content"

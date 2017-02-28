@@ -4,22 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/texture"
-    android:orientation="vertical" >
-    
+    android:orientation="vertical">
+
     <co.com.une.appmovilesune.components.TituloPrincipal
         android:id="@+id/tlpPrincipal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    
+
     <TabHost
         android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-        
-	    <LinearLayout
+        android:layout_height="fill_parent">
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TabWidget
                 android:id="@android:id/tabs"
@@ -29,246 +29,246 @@
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" >
-                
-                <ScrollView 
+                android:layout_height="fill_parent">
+
+                <ScrollView
                     android:id="@+id/svPortafolio"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone">
-                    
-                    <LinearLayout 
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-                        
+
                         <LinearLayout
-	                        android:id="@+id/llyCargosBasicos"
-	                        android:layout_width="match_parent"
-	                        android:layout_height="wrap_content"
-	                        android:orientation="vertical" />
-                        
-                        <co.com.une.appmovilesune.components.CompTotal 
+                            android:id="@+id/llyCargosBasicos"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+
+                        <co.com.une.appmovilesune.components.CompTotal
                             android:id="@+id/cmpTotalPaquetePortafolio"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                        
+                            android:layout_height="wrap_content" />
+
                         <LinearLayout
-	                        android:id="@+id/llyAdicionales"
-	                        android:layout_width="match_parent"
-	                        android:layout_height="wrap_content"
-	                        android:orientation="vertical" />
-			            
-			            <co.com.une.appmovilesune.components.CompTotal 
-			                android:id="@+id/cmpTotalPaqueteAdicionalesPortafolio"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
+                            android:id="@+id/llyAdicionales"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+
+                        <co.com.une.appmovilesune.components.CompTotal
+                            android:id="@+id/cmpTotalPaqueteAdicionalesPortafolio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
-                    
+
                 </ScrollView>
-    
-			    <ScrollView
-			        android:id="@+id/svOferta"
-				    android:layout_width="match_parent"
-				    android:layout_height="match_parent" >
-				
-			        <LinearLayout 
-			            android:layout_width="match_parent"
-			            android:layout_height="wrap_content"
-			            android:orientation="vertical">
-			                
-			            <co.com.une.appmovilesune.components.CompTVDigital 
-			                android:id="@+id/cmpTVDigital"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-			            
-			            <co.com.une.appmovilesune.components.CompBADigital 
-			                android:id="@+id/cmpBADigital"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-			            
-			            <co.com.une.appmovilesune.components.CompTODigital
-			                android:id="@+id/cmpTODigital" 
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-			            
-			            <co.com.une.appmovilesune.components.CompTotal 
-			                android:id="@+id/cmpTotalPaquete"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-			            
-			            <co.com.une.appmovilesune.components.CompDecos 
-			                android:id="@+id/cmpDecosOferta"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-			
-			            <co.com.une.appmovilesune.components.CompADDigital
-			                android:id="@+id/cmpAdicionales"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-			            
-			            <co.com.une.appmovilesune.components.CompConfigurable 
-			                android:id="@+id/cmpAdicHD"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"
-			                custom:tipo="AdicHD"/>
-			            
-			            <co.com.une.appmovilesune.components.CompTotal 
-			                android:id="@+id/cmpTotalPaqueteAdicionales"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-			            
-			            <Button 
-			                android:id="@+id/btnSeleccionar"
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:layout_gravity="center_horizontal"
-			                android:text="@string/sel_oferta"
-			                android:onClick="procesar"/>
-			            
-			            
-			        </LinearLayout>
-			
-			    </ScrollView>
-			    
-			    <ScrollView 
-			        android:id="@+id/svOfertaBalines"
-			        android:layout_width="match_parent"
-				    android:layout_height="match_parent"
-				    android:visibility="gone" >
-			        
-			        <LinearLayout 
-			            android:layout_width="match_parent"
-			            android:layout_height="wrap_content"
-			            android:orientation="vertical">
-			            
-			            <co.com.une.appmovilesune.components.CompConfigurable
-				            android:id="@+id/cmpBalTV"
-				            android:layout_width="match_parent"
-				            android:layout_height="wrap_content"
-				            custom:tipo="Television" />
-				        
-				        <co.com.une.appmovilesune.components.CompConfigurable
-				            android:id="@+id/cmpBalBA"
-				            android:layout_width="match_parent"
-				            android:layout_height="wrap_content"
-				            custom:tipo="Internet" />
-				        
-				        <co.com.une.appmovilesune.components.CompConfigurable
-				            android:id="@+id/cmpBalTO"
-				            android:layout_width="match_parent"
-				            android:layout_height="wrap_content"
-				            custom:tipo="Telefonia" />
-				        
-				        <co.com.une.appmovilesune.components.CompTotal 
-			                android:id="@+id/cmpTotalPaqueteBal"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-				        
-				        <co.com.une.appmovilesune.components.CompDecos 
-			                android:id="@+id/cmpDecosBalin"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-				        
-				        <co.com.une.appmovilesune.components.CompADDigital
-			                android:id="@+id/cmpAdicionalesBal"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-				        
-				        <co.com.une.appmovilesune.components.CompConfigurable 
-			                android:id="@+id/cmpAdicHDBal"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"
-			                custom:tipo="AdicHD"/>
-				        
-				        <co.com.une.appmovilesune.components.CompTotal 
-			                android:id="@+id/cmpTotalPaqueteAdicionalesBal"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-				        
-				        <Button 
-			                android:id="@+id/btnSeleccionarBal"
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:layout_gravity="center_horizontal"
-			                android:text="@string/sel_oferta"
-			                android:onClick="procesarBal"/>
-			            
-			        </LinearLayout>
-			        
-			    </ScrollView>
-			    
-			    <ScrollView 
-			        android:id="@+id/svOfertaConfigurable"
-			        android:layout_width="match_parent"
-				    android:layout_height="match_parent" >
-			        
-			        <LinearLayout 
-			            android:layout_width="match_parent"
-			            android:layout_height="wrap_content"
-			            android:orientation="vertical">
-			            
-			            <co.com.une.appmovilesune.components.CompConfigurable
-				            android:id="@+id/cmpConfTV"
-				            android:layout_width="match_parent"
-				            android:layout_height="wrap_content"
-				            custom:tipo="Television" />
-				        
-				        <co.com.une.appmovilesune.components.CompConfigurable
-				            android:id="@+id/cmpConfBA"
-				            android:layout_width="match_parent"
-				            android:layout_height="wrap_content"
-				            custom:tipo="Internet" />
-				        
-				        <co.com.une.appmovilesune.components.CompConfigurable
-				            android:id="@+id/cmpConfTO"
-				            android:layout_width="match_parent"
-				            android:layout_height="wrap_content"
-				            custom:tipo="Telefonia" />
-				        
-				        <co.com.une.appmovilesune.components.CompTotal 
-			                android:id="@+id/cmpTotalPaqueteConf"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-				        
-				        <co.com.une.appmovilesune.components.CompDecos 
-			                android:id="@+id/cmpDecosConfigurable"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-				        
-				        <co.com.une.appmovilesune.components.CompADDigital
-			                android:id="@+id/cmpAdicionalesConf"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-				        
-				        <co.com.une.appmovilesune.components.CompConfigurable 
-			                android:id="@+id/cmpAdicHDConf"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"
-			                custom:tipo="AdicHD"/>
-				        
-				        <co.com.une.appmovilesune.components.CompTotal 
-			                android:id="@+id/cmpTotalPaqueteAdicionalesConf"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
-				        
-				        <Button 
-			                android:id="@+id/btnSeleccionarConf"
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:layout_gravity="center_horizontal"
-			                android:text="@string/sel_oferta"
-			                android:onClick="procesarConf"/>
-			            
-			        </LinearLayout>
-			        
-			    </ScrollView>
-			    
-		    </FrameLayout>
-			    
-		</LinearLayout>
-	
+
+                <ScrollView
+                    android:id="@+id/svOferta"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <co.com.une.appmovilesune.components.CompTVDigital
+                            android:id="@+id/cmpTVDigital"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <co.com.une.appmovilesune.components.CompBADigital
+                            android:id="@+id/cmpBADigital"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <co.com.une.appmovilesune.components.CompTODigital
+                            android:id="@+id/cmpTODigital"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <co.com.une.appmovilesune.components.CompTotal
+                            android:id="@+id/cmpTotalPaquete"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <co.com.une.appmovilesune.components.CompDecos
+                            android:id="@+id/cmpDecosOferta"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <co.com.une.appmovilesune.components.CompADDigital
+                            android:id="@+id/cmpAdicionales"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <co.com.une.appmovilesune.components.CompConfigurable
+                            android:id="@+id/cmpAdicHD"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            custom:tipo="AdicHD" />
+
+                        <co.com.une.appmovilesune.components.CompTotal
+                            android:id="@+id/cmpTotalPaqueteAdicionales"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <Button
+                            android:id="@+id/btnSeleccionar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/sel_oferta"
+                            android:onClick="procesar" />
+
+
+                    </LinearLayout>
+
+                </ScrollView>
+
+                <ScrollView
+                    android:id="@+id/svOfertaBalines"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <co.com.une.appmovilesune.components.CompConfigurable
+                            android:id="@+id/cmpBalTV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            custom:tipo="Television" />
+
+                        <co.com.une.appmovilesune.components.CompConfigurable
+                            android:id="@+id/cmpBalBA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            custom:tipo="Internet" />
+
+                        <co.com.une.appmovilesune.components.CompConfigurable
+                            android:id="@+id/cmpBalTO"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            custom:tipo="Telefonia" />
+
+                        <co.com.une.appmovilesune.components.CompTotal
+                            android:id="@+id/cmpTotalPaqueteBal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <co.com.une.appmovilesune.components.CompDecos
+                            android:id="@+id/cmpDecosBalin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <co.com.une.appmovilesune.components.CompADDigital
+                            android:id="@+id/cmpAdicionalesBal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <co.com.une.appmovilesune.components.CompConfigurable
+                            android:id="@+id/cmpAdicHDBal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            custom:tipo="AdicHD" />
+
+                        <co.com.une.appmovilesune.components.CompTotal
+                            android:id="@+id/cmpTotalPaqueteAdicionalesBal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <Button
+                            android:id="@+id/btnSeleccionarBal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/sel_oferta"
+                            android:onClick="procesarBal" />
+
+                    </LinearLayout>
+
+                </ScrollView>
+
+                <ScrollView
+                    android:id="@+id/svOfertaConfigurable"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <co.com.une.appmovilesune.components.CompConfigurable
+                            android:id="@+id/cmpConfTV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            custom:tipo="Television" />
+
+                        <co.com.une.appmovilesune.components.CompConfigurable
+                            android:id="@+id/cmpConfBA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            custom:tipo="Internet" />
+
+                        <co.com.une.appmovilesune.components.CompConfigurable
+                            android:id="@+id/cmpConfTO"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            custom:tipo="Telefonia" />
+
+                        <co.com.une.appmovilesune.components.CompTotal
+                            android:id="@+id/cmpTotalPaqueteConf"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <co.com.une.appmovilesune.components.CompDecos
+                            android:id="@+id/cmpDecosConfigurable"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <co.com.une.appmovilesune.components.CompADDigital
+                            android:id="@+id/cmpAdicionalesConf"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <co.com.une.appmovilesune.components.CompConfigurable
+                            android:id="@+id/cmpAdicHDConf"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            custom:tipo="AdicHD" />
+
+                        <co.com.une.appmovilesune.components.CompTotal
+                            android:id="@+id/cmpTotalPaqueteAdicionalesConf"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <Button
+                            android:id="@+id/btnSeleccionarConf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/sel_oferta"
+                            android:onClick="procesarConf" />
+
+                    </LinearLayout>
+
+                </ScrollView>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
     </TabHost>
 
 </LinearLayout>

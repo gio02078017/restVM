@@ -3,97 +3,97 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/texture"
-    android:orientation="vertical" >
-        
+    android:orientation="vertical">
+
     <TabHost
         android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-    	
-        <LinearLayout 
+        android:layout_height="fill_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            
-            <co.com.une.appmovilesune.components.TituloPrincipal 
-		        android:id="@+id/tlpPrincipal"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content" />
-        
-	        <TabWidget
-		        android:id="@android:id/tabs"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content" />
-	        
-	        <FrameLayout 
-	            android:id="@android:id/tabcontent"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content">
-	            
-	            <LinearLayout 
-	                android:id="@+id/rsnCliente"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:orientation="vertical" >
-	                
-	                <ListView
+
+            <co.com.une.appmovilesune.components.TituloPrincipal
+                android:id="@+id/tlpPrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/rsnCliente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ListView
                         android:id="@+id/lsvCliente"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
-	                
-	            </LinearLayout>
-	            
-	            <LinearLayout 
-	                android:id="@+id/rsnCompetencia"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:orientation="vertical">
-	                
-	                <ListView
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/rsnCompetencia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ListView
                         android:id="@+id/lsvCompetencia"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
-	                
-	            </LinearLayout>
-	            
-	            <LinearLayout 
-	                android:id="@+id/rsnPeticion"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:orientation="vertical">
-	                
-	                <ListView
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/rsnPeticion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ListView
                         android:id="@+id/lsvPeticion"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
-	                
-	            </LinearLayout>
-	            
-	            <LinearLayout 
-	                android:id="@+id/rsnObsequio"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:orientation="vertical">
-	                
-	                <ListView
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/rsnObsequio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ListView
                         android:id="@+id/lsvObsequio"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
-	                
-	            </LinearLayout>
-	            
-               <LinearLayout
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/rsnVenta"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:id="@+id/linearVenta"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:visibility="visible" >
+                        android:visibility="visible">
 
                         <ListView
                             android:id="@+id/lsvVenta"
@@ -106,7 +106,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:visibility="gone" >
+                        android:visibility="gone">
 
                         <ListView
                             android:id="@+id/lsvDocumentacion"
@@ -114,37 +114,37 @@
                             android:layout_height="match_parent" />
                     </LinearLayout>
                 </LinearLayout>
-	            
-	            <LinearLayout 
-	                android:id="@+id/rsnProspecto"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:orientation="vertical" >
-	                
-	                <ListView
+
+                <LinearLayout
+                    android:id="@+id/rsnProspecto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ListView
                         android:id="@+id/lsvProspecto"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
-	                
-	            </LinearLayout>
-	            
-	            <LinearLayout 
-	                android:id="@+id/rsnBlindaje"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:orientation="vertical" >
-	                
-	                <ListView
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/rsnBlindaje"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ListView
                         android:id="@+id/lsvBlindaje"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
-	                
-	            </LinearLayout>
-	            	            
-	        </FrameLayout>
-        
+
+                </LinearLayout>
+
+            </FrameLayout>
+
         </LinearLayout>
-        
-   	</TabHost>
+
+    </TabHost>
 
 </LinearLayout>

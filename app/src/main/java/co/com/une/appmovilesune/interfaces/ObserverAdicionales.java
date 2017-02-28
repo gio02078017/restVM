@@ -7,8 +7,11 @@ package co.com.une.appmovilesune.interfaces;
 public interface ObserverAdicionales {
 
     void seleccionarPlan(String plan);
+
     void deshabilitarAdicionales();
+
     void habilitarAdicionales();
+
     void limpiarAdicionales();
 
 }

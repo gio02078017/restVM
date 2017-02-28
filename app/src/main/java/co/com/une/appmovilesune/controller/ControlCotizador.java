@@ -3,6 +3,7 @@ package co.com.une.appmovilesune.controller;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,7 @@ import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.adapters.BloqueoCobertura;
 import co.com.une.appmovilesune.adapters.ItemKeyValue2;
 import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
+import co.com.une.appmovilesune.adapters.ItemTarificador;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
 import co.com.une.appmovilesune.complements.Dialogo;
@@ -592,16 +594,16 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 if (codigoPA.equalsIgnoreCase("00")) {
                     productos.get(i).setAplicaPA(true);
                     cliente.setPagoAnticipado("SI");
-                } else if (codigoPA.equalsIgnoreCase("02")){
+                } else if (codigoPA.equalsIgnoreCase("02")) {
                     if (Utilidades.excluirEstadosPagoAnticipado()
                             .contains(cliente.getScooringune().getRazonScooring())) {
                         productos.get(i).setAplicaPA(true);
                         cliente.setPagoAnticipado("SI");
-                    }else {
+                    } else {
                         productos.get(i).setAplicaPA(false);
                         cliente.setPagoAnticipado("NO");
                     }
-                }else {
+                } else {
                     productos.get(i).setAplicaPA(false);
                     cliente.setPaginaAsignacion("NO");
                 }
@@ -626,9 +628,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 }
                 if (productos.get(i).getTipoPeticion().equals("N")) {
                     totalPagoParcial += productos.get(i).getTotalPagoParcial();
-                    if(codigoPA.equalsIgnoreCase("00")){
+                    if (codigoPA.equalsIgnoreCase("00")) {
                         totalPagoAnticipado += productos.get(i).getPagoAnticipado();
-                    }else{
+                    } else {
                         totalPagoAnticipado = 0;
                     }
 
@@ -944,7 +946,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                     if (validarDigital()) {
                                         if (validarTelefonoServicio) {
                                             if (Utilidades.validarTelefonos(cliente, this)) {
-                                                if (validarEstandarizacion || cliente.isControlCerca()) {
+
+                                                System.out.println("Estandarizar validarEstandarizacion "+validarEstandarizacion);
+                                                System.out.println("Estandarizar cliente.isControlCerca() "+cliente.isControlCerca());
+                                                System.out.println("Estandarizar Utilidades.CoberturaRural(cliente) "+Utilidades.CoberturaRural(cliente));
+
+                                                if (UtilidadesTarificadorNew.validarEstandarizacion(cotizacion,cliente, this) || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
 
                                                     System.out.println("direccion " + cliente.getDireccion());
                                                     System.out.println("tipoDocumento " + cliente.getTipoDocumento());
@@ -1152,7 +1159,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             cotizacion.setDecodificadores(cdcsDecodificadores.getDecos());
             cotizacion.setTotalDecos(cdcsDecodificadores.obtenerTotalDecos());
 
-            ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
+            String descuentoCadena = Utilidades.limpiarDecimales(String.valueOf(productoCotizador.getDescuentoCargobasico()));
+
+            ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(descuentoCadena, String.valueOf(productoCotizador.getDuracionDescuento()));
             cotizacion.Television(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), String.valueOf(productoCotizador.getCargoBasicoInd()),
                     String.valueOf(productoCotizador.getCargoBasicoEmp()), "0", "0", descuento.get(0).toString(), descuento.get(1).toString(), "",
                     "", getTipoTecnologiaExistente("TV"));
@@ -1181,9 +1190,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         System.out.println("llenarcotizacion Telefonia" + productoCotizador.getPlan());
         if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
 
-            ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
+            String descuentoCadena = Utilidades.limpiarDecimales(String.valueOf(productoCotizador.getDescuentoCargobasico()));
 
-            // System.out.println("descuentoTo " + descuentoTo);
+            ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(descuentoCadena, String.valueOf(productoCotizador.getDuracionDescuento()));
+
             cotizacion.Telefonia(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), "" + productoCotizador.getCargoBasicoInd(),
                     "" + productoCotizador.getCargoBasicoEmp(), "0", "0", descuento.get(0).toString(), descuento.get(1).toString(), "",
                     "", getTipoTecnologiaExistente("TO"));
@@ -1213,7 +1223,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     public void llenarcotizacionInternet(ProductoCotizador productoCotizador, CotizacionCliente cotizacionCliente, String ba, int contadorProd, boolean trioNuevo) {
 
-        ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(String.valueOf(productoCotizador.getDescuentoCargobasico()), String.valueOf(productoCotizador.getDuracionDescuento()));
+        String descuentoCadena = Utilidades.limpiarDecimales(String.valueOf(productoCotizador.getDescuentoCargobasico()));
+
+        ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(descuentoCadena, String.valueOf(productoCotizador.getDuracionDescuento()));
 
         System.out.println("llenarcotizacion Internet" + productoCotizador.getPlan());
         if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
@@ -1711,6 +1723,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         productosLog = new ArrayList<String>();
 
         if (Utilidades.validarPermiso("carrusel") || cliente.isControlCerca()) {
+        if (Utilidades.validarPermiso("carrusel") || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
             return true;
         }
 

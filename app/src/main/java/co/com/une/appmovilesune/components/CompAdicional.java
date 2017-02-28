@@ -227,9 +227,9 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         String[][] arrayAd = new String[contAdicionales][2];
 
         for (int i = 0; i < adicionales.size(); i++) {
-            System.out.println("adicionales.get(i).getDescuento() "+adicionales.get(i).getAdicional());
-            System.out.println("adicionales.get(i).getDescuento() "+adicionales.get(i).getDescuento());
-            System.out.println("adicionales.get(i).getDuracion() "+adicionales.get(i).getDuracion());
+            System.out.println("adicionales.get(i).getDescuento() " + adicionales.get(i).getAdicional());
+            System.out.println("adicionales.get(i).getDescuento() " + adicionales.get(i).getDescuento());
+            System.out.println("adicionales.get(i).getDuracion() " + adicionales.get(i).getDuracion());
             if (!adicionales.get(i).getDescuento().equalsIgnoreCase("") && !adicionales.get(i).getDescuento().equalsIgnoreCase("-")) {
 
                 String meses;
