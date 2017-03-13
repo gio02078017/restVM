@@ -1266,7 +1266,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_weight="1"
-                                        android:text="@string/fecha_exped"
+                                        android:text="@string/franja"
                                         android:textColor="#6F6F6F"
                                         android:textStyle="bold" />
 
