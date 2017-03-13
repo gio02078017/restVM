@@ -70,47 +70,16 @@ public class CustomTimePickerDialog extends TimePickerDialog {
 
             minuteSpinner = (NumberPicker) mTimePicker
                     .findViewById(field.getInt(null));
+            minuteSpinner.setOnValueChangedListener(cambioMinuto);
+
             hourSpinner  = (NumberPicker) mTimePicker
                     .findViewById(field1.getInt(null));
+            hourSpinner.setOnValueChangedListener(cambioHora);
 
             hour = Calendar.getInstance().getTime().getHours()+1;
             minute = Calendar.getInstance().getTime().getMinutes();
 
-            if(hour >= HOUR_MIN && hour <= HOUR_MAX){
-                hourSpinner.setMinValue(hour);
-                hourSpinner.setMaxValue(HOUR_MAX);
-                //elegirMinutos();
-                hourSpinner.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                    @Override
-                    public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                        Log.i("Time Hora",String.valueOf(i)+" "+String.valueOf(i1));
-                        if(i1 == HOUR_MAX){
-                            deshabilitarFranjas();
-                        } else if(i1 == hour){
-                            elegirMinutos();
-                        } else {
-                            habilitarFranjas(0);
-                        }
-
-                    }
-                });
-
-                minuteSpinner.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-                    @Override
-                    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                        if(hourSpinner.getValue() == HOUR_MAX){
-                            deshabilitarFranjas();
-                        }else{
-                            habilitarFranjas(0);
-                        }
-                    }
-                });
-
-                habilitarFranjas(0);
-
-            }else{
-                deshabilitarHorario();
-            }
+            calcularHorarios();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,28 +88,15 @@ public class CustomTimePickerDialog extends TimePickerDialog {
 
     private void habilitarFranjas(int minimo){
         Log.d("Minimo ",""+minimo+"");
-        minuteSpinner.setMinValue(minimo);
+        minuteSpinner.setMinValue(0);
         minuteSpinner.setMaxValue((60 / TIME_PICKER_INTERVAL) - 1);
         List<String> displayedValues = new ArrayList<>();
-        for (int i = minimo; i < 60; i += TIME_PICKER_INTERVAL) {
+        for (int i = minimo*15; i < 60; i += TIME_PICKER_INTERVAL) {
             displayedValues.add(String.format("%02d", i));
         }
         minuteSpinner.setDisplayedValues(displayedValues
                 .toArray(new String[displayedValues.size()]));
         minuteSpinner.setWrapSelectorWheel(true);
-    }
-
-    private void elegirMinutos(){
-        if(minute > 45){
-            hourSpinner.setMinValue(hour+1);
-            habilitarFranjas(0);
-        } else if(minute > 30) {
-            habilitarFranjas(45);
-        } else if(minute > 15) {
-            habilitarFranjas(30);
-        } else {
-            habilitarFranjas(15);
-        }
     }
 
     private void deshabilitarHorario(){
@@ -155,4 +111,37 @@ public class CustomTimePickerDialog extends TimePickerDialog {
         minuteSpinner.setMinValue(0);
         minuteSpinner.setMaxValue(0);
     }
+
+    private void calcularHorarios(){
+
+        if(hour >= HOUR_MIN && hour <= HOUR_MAX){
+            hourSpinner.setMinValue(hour);
+            hourSpinner.setMaxValue(HOUR_MAX);
+
+            if(hour == hourSpinner.getValue()){
+                habilitarFranjas(2);
+            }
+
+            habilitarFranjas(0);
+
+        }else{
+            deshabilitarHorario();
+        }
+
+    }
+
+    NumberPicker.OnValueChangeListener cambioHora = new NumberPicker.OnValueChangeListener() {
+        @Override
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+            Log.d("hourChange",oldVal+" to "+newVal);
+            calcularHorarios();
+        }
+    };
+
+    NumberPicker.OnValueChangeListener cambioMinuto = new NumberPicker.OnValueChangeListener() {
+        @Override
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+            Log.d("minuteChange",oldVal+" to "+newVal);
+        }
+    };
 }
