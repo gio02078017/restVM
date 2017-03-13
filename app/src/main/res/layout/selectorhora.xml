@@ -11,7 +11,7 @@
         android:layout_weight="1"
         android:background="@drawable/campo_01"
         android:ems="10"
-        android:hint="Seleccione Fecha"
+        android:hint="@string/seleccionarfranja"
         android:editable="false"
         android:paddingLeft="20dp">
 
