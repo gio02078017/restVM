@@ -71,10 +71,12 @@ public class CustomTimePickerDialog extends TimePickerDialog {
             minuteSpinner = (NumberPicker) mTimePicker
                     .findViewById(field.getInt(null));
             minuteSpinner.setOnValueChangedListener(cambioMinuto);
+            minuteSpinner.setWrapSelectorWheel(false);
 
             hourSpinner  = (NumberPicker) mTimePicker
                     .findViewById(field1.getInt(null));
             hourSpinner.setOnValueChangedListener(cambioHora);
+            hourSpinner.setWrapSelectorWheel(false);
 
             hour = Calendar.getInstance().getTime().getHours()+1;
             minute = Calendar.getInstance().getTime().getMinutes();
@@ -91,12 +93,12 @@ public class CustomTimePickerDialog extends TimePickerDialog {
         minuteSpinner.setMinValue(0);
         minuteSpinner.setMaxValue((60 / TIME_PICKER_INTERVAL) - 1);
         List<String> displayedValues = new ArrayList<>();
-        for (int i = minimo*15; i < 60; i += TIME_PICKER_INTERVAL) {
+        for (int i = minimo; i < 60; i += TIME_PICKER_INTERVAL) {
             displayedValues.add(String.format("%02d", i));
         }
+        Log.d("displayedValues.size()",String.valueOf(displayedValues.size()));
         minuteSpinner.setDisplayedValues(displayedValues
                 .toArray(new String[displayedValues.size()]));
-        minuteSpinner.setWrapSelectorWheel(true);
     }
 
     private void deshabilitarHorario(){
@@ -119,10 +121,10 @@ public class CustomTimePickerDialog extends TimePickerDialog {
             hourSpinner.setMaxValue(HOUR_MAX);
 
             if(hour == hourSpinner.getValue()){
-                habilitarFranjas(2);
+                habilitarFranjas(0);
             }
 
-            habilitarFranjas(0);
+            //habilitarFranjas(0);
 
         }else{
             deshabilitarHorario();
@@ -133,8 +135,15 @@ public class CustomTimePickerDialog extends TimePickerDialog {
     NumberPicker.OnValueChangeListener cambioHora = new NumberPicker.OnValueChangeListener() {
         @Override
         public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-            Log.d("hourChange",oldVal+" to "+newVal);
-            calcularHorarios();
+            Log.d("hourChange", oldVal + " to " + newVal);
+            //calcularHorarios();
+            if (hourSpinner.getValue() == HOUR_MAX) {
+                deshabilitarFranjas();
+            } else if (hourSpinner.getValue() == hour){
+                habilitarFranjas(0);
+            }else{
+                habilitarFranjas(0);
+            }
         }
     };
 
@@ -142,6 +151,7 @@ public class CustomTimePickerDialog extends TimePickerDialog {
         @Override
         public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
             Log.d("minuteChange",oldVal+" to "+newVal);
+
         }
     };
 }

@@ -1498,6 +1498,13 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 		}
 	};
 
+	OnDismissListener  dlf = new OnDismissListener() {
+		@Override
+		public void onDismiss(DialogInterface dialog) {
+
+		}
+	};
+
 	@Override
 	public void update(Object value) {
 		// TODO Auto-generated method stub
