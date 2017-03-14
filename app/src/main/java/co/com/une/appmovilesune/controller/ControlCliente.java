@@ -1492,18 +1492,12 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
 			// TODO Auto-generated method stub
 			if (dialogoHora.isSeleccion()) {
-				shp.setTexto(dialogoHora.getFechaSeleccion());
+				shp.setTexto(dialogoHora.getHoraSeleccion());
 			}
 			dialogoHora.setSeleccion(false);
 		}
 	};
 
-	OnDismissListener  dlf = new OnDismissListener() {
-		@Override
-		public void onDismiss(DialogInterface dialog) {
-
-		}
-	};
 
 	@Override
 	public void update(Object value) {

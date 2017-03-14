@@ -52,6 +52,7 @@ public class Dialogo extends Dialog {
 	private ArrayList<String> productos;
 	private ArrayList<String> hobbies;
 	private String fechaSeleccion = "NoDefinida";
+	private String horaSeleccion = "NoDefinida";
 	private String[] asesoria = new String[4];
 	private String[] configuracion = new String[2];
 	private String[] competencia = new String[5];
@@ -511,6 +512,8 @@ public class Dialogo extends Dialog {
 		@Override
 		public void onTimeSet(TimePicker timePicker, int i, int i1) {
 			Log.i("TimePicker",String.valueOf(i)+" "+String.valueOf(i1));
+			horaSeleccion = String.format("%02d", i)+":"+String.format("%02d", i1);
+			seleccion = true;
 		}
 	};
 
@@ -594,5 +597,13 @@ public class Dialogo extends Dialog {
 
 	public void setSelectTipoAsesoria(String selectTipoAsesoria) {
 		this.selectTipoAsesoria = selectTipoAsesoria;
+	}
+
+	public String getHoraSeleccion() {
+		return horaSeleccion;
+	}
+
+	public void setHoraSeleccion(String horaSeleccion) {
+		this.horaSeleccion = horaSeleccion;
 	}
 }
