@@ -1,6 +1,8 @@
 package co.com.une.appmovilesune.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -832,8 +834,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 		adaptador = (ArrayAdapter<String>) spnDomiciliacion.getAdapter();
 		spnDomiciliacion.setSelection(adaptador.getPosition(cliente.getDomiciliacion()));
 
-		adaptador = (ArrayAdapter<String>) spnDomiciliacion.getAdapter();
-		spnDomiciliacion.setSelection(adaptador.getPosition(cliente.getDomiciliacion()));
+		shp.setTexto(cliente.getHoraDomiciliacion());
 
 		System.out.println("cliente.getContacto2().getParentesco() " + cliente.getContacto2().getParentesco());
 
@@ -1387,6 +1388,8 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 		cliente.setMigracion4G((String) sltMigrar4G.getSelectedItem());
 
 		cliente.actualizarCliente();
+
+		cliente.setHoraDomiciliacion(shp.getTexto());
 
 		System.out.println("validacion correo " + Utilidades.validateEmail(cliente.getCorreo()));
 

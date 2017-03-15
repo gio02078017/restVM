@@ -1,7 +1,9 @@
 package co.com.une.appmovilesune.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -108,6 +110,7 @@ public class Cliente implements Serializable, Observer, Subject {
 
 	private String domiciliacion;
 	private String bloqueoDomiciliacion;
+	private String horaDomiciliacion;
 
 	public Observer observador;
 
@@ -208,6 +211,7 @@ public class Cliente implements Serializable, Observer, Subject {
 
 		domiciliacion = "";
 		bloqueoDomiciliacion = "";
+		horaDomiciliacion = "";
 
 		logSmartPromoEnv = "";
 		logSmartPromoRes = "";
@@ -280,6 +284,7 @@ public class Cliente implements Serializable, Observer, Subject {
 		this.tecnologia = "";
 		this.domiciliacion = "";
 		this.bloqueoDomiciliacion = "";
+		this.horaDomiciliacion = "";
 
 		contacto1 = new Contacto();
 		contacto2 = new Contacto();
@@ -1155,9 +1160,11 @@ public class Cliente implements Serializable, Observer, Subject {
 			if (domiciliacion != null && !domiciliacion.equals(Utilidades.inicial_opcion)) {
 				jo.put("domiciliacion", domiciliacion);
 				jo.put("estadoDomiciliacion", bloqueoDomiciliacion);
+				jo.put("horaDomiciliacion", new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime())+horaDomiciliacion);
 			} else {
 				jo.put("domiciliacion", "NO");
 				jo.put("bloqueoDomiciliacion", "0");
+				jo.put("horaDomiciliacion","");
 			}
 
 			System.out.println("BanderaPA " + pagoAnticipado);
@@ -1988,6 +1995,14 @@ public class Cliente implements Serializable, Observer, Subject {
 
 	public void setPagoAnticipado(String pagoAnticipado){
 		this.pagoAnticipado = pagoAnticipado;
+	}
+
+	public String getHoraDomiciliacion() {
+		return horaDomiciliacion;
+	}
+
+	public void setHoraDomiciliacion(String horaDomiciliacion) {
+		this.horaDomiciliacion = horaDomiciliacion;
 	}
 
 	@Override
