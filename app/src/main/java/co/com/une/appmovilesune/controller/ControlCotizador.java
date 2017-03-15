@@ -2232,7 +2232,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     prodcutosCarrusel += producto+"-";
                 }
 
-                dialogo = new Dialogo(this,Dialogo.DIALOGO_CUSTOM,"Carrusel",getResources().getString(R.string.mensajeCarrusel)+prodcutosCarrusel.substring(0,prodcutosCarrusel.length()-1),"Prospectar","Recotizar",carruselOK,carruselCANCEL);
+                dialogo = new Dialogo(this,Dialogo.DIALOGO_CUSTOM,"Carrusel",getResources().getString(R.string.mensajeCarrusel)+prodcutosCarrusel.substring(0,prodcutosCarrusel.length()-1)+getResources().getString(R.string.mensajeCarrusel2),"Prospectar","Reconfigurar",carruselOK,carruselCANCEL);
                 dialogo.dialogo.show();
 
             } else {

@@ -408,7 +408,8 @@
     <string name="carrusel">Validar Retiro</string>
     <string name="paquete">Paquete</string>
     <string name="fecharetiro">Fecha Retiro</string>
-    <string name="mensajeCarrusel">No es posible ingresar la venta. Productos con carrusel: </string>
+    <string name="mensajeCarrusel">Productos con carrusel: </string>
+    <string name="mensajeCarrusel2">. Puede reconfigurar oferta con los productos restantes o prospectar.</string>
     <string name="mensajeRetiros">Para continuar debe validar primero el módulo de retiros.</string>
     <string name="direccioncercaa">Esta dirección contiene cerca a, la cual cobertura es asignada manualmente desde el campo tecnológia en la pestaña de Socioeconómico</string>
     <string name="valdiacionconfronta">Validación confronta</string>
