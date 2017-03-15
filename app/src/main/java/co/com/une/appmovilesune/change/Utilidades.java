@@ -2719,6 +2719,61 @@ public class Utilidades {
 		return data;
 	}
 
+	public static String nombrePlan(String departamento, String plan, String estrato) {
+
+		String nombrePlan = "";
+
+		nombrePlan = nombrePlanHomoPrimeraLinea(departamento,plan,estrato);
+
+		if(nombrePlan.trim().equalsIgnoreCase("")){
+			nombrePlan = nombrePlanHomoSegundaLinea(departamento,plan,estrato);
+		}
+
+		return nombrePlan;
+	}
+
+	public static String nombrePlanHomoPrimeraLinea(String departamento, String plan, String estrato) {
+
+		ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Precios",
+				new String[] { "Producto" }, "Departamento=? and homoPrimeraLinea=? and estrato like ?",
+				new String[] { departamento, plan, "%" + estrato + "%" }, null, null, null);
+
+		System.out.println("respuesta " + respuesta);
+
+		String data = "";
+
+		if (respuesta != null) {
+			try {
+				data = respuesta.get(0).get(0);
+			} catch (Exception e) {
+				data = "";
+			}
+		}
+
+		return data;
+	}
+
+	public static String nombrePlanHomoSegundaLinea(String departamento, String plan, String estrato) {
+
+		ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Precios",
+				new String[] { "Producto" }, "Departamento=? and homoSegundaLinea=? and estrato like ?",
+				new String[] { departamento, plan, "%" + estrato + "%" }, null, null, null);
+
+		System.out.println("respuesta " + respuesta);
+
+		String data = "";
+
+		if (respuesta != null) {
+			try {
+				data = respuesta.get(0).get(0);
+			} catch (Exception e) {
+				data = "";
+			}
+		}
+
+		return data;
+	}
+
 	public static boolean validarFechaConsuta(long fechaInicio, long fechaConsulta, Context context) {
 		boolean validar = true;
 		long resta = 0;
