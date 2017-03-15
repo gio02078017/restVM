@@ -467,7 +467,9 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
         campoVisibles();
 
-    }
+		System.out.println("nombre plan "+Utilidades.nombrePlan("Antioquia","0947", "3"));
+
+	}
 
     public void validarProyecto(String proyecto) {
         boolean control = false;
