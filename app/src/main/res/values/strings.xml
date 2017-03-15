@@ -468,4 +468,7 @@
 
     <string name="franja">Franja</string>
     <string name="seleccionarfranja">Seleccione Franja</string>
+
+    <string name="mensajefranjainvalidaa">Para programar lanzamiento de llamada debe ser minimo </string>
+    <string name="mensajefranjainvalidab"> minutos de diferencia a la hora actual</string>
 </resources>
