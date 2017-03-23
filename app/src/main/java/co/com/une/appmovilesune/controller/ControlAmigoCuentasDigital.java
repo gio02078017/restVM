@@ -1023,7 +1023,11 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
 						for (int i = 0; i < ac.productosPortafolio.size(); i++) {
 							if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("TO")) {
 								idTelefonia = ac.productosPortafolio.get(i).identificador;
-								paTelefonia = ac.productosPortafolio.get(i).plan;
+								paTelefonia = Utilidades.nombrePlan(cliente.getDepartamento(),ac.productosPortafolio.get(i).planFacturacion,cliente.getEstrato());
+                                if(paTelefonia.equalsIgnoreCase("")){
+                                    paTelefonia = ac.productosPortafolio.get(i).plan;
+                                }
+                                Log.d("planAnterior","TO "+paTelefonia);
                                 pfAnterior = ac.productosPortafolio.get(i).planFacturacion;
 							}
 						}
@@ -1068,7 +1072,10 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
 							if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("TV")
 									|| ac.productosPortafolio.get(i).producto.contains("TELEV")) {
 								idTelevision = ac.productosPortafolio.get(i).identificador;
-								paTelevision = ac.productosPortafolio.get(i).plan;
+								paTelevision = Utilidades.nombrePlan(cliente.getDepartamento(),ac.productosPortafolio.get(i).planFacturacion,cliente.getEstrato());
+                                if(paTelevision.equalsIgnoreCase("")){
+                                    paTelevision = ac.productosPortafolio.get(i).plan;
+                                }
                                 pfAnterior = ac.productosPortafolio.get(i).planFacturacion;
 							}
 						}
@@ -1113,8 +1120,12 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
 						for (int i = 0; i < ac.productosPortafolio.size(); i++) {
 							if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("BA")) {
 								idInternet = ac.productosPortafolio.get(i).identificador;
-								paInternet = ac.productosPortafolio.get(i).plan;
+								paInternet = Utilidades.nombrePlan(cliente.getDepartamento(),ac.productosPortafolio.get(i).planFacturacion,cliente.getEstrato());
+                                if(paInternet.equalsIgnoreCase("")){
+                                    paInternet = ac.productosPortafolio.get(i).plan;
+                                }
                                 pfAnterior = ac.productosPortafolio.get(i).planFacturacion;
+                                Log.d("pfAnterior",pfAnterior);
 							}
 						}
 					}
@@ -1154,6 +1165,10 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
             descBa = cmpConfBA.getDescuento();
             durDescBa = cmpConfBA.getDuracion();
         }
+
+        Log.d("planAnterior",paTelefonia);
+        Log.d("planAnterior",paTelevision);
+        Log.d("planAnterior",paInternet);
 
         if (cmpAdicHD.isActive()) {
             int numAdicionales = cmpAdicionalesConf.getAdicionales().length;
@@ -1483,7 +1498,7 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
                     descuentoBa.get(0).toString(), descuentoBa.get(1).toString(), idInternet, paInternet,
                     baTecnologiacr);
 
-            if(!internetArr.get(0).equalsIgnoreCase("HFC Existente")){
+            if(!internetArr.get(0).equalsIgnoreCase("Internet Existente")){
                 cotizacion.setPlanFacturacionBa_I(planesFacturacion.get(2));
                 cotizacion.setPlanFacturacionBa_P(planesFacturacion.get(5));
             } else {
