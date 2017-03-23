@@ -31,6 +31,7 @@ import co.com.une.appmovilesune.adapters.ItemKeyValue2;
 import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
+import co.com.une.appmovilesune.complements.Dialogo;
 import co.com.une.appmovilesune.complements.Validaciones;
 import co.com.une.appmovilesune.components.CompAdicional;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
@@ -55,6 +56,8 @@ import co.com.une.appmovilesune.model.TarificadorNew;
  */
 
 public class ControlCotizador extends Activity implements Observer, SubjectTotales {
+
+    public static final String TAG = "ControlCotizador";
 
     private TituloPrincipal tlpPrincipal;
 
@@ -517,7 +520,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 tratarPagoParcialAnticipado(resultado.get(1).toString());
             } else if (resultado != null && resultado.get(0).equals("decos")) {
 
+            } else if(resultado != null && resultado.get(0).equals("validarDebitoAutomaticoExistente")){
+                tratarValidacionDebitoAutomatico(resultado.get(1).toString());
             }
+
+
 
         } catch (Exception e) {
             Log.w("error update", e.getMessage());
@@ -699,7 +706,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     public void procesarCotizacion(View v) {
         if (cotizacionCliente != null) {
             System.out.println("cotizacionCliente " + cotizacionCliente);
-            procesarCotizacion(cotizacionCliente);
+            if(cliente.getDomiciliacion().equalsIgnoreCase("SI")){
+                validarDebitoAutomaticoExistente();
+            }else{
+                procesarCotizacion(cotizacionCliente);
+            }
+
         } else {
             Utilidades.MensajesToast("Debe seleccionar primero la cotización", this);
         }
@@ -2020,6 +2032,40 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         finish();
     }
 
+    private void validarDebitoAutomaticoExistente(){
+        JSONObject data = new JSONObject();
+
+        try {
+
+            data.put("cedula", cliente.getCedula());
+            data.put("ciudad", cliente.getCiudadAmc());
+            data.put("direccion", cliente.getDireccion());
+
+        } catch (JSONException e) {
+            Log.w("Error", e.getMessage());
+        }
+
+        Log.d("Domiciliacion", data.toString());
+        Log.d("Domiciliacion",Utilidades.camposUnicosCiudad("CRMCarrusel", cliente.getCiudad()));
+
+        ArrayList<String> parametros = new ArrayList<String>();
+        parametros.add(Utilidades.camposUnicosCiudad("CRMCarrusel", cliente.getCiudad()));
+        parametros.add(data.toString());
+
+
+        ArrayList<Object> params = new ArrayList<Object>();
+        params.add(MainActivity.config.getCodigo());
+        params.add("validarDebitoAutomaticoExistente");
+        params.add(parametros);
+
+        Simulador simulador = new Simulador();
+        simulador.setManual(this);
+        simulador.addObserver(this);
+
+        simulador.execute(params);
+
+    }
+
     private void obtenerPagoParcialAnticipado() {
         Simulador simulador = new Simulador();
         simulador.setManual(this);
@@ -2046,7 +2092,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         params.add("consultarPagoParcialAnticipado");
         params.add(parametros);
 
-        simulador.execute(params);
+        try{
+            simulador.execute(params);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -2074,6 +2125,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 Toast.makeText(this, getResources().getString(R.string.mensajevalidacionpagoparcial), Toast.LENGTH_LONG).show();
             }
         } catch (JSONException e) {
+            Toast.makeText(this, getResources().getString(R.string.mensajevalidacionpagoparcial), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 
@@ -2114,6 +2166,46 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void tratarValidacionDebitoAutomatico(String respuesta){
+
+        Log.d("Domiciliacion", respuesta);
+
+        try {
+            JSONObject json = new JSONObject(respuesta);
+
+            if (Configuracion.validarIntegridad(json.getString("data"), json.getString("crc"))) {
+                String data = new String(Base64.decode(json.getString("data")));
+
+                Log.d("Domiciliacion",data);
+
+                json = new JSONObject(data);
+
+                if(json.getString("codigoMensaje").equals("00")){
+                    if(json.getJSONObject("data").getString("debitoAutomatico").equalsIgnoreCase("S")){
+                        cliente.setDomiciliacion("NO");
+                        Dialogo dialogo = null;
+                        if(json.getJSONObject("data").getString("tipoDebitoAutomatico").equalsIgnoreCase("DB")){
+                            dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA,getResources().getString(R.string.mensajedebitoautomaticodebito));
+                        }else {
+                            dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA,getResources().getString(R.string.mensajedebitoautomaticodebito));
+                        }
+                        dialogo.dialogo.show();
+                    }
+                }
+
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.mensajedebitoautomaticoexistente), Toast.LENGTH_LONG).show();
+            }
+        } catch (JSONException e) {
+            Toast.makeText(this, getResources().getString(R.string.mensajedebitoautomaticoexistente), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+
+        //procesarCotizacion(cotizacionCliente);
+
     }
 
     @Override

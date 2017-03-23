@@ -834,7 +834,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 		adaptador = (ArrayAdapter<String>) spnDomiciliacion.getAdapter();
 		spnDomiciliacion.setSelection(adaptador.getPosition(cliente.getDomiciliacion()));
 
-		shp.setTexto(cliente.getHoraDomiciliacion());
+		//shp.setTexto(cliente.getHoraDomiciliacion());
 
 		System.out.println("cliente.getContacto2().getParentesco() " + cliente.getContacto2().getParentesco());
 
