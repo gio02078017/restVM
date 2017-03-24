@@ -2,9 +2,11 @@ package co.com.une.appmovilesune.controller;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -2191,6 +2193,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                         }else {
                             dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA,getResources().getString(R.string.mensajedebitoautomaticodebito));
                         }
+                        
                         dialogo.dialogo.show();
                     }
                 }
@@ -2204,7 +2207,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         }
 
 
-        //procesarCotizacion(cotizacionCliente);
+        procesarCotizacion(cotizacionCliente);
 
     }
 
