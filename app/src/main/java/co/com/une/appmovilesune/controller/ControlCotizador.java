@@ -334,7 +334,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         String queryOferta = "select distinct Oferta from Precios p " +
                 UtilidadesTarificadorNew.innerJoinTarifas+
-                " where cxt.id_condicion in ("+ UtilidadesTarificadorNew.queryInternoTarifas(cliente.getDepartamento(),cliente.getCiudad())+")" +
+                " where cxt.id_condicion in ("+ UtilidadesTarificadorNew.queryInternoTarifas(UtilidadesTarificadorNew.homologarDepartamentoCotizacion(cliente.getDepartamento(),cliente.getCiudad()),cliente.getCiudad())+")" +
                 " and estrato like '%" + estrato + "%' and tipo_paquete like '%"+tipoPaquete+"%' and Tecnologia like '%"+cliente.getTecnologia()+"%'";
 
         System.out.println("queryOferta "+queryOferta);

@@ -205,4 +205,14 @@ public class UtilidadesTarificadorNew {
 
         return query;
     }
+
+
+    public static String homologarDepartamentoCotizacion(String departamento,String ciudad){
+
+        if(departamento.equalsIgnoreCase("Distrito Capital De Bogota")){
+            departamento = ciudad;
+        }
+
+        return departamento;
+    }
 }

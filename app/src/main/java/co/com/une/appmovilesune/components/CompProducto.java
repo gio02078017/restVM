@@ -192,12 +192,6 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     public void cargarPlanes(Cliente cliente, int estrato, String oferta) {
 
-        this.departamento = cliente.getDepartamento();
-
-        if(departamento.equalsIgnoreCase("Distrito Capital De Bogota")){
-            this.departamento = cliente.getCiudad();
-        }
-
         this.ciudad = cliente.getCiudad();
         this.estrato = estrato;
         this.tecnologia = cliente.getTecnologia();
@@ -219,7 +213,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
             queryProducto = "select distinct Producto from Precios p " +
                     UtilidadesTarificadorNew.innerJoinTarifas +
-                    " where cxt.id_condicion in (" + UtilidadesTarificadorNew.queryInternoTarifas(cliente.getDepartamento(), cliente.getCiudad()) + ")" +
+                    " where cxt.id_condicion in (" + UtilidadesTarificadorNew.queryInternoTarifas(UtilidadesTarificadorNew.homologarDepartamentoCotizacion(cliente.getDepartamento(),cliente.getCiudad()), cliente.getCiudad()) + ")" +
                     " and estrato like '%" + estrato + "%' and Tipo_Producto = '" + traducirProducto() + "' and Tecnologia like '%" + tecnologia + "%' and Nuevo IN('" + traducirTipoPeticion() + "','2') " +
                     " and Oferta = '" + oferta + "'";
 
