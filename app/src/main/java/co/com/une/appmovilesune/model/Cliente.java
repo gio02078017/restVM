@@ -931,6 +931,8 @@ public class Cliente implements Serializable, Observer, Subject {
             } catch (JsonParseException e) {
                 Log.w("Error", e.getMessage());
 
+            } catch (JSONException e){
+                Log.w("Error", e.getMessage());
             }
 
             try {
@@ -940,7 +942,10 @@ public class Cliente implements Serializable, Observer, Subject {
             } catch (JsonParseException e) {
                 Log.w("Error", e.getMessage());
 
+            } catch (JSONException e){
+                Log.w("Error", e.getMessage());
             }
+
 
             jo.put("departamentoExpedicion", DepartamentoExpedicion);
 
