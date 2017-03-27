@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.kobjects.base64.Base64;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
 import co.com.une.appmovilesune.adapters.ItemTarificador;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
+import co.com.une.appmovilesune.complements.Dialogo;
 import co.com.une.appmovilesune.components.CompADDigital;
 import co.com.une.appmovilesune.components.CompBADigital;
 import co.com.une.appmovilesune.components.CompConfigurable;
@@ -39,12 +41,17 @@ import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.model.AdicionalAMG;
 import co.com.une.appmovilesune.model.AmigoCuentas;
 import co.com.une.appmovilesune.model.Cliente;
+import co.com.une.appmovilesune.model.Configuracion;
 import co.com.une.appmovilesune.model.Cotizacion;
+import co.com.une.appmovilesune.model.ProductoAMG;
+import co.com.une.appmovilesune.model.ProductoCotizador;
 import co.com.une.appmovilesune.model.Scooring;
 import co.com.une.appmovilesune.model.Simulador;
 import co.com.une.appmovilesune.model.Tarificador;
 
 public class ControlAmigoCuentasDigital extends Activity implements Observer {
+
+    public static final String TAG = "ControlAMCD";
 
     private TituloPrincipal tp;
     private TabHost tabs;
@@ -89,6 +96,10 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
     private String totalDescuentosAdicionales = "0";
 
     private String tvAnaloga = "0";
+
+    private ArrayList<String> productosLog;
+
+    private Dialogo dialogo;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -1697,11 +1708,11 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
                             }
                         }
                     } else {
-                        Toast.makeText(this, getResources().getString(R.string.mensajeCarrusel), Toast.LENGTH_SHORT)
-                                .show();
                         cliente.setCarrusel(true);
                         cliente.setProductosCarrusel(UtilidadesTarificador.productosCotizacionCarrusel(cotizacion));
-                        resultCotizador("gerencia de ruta");
+                        //resultCotizador("gerencia de ruta");
+
+                        enviarLogCarruselAutomatico();
                     }
                 } else {
                     Toast.makeText(this,
@@ -2082,6 +2093,9 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
             } else if (pestana.equals("config")) {
                 calcularTotalPaqueteConfigurable();
             }
+        } else if (resultado != null && resultado.get(0).equals("guardarLogCarruselAutomatico")) {
+            Log.d(TAG,"guardarLogCarruselAutomatico "+resultado.get(1).toString());
+            tratarLogAutomaticoCarrusel(resultado.get(1).toString());
         }
     }
 
@@ -2174,6 +2188,8 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
     public boolean validarCarrusel() {
         boolean validar = true;
 
+        productosLog = new ArrayList<String>();
+
         if (Utilidades.validarPermiso("carrusel") || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
             return true;
         }
@@ -2196,26 +2212,42 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
                                 System.out.println("carrusel cliente.getArraycarrusel().get(i).getProducto() "
                                         + cliente.getArraycarrusel().get(i).getProducto());
                                 if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("TO")) {
-                                    if (!UtilidadesTarificador.validarCarruselProductos(
-                                            cotizacion.getTipoCotizacionTo(), cotizacion.getTelefonia(), this)) {
-                                        validar = false;
-                                        System.out.println("carrusel to");
-                                        break;
+                                    if(!cotizacion.getTelefonia().equalsIgnoreCase("-")){
+                                        if (!UtilidadesTarificador.validarCarruselProductos(
+                                                cotizacion.getTipoCotizacionTo(), cotizacion.getTelefonia(), this)) {
+                                            System.out.println("carrusel to");
+                                            productosLog.add("TO");
+                                            break;
+                                        }
                                     }
+
                                 } else if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("TV")) {
-                                    if (!UtilidadesTarificador.validarCarruselProductos(
-                                            cotizacion.getTipoCotizacionTv(), cotizacion.getTelevision(), this)) {
-                                        validar = false;
-                                        System.out.println("carrusel tv");
-                                        break;
+                                    if(!cotizacion.getTelevision().equalsIgnoreCase("-")){
+                                        if (!UtilidadesTarificador.validarCarruselProductos(
+                                                cotizacion.getTipoCotizacionTv(), cotizacion.getTelevision(), this)) {
+                                            System.out.println("carrusel tv");
+                                            productosLog.add("TV");
+                                            break;
+                                        }
                                     }
+
                                 } else if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("BA")) {
-                                    if (!UtilidadesTarificador.validarCarruselProductos(
-                                            cotizacion.getTipoCotizacionBa(), cotizacion.getInternet(), this)) {
-                                        validar = false;
-                                        System.out.println("carrusel ba");
-                                        break;
+                                    if(!cotizacion.getInternet().equalsIgnoreCase("-")){
+                                        if (!UtilidadesTarificador.validarCarruselProductos(
+                                                cotizacion.getTipoCotizacionBa(), cotizacion.getInternet(), this)) {
+                                            System.out.println("carrusel ba");
+                                            productosLog.add("BA");
+                                            break;
+                                        }
                                     }
+
+                                }
+                            }
+
+                            if(productosLog.size() > 0){
+                                validar = false;
+                                for (String prod: productosLog) {
+                                    Log.i(TAG,"LOG "+prod);
                                 }
                             }
                         }
@@ -2243,4 +2275,138 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
 
         return validar;
     }
+
+    private void enviarLogCarruselAutomatico(){
+
+        try{
+
+            ArrayList<ProductoAMG> productos = new ArrayList<ProductoAMG>();
+
+            JSONObject  dataLogCarrusel = new JSONObject();
+            dataLogCarrusel.put("documento",cliente.getCedula());
+            dataLogCarrusel.put("tipoDocumento",cliente.getTipoDocumento());
+            dataLogCarrusel.put("departamento",cliente.getDepartamento());
+            dataLogCarrusel.put("municipio",cliente.getCiudad());
+            dataLogCarrusel.put("direccion",cliente.getDireccion());
+            dataLogCarrusel.put("codigoAsesor",MainActivity.config.getCodigo_asesor());
+            dataLogCarrusel.put("nombreAsesor",MainActivity.config.getNombre_asesor());
+            dataLogCarrusel.put("codigoCanal",MainActivity.config.getCanal());
+            dataLogCarrusel.put("nombreCanal","");
+            dataLogCarrusel.put("motivo","VALIDACION SEGUNDO NIVEL");
+            dataLogCarrusel.put("submotivo","Carrusel");
+            dataLogCarrusel.put("crm",cliente.getCrmCarrusel());
+
+            JSONArray dataLogCarruselProductos = new JSONArray();
+
+            if(!cotizacion.getTelefonia().equalsIgnoreCase("-")){
+                JSONObject productoJson = new JSONObject();
+                productoJson.put("tipo","TO");
+                productoJson.put("plan",cotizacion.getTelefonia());
+                if(productosLog.contains("TO")){
+                    productoJson.put("carrusel","1");
+                }else{
+                    productoJson.put("carrusel","0");
+                }
+                dataLogCarruselProductos.put(productoJson);
+            }
+
+            if(!cotizacion.getTelevision().equalsIgnoreCase("-")){
+                JSONObject productoJson = new JSONObject();
+                productoJson.put("tipo","TV");
+                productoJson.put("plan",cotizacion.getTelevision());
+                if(productosLog.contains("TV")){
+                    productoJson.put("carrusel","1");
+                }else{
+                    productoJson.put("carrusel","0");
+                }
+                dataLogCarruselProductos.put(productoJson);
+            }
+
+            if(!cotizacion.getInternet().equalsIgnoreCase("-")){
+                JSONObject productoJson = new JSONObject();
+                productoJson.put("tipo","BA");
+                productoJson.put("plan",cotizacion.getInternet());
+                if(productosLog.contains("BA")){
+                    productoJson.put("carrusel","1");
+                }else{
+                    productoJson.put("carrusel","0");
+                }
+                dataLogCarruselProductos.put(productoJson);
+            }
+
+            dataLogCarrusel.put("productos",dataLogCarruselProductos);
+
+            Log.i(TAG,"JSON Automatico "+dataLogCarrusel.toString());
+
+            Simulador simulador = new Simulador();
+            simulador.setManual(this);
+            simulador.addObserver(this);
+
+            ArrayList<String> parametros = new ArrayList<String>();
+            parametros.add(dataLogCarrusel.toString());
+
+            ArrayList<Object> params = new ArrayList<Object>();
+            params.add(MainActivity.config.getCodigo());
+            params.add("guardarLogCarruselAutomatico");
+            params.add(parametros);
+
+            simulador.execute(params);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void tratarLogAutomaticoCarrusel(String respuesta){
+
+        try {
+            JSONObject json = new JSONObject(respuesta);
+
+            if (Configuracion.validarIntegridad(json.getString("data"), json.getString("crc"))) {
+                String data = new String(Base64.decode(json.getString("data")));
+
+                json = new JSONObject(data);
+
+                if(json.getString("codigoMensaje").equalsIgnoreCase("00")){
+                    cliente.setIdGerenciaExistente(json.get("idGerencia").toString());
+                }else {
+                    //Toast.makeText(this, getResources().getString(R.string.logautomaticocarrusel), Toast.LENGTH_LONG).show();
+                }
+
+                String prodcutosCarrusel = "";
+                for(String producto: productosLog){
+                    prodcutosCarrusel += producto+"-";
+                }
+
+                dialogo = new Dialogo(this,Dialogo.DIALOGO_CUSTOM,"Carrusel",getResources().getString(R.string.mensajeCarrusel)+prodcutosCarrusel.substring(0,prodcutosCarrusel.length()-1)+getResources().getString(R.string.mensajeCarrusel2),"Prospectar","Reconfigurar",carruselOK,carruselCANCEL);
+                dialogo.dialogo.show();
+
+            } else {
+                //Toast.makeText(this, getResources().getString(R.string.logautomaticocarrusel), Toast.LENGTH_LONG).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    DialogInterface.OnClickListener carruselOK = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            Log.i(TAG,"Prospectar");
+            resultCotizador("gerencia de ruta");
+        }
+    };
+
+    DialogInterface.OnClickListener carruselCANCEL = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            Log.i(TAG,"Reconfigurar");
+        }
+    };
 }
