@@ -866,6 +866,7 @@ public class Configuracion implements Serializable {
                         cv.put("Identificador", jo.getString("Identificador"));
                         cv.put("CodigoDaneMunicipio", jo.getString("codigoDaneMunicipio"));
                         cv.put("Estado", jo.getString("Estado"));
+                        cv.put("visible", jo.getString("visible"));
 
                         reg.add(MainActivity.basedatos.insertar("Departamentos", cv));
                     }

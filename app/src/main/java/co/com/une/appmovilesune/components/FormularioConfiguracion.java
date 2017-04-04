@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
+import co.com.une.appmovilesune.change.Utilidades;
 
 import android.app.Activity;
 import android.content.Context;
@@ -51,11 +52,10 @@ public class FormularioConfiguracion extends LinearLayout {
         adaptador = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item);
         if (res != null) {
             for (ArrayList<String> arrayList : res) {
-                adaptador.add(arrayList.get(0));
-                /*
-				 * System.out .println("Lista departamentos => " +
-				 * arrayList.get(0));
-				 */
+                System.out.println("[ciudades del " + departamento + "] " + arrayList.get(0));
+                if (!Utilidades.excluir("ciudadesOcultas", arrayList.get(0))) {
+                    adaptador.add(arrayList.get(0));
+                }
             }
         }
         return adaptador;
@@ -66,7 +66,7 @@ public class FormularioConfiguracion extends LinearLayout {
         // String[] Departamento = new String[] { departamento };
         // System.out.println("Departamento utf8 => "+Departamento[0]);
         ArrayList<ArrayList<String>> res = MainActivity.basedatos.consultar(false, "Departamentos",
-                new String[]{"Ciudad"}, "Departamento=? and Estado=?", new String[]{departamento, "1"}, null,
+                new String[]{"Ciudad"}, "Departamento=? and Estado=? and visible=?", new String[]{departamento, "1", "1"}, null,
                 null, null);
         // System.out.println("res" + res);
         adaptador = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item);
