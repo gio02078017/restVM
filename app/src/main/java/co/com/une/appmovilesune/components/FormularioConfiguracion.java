@@ -53,9 +53,7 @@ public class FormularioConfiguracion extends LinearLayout {
         if (res != null) {
             for (ArrayList<String> arrayList : res) {
                 System.out.println("[ciudades del " + departamento + "] " + arrayList.get(0));
-                if (!Utilidades.excluir("ciudadesOcultas", arrayList.get(0))) {
-                    adaptador.add(arrayList.get(0));
-                }
+                adaptador.add(arrayList.get(0));
             }
         }
         return adaptador;
@@ -73,9 +71,9 @@ public class FormularioConfiguracion extends LinearLayout {
         adaptador.add("--Seleccione Ciudad--");
         if (res != null) {
             for (ArrayList<String> arrayList : res) {
-
-                adaptador.add(arrayList.get(0));
-
+                if (!Utilidades.excluir("ciudadesOcultas", arrayList.get(0))) {
+                    adaptador.add(arrayList.get(0));
+                }
             }
         }
 
