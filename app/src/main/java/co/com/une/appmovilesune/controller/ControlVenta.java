@@ -520,8 +520,10 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                     cliente.getDepartamento(), cliente.getEstrato()));
         }*/
 
-        for (int i = 0; i < adicionales.length; i++) {
-            listaAdicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses"));
+        if(adicionales != null) {
+            for (int i = 0; i < adicionales.length; i++) {
+                listaAdicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses"));
+            }
         }
 
         listaAdicionalesTo.add(new ListaAdicionales("Impuesto Telefonico", String.valueOf(UtilidadesTarificador.ImpuestoTelefonico(cliente.getCiudad(),
