@@ -879,35 +879,36 @@ public class Configuracion implements Serializable {
 		}
 	}
 
-	public boolean obtenerCiudades() {
-		// System.out.println("obtenerCiudades");
-		MainActivity.basedatos.eliminar("Departamentos", null, null);
-		ArrayList<Boolean> reg = new ArrayList<Boolean>();
-		ArrayList<String[]> parametros = new ArrayList<String[]>();
-		parametros.add(new String[] { "Accion", "consultar" });
-		parametros.add(new String[] { "Tabla", "ciudades" });
-		parametros.add(new String[] { "Parametros", "" });
-		try {
-			String res = MainActivity.conexion.ejecutarSoap("Ejecutar", parametros);
-			// System.out.println("res" + res);
-			if (!res.equals("004")) {
-				JSONObject jop = new JSONObject(res);
-				String data = jop.get("data").toString();
-				if (validarIntegridad(data, jop.get("crc").toString())) {
-					data = new String(Base64.decode(data));
-					JSONArray ja = new JSONArray(data);
-					for (int i = 0; i < ja.length(); i++) {
-						ContentValues cv = new ContentValues();
-						JSONObject jo = ja.getJSONObject(i);
-						cv.put("Departamento", jo.getString("Departamento"));
-						cv.put("DepartamentoFenix", jo.getString("DepartamentoFenix"));
-						cv.put("Ciudad", jo.getString("Ciudad"));
-						cv.put("CiudadFenix", jo.getString("CiudadFenix"));
-						cv.put("Codigo_Giis", jo.getString("Codigo_Giis"));
-						cv.put("Codigo_Amc", jo.getString("Codigo_Amc"));
-						cv.put("Identificador", jo.getString("Identificador"));
-						cv.put("CodigoDaneMunicipio", jo.getString("codigoDaneMunicipio"));
-						cv.put("Estado", jo.getString("Estado"));
+    public boolean obtenerCiudades() {
+        // System.out.println("obtenerCiudades");
+        MainActivity.basedatos.eliminar("Departamentos", null, null);
+        ArrayList<Boolean> reg = new ArrayList<Boolean>();
+        ArrayList<String[]> parametros = new ArrayList<String[]>();
+        parametros.add(new String[]{"Accion", "consultar"});
+        parametros.add(new String[]{"Tabla", "ciudades"});
+        parametros.add(new String[]{"Parametros", ""});
+        try {
+            String res = MainActivity.conexion.ejecutarSoap("Ejecutar", parametros);
+            // System.out.println("res" + res);
+            if (!res.equals("004")) {
+                JSONObject jop = new JSONObject(res);
+                String data = jop.get("data").toString();
+                if (validarIntegridad(data, jop.get("crc").toString())) {
+                    data = new String(Base64.decode(data));
+                    JSONArray ja = new JSONArray(data);
+                    for (int i = 0; i < ja.length(); i++) {
+                        ContentValues cv = new ContentValues();
+                        JSONObject jo = ja.getJSONObject(i);
+                        cv.put("Departamento", jo.getString("Departamento"));
+                        cv.put("DepartamentoFenix", jo.getString("DepartamentoFenix"));
+                        cv.put("Ciudad", jo.getString("Ciudad"));
+                        cv.put("CiudadFenix", jo.getString("CiudadFenix"));
+                        cv.put("Codigo_Giis", jo.getString("Codigo_Giis"));
+                        cv.put("Codigo_Amc", jo.getString("Codigo_Amc"));
+                        cv.put("Identificador", jo.getString("Identificador"));
+                        cv.put("CodigoDaneMunicipio", jo.getString("codigoDaneMunicipio"));
+                        cv.put("Estado", jo.getString("Estado"));
+                        cv.put("visible", jo.getString("visible"));
 
 						reg.add(MainActivity.basedatos.insertar("Departamentos", cv));
 					}
@@ -999,7 +1000,7 @@ public class Configuracion implements Serializable {
 		}
 
 	}
-	
+
 	public boolean obtenerPermisos() {
 		MainActivity.basedatos.eliminar("permisos", null, null);
 		ArrayList<Boolean> reg = new ArrayList<Boolean>();

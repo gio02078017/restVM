@@ -47,7 +47,7 @@ public class BaseDatos extends SQLiteOpenHelper {
 
 	private void definirEstructura() {
 		estructura[0] = "CREATE TABLE IF NOT EXISTS usuario(Codigo_Asesor TEXT PRIMARY KEY, Documento TEXT NOT NULL, Celular TEXT NOT NULL, Codigo_Canal TEXT NOT NULL, Nombre_Asesor TEXT NOT NULL, Departamento TEXT NOT NULL, Fecha DATE, Hora TIME)";
-		estructura[1] = "CREATE TABLE IF NOT EXISTS Departamentos (codigo INTEGER PRIMARY KEY AUTOINCREMENT,Departamento TEXT,DepartamentoFenix TEXT,Ciudad TEXT,CiudadFenix TEXT,Codigo_Giis TEXT, Codigo_Amc TEXT, Identificador TEXT,CodigoDaneMunicipio TEXT,Estado INTEGER)";
+		estructura[1] = "CREATE TABLE IF NOT EXISTS Departamentos (codigo INTEGER PRIMARY KEY AUTOINCREMENT,Departamento TEXT,DepartamentoFenix TEXT,Ciudad TEXT,CiudadFenix TEXT,Codigo_Giis TEXT, Codigo_Amc TEXT, Identificador TEXT,CodigoDaneMunicipio TEXT,Estado INTEGER, visible INTEGER)";
 		estructura[2] = "CREATE TABLE IF NOT EXISTS peticiones(id INTEGER PRIMARY KEY AUTOINCREMENT,id_asesoria INTEGER,Transaccion TEXT,Cual TEXT,Productos TEXT,Evento TEXT,Pedido TEXT,Cun TEXT)";
 		estructura[3] = "CREATE TABLE IF NOT EXISTS actualizacion(id INTEGER PRIMARY KEY AUTOINCREMENT,id_asesoria INTEGER,AtencionUNE TEXT,AtensionAsesor TEXT,Mensajes TEXT,mail TEXT,Observaciones TEXT,Fecha DATE,Hora TIME)";
 		estructura[4] = "CREATE TABLE IF NOT EXISTS obsequios(id INTEGER PRIMARY KEY AUTOINCREMENT,id_asesoria INTEGER,Obsequios TEXT,Cual TEXT,Contrato TEXT,NumeroSIM TEXT,AtencionUNE TEXT,AtensionAsesor TEXT,Observaciones TEXT,Fecha DATE,Hora TIME)";
