@@ -861,13 +861,14 @@ public class CompConfigurable extends RelativeLayout implements Subject {
         if (tipo == 0) {
             planExistente = "Telefonia Existente";
         } else if (tipo == 1) {
-            for (int i = 0; i < plan.size(); i++) {
+            /*for (int i = 0; i < plan.size(); i++) {
                 String existente = Utilidades.TVExistente(plan.get(i));
                 if (!existente.equalsIgnoreCase("")) {
                     planExistente = existente;
                     break;
                 }
-            }
+            }*/
+            planExistente = "Television Existente";
         } else if (tipo == 2) {
             planExistente = "Internet Existente";
         }
