@@ -1593,6 +1593,9 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
         }
         System.out.println("cotizacion.setTotalIndDescuento " + cotizacion.getTotalIndDescuento());
 
+        System.out.println("<<validacion Cotizacion>>  controlCotizacion "+controlCotizacion);
+        System.out.println("<<validacion Cotizacion>>  controlCotizacion.get(0) "+controlCotizacion.get(0));
+
         if (controlCotizacion.get(0).equalsIgnoreCase("00")) {
             if (UtilidadesTarificador.validarDependencias(cotizacion.getTelevision(), cotizacion.getAdicionales(), this)
                     && UtilidadesTarificador.validarDecosMinimos(cotizacion.getTelevision(),

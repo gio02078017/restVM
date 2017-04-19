@@ -1228,41 +1228,43 @@ public class UtilidadesTarificador {
     public static boolean validarBronze(Cotizacion cotizacion, String ciudad) {
         boolean valido = true;
         if (cotizacion.getContadorProductos().equalsIgnoreCase("3")) {
-            System.out.println("cotizacion.getTelefonia() " + cotizacion.getTelefonia());
+            System.out.println("<<validar bronze>> cotizacion.getTelefonia() " + cotizacion.getTelefonia());
             if (Utilidades.validarNacionalValor("toBronze", cotizacion.getTelefonia())) {
-                System.out.println("cotizacion.getTelevision() " + cotizacion.getTelevision());
+                System.out.println("<<validar bronze>> cotizacion.getTelevision() " + cotizacion.getTelevision());
                 if (Utilidades.validarNacionalValor("tipoTvBronze", cotizacion.getTelevision())) {
-                    System.out.println("cotizacion.getInternet() " + cotizacion.getInternet());
+                    System.out.println("<<validar bronze>> cotizacion.getInternet() " + cotizacion.getInternet());
                     if (Utilidades.validarNacionalValor("tipoBaBronze", cotizacion.getInternet())) {
-                        System.out.println("tipoBaBronze  ");
+                        System.out.println("<<validar bronze>> tipoBaBronze  ");
                     } else {
-                        System.out.println("No tipoBaBronze  ");
+                        System.out.println("<<validar bronze>> No tipoBaBronze  ");
                         valido = false;
                     }
                 } else {
-                    System.out.println("No tipoBaBronze  ");
+                    System.out.println("<<validar bronze>> No tipotvBronze  ");
                     valido = false;
                 }
             }
 
-            System.out.println("cotizacion.getTelevision() segunda validacion" + cotizacion.getTelevision());
+            System.out.println("<<validar bronze>> cotizacion.getTelevision() segunda validacion" + cotizacion.getTelevision());
 
             if (Utilidades.validarNacionalValor("tipoTvBronze", cotizacion.getTelevision())) {
-                System.out.println("cotizacion.getInternet() segunda validacion" + cotizacion.getInternet());
+                System.out.println("<<validar bronze>> cotizacion.getInternet() segunda validacion" + cotizacion.getInternet());
                 if (Utilidades.validarNacionalValor("tipoBaBronze", cotizacion.getInternet())) {
-                    System.out.println("ciudadesToBronze " + ciudad);
+                    System.out.println("<<validar bronze>> ciudadesToBronze " + ciudad);
                     if (Utilidades.excluir("ciudadesToBronze", ciudad)) {
-                        System.out.println("cotizacion.getTelefonia() segunda validacion" + cotizacion.getTelefonia());
+                        System.out.println("<<validar bronze>> cotizacion.getTelefonia() segunda validacion" + cotizacion.getTelefonia());
                         if (Utilidades.validarNacionalValor("toValidasBronce", cotizacion.getTelefonia())) {
-                            System.out.println("toValidasBronce  ");
+                            System.out.println("<<validar bronze>> toValidasBronce  ");
                         } else {
-                            System.out.println("No toValidasBronce");
+                            System.out.println("<<validar bronze>> No toValidasBronce");
                             valido = false;
                         }
                     }
                 }
             }
         }
+
+        System.out.println("<<validar bronze>> valido "+valido);
 
         return valido;
     }
