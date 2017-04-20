@@ -1065,7 +1065,7 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
 		if (cmpConfTV.isActive()) {
 			planTv = "N";
 			tvTeccr = teccr;
-			if (cmpConfTV.getPlan().equalsIgnoreCase("HFC Existente")) {
+			if (cmpConfTV.getPlan().equalsIgnoreCase("HFC Existente") || cmpConfTV.getPlan().equalsIgnoreCase("IPTV Existente") || cmpConfTV.getPlan().equalsIgnoreCase("Television Existente")) {
 				planTv = "E";
 				tvTeccr = cmpConfTV.getProducto().tecnologiacr;
 				if (ac != null) {
@@ -1479,7 +1479,7 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
 
             cotizacion.setAplicarAd(aplicarAd);
 
-            if(!televisionArr.get(0).equalsIgnoreCase("HFC Existente") && !televisionArr.get(0).equalsIgnoreCase("IPTV Existente")){
+            if(!televisionArr.get(0).equalsIgnoreCase("HFC Existente") && !televisionArr.get(0).equalsIgnoreCase("IPTV Existente") || !televisionArr.get(0).equalsIgnoreCase("Television Existente")){
                 cotizacion.setPlanFacturacionTv_I(planesFacturacion.get(1));
                 cotizacion.setPlanFacturacionTv_P(planesFacturacion.get(4));
             } else {
