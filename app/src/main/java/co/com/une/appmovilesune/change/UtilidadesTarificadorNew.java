@@ -128,7 +128,7 @@ public class UtilidadesTarificadorNew {
             }
         }
 
-        if(nuevos.size() >= 2){
+        if(nuevos.size() >= 3){
             trioDuoNuevo = true;
         }
 

@@ -111,6 +111,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     private String codigoPP = "";
     private String codigoPA = "";
 
+    private String clienteNuevo = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -579,20 +581,25 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 System.out.println("BanderaPA codigoPA " + codigoPA);
 
                 if (codigoPA.equalsIgnoreCase("00")) {
-                    productos.get(i).setAplicaPA(true);
-                    cliente.setPagoAnticipado("SI");
-                } else if (codigoPA.equalsIgnoreCase("02")) {
-                    if (Utilidades.excluirEstadosPagoAnticipado()
-                            .contains(cliente.getScooringune().getRazonScooring())) {
-                        productos.get(i).setAplicaPA(true);
-                        cliente.setPagoAnticipado("SI");
-                    } else {
+                    if(clienteNuevo.equalsIgnoreCase("SI")){
+                        if(cliente.getScooringune().isPasaScooring()){
+                            productos.get(i).setAplicaPA(false);
+                            cliente.setPagoAnticipado("NO");
+                        } else if (Utilidades.excluirEstadosPagoAnticipado()
+                                .contains(cliente.getScooringune().getRazonScooring())){
+                            productos.get(i).setAplicaPA(true);
+                            cliente.setPagoAnticipado("SI");
+                        } else {
+
+                        }
+                    }else{
                         productos.get(i).setAplicaPA(false);
                         cliente.setPagoAnticipado("NO");
                     }
+
                 } else {
                     productos.get(i).setAplicaPA(false);
-                    cliente.setPaginaAsignacion("NO");
+                    cliente.setPagoAnticipado("NO");
                 }
 
 
@@ -2077,6 +2084,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 JSONArray jsonProdutos = json.getJSONObject("data").getJSONArray("productos");
                 JSONArray jsonValoresConexion = json.getJSONObject("data").getJSONArray("valorConexion");
+
+                clienteNuevo = json.getJSONObject("data").getString("clienteNuevo");
 
                 guardarPagoParcialAnticipado(jsonProdutos);
                 guardarValorConexion(jsonValoresConexion);

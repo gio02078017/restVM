@@ -30,6 +30,7 @@ public class ProductoCotizador {
     private double totalPagoParcial;
 
     private boolean aplicaPA;
+    private boolean clienteNuevo;
 
     public ProductoCotizador(String tipoPeticion, int tipo, String plan, double cargoBasicoInd, double cargoBasicoEmp, double descuentoCargobasico, int duracionDescuento, String planFacturacionInd, String planFacturacionEmp, String velocidad) {
         this.tipoPeticion = tipoPeticion;
@@ -42,10 +43,10 @@ public class ProductoCotizador {
         this.cargoBasicoEmp = cargoBasicoEmp;
         this.descuentoCargobasico = descuentoCargobasico;
         this.duracionDescuento = duracionDescuento;
-        obtenerValorPagoparcialAnticipado();
+        obtenerValorPagoParcialAnticipado();
     }
 
-    private void obtenerValorPagoparcialAnticipado() {
+    private void obtenerValorPagoParcialAnticipado() {
         String clausula = "producto=?";
         String[] valores = new String[]{traducirProducto().toUpperCase()};
 
@@ -54,12 +55,18 @@ public class ProductoCotizador {
 
         if (respuesta != null) {
             if (tipoPeticion.equals("N")) {
-                totalPagoParcial = calcularDescuento(respuesta.get(0));
-                if (aplicaPA) {
-                    pagoAnticipado = Double.parseDouble(respuesta.get(0).get(2));
-                } else {
+                if(clienteNuevo){
+                    totalPagoParcial = calcularDescuento(respuesta.get(0));
+                    if (aplicaPA) {
+                        pagoAnticipado = Double.parseDouble(respuesta.get(0).get(2));
+                    } else {
+                        pagoAnticipado = 0;
+                    }
+                }else {
+                    totalPagoParcial = 0;
                     pagoAnticipado = 0;
                 }
+
 
             } else {
                 totalPagoParcial = 0;
@@ -233,6 +240,10 @@ public class ProductoCotizador {
 
     public void setAplicaPA(boolean aplica) {
         aplicaPA = aplica;
-        obtenerValorPagoparcialAnticipado();
+        obtenerValorPagoParcialAnticipado();
+    }
+
+    public void setClienteNuevo(boolean clienteNuevo){
+        this.clienteNuevo = clienteNuevo;
     }
 }
