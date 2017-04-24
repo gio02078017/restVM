@@ -1,5 +1,7 @@
 package co.com.une.appmovilesune.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import co.com.une.appmovilesune.MainActivity;
@@ -52,6 +54,9 @@ public class ProductoCotizador {
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "pagoparcialanticipado", new String[]{"pagoparcial", "descuento", "pagoanticipado"}, clausula,
                 valores, null, null, null);
+
+        Log.i("PAGO PARCIAL","respuesta "+respuesta);
+        Log.i("PAGO PARCIAL","clenteNuevo "+clienteNuevo);
 
         if (respuesta != null) {
             if (tipoPeticion.equals("N")) {
@@ -245,5 +250,6 @@ public class ProductoCotizador {
 
     public void setClienteNuevo(boolean clienteNuevo){
         this.clienteNuevo = clienteNuevo;
+        obtenerValorPagoParcialAnticipado();
     }
 }

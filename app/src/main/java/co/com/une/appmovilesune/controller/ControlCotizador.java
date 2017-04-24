@@ -580,6 +580,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 System.out.println("BanderaPA codigoPA " + codigoPA);
 
+                if(clienteNuevo.equalsIgnoreCase("SI")){
+                    productos.get(i).setClienteNuevo(true);
+                }
+
                 if (codigoPA.equalsIgnoreCase("00")) {
                     if(clienteNuevo.equalsIgnoreCase("SI")){
                         if(cliente.getScooringune().isPasaScooring()){
@@ -593,6 +597,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                         }
                     }else{
+                        productos.get(i).setClienteNuevo(false);
                         productos.get(i).setAplicaPA(false);
                         cliente.setPagoAnticipado("NO");
                     }
