@@ -139,6 +139,8 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 	private TableRow rowClienteLogin;
 	private TableRow rowClientePinHotPack;
 
+	private TableRow rowClienteHoraDomiciliacion;
+
 	public SelectorFecha sfp;
 	public SelectorHora shp;
 
@@ -204,6 +206,9 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
 		sltMunicipioSSC = (Spinner) findViewById(R.id.sltMunicipioSSC);
 		spnDomiciliacion = (Spinner) findViewById(R.id.spnDomiciliacion);
+		spnDomiciliacion.setOnItemSelectedListener(ocultarMostarFranja);
+
+		shp = (SelectorHora) findViewById(R.id.slhdomiciliacion);
 		/* Objectos Scoring */
 		rowMunicipioREDCO = (TableRow) findViewById(R.id.trTablaMunicipioSSC);
 		rowTecnologia = (TableRow) findViewById(R.id.trTablaTecnologia);
@@ -235,6 +240,8 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 		rowClienteContrato = (TableRow) findViewById(R.id.trTablaClienteContrato);
 		rowClienteLogin = (TableRow) findViewById(R.id.trTablaClienteLogin);
 		rowClientePinHotPack = (TableRow) findViewById(R.id.trTablaClientePinHotPack);
+
+		rowClienteHoraDomiciliacion = (TableRow) findViewById(R.id.trTablaHoraDomiciliacion);
 
 		txtNombrePredio = (EditText) findViewById(R.id.txtNombrePredio);
 
@@ -834,7 +841,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 		adaptador = (ArrayAdapter<String>) spnDomiciliacion.getAdapter();
 		spnDomiciliacion.setSelection(adaptador.getPosition(cliente.getDomiciliacion()));
 
-		//shp.setTexto(cliente.getHoraDomiciliacion());
+		shp.setTexto(cliente.getHoraDomiciliacion());
 
 		System.out.println("cliente.getContacto2().getParentesco() " + cliente.getContacto2().getParentesco());
 
@@ -2039,4 +2046,20 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 		spnDominio.setAdapter(adaptador);
 
 	}
+
+	AdapterView.OnItemSelectedListener ocultarMostarFranja = new AdapterView.OnItemSelectedListener() {
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			if(parent.getSelectedItem().toString().equalsIgnoreCase("SI")){
+				rowClienteHoraDomiciliacion.setVisibility(View.VISIBLE);
+			} else {
+				rowClienteHoraDomiciliacion.setVisibility(View.GONE);
+			}
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+
+		}
+	};
 }
