@@ -473,6 +473,6 @@
     <string name="mensajefranjainvalidab"> minutos de diferencia a la hora actual</string>
 
     <string name="mensajedebitoautomaticoexistente">No se pudo obtener la información de débito automático existente</string>
-    <string name="mensajedebitoautomaticodebito">Ya posee débito automático CA</string>
-    <string name="mensajedebitoautomaticredito">Ya posee débito automático TC</string>
+    <string name="mensajedebitoautomaticodebito">Ya posee débito automático</string>
+    <string name="mensajedebitoautomaticredito">Ya posee Domiciliación</string>
 </resources>

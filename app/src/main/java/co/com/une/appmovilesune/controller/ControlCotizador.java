@@ -2186,10 +2186,14 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     if(json.getJSONObject("data").getString("debitoAutomatico").equalsIgnoreCase("S")){
                         cliente.setDomiciliacion("NO");
                         Dialogo dialogo = null;
-                        if(json.getJSONObject("data").getString("tipoDebitoAutomatico").equalsIgnoreCase("DB")){
-                            dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA,getResources().getString(R.string.mensajedebitoautomaticodebito));
+                        if(!json.getJSONObject("data").getString("entidad").equalsIgnoreCase("BANCOLOMBIA")){
+                            if(json.getJSONObject("data").getString("tipoDebitoAutomatico").equalsIgnoreCase("DB")){
+                                dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA,getResources().getString(R.string.mensajedebitoautomaticodebito));
+                            }else{
+                                dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA,getResources().getString(R.string.mensajedebitoautomaticredito));
+                            }
                         }else {
-                            dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA,getResources().getString(R.string.mensajedebitoautomaticodebito));
+                            dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA,getResources().getString(R.string.mensajedebitoautomaticredito));
                         }
                         dialogo.dialogo.show();
                     }
