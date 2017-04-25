@@ -2039,9 +2039,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         try {
 
-            data.put("cedula", cliente.getCedula());
-            data.put("ciudad", cliente.getCiudadAmc());
-            data.put("direccion", cliente.getDireccion());
+            data.put("Cedula", cliente.getCedula());
+            data.put("Ciudad", cliente.getCiudadDane());
+            data.put("Direccion", cliente.getDireccion());
 
         } catch (JSONException e) {
             Log.w("Error", e.getMessage());
@@ -2174,6 +2174,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         Log.d("Domiciliacion", respuesta);
 
+        boolean bloqueo = false;
+
         try {
             JSONObject json = new JSONObject(respuesta);
 
@@ -2188,7 +2190,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     if(json.getJSONObject("data").getString("debitoAutomatico").equalsIgnoreCase("S")){
                         cliente.setDomiciliacion("NO");
                         Dialogo dialogo = null;
-                        if(!json.getJSONObject("data").getString("entidad").equalsIgnoreCase("BANCOLOMBIA")){
+                        if(!json.getJSONObject("data").getString("entidad").contains("BANCOLOMBIA")){
                             if(json.getJSONObject("data").getString("tipoDebitoAutomatico").equalsIgnoreCase("DB")){
                                 dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA,getResources().getString(R.string.mensajedebitoautomaticodebito));
                             }else{
@@ -2199,6 +2201,15 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                         }
                         
                         dialogo.dialogo.show();
+                        dialogo.dialogo.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialogInterface) {
+                                procesarCotizacion(cotizacionCliente);
+                            }
+                        });
+                        bloqueo = true;
+
+
                     }
                 }
 
@@ -2211,7 +2222,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         }
 
 
-        procesarCotizacion(cotizacionCliente);
+        if(!bloqueo){
+            procesarCotizacion(cotizacionCliente);
+        }
+
+
 
     }
 
