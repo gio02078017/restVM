@@ -1160,7 +1160,7 @@ public class Cliente implements Serializable, Observer, Subject {
 			if (domiciliacion != null && !domiciliacion.equals(Utilidades.inicial_opcion)) {
 				jo.put("domiciliacion", domiciliacion);
 				jo.put("estadoDomiciliacion", bloqueoDomiciliacion);
-				jo.put("horaDomiciliacion", new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime())+horaDomiciliacion);
+				jo.put("horaDomiciliacion", new SimpleDateFormat("yyyy-MM-dd ").format(Calendar.getInstance().getTime())+horaDomiciliacion);
 			} else {
 				jo.put("domiciliacion", "NO");
 				jo.put("bloqueoDomiciliacion", "0");
