@@ -708,11 +708,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     public void procesarCotizacion(View v) {
         if (cotizacionCliente != null) {
             System.out.println("cotizacionCliente " + cotizacionCliente);
-            if(cliente.getDomiciliacion().equalsIgnoreCase("SI")){
+            procesarCotizacion(cotizacionCliente);
+            /*if(cliente.getDomiciliacion().equalsIgnoreCase("SI")){
                 validarDebitoAutomaticoExistente();
             }else{
-                procesarCotizacion(cotizacionCliente);
-            }
+            }*/
 
         } else {
             Utilidades.MensajesToast("Debe seleccionar primero la cotización", this);
