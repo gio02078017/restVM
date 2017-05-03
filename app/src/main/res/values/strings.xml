@@ -46,8 +46,8 @@
     <string name="atencion">Atención</string>
     <string name="documento">Documento</string>
     <string name="codigo">Código</string>
-    <string name="cod_prueba" />
-    <string name="ced_prueba" />
+    <string name="cod_prueba"/>
+    <string name="ced_prueba"/>
     <!--  <string name="cod_prueba">1234</string>
     <string name="ced_prueba">4321</string>-->
     <!-- <string name="cod_prueba">460137</string>
@@ -428,7 +428,7 @@
         <item>C</item>
         <item>E</item>
     </string-array>
-
+    
     <string name="hogarnuevo">Hogar Nuevo</string>
     <string name="analoga">Análoga</string>
     <string name="tipooferta">Tipo Oferta</string>
@@ -469,4 +469,14 @@
     <string name="valordescuentoconexion">Valor Descuento por Conexión</string>
 
     <string name="validacionBarrio">El Barrio Deben Estar Diligenciados, Para seleccionar esta opción</string>
+
+    <string name="franja">Franja</string>
+    <string name="seleccionarfranja">Seleccione Franja</string>
+
+    <string name="mensajefranjainvalidaa">Para programar lanzamiento de llamada debe ser minimo </string>
+    <string name="mensajefranjainvalidab"> minutos de diferencia a la hora actual</string>
+
+    <string name="mensajedebitoautomaticoexistente">No se pudo obtener la información de débito automático existente</string>
+    <string name="mensajedebitoautomaticodebito">Ya posee débito automático</string>
+    <string name="mensajedebitoautomaticredito">Ya posee Domiciliación</string>
 </resources>

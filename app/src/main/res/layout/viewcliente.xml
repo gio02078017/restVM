@@ -1306,6 +1306,31 @@
                                 </TableRow>
 
                                 <TableRow
+                                    android:id="@+id/trTablaHoraDomiciliacion"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="gone" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_weight="1"
+                                        android:text="@string/franja"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <co.com.une.appmovilesune.components.SelectorHora
+                                        android:id="@+id/slhdomiciliacion"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="-8dp"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_span="8" />
+                                </TableRow>
+
+                                <TableRow
                                     android:id="@+id/trTablaNivelEstudio"
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"

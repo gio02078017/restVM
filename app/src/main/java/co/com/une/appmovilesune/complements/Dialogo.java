@@ -1,60 +1,67 @@
 package co.com.une.appmovilesune.complements;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.components.Autocomplete;
+import co.com.une.appmovilesune.components.CustomTimePickerDialog;
 import co.com.une.appmovilesune.components.FormularioConfiguracion;
 import co.com.une.appmovilesune.components.FormularioResumido;
 import co.com.une.appmovilesune.components.ItemCompetenciaFormulario;
 
 public class Dialogo extends Dialog {
 
-    public static final int DIALOGO_FECHA = 0;
-    public static final int DIALOGO_ALERTA = 1;
-    public static final int DIALOGO_CONFIRMACION = 2;
-    public static final int DIALOGO_SELECTOR_PRODUCTO = 3;
-    public static final int DIALOGO_ASESORIA = 4;
-    public static final int DIALOGO_CONFIGURACION = 5;
-    public static final int DIALOGO_SELECTOR_FRANJA = 6;
-    public static final int DIALOGO_SELECTOR_BARRIO = 7;
-    public static final int DIALOGO_SELECTOR_ASESORIA = 8;
-    public static final int DIALOGO_SELECTOR_RECUPERADOR = 9;
-    public static final int DIALOGO_SELECTOR_TIPO_ASESORIA = 10;
-    public static final int DIALOGO_SELECTOR_HOBBIES = 11;
-    public static final int DIALOGO_FORMULARIO_COMPETENCIA = 12;
+	public static final int DIALOGO_FECHA = 0;
+	public static final int DIALOGO_ALERTA = 1;
+	public static final int DIALOGO_CONFIRMACION = 2;
+	public static final int DIALOGO_SELECTOR_PRODUCTO = 3;
+	public static final int DIALOGO_ASESORIA = 4;
+	public static final int DIALOGO_CONFIGURACION = 5;
+	public static final int DIALOGO_SELECTOR_FRANJA = 6;
+	public static final int DIALOGO_SELECTOR_BARRIO = 7;
+	public static final int DIALOGO_SELECTOR_ASESORIA = 8;
+	public static final int DIALOGO_SELECTOR_RECUPERADOR = 9;
+	public static final int DIALOGO_SELECTOR_TIPO_ASESORIA = 10;
+	public static final int DIALOGO_SELECTOR_HOBBIES = 11;
+	public static final int DIALOGO_FORMULARIO_COMPETENCIA = 12;
+	public static final int DIALOGO_HORA = 13;
 
     private String[] StHobbies = {"Cine", "Teatro", "Musica", "TV", "Lectura", "Deportes", "Otros"};
     private String[] StProductos = {"TO", "TV", "BA", "3G", "4G"};
 
     public Dialog dialogo;
 
-    private ArrayList<String> productos;
-    private ArrayList<String> hobbies;
-    private String fechaSeleccion = "NoDefinida";
-    private String[] asesoria = new String[4];
-    private String[] configuracion = new String[2];
-    private String[] competencia = new String[5];
-    private String franja = "AM";
-    private String idAsesoria = "";
-    private String selectTipoAsesoria = "";
-    private String barrio = "";
-    private boolean seleccion = false;
-    private String lanzador = "";
+	private ArrayList<String> productos;
+	private ArrayList<String> hobbies;
+	private String fechaSeleccion = "NoDefinida";
+	private String horaSeleccion = "NoDefinida";
+	private String[] asesoria = new String[4];
+	private String[] configuracion = new String[2];
+	private String[] competencia = new String[5];
+	private String franja = "AM";
+	private String idAsesoria = "";
+	private String selectTipoAsesoria = "";
+	private String barrio = "";
+	private boolean seleccion = false;
+	private String lanzador = "";
 
     private Context context;
     private int Tipo;
@@ -63,165 +70,180 @@ public class Dialogo extends Dialog {
     public ItemCompetenciaFormulario icf;
     public Autocomplete ac;
 
-    public Dialogo(Context context, int Tipo, String mensaje) {
-        super(context);
-        this.context = context;
-        this.Tipo = Tipo;
-        switch (Tipo) {
-            case DIALOGO_FECHA:
-                dialogo = new DatePickerDialog(context, establecerFecha, Calendario.getAnio(), Calendario.getMes(),
-                        Calendario.getDia());
-                dialogo.setTitle("Fecha");
-                break;
-            case DIALOGO_ALERTA:
-                AlertDialog al = new AlertDialog.Builder(context).create();
-                al.setInverseBackgroundForced(true);
-                al.setIcon(R.drawable.icon_dialogo);
-                al.setCancelable(false);
-                al.setTitle("Alerta");
-                al.setMessage(mensaje);
-                al.setButton("OK", botonAlerta);
-                dialogo = al;
-                break;
-            case DIALOGO_CONFIRMACION:
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setInverseBackgroundForced(true);
-                builder.setIcon(R.drawable.icon_dialogo);
-                builder.setCancelable(false);
-                builder.setTitle("Confirmacion");
-                builder.setMessage(mensaje);
-                builder.setPositiveButton("Aceptar", aceptaConfirmacion);
-                builder.setNegativeButton("Cancelar", cancelaConfirmacion);
-                dialogo = builder.create();
-                break;
-            case DIALOGO_SELECTOR_PRODUCTO:
-                productos = new ArrayList<String>();
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(context);
-                builder2.setInverseBackgroundForced(true);
-                builder2.setIcon(R.drawable.icon_dialogo);
-                builder2.setCancelable(false);
-                builder2.setTitle("Selector de Productos");
-                builder2.setMultiChoiceItems(StProductos, null, seleccionarProductos);
-                builder2.setPositiveButton("Listo", aceptaConfirmacionProductos);
-                builder2.setNegativeButton("Cancelar", cancelaConfirmacionProductos);
-                dialogo = builder2.create();
-                break;
-            case DIALOGO_ASESORIA:
-                AlertDialog.Builder builder3 = new AlertDialog.Builder(context);
-                builder3.setInverseBackgroundForced(true);
-                // builder3.setIcon(R.drawable.icon_dialogo);
-                builder3.setCancelable(false);
-                // builder3.setTitle("Confirmacion");
-                fr = new FormularioResumido(context);
-                LayoutInflater li = LayoutInflater.from(fr.getContext());
-                LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.dialogoasesoria, null);
-                builder3.setView(someLayout);
-                builder3.setPositiveButton("Aceptar", aceptaConfirmacionAsesoria);
-                builder3.setNegativeButton("Cancelar", cancelaConfirmacionAsesoria);
-                dialogo = builder3.create();
-                break;
-            case DIALOGO_CONFIGURACION:
-                AlertDialog.Builder builder4 = new AlertDialog.Builder(context);
-                builder4.setInverseBackgroundForced(true);
-                // builder4.setIcon(R.drawable.icon_dialogo);
-                builder4.setCancelable(false);
-                // builder4.setTitle("Confirmacion");
-                fc = new FormularioConfiguracion(context);
-                LayoutInflater lic = LayoutInflater.from(fc.getContext());
-                LinearLayout someLayoutc = (LinearLayout) lic.inflate(R.layout.dialogoconfiguracion, null);
-                builder4.setView(someLayoutc);
-                builder4.setPositiveButton("Aceptar", aceptaConfirmacionConfiguracion);
-                builder4.setNegativeButton("Cancelar", cancelaConfirmacionConfiguracion);
-                dialogo = builder4.create();
-                break;
-            case DIALOGO_SELECTOR_FRANJA:
-                AlertDialog.Builder builder5 = new AlertDialog.Builder(context);
-                builder5.setInverseBackgroundForced(true);
-                builder5.setIcon(R.drawable.icon_dialogo);
-                builder5.setCancelable(false);
-                builder5.setTitle("Selector de Franja");
-                builder5.setSingleChoiceItems(Utilidades.franjas, 0, seleccionFranja);
-                builder5.setPositiveButton("Listo", aceptaConfirmacionFranja);
-                builder5.setNegativeButton("Cancelar", cancelaConfirmacionFranja);
-                dialogo = builder5.create();
-                break;
-            case DIALOGO_SELECTOR_BARRIO:
-                AlertDialog.Builder builder6 = new AlertDialog.Builder(context);
-                builder6.setInverseBackgroundForced(true);
-                builder6.setIcon(R.drawable.icon_dialogo);
-                builder6.setCancelable(false);
-                builder6.setTitle("Selector de Barrio");
-                ac = new Autocomplete(context);
-                LayoutInflater lib = LayoutInflater.from(ac.getContext());
-                LinearLayout someLayoutb = (LinearLayout) lib.inflate(R.layout.autocomplete, null);
-                builder6.setView(someLayoutb);
-                builder6.setPositiveButton("Listo", aceptaSelectorBarrio);
-                builder6.setNegativeButton("Cancelar", cancelaSelectorBarrio);
-                dialogo = builder6.create();
-                break;
-            case DIALOGO_SELECTOR_ASESORIA:
-                AlertDialog.Builder builder7 = new AlertDialog.Builder(context);
-                builder7.setInverseBackgroundForced(true);
-                builder7.setIcon(R.drawable.icon_dialogo);
-                builder7.setCancelable(false);
-                builder7.setTitle("Selector de Asesoria");
-                builder7.setSingleChoiceItems(Utilidades.asesorias, 0, seleccionAsesoriaExistente);
-                builder7.setPositiveButton("Listo", aceptaConfirmacionAsesoriaExistente);
-                builder7.setNegativeButton("Cancelar", cancelaConfirmacionAsesoriaExistente);
-                dialogo = builder7.create();
-                break;
-            case DIALOGO_SELECTOR_RECUPERADOR:
-                AlertDialog.Builder builder8 = new AlertDialog.Builder(context);
-                builder8.setInverseBackgroundForced(true);
-                builder8.setIcon(R.drawable.icon_dialogo);
-                builder8.setCancelable(false);
-                builder8.setTitle(context.getResources().getString(R.string.seleccion));
-                builder8.setMessage(mensaje);
-                builder8.setPositiveButton("Tarificador", confirmaTarificador);
-                builder8.setNegativeButton("Venta", confirmaVenta);
-                dialogo = builder8.create();
-                break;
-            case DIALOGO_SELECTOR_TIPO_ASESORIA:
-                AlertDialog.Builder builder9 = new AlertDialog.Builder(context);
-                builder9.setInverseBackgroundForced(true);
-                builder9.setIcon(R.drawable.icon_dialogo);
-                builder9.setCancelable(false);
-                builder9.setTitle(context.getResources().getString(R.string.seleccioneopcion));
-                builder9.setSingleChoiceItems(Utilidades.tipo_asesoria, 0, seleccionTipoAsesoria);
-                builder9.setPositiveButton("Listo", aceptaConfirmacionTipoAsesoria);
-                builder9.setNegativeButton("Cancelar", cancelaConfirmacionTipoAsesoria);
-                dialogo = builder9.create();
-                break;
-            case DIALOGO_SELECTOR_HOBBIES:
-                hobbies = new ArrayList<String>();
-                AlertDialog.Builder builder10 = new AlertDialog.Builder(context);
-                builder10.setInverseBackgroundForced(true);
-                builder10.setIcon(R.drawable.icon_dialogo);
-                builder10.setCancelable(false);
-                builder10.setTitle("Selector de Aficiones");
-                builder10.setMultiChoiceItems(StHobbies, null, seleccionarhobbies);
-                builder10.setPositiveButton("Listo", aceptaConfirmacionHobbies);
-                builder10.setNegativeButton("Cancelar", cancelaConfirmacionHobbies);
-                dialogo = builder10.create();
-                break;
-            case DIALOGO_FORMULARIO_COMPETENCIA:
-                AlertDialog.Builder builder11 = new AlertDialog.Builder(context);
-                builder11.setInverseBackgroundForced(true);
-                // builder4.setIcon(R.drawable.icon_dialogo);
-                builder11.setCancelable(false);
-                // builder4.setTitle("Confirmacion");
-                icf = new ItemCompetenciaFormulario(context);
-                LayoutInflater licf = LayoutInflater.from(icf.getContext());
-                LinearLayout someLayoutcf = (LinearLayout) licf.inflate(R.layout.itemcompetenciaformulario, null);
-                builder11.setView(someLayoutcf);
-                builder11.setPositiveButton("Aceptar", aceptaConfirmacionCompetencia);
-                builder11.setNegativeButton("Cancelar", cancelaConfirmacionCompetencia);
-                dialogo = builder11.create();
-                break;
-            default:
-                break;
-        }
-    }
+	public Dialogo(Context context, int Tipo, String mensaje) {
+		super(context);
+		this.context = context;
+		this.Tipo = Tipo;
+		switch (Tipo) {
+			case DIALOGO_FECHA:
+				dialogo = new DatePickerDialog(context, establecerFecha, Calendario.getAnio(), Calendario.getMes(),
+						Calendario.getDia());
+				dialogo.setTitle("Fecha");
+				break;
+			case DIALOGO_HORA:
+				/*AlertDialog.Builder builder12 = new AlertDialog.Builder(context);
+				builder12.setInverseBackgroundForced(true);
+				// builder3.setIcon(R.drawable.icon_dialogo);
+				builder12.setCancelable(false);
+				// builder3.setTitle("Confirmacion");
+				LayoutInflater liHora = LayoutInflater.from(getContext());
+				LinearLayout someLayoutHora = (LinearLayout) liHora.inflate(R.layout.dialogoselectorhora, null);
+				builder12.setView(someLayoutHora);
+				builder12.setPositiveButton("Aceptar", aceptaConfirmacionAsesoria);
+				builder12.setNegativeButton("Cancelar", cancelaConfirmacionAsesoria);
+				dialogo = builder12.create();*/
+				dialogo = new CustomTimePickerDialog(context,establecerHora, Calendar.HOUR_OF_DAY, Calendar.MINUTE,true);
+				dialogo.setTitle("Seleccione Hora");
+				break;
+			case DIALOGO_ALERTA:
+				AlertDialog al = new AlertDialog.Builder(context).create();
+				al.setInverseBackgroundForced(true);
+				al.setIcon(R.drawable.icon_dialogo);
+				al.setCancelable(false);
+				al.setTitle("Alerta");
+				al.setMessage(mensaje);
+				al.setButton("OK", botonAlerta);
+				dialogo = al;
+				break;
+			case DIALOGO_CONFIRMACION:
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				builder.setInverseBackgroundForced(true);
+				builder.setIcon(R.drawable.icon_dialogo);
+				builder.setCancelable(false);
+				builder.setTitle("Confirmacion");
+				builder.setMessage(mensaje);
+				builder.setPositiveButton("Aceptar", aceptaConfirmacion);
+				builder.setNegativeButton("Cancelar", cancelaConfirmacion);
+				dialogo = builder.create();
+				break;
+			case DIALOGO_SELECTOR_PRODUCTO:
+				productos = new ArrayList<String>();
+				AlertDialog.Builder builder2 = new AlertDialog.Builder(context);
+				builder2.setInverseBackgroundForced(true);
+				builder2.setIcon(R.drawable.icon_dialogo);
+				builder2.setCancelable(false);
+				builder2.setTitle("Selector de Productos");
+				builder2.setMultiChoiceItems(StProductos, null, seleccionarProductos);
+				builder2.setPositiveButton("Listo", aceptaConfirmacionProductos);
+				builder2.setNegativeButton("Cancelar", cancelaConfirmacionProductos);
+				dialogo = builder2.create();
+				break;
+			case DIALOGO_ASESORIA:
+				AlertDialog.Builder builder3 = new AlertDialog.Builder(context);
+				builder3.setInverseBackgroundForced(true);
+				// builder3.setIcon(R.drawable.icon_dialogo);
+				builder3.setCancelable(false);
+				// builder3.setTitle("Confirmacion");
+				fr = new FormularioResumido(context);
+				LayoutInflater li = LayoutInflater.from(fr.getContext());
+				LinearLayout someLayout = (LinearLayout) li.inflate(R.layout.dialogoasesoria, null);
+				builder3.setView(someLayout);
+				builder3.setPositiveButton("Aceptar", aceptaConfirmacionAsesoria);
+				builder3.setNegativeButton("Cancelar", cancelaConfirmacionAsesoria);
+				dialogo = builder3.create();
+				break;
+			case DIALOGO_CONFIGURACION:
+				AlertDialog.Builder builder4 = new AlertDialog.Builder(context);
+				builder4.setInverseBackgroundForced(true);
+				// builder4.setIcon(R.drawable.icon_dialogo);
+				builder4.setCancelable(false);
+				// builder4.setTitle("Confirmacion");
+				fc = new FormularioConfiguracion(context);
+				LayoutInflater lic = LayoutInflater.from(fc.getContext());
+				LinearLayout someLayoutc = (LinearLayout) lic.inflate(R.layout.dialogoconfiguracion, null);
+				builder4.setView(someLayoutc);
+				builder4.setPositiveButton("Aceptar", aceptaConfirmacionConfiguracion);
+				builder4.setNegativeButton("Cancelar", cancelaConfirmacionConfiguracion);
+				dialogo = builder4.create();
+				break;
+			case DIALOGO_SELECTOR_FRANJA:
+				AlertDialog.Builder builder5 = new AlertDialog.Builder(context);
+				builder5.setInverseBackgroundForced(true);
+				builder5.setIcon(R.drawable.icon_dialogo);
+				builder5.setCancelable(false);
+				builder5.setTitle("Selector de Franja");
+				builder5.setSingleChoiceItems(Utilidades.franjas, 0, seleccionFranja);
+				builder5.setPositiveButton("Listo", aceptaConfirmacionFranja);
+				builder5.setNegativeButton("Cancelar", cancelaConfirmacionFranja);
+				dialogo = builder5.create();
+				break;
+			case DIALOGO_SELECTOR_BARRIO:
+				AlertDialog.Builder builder6 = new AlertDialog.Builder(context);
+				builder6.setInverseBackgroundForced(true);
+				builder6.setIcon(R.drawable.icon_dialogo);
+				builder6.setCancelable(false);
+				builder6.setTitle("Selector de Barrio");
+				ac = new Autocomplete(context);
+				LayoutInflater lib = LayoutInflater.from(ac.getContext());
+				LinearLayout someLayoutb = (LinearLayout) lib.inflate(R.layout.autocomplete, null);
+				builder6.setView(someLayoutb);
+				builder6.setPositiveButton("Listo", aceptaSelectorBarrio);
+				builder6.setNegativeButton("Cancelar", cancelaSelectorBarrio);
+				dialogo = builder6.create();
+				break;
+			case DIALOGO_SELECTOR_ASESORIA:
+				AlertDialog.Builder builder7 = new AlertDialog.Builder(context);
+				builder7.setInverseBackgroundForced(true);
+				builder7.setIcon(R.drawable.icon_dialogo);
+				builder7.setCancelable(false);
+				builder7.setTitle("Selector de Asesoria");
+				builder7.setSingleChoiceItems(Utilidades.asesorias, 0, seleccionAsesoriaExistente);
+				builder7.setPositiveButton("Listo", aceptaConfirmacionAsesoriaExistente);
+				builder7.setNegativeButton("Cancelar", cancelaConfirmacionAsesoriaExistente);
+				dialogo = builder7.create();
+				break;
+			case DIALOGO_SELECTOR_RECUPERADOR:
+				AlertDialog.Builder builder8 = new AlertDialog.Builder(context);
+				builder8.setInverseBackgroundForced(true);
+				builder8.setIcon(R.drawable.icon_dialogo);
+				builder8.setCancelable(false);
+				builder8.setTitle(context.getResources().getString(R.string.seleccion));
+				builder8.setMessage(mensaje);
+				builder8.setPositiveButton("Tarificador", confirmaTarificador);
+				builder8.setNegativeButton("Venta", confirmaVenta);
+				dialogo = builder8.create();
+				break;
+			case DIALOGO_SELECTOR_TIPO_ASESORIA:
+				AlertDialog.Builder builder9 = new AlertDialog.Builder(context);
+				builder9.setInverseBackgroundForced(true);
+				builder9.setIcon(R.drawable.icon_dialogo);
+				builder9.setCancelable(false);
+				builder9.setTitle(context.getResources().getString(R.string.seleccioneopcion));
+				builder9.setSingleChoiceItems(Utilidades.tipo_asesoria, 0, seleccionTipoAsesoria);
+				builder9.setPositiveButton("Listo", aceptaConfirmacionTipoAsesoria);
+				builder9.setNegativeButton("Cancelar", cancelaConfirmacionTipoAsesoria);
+				dialogo = builder9.create();
+				break;
+			case DIALOGO_SELECTOR_HOBBIES:
+				hobbies = new ArrayList<String>();
+				AlertDialog.Builder builder10 = new AlertDialog.Builder(context);
+				builder10.setInverseBackgroundForced(true);
+				builder10.setIcon(R.drawable.icon_dialogo);
+				builder10.setCancelable(false);
+				builder10.setTitle("Selector de Aficiones");
+				builder10.setMultiChoiceItems(StHobbies, null, seleccionarhobbies);
+				builder10.setPositiveButton("Listo", aceptaConfirmacionHobbies);
+				builder10.setNegativeButton("Cancelar", cancelaConfirmacionHobbies);
+				dialogo = builder10.create();
+				break;
+			case DIALOGO_FORMULARIO_COMPETENCIA:
+				AlertDialog.Builder builder11 = new AlertDialog.Builder(context);
+				builder11.setInverseBackgroundForced(true);
+				// builder4.setIcon(R.drawable.icon_dialogo);
+				builder11.setCancelable(false);
+				// builder4.setTitle("Confirmacion");
+				icf = new ItemCompetenciaFormulario(context);
+				LayoutInflater licf = LayoutInflater.from(icf.getContext());
+				LinearLayout someLayoutcf = (LinearLayout) licf.inflate(R.layout.itemcompetenciaformulario, null);
+				builder11.setView(someLayoutcf);
+				builder11.setPositiveButton("Aceptar", aceptaConfirmacionCompetencia);
+				builder11.setNegativeButton("Cancelar", cancelaConfirmacionCompetencia);
+				dialogo = builder11.create();
+				break;
+			default:
+				break;
+		}
+	}
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -486,12 +508,21 @@ public class Dialogo extends Dialog {
         }
     };
 
-    private OnClickListener cancelaConfirmacionHobbies = new OnClickListener() {
-        public void onClick(DialogInterface dialog, int which) {
-            seleccion = false;
-            lanzador = "";
-        }
-    };
+	private TimePickerDialog.OnTimeSetListener establecerHora = new TimePickerDialog.OnTimeSetListener() {
+		@Override
+		public void onTimeSet(TimePicker timePicker, int i, int i1) {
+			Log.i("TimePicker",String.valueOf(i)+" "+String.valueOf(i1));
+			horaSeleccion = String.format("%02d", i)+":"+String.format("%02d", i1);
+			seleccion = true;
+		}
+	};
+
+	private OnClickListener cancelaConfirmacionHobbies = new OnClickListener() {
+		public void onClick(DialogInterface dialog, int which) {
+			seleccion = false;
+			lanzador = "";
+		}
+	};
 
     private OnClickListener aceptaConfirmacionHobbies = new OnClickListener() {
         public void onClick(DialogInterface dialog, int which) {
@@ -564,7 +595,15 @@ public class Dialogo extends Dialog {
         return selectTipoAsesoria;
     }
 
-    public void setSelectTipoAsesoria(String selectTipoAsesoria) {
-        this.selectTipoAsesoria = selectTipoAsesoria;
-    }
+	public void setSelectTipoAsesoria(String selectTipoAsesoria) {
+		this.selectTipoAsesoria = selectTipoAsesoria;
+	}
+
+	public String getHoraSeleccion() {
+		return horaSeleccion;
+	}
+
+	public void setHoraSeleccion(String horaSeleccion) {
+		this.horaSeleccion = horaSeleccion;
+	}
 }

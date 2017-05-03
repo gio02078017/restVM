@@ -1,7 +1,9 @@
 package co.com.une.appmovilesune.controller;
 
 import java.sql.SQLOutput;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,6 +47,7 @@ import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
 import co.com.une.appmovilesune.complements.Dialogo;
 import co.com.une.appmovilesune.components.SelectorFecha;
+import co.com.une.appmovilesune.components.SelectorHora;
 import co.com.une.appmovilesune.components.TituloPrincipal;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.model.Cliente;
@@ -56,10 +59,11 @@ import com.google.analytics.tracking.android.EasyTracker;
 
 public class ControlCliente extends Activity implements Observer, TextWatcher {
 
-    private Cliente cliente, manual;
-    private Venta venta;
-    private Context context;
-    private Dialogo dialogo;
+	private Cliente cliente, manual;
+	private Venta venta;
+	private Context context;
+	private Dialogo dialogo;
+	private Dialogo dialogoHora;
 
     private TituloPrincipal tp;
     private SelectorFecha slfCliente, sltFechaNacimiento;
@@ -147,6 +151,9 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
     private TableRow rowProyectosRurales;
 
     public SelectorFecha sfp;
+	private TableRow rowClienteHoraDomiciliacion;
+
+	public SelectorHora shp;
 
     private ArrayList<ItemKeyValue> claveValorLugarExp = new ArrayList<ItemKeyValue>();
     private ArrayList<ProyectosRurales> arrayProyectosRurales = new ArrayList<ProyectosRurales>();
@@ -161,11 +168,14 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         dialogo = new Dialogo(this, Dialogo.DIALOGO_FECHA, "");
         dialogo.dialogo.setOnDismissListener(dl);
 
-        tp = (TituloPrincipal) findViewById(R.id.tlpPrincipal);
-        tp.setTitulo("Cliente");
-        MainActivity.obsrCliente = this;
-        slfCliente = (SelectorFecha) findViewById(R.id.slfCliente);
-        sltFechaNacimiento = (SelectorFecha) findViewById(R.id.sltFechaNacimiento);
+		dialogoHora = new Dialogo(this, Dialogo.DIALOGO_HORA, "");
+		dialogoHora.dialogo.setOnDismissListener(dlh);
+
+		tp = (TituloPrincipal) findViewById(R.id.tlpPrincipal);
+		tp.setTitulo("Cliente");
+		MainActivity.obsrCliente = this;
+		slfCliente = (SelectorFecha) findViewById(R.id.slfCliente);
+		sltFechaNacimiento = (SelectorFecha) findViewById(R.id.sltFechaNacimiento);
 
         txtDocumento = (EditText) findViewById(R.id.txtDocumento);
         txtNombre = (EditText) findViewById(R.id.txtNombre);
@@ -210,34 +220,37 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         sltTipoConstruccion = (Spinner) findViewById(R.id.sltTipoConstruccion);
         sltMigrar4G = (Spinner) findViewById(R.id.sltMigrar4G);
 
-        sltMunicipioSSC = (Spinner) findViewById(R.id.sltMunicipioSSC);
-        spnDomiciliacion = (Spinner) findViewById(R.id.spnDomiciliacion);
-        /* Objectos Scoring */
-        rowMunicipioREDCO = (TableRow) findViewById(R.id.trTablaMunicipioSSC);
-        rowTecnologia = (TableRow) findViewById(R.id.trTablaTecnologia);
-        rowNivelEstudio = (TableRow) findViewById(R.id.trTablaNivelEstudio);
-        rowProfesion = (TableRow) findViewById(R.id.trTablaProfesion);
-        rowOcupacion = (TableRow) findViewById(R.id.trTablaOcupacion);
-        rowCargo = (TableRow) findViewById(R.id.trTablaCargo);
-        rowNivelIngresos = (TableRow) findViewById(R.id.trTablaNivelIngresos);
-        rowEstadoCivil = (TableRow) findViewById(R.id.trTablaEstadoCivil);
-        rowPersonasCargo = (TableRow) findViewById(R.id.trTablaPersonasCargo);
-        rowTipoVivienda = (TableRow) findViewById(R.id.trTablaTipoVivienda);
-        rowTipoPredio = (TableRow) findViewById(R.id.trTablaTipoPredio);
-        rowTipoPropiedad = (TableRow) findViewById(R.id.trTablaTipoPropiedad);
-        rowNombrePredio = (TableRow) findViewById(R.id.trTablaNombrePredio);
-        rowTipoConstruccion = (TableRow) findViewById(R.id.trTablaTipoConstruccion);
-        rowTablaMigrar4G = (TableRow) findViewById(R.id.trTablaMigrar4G);
-        rowFechaNacimiento = (TableRow) findViewById(R.id.trTablaFechaNacimiento);
-        rowGenero = (TableRow) findViewById(R.id.trTablaGenero);
-        rowCodigoHogar = (TableRow) findViewById(R.id.trTablaCodigoHogar);
-        trTablaClienteBotonPrueba = (TableRow) findViewById(R.id.trTablaClienteBotonPrueba);
-        rowTituloContacto2 = (TableRow) findViewById(R.id.trTituloContacto2);
-        rowTCNContacto2Nombre = (TableRow) findViewById(R.id.trTCNContacto2Nombre);
-        rowTCNContacto2Apellido = (TableRow) findViewById(R.id.trTCNContacto2Apellido);
-        rowTCNContacto2Telefono = (TableRow) findViewById(R.id.trTCTContacto2Telefono);
-        rowTCPContacto2Parentesco = (TableRow) findViewById(R.id.trTCPContacto2Parentesco);
-        rowDomiciliacion = (TableRow) findViewById(R.id.trTablaDomiciliacion);
+		sltMunicipioSSC = (Spinner) findViewById(R.id.sltMunicipioSSC);
+		spnDomiciliacion = (Spinner) findViewById(R.id.spnDomiciliacion);
+		spnDomiciliacion.setOnItemSelectedListener(ocultarMostarFranja);
+
+		shp = (SelectorHora) findViewById(R.id.slhdomiciliacion);
+		/* Objectos Scoring */
+		rowMunicipioREDCO = (TableRow) findViewById(R.id.trTablaMunicipioSSC);
+		rowTecnologia = (TableRow) findViewById(R.id.trTablaTecnologia);
+		rowNivelEstudio = (TableRow) findViewById(R.id.trTablaNivelEstudio);
+		rowProfesion = (TableRow) findViewById(R.id.trTablaProfesion);
+		rowOcupacion = (TableRow) findViewById(R.id.trTablaOcupacion);
+		rowCargo = (TableRow) findViewById(R.id.trTablaCargo);
+		rowNivelIngresos = (TableRow) findViewById(R.id.trTablaNivelIngresos);
+		rowEstadoCivil = (TableRow) findViewById(R.id.trTablaEstadoCivil);
+		rowPersonasCargo = (TableRow) findViewById(R.id.trTablaPersonasCargo);
+		rowTipoVivienda = (TableRow) findViewById(R.id.trTablaTipoVivienda);
+		rowTipoPredio = (TableRow) findViewById(R.id.trTablaTipoPredio);
+		rowTipoPropiedad = (TableRow) findViewById(R.id.trTablaTipoPropiedad);
+		rowNombrePredio = (TableRow) findViewById(R.id.trTablaNombrePredio);
+		rowTipoConstruccion = (TableRow) findViewById(R.id.trTablaTipoConstruccion);
+		rowTablaMigrar4G = (TableRow) findViewById(R.id.trTablaMigrar4G);
+		rowFechaNacimiento = (TableRow) findViewById(R.id.trTablaFechaNacimiento);
+		rowGenero = (TableRow) findViewById(R.id.trTablaGenero);
+		rowCodigoHogar = (TableRow) findViewById(R.id.trTablaCodigoHogar);
+		trTablaClienteBotonPrueba = (TableRow) findViewById(R.id.trTablaClienteBotonPrueba);
+		rowTituloContacto2 = (TableRow) findViewById(R.id.trTituloContacto2);
+		rowTCNContacto2Nombre = (TableRow) findViewById(R.id.trTCNContacto2Nombre);
+		rowTCNContacto2Apellido = (TableRow) findViewById(R.id.trTCNContacto2Apellido);
+		rowTCNContacto2Telefono = (TableRow) findViewById(R.id.trTCTContacto2Telefono);
+		rowTCPContacto2Parentesco = (TableRow) findViewById(R.id.trTCPContacto2Parentesco);
+		rowDomiciliacion = (TableRow) findViewById(R.id.trTablaDomiciliacion);
 
         rowClientePaginacion = (TableRow) findViewById(R.id.trTablaClientePaginacion);
         rowClienteContrato = (TableRow) findViewById(R.id.trTablaClienteContrato);
@@ -249,7 +262,9 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         spnTipoZona = (Spinner) findViewById(R.id.spnTipoZona);
         txtProyectosRurales = (AutoCompleteTextView) findViewById(R.id.txtProyectosRurales);
 
-        txtNombrePredio = (EditText) findViewById(R.id.txtNombrePredio);
+		rowClienteHoraDomiciliacion = (TableRow) findViewById(R.id.trTablaHoraDomiciliacion);
+
+		txtNombrePredio = (EditText) findViewById(R.id.txtNombrePredio);
 
         // Campos correspondientes a la clase de contacto
         txtNombreContacto1 = (EditText) findViewById(R.id.txtNombreContacto1);
@@ -1029,8 +1044,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         adaptador = (ArrayAdapter<String>) spnDomiciliacion.getAdapter();
         spnDomiciliacion.setSelection(adaptador.getPosition(cliente.getDomiciliacion()));
 
-        adaptador = (ArrayAdapter<String>) spnDomiciliacion.getAdapter();
-        spnDomiciliacion.setSelection(adaptador.getPosition(cliente.getDomiciliacion()));
+		shp.setTexto(cliente.getHoraDomiciliacion());
 
         System.out.println("cliente.getContacto2().getParentesco() " + cliente.getContacto2().getParentesco());
 
@@ -1635,7 +1649,9 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
         cliente.setTipoZona((String) spnTipoZona.getSelectedItem());
 
-        System.out.println("validacion correo " + Utilidades.validateEmail(cliente.getCorreo()));
+		cliente.setHoraDomiciliacion(shp.getTexto());
+
+		System.out.println("validacion correo " + Utilidades.validateEmail(cliente.getCorreo()));
 
         llenadoCamposInvisibles();
 
@@ -1714,7 +1730,12 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         dialogo.dialogo.show();
     }
 
-    OnDismissListener dl = new OnDismissListener() {
+	public void mostrarDialogoHora(View v){
+		shp = (SelectorHora) v.getParent().getParent();
+		dialogoHora.dialogo.show();
+	}
+
+	OnDismissListener dl = new OnDismissListener() {
 
         @Override
         public void onDismiss(DialogInterface arg0) {
@@ -1727,26 +1748,40 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         }
     };
 
-    @Override
-    public void update(Object value) {
-        // TODO Auto-generated method stub
-        // System.out.println("Update ControlCliente => " + value);
-        ArrayList<Object> resultado = (ArrayList<Object>) value;
-        System.out.println("value Control Cliente" + value);
-        if (resultado.get(0).equals("Cliente")) {
-            // cliente.setPortafolio(resultado.get(1).toString());
-            cliente.setTelefono(txtTelefonoServicio.getText().toString());
-            cliente.reorganizarCliente(resultado.get(1).toString());
-            llenarCampos();
-        } else if (resultado.get(0).equals("ConsolidadoSiebel")) {
-            System.out.println("Control Cliente siebel");
-            cliente.reorganizarClienteSiebel(resultado.get(1).toString());
-            llenarCampos();
-            // Resultado_Portafolio(cliente.getPortafolio());
-        } else if (resultado.get(0).equals("ConsolidarSiebel")) {
-            validarConsolidar(resultado.get(1).toString());
-            Utilidades.pintarBotones(resultado.get(1).toString());
-        } else if (resultado.get(0).equals("ValidarLogin")) {
+	OnDismissListener dlh = new OnDismissListener() {
+
+		@Override
+		public void onDismiss(DialogInterface arg0) {
+
+			// TODO Auto-generated method stub
+			if (dialogoHora.isSeleccion()) {
+				shp.setTexto(dialogoHora.getHoraSeleccion());
+			}
+			dialogoHora.setSeleccion(false);
+		}
+	};
+
+
+	@Override
+	public void update(Object value) {
+		// TODO Auto-generated method stub
+		// System.out.println("Update ControlCliente => " + value);
+		ArrayList<Object> resultado = (ArrayList<Object>) value;
+		System.out.println("value Control Cliente" + value);
+		if (resultado.get(0).equals("Cliente")) {
+			// cliente.setPortafolio(resultado.get(1).toString());
+			cliente.setTelefono(txtTelefonoServicio.getText().toString());
+			cliente.reorganizarCliente(resultado.get(1).toString());
+			llenarCampos();
+		} else if (resultado.get(0).equals("ConsolidadoSiebel")) {
+			System.out.println("Control Cliente siebel");
+			cliente.reorganizarClienteSiebel(resultado.get(1).toString());
+			llenarCampos();
+			// Resultado_Portafolio(cliente.getPortafolio());
+		} else if (resultado.get(0).equals("ConsolidarSiebel")) {
+			validarConsolidar(resultado.get(1).toString());
+			Utilidades.pintarBotones(resultado.get(1).toString());
+		} else if (resultado.get(0).equals("ValidarLogin")) {
 
             System.out.println("Login " + resultado.get(1));
             resulValidarLogin(resultado.get(1).toString());
@@ -2323,5 +2358,21 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
         spnDominio.setAdapter(adaptador);
 
-    }
+	}
+
+	AdapterView.OnItemSelectedListener ocultarMostarFranja = new AdapterView.OnItemSelectedListener() {
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			if(parent.getSelectedItem().toString().equalsIgnoreCase("SI")){
+				rowClienteHoraDomiciliacion.setVisibility(View.VISIBLE);
+			} else {
+				rowClienteHoraDomiciliacion.setVisibility(View.GONE);
+			}
+		}
+
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+
+		}
+	};
 }

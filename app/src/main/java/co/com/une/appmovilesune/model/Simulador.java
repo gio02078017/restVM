@@ -180,6 +180,9 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
         } else if (accion.equals("consultarPagoParcialAnticipado")) {
             parametros = (ArrayList<String>) params[0].get(2);
             resultados.add(consultarPagoParcialAnticipado(parametros));
+        } else if(accion.equals("validarDebitoAutomaticoExistente")){
+            parametros = (ArrayList<String>) params[0].get(2);
+            resultados.add(validarDebitoAutomaticoExistente(parametros));
         }
 
         return resultados;
@@ -497,6 +500,11 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
             resultado = result;
             notifyObserver();
         } else if (accion.equals("consultarPagoParcialAnticipado")) {
+            System.out.println("Simulador 161 Consultar Respuesta => " + observer);
+            System.out.println("result " + result);
+            resultado = result;
+            notifyObserver();
+        } else if(accion.equals("validarDebitoAutomaticoExistente")){
             System.out.println("Simulador 161 Consultar Respuesta => " + observer);
             System.out.println("result " + result);
             resultado = result;
@@ -1130,10 +1138,24 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
 
     }
 
-    public void setManual(Context context) {
-        this.lugar = "Manual";
-        this.context = context;
-    }
+	public String validarDebitoAutomaticoExistente(ArrayList<String> parametros){
+
+		System.out.println("parametros " + parametros);
+		ArrayList<String[]> param = new ArrayList<String[]>();
+
+		param.add(new String[] { "sistema", parametros.get(0)});
+		param.add(new String[] { "parametros", parametros.get(1)});
+		param.add(new String[] { "debug", "false" });
+		param.add(new String[] { "profundidad", "0" });
+
+		return MainActivity.conexion.ejecutarSoap("validarDebitoAutomaticoExistente", param);
+
+	}
+
+	public void setManual(Context context) {
+		this.lugar = "Manual";
+		this.context = context;
+	}
 
     @Override
     public void addObserver(Observer o) {
