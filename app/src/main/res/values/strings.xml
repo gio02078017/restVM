@@ -469,4 +469,6 @@
     <string name="valordescuentoconexion">Valor Descuento por Conexión</string>
 
     <string name="validacionBarrio">El Barrio Deben Estar Diligenciados, Para seleccionar esta opción</string>
+
+    <string name="mensajeCotizacioninvalidaClienteNuevo">Cotización invalida, solo se pueden cotizar productos nuevos</string>
 </resources>

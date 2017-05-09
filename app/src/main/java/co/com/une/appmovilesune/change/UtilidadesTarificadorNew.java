@@ -191,4 +191,43 @@ public class UtilidadesTarificadorNew {
         return validarEstandarizacion;
 
     }
+
+    public static boolean ventaConExistente(Cotizacion cotizacion){
+        boolean existentes = false;
+
+        System.out.println("nuevos " + existentes);
+
+        if (!cotizacion.getTelefonia().equalsIgnoreCase(Utilidades.inicial_guion)
+                && !cotizacion.getTelefonia().equalsIgnoreCase("")) {
+
+            System.out.println("cotizacion.getTipoCotizacionTo() " + cotizacion.getTipoCotizacionTo());
+            if (!cotizacion.getTipoCotizacionTo().equalsIgnoreCase("1")) {
+                existentes = true;
+            }
+        }
+
+        if (!cotizacion.getInternet().equalsIgnoreCase(Utilidades.inicial_guion)
+                && !cotizacion.getInternet().equalsIgnoreCase("")) {
+
+            System.out.println("cotizacion.getTipoCotizacionBa() " + cotizacion.getTipoCotizacionBa());
+
+            if (!cotizacion.getTipoCotizacionBa().equalsIgnoreCase("1")) {
+                existentes = true;
+            }
+        }
+
+        if (!cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial_guion)
+                && !cotizacion.getTelevision().equalsIgnoreCase("")) {
+
+            System.out.println("cotizacion.getTipoCotizacionTv() " + cotizacion.getTipoCotizacionTv());
+
+            if (!cotizacion.getTipoCotizacionTv().equalsIgnoreCase("1")) {
+                existentes = true;
+            }
+        }
+
+        System.out.println("nuevos " + existentes);
+
+        return existentes;
+    }
 }
