@@ -254,8 +254,8 @@ public class Cliente implements Serializable, Observer, Subject {
         this.departamento = MainActivity.config.getDepartamento();
         this.ciudad = Municipio;
         this.ciudadFenix = Utilidades.traducirCiudad(Municipio);
-        this.ciudadDane = Utilidades.traducirCiudadDane(Municipio);
-        this.departamentoSiebel = Utilidades.traducirCiudadDane(Municipio);
+        this.ciudadDane = Utilidades.traducirCiudadDane(Municipio,departamento);
+        this.departamentoSiebel = Utilidades.traducirCiudadDane(Municipio,departamento);
         this.ciudadSiebel = Utilidades.traducirCiudadGIIS(Municipio);
         this.ciudadAmc = Utilidades.traducirCiudadAmc(Municipio);
         this.TipoServicio = "";
@@ -666,8 +666,8 @@ public class Cliente implements Serializable, Observer, Subject {
                     if (!departamento.equalsIgnoreCase(Utilidades.Bogota)) {
                         ciudad = traducirMunicipio(jo.getString("Municipio"));
                         ciudadFenix = Utilidades.traducirCiudadFenix(ciudad);
-                        ciudadDane = Utilidades.traducirCiudadDane(ciudad);
-                        this.departamentoSiebel = Utilidades.traducirCiudadDane(ciudad);
+                        ciudadDane = Utilidades.traducirCiudadDane(ciudad,departamento);
+                        this.departamentoSiebel = Utilidades.traducirCiudadDane(ciudad,departamento);
                         this.ciudadSiebel = Utilidades.traducirCiudadGIIS(ciudad);
                     }
 

@@ -692,9 +692,9 @@ public class Utilidades {
         }
     }
 
-    public static String traducirCiudadDane(String ciudad) {
+    public static String traducirCiudadDane(String ciudad, String departamento) {
         ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "Departamentos",
-                new String[]{"CodigoDaneMunicipio"}, "Ciudad = ?", new String[]{ciudad}, null, null, null);
+                new String[]{"CodigoDaneMunicipio"}, "Ciudad = ? and Departamento = ?", new String[]{ciudad, departamento}, null, null, null);
         if (resultado != null) {
             return resultado.get(0).get(0);
         } else {
