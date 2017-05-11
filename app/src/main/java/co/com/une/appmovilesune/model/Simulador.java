@@ -1,6 +1,8 @@
 package co.com.une.appmovilesune.model;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +59,12 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
         tipo = params[0].get(2).toString();
 
         resultados.add(accion);
+
+        MainActivity.conexion.setCambiarAccion(false);
+        MainActivity.conexion.setNuevaAccion("");
+
+        System.out.println("Conexion doInBackground simulador antes CambiarAccion"+MainActivity.conexion.isCambiarAccion());
+        System.out.println("Conexion doInBackground simulador antes NuevaAccion"+MainActivity.conexion.getNuevaAccion());
 
         if (accion.equals("Portafolio")) {
             parametros = (ArrayList<String>) params[0].get(3);
@@ -181,6 +189,23 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
             parametros = (ArrayList<String>) params[0].get(2);
             resultados.add(consultarPagoParcialAnticipado(parametros));
         }
+
+        System.out.println("Conexion doInBackground simulador despues CambiarAccion"+MainActivity.conexion.isCambiarAccion());
+        System.out.println("Conexion doInBackground simulador despues NuevaAccion"+MainActivity.conexion.getNuevaAccion());
+
+        if(MainActivity.conexion.isCambiarAccion()) {
+            System.out.println("Conexion doInBackground simulador validacion "+Utilidades.validacionConfig(resultados));
+            ArrayList<Object> validados = Utilidades.validacionConfig(resultados);
+            if((Boolean) validados.get(0)){
+                //resultados.add(1,validados.get(1));
+                resultados.set(1,validados.get(1));
+            }else{
+                //resultados.add(0,MainActivity.conexion.getNuevaAccion());
+                resultados.set(0,MainActivity.conexion.getNuevaAccion());
+            }
+        }
+
+        System.out.println("Conexion doInBackground simulador resultados "+resultados);
 
         return resultados;
     }
@@ -499,6 +524,11 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
         } else if (accion.equals("consultarPagoParcialAnticipado")) {
             System.out.println("Simulador 161 Consultar Respuesta => " + observer);
             System.out.println("result " + result);
+            resultado = result;
+            notifyObserver();
+        }else if (result.get(0).equals("ValidacionConfiguracionMovil")) {
+            System.out.println("Simulador 161 Consultar Respuesta ValidacionConfiguracionMovil => " + observer);
+            System.out.println("result ValidacionConfiguracionMovil" + result);
             resultado = result;
             notifyObserver();
         }

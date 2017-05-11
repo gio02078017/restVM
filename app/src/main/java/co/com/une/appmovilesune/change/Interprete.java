@@ -12,6 +12,7 @@ import co.com.une.appmovilesune.adapters.ItemDirecciones;
 import co.com.une.appmovilesune.adapters.ListaDefault;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -1881,6 +1882,36 @@ public class Interprete {
 
     public static ArrayList<String[]> getDatos_Cliente() {
         return datos_cliente;
+    }
+
+    public static JSONObject mensajesConfiguracion(JSONObject respuestaConfiguracion){
+
+        JSONObject mensajes = new JSONObject();
+
+        JSONArray ja = new JSONArray();
+
+        try {
+
+            mensajes.put("Titulo", "Datos Invalidos");
+
+            JSONArray datosInvalidos = respuestaConfiguracion.getJSONArray("datosInvalidos");
+
+            for (int i = 0; i < datosInvalidos.length(); i++) {
+                ja.put(Utilidades.jsonMensajes(datosInvalidos.getJSONObject(i).getString("campo"), datosInvalidos.getJSONObject(i).getString("mensaje")));
+                if(datosInvalidos.getJSONObject(i).getString("campo").equalsIgnoreCase("versionMovil")){
+                     MainActivity.config.setControlVersionDB(false);
+                }
+            }
+
+            mensajes.put("Mensajes", ja);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return mensajes;
+
     }
 
 }

@@ -19,6 +19,7 @@ import org.apache.http.conn.util.InetAddressUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.kobjects.base64.*;
 
 import android.R.string;
 import android.content.Context;
@@ -1705,9 +1706,9 @@ public class Utilidades {
 
         boolean validar = false;
 
-		ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "listasvalores",
-				new String[] { "lst_valor" }, "lst_nombre=? and lst_clave=?", new String[] { nombre, clave }, null,
-				null, null);
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "listasvalores",
+                new String[]{"lst_valor"}, "lst_nombre=? and lst_clave=?", new String[]{nombre, clave}, null,
+                null, null);
 
         System.out.println("respuesta " + respuesta);
 
@@ -2509,7 +2510,7 @@ public class Utilidades {
                 if (gpon.equalsIgnoreCase("SI")) {
                     respuesta = true;
                     /*
-					 * if(cober.has("DISPONIBILIDAD_GPON")){
+                     * if(cober.has("DISPONIBILIDAD_GPON")){
 					 * if(cober.getString("DISPONIBILIDAD_GPON").
 					 * equalsIgnoreCase("SI")){ respuesta = true; }else{
 					 * MensajesToast("Cobertura GPON Sin Disponibilidad"
@@ -2745,64 +2746,64 @@ public class Utilidades {
         return data;
     }
 
-	public static String nombrePlan(String departamento, String plan, String estrato) {
+    public static String nombrePlan(String departamento, String plan, String estrato) {
 
-		String nombrePlan = "";
+        String nombrePlan = "";
 
-		nombrePlan = nombrePlanHomoPrimeraLinea(departamento,plan,estrato);
+        nombrePlan = nombrePlanHomoPrimeraLinea(departamento, plan, estrato);
 
-		if(nombrePlan.trim().equalsIgnoreCase("")){
-			nombrePlan = nombrePlanHomoSegundaLinea(departamento,plan,estrato);
-		}
+        if (nombrePlan.trim().equalsIgnoreCase("")) {
+            nombrePlan = nombrePlanHomoSegundaLinea(departamento, plan, estrato);
+        }
 
-		return nombrePlan;
-	}
+        return nombrePlan;
+    }
 
-	public static String nombrePlanHomoPrimeraLinea(String departamento, String plan, String estrato) {
+    public static String nombrePlanHomoPrimeraLinea(String departamento, String plan, String estrato) {
 
-		ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Precios",
-				new String[] { "Producto" }, "Departamento=? and homoPrimeraLinea=? and estrato like ?",
-				new String[] { departamento, plan, "%" + estrato + "%" }, null, null, null);
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Precios",
+                new String[]{"Producto"}, "Departamento=? and homoPrimeraLinea=? and estrato like ?",
+                new String[]{departamento, plan, "%" + estrato + "%"}, null, null, null);
 
-		System.out.println("respuesta " + respuesta);
+        System.out.println("respuesta " + respuesta);
 
-		String data = "";
+        String data = "";
 
-		if (respuesta != null) {
-			try {
-				data = respuesta.get(0).get(0);
-			} catch (Exception e) {
-				data = "";
-			}
-		}
+        if (respuesta != null) {
+            try {
+                data = respuesta.get(0).get(0);
+            } catch (Exception e) {
+                data = "";
+            }
+        }
 
-		return data;
-	}
+        return data;
+    }
 
-	public static String nombrePlanHomoSegundaLinea(String departamento, String plan, String estrato) {
+    public static String nombrePlanHomoSegundaLinea(String departamento, String plan, String estrato) {
 
-		ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Precios",
-				new String[] { "Producto" }, "Departamento=? and homoSegundaLinea=? and estrato like ?",
-				new String[] { departamento, plan, "%" + estrato + "%" }, null, null, null);
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Precios",
+                new String[]{"Producto"}, "Departamento=? and homoSegundaLinea=? and estrato like ?",
+                new String[]{departamento, plan, "%" + estrato + "%"}, null, null, null);
 
-		System.out.println("respuesta " + respuesta);
+        System.out.println("respuesta " + respuesta);
 
-		String data = "";
+        String data = "";
 
-		if (respuesta != null) {
-			try {
-				data = respuesta.get(0).get(0);
-			} catch (Exception e) {
-				data = "";
-			}
-		}
+        if (respuesta != null) {
+            try {
+                data = respuesta.get(0).get(0);
+            } catch (Exception e) {
+                data = "";
+            }
+        }
 
-		return data;
-	}
+        return data;
+    }
 
-	public static boolean validarFechaConsuta(long fechaInicio, long fechaConsulta, Context context) {
-		boolean validar = true;
-		long resta = 0;
+    public static boolean validarFechaConsuta(long fechaInicio, long fechaConsulta, Context context) {
+        boolean validar = true;
+        long resta = 0;
 
         // System.out.println("fechaInicio " + fechaInicio);
         //
@@ -3667,4 +3668,92 @@ public class Utilidades {
 
         return cobertura;
     }
+
+    public static String generarJsonVerificacionServicios() {
+
+        JSONObject datos = new JSONObject();
+
+        try {
+
+            datos.put("codigoAsesor", MainActivity.config.getCodigo());
+            datos.put("versionAplicacion", MainActivity.config.srvVersion);
+            datos.put("versionDB", MainActivity.config.getVersionDB());
+
+        } catch (JSONException e) {
+            android.util.Log.e("Error Generando JSON ", e.getMessage());
+        }
+
+        return datos.toString();
+    }
+
+    public static boolean respuestaConfigMovil(JSONObject respuesta) {
+
+        System.out.println("jsonRespuesta "+respuesta);
+        try {
+            if(respuesta.has("validacion") && !respuesta.getBoolean("validacion")){
+              return false;
+            }
+        } catch (JSONException e) {
+            Log.e("Error json respuesta "+e.getMessage());
+        }
+        return true;
+    }
+
+    public static Object limpiarValidacionConfiguracion(JSONObject respuesta) {
+
+        System.out.println("jsonRespuesta "+respuesta);
+        try {
+            if(respuesta.has("validacion") && !respuesta.getBoolean("validacion")){
+                return false;
+            }
+        } catch (JSONException e) {
+            Log.e("Error json respuesta "+e.getMessage());
+        }
+        return true;
+    }
+
+    public static String pruebasAutenticacion() {
+
+        String prueba = "{'codigoAsesor':'1234545','versionAplicacion':'2.0.1d'}";
+
+        if (!prueba.equalsIgnoreCase("")) {
+            prueba = prueba.replace((char) 39, (char) 34);
+        }
+
+        System.out.println("pruebasAutenticacion" + prueba);
+
+        return prueba;
+    }
+
+    public static ArrayList<Object> validacionConfig (ArrayList<Object> result){
+
+        ArrayList<Object> validacion = new ArrayList<Object>();
+
+        try {
+
+            JSONObject jop = new JSONObject(String.valueOf(result.get(1)));
+            String data = jop.get("data").toString();
+
+            if (MainActivity.config.validarIntegridad(data, jop.get("crc").toString())) {
+                data = new String(org.kobjects.base64.Base64.decode(data));
+                // Confirmacion(data);
+                JSONObject informacion = new JSONObject(data);
+
+                System.out.println("respuesta validacion " + Utilidades.respuestaConfigMovil(informacion));
+
+                boolean valido = Utilidades.respuestaConfigMovil(informacion);
+
+                validacion.add(valido);
+                if(valido) {
+                    validacion.add(informacion.getJSONObject("respuesta"));
+                }
+
+            }
+        } catch (JSONException e) {
+            validacion.add(false);
+            validacion.add("");
+        }
+        return validacion;
+    }
+
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
@@ -20,6 +21,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
+import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.components.BotonPrincipal;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.Subject;
@@ -39,7 +41,8 @@ public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Ob
 	public static final String SERVIDOR_DAVID_EXTRNA = "http://192.168.1.7:8888";
 	public static final String SERVIDOR_GIOVANNY = "http://10.65.68.118";
 
-	private static final String RUTA_WS = "/wsVentaMovil/wsVentaMovil/";
+	//private static final String RUTA_WS = "/wsVentaMovil/wsVentaMovil/";
+	private static final String RUTA_WS = "/wsVentaMovil/branch/";
 	// private static final String WS_GLOBAL = "ServerVentaMovil.php";
 	private static final String WS_GLOBAL = "ServerVentaMovilNew.php";
 	private static final String WS_SIMULADOR = "serverSimulador.php";
@@ -60,6 +63,9 @@ public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Ob
 	private Context context;
 
 	public ProgressDialog pd;
+
+	private String nuevaAccion="";
+	private boolean cambiarAccion;
 
 	public Conexion(String servidor) {
 		this.servidor = servidor;
@@ -97,7 +103,8 @@ public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Ob
 	protected ArrayList<Object> doInBackground(ArrayList<Object>... params) {
 
 		// System.out.println("Ejecutando");
-
+        nuevaAccion = "";
+		cambiarAccion = false;
 		String accion = params[0].get(0).toString();
 		ArrayList<String[]> parametros = (ArrayList<String[]>) params[0].get(1);
 
@@ -105,7 +112,22 @@ public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Ob
 		resultados.add(accion);
 		resultados.add(MainActivity.conexion.ejecutarSoap(accion, parametros));
 
-		System.out.println("Soap Ejecutado => " + resultados);
+		System.out.println("Conexion ejecutarSoap cambiarAccion => " + cambiarAccion);
+		System.out.println("Conexion ejecutarSoap => nuevaAccion" + nuevaAccion);
+
+		if(cambiarAccion) {
+			System.out.println("Conexion ejecutarSoap  validacion "+Utilidades.validacionConfig(resultados));
+			ArrayList<Object> validados = Utilidades.validacionConfig(resultados);
+			if((Boolean) validados.get(0)){
+				//resultados.add(1,validados.get(1));
+				resultados.set(1,validados.get(1));
+			}else{
+				//resultados.add(0,MainActivity.conexion.getNuevaAccion());
+				resultados.set(0,nuevaAccion);
+			}
+		}
+
+		System.out.println("Conexion ejecutarSoap Ejecutado => " + resultados);
 
 		return resultados;
 	}
@@ -138,7 +160,12 @@ public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Ob
 			MainActivity.btnCliente.setInvisible();
 			resultado = result;
 			notifyObserver();
+		} else if (result.get(0).equals("ValidacionConfiguracionMovil")) {
+			MainActivity.btnCliente.setInvisible();
+			resultado = result;
+			notifyObserver();
 		}
+
 		if (lugar.equals("Manual")) {
 			pd.dismiss();
 		}
@@ -168,29 +195,71 @@ public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Ob
 		HttpTransportSE canal = new HttpTransportSE(url, 70000);
 		// HttpTransportSE canal = new HttpTransportSE(url, 120000);
 		try {
-			SoapObject cliente = new SoapObject(namespace, accion);
 
-			for (int i = 0; i < parametros.size(); i++) {
-				cliente.addProperty(parametros.get(i)[0], parametros.get(i)[1]);
+			String accionDinamica = "";
+			boolean dependencia = false;
+			SoapObject cliente;
+
+			System.out.println("Conecion ejecutarSoap accion "+accion);
+
+			if(!accion.equalsIgnoreCase("Ejecutar") && !accion.equalsIgnoreCase("Tarifas") && !accion.equalsIgnoreCase("obtenerPermisos")){
+				accionDinamica = "ValidacionConfiguracionMovil";
+				cliente = new SoapObject(namespace, "ValidacionConfiguracionMovil");
+				SoapObject parametrosAccion = new SoapObject(namespace, "parametrosAccion");
+
+				for (int i = 0; i < parametros.size(); i++) {
+
+					parametrosAccion.addProperty("ref",parametros.get(i)[1]);
+
+				}
+
+				cliente.addSoapObject(parametrosAccion);
+				cliente.addProperty("parametrosAutenticacion", Utilidades.generarJsonVerificacionServicios());
+				cliente.addProperty("accion", accion);
+				dependencia = true;
+			}else {
+				accionDinamica = accion;
+				cliente = new SoapObject(namespace, accion);
+				for (int i = 0; i < parametros.size(); i++) {
+					cliente.addProperty(parametros.get(i)[0], parametros.get(i)[1]);
+				}
+
+				dependencia = false;
+
 			}
+
 
 			SoapSerializationEnvelope paquete = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 			paquete.setOutputSoapObject(cliente);
-			System.out.println("Conexion 149 => " + cliente);
+			//System.out.println("Conexion 149 => " + cliente);
+			System.out.println("Conexion ejecutarSoap cliente "+cliente);
 			canal.debug = true;
-			canal.call(accion, paquete);
+			//canal.call(accion, paquete);
+			canal.call(accionDinamica, paquete);
 			canal.getConnection().disconnect();
-			System.out.println("Log servicios " + canal.requestDump);
+			System.out.println("Conexion ejecutarSoap Log servicios "+canal.requestDump);
+			//System.out.println("Log servicios " + canal.requestDump);
 			Editor editor = MainActivity.preferencias.edit();
 			editor.putString("xml", canal.requestDump);
 			editor.commit();
-			respuesta = paquete.getResponse().toString();
-			System.out.println("Conexion 170 => " + respuesta);
+			if(!dependencia) {
+				respuesta = paquete.getResponse().toString();
+				System.out.println("No dependiente");
+				System.out.println("Conexion ejecutarSoap dependencia "+"No dependiente");
+			}else{
+				respuesta = paquete.getResponse().toString();
+				System.out.println("Conexion ejecutarSoap dependencia "+"dependiente");
+				cambiarAccion = true;
+				nuevaAccion = accionDinamica;
+			}
+			System.out.println("Conexion ejecutarSoap respuesta "+respuesta);
+			System.out.println("Conexion ejecutarSoap 170 => " + respuesta);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 			Log.w("problemas conexion", e.getMessage() + "Parametros " + parametros);
 			System.out.println(respuesta);
-			System.out.println("Log servicios " + canal.requestDump);
+			System.out.println("Log servicios IOException" + canal.requestDump);
 			Editor editor = MainActivity.preferencias.edit();
 			editor.putString("xml", canal.requestDump);
 
@@ -199,7 +268,7 @@ public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Ob
 		} catch (XmlPullParserException e) {
 			e.printStackTrace();
 			Log.w("Error", e.getMessage() + "Parametros " + parametros);
-			System.out.println("Log servicios " + canal.requestDump);
+			System.out.println("Log servicios XmlPullParserException" + canal.requestDump);
 			Editor editor = MainActivity.preferencias.edit();
 			editor.putString("xml", canal.requestDump);
 			editor.commit();
@@ -208,7 +277,7 @@ public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Ob
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Excepcion" + e.getMessage());
-			System.out.println("Log servicios " + canal.requestDump);
+			System.out.println("Log servicios Exception" + canal.requestDump);
 			Editor editor = MainActivity.preferencias.edit();
 			editor.putString("xml", canal.requestDump);
 			editor.commit();
@@ -290,4 +359,19 @@ public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Ob
 		observer.update(this.resultado);
 	}
 
+	public String getNuevaAccion() {
+		return nuevaAccion;
+	}
+
+	public void setNuevaAccion(String nuevaAccion) {
+		this.nuevaAccion = nuevaAccion;
+	}
+
+	public boolean isCambiarAccion() {
+		return cambiarAccion;
+	}
+
+	public void setCambiarAccion(boolean cambiarAccion) {
+		this.cambiarAccion = cambiarAccion;
+	}
 }

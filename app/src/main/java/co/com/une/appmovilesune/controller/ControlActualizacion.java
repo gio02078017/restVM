@@ -40,44 +40,10 @@ public class ControlActualizacion extends Activity implements Observer {
 		chkTodos = (CheckBox) findViewById(R.id.chkTodo);
 
 		chkTodos.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
-			@Override
+            @Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
-				if (isChecked) {
-					icgListasGenerales.chkSelector.setChecked(true);
-					icgListasValores.chkSelector.setChecked(true);
-					icgListasEstratos.chkSelector.setChecked(true);
-					icgCiudades.chkSelector.setChecked(true);
-					icgBarrios.chkSelector.setChecked(true);
-					icgProductos.chkSelector.setChecked(true);
-					icgPrecios.chkSelector.setChecked(true);
-					// icgPromociones.chkSelector.setChecked(true);
-					icgAdicionales.chkSelector.setChecked(true);
-					icgImpuestos.chkSelector.setChecked(true);
-					icgExtensionesHFC.chkSelector.setChecked(true);
-					icgReglas.chkSelector.setChecked(true);
-					icgCondiciones.chkSelector.setChecked(true);
-					icgDecos.chkSelector.setChecked(true);
-					// icgPromocionesMovilidad.chkSelector.setChecked(true);
-					// icgGpon.chkSelector.setChecked(true);
-				} else {
-					icgListasGenerales.chkSelector.setChecked(false);
-					icgListasValores.chkSelector.setChecked(false);
-					icgListasEstratos.chkSelector.setChecked(false);
-					icgCiudades.chkSelector.setChecked(false);
-					icgBarrios.chkSelector.setChecked(false);
-					icgProductos.chkSelector.setChecked(false);
-					icgPrecios.chkSelector.setChecked(false);
-					// icgPromociones.chkSelector.setChecked(false);
-					icgAdicionales.chkSelector.setChecked(false);
-					icgImpuestos.chkSelector.setChecked(false);
-					icgExtensionesHFC.chkSelector.setChecked(false);
-					icgReglas.chkSelector.setChecked(false);
-					icgCondiciones.chkSelector.setChecked(false);
-					icgDecos.chkSelector.setChecked(false);
-					// icgPromocionesMovilidad.chkSelector.setChecked(false);
-					// icgGpon.chkSelector.setChecked(false);
-				}
+				asignarEstadoDeSeleccionTodos(isChecked);
+				asignarEstadoDePermisoDeSeleccionTodos(!isChecked);
 			}
 		});
 
@@ -88,18 +54,51 @@ public class ControlActualizacion extends Activity implements Observer {
 		icgBarrios = (ItemConfiguracion) findViewById(R.id.icgBarrios);
 		icgProductos = (ItemConfiguracion) findViewById(R.id.icgProductos);
 		icgPrecios = (ItemConfiguracion) findViewById(R.id.icgPrecios);
-		// icgPromociones = (ItemConfiguracion)
-		// findViewById(R.id.icgPromociones);
 		icgAdicionales = (ItemConfiguracion) findViewById(R.id.icgAdicionales);
 		icgImpuestos = (ItemConfiguracion) findViewById(R.id.icgImpuestos);
 		icgExtensionesHFC = (ItemConfiguracion) findViewById(R.id.icgExtensionesHFC);
 		icgReglas = (ItemConfiguracion) findViewById(R.id.icgReglas);
 		icgCondiciones = (ItemConfiguracion) findViewById(R.id.icgCondiciones);
 		icgDecos = (ItemConfiguracion) findViewById(R.id.icgDecos);
-		// icgPromocionesMovilidad = (ItemConfiguracion)
-		// findViewById(R.id.icgPromocionesMovilidad);
-		// icgGpon = (ItemConfiguracion) findViewById(R.id.icgGpon);
 
+		if(!MainActivity.config.isControlVersionDB()){
+			chkTodos.setChecked(true);
+			chkTodos.setEnabled(false);
+		}
+
+
+	}
+
+	public void asignarEstadoDeSeleccionTodos(boolean estado){
+        icgListasGenerales.chkSelector.setChecked(estado);
+        icgListasValores.chkSelector.setChecked(estado);
+        icgListasEstratos.chkSelector.setChecked(estado);
+        icgCiudades.chkSelector.setChecked(estado);
+        icgBarrios.chkSelector.setChecked(estado);
+        icgProductos.chkSelector.setChecked(estado);
+        icgPrecios.chkSelector.setChecked(estado);
+        icgAdicionales.chkSelector.setChecked(estado);
+        icgImpuestos.chkSelector.setChecked(estado);
+        icgExtensionesHFC.chkSelector.setChecked(estado);
+        icgReglas.chkSelector.setChecked(estado);
+        icgCondiciones.chkSelector.setChecked(estado);
+        icgDecos.chkSelector.setChecked(estado);
+    }
+
+    public void asignarEstadoDePermisoDeSeleccionTodos(boolean accion){
+		icgListasGenerales.chkSelector.setEnabled(accion);
+		icgListasValores.chkSelector.setEnabled(accion);
+		icgListasEstratos.chkSelector.setEnabled(accion);
+		icgCiudades.chkSelector.setEnabled(accion);
+		icgBarrios.chkSelector.setEnabled(accion);
+		icgProductos.chkSelector.setEnabled(accion);
+		icgPrecios.chkSelector.setEnabled(accion);
+		icgAdicionales.chkSelector.setEnabled(accion);
+		icgImpuestos.chkSelector.setEnabled(accion);
+		icgExtensionesHFC.chkSelector.setEnabled(accion);
+		icgReglas.chkSelector.setEnabled(accion);
+		icgCondiciones.chkSelector.setEnabled(accion);
+		icgDecos.chkSelector.setEnabled(accion);
 	}
 
 	@Override
@@ -194,12 +193,7 @@ public class ControlActualizacion extends Activity implements Observer {
 				icgProductos.setWRONG();
 			}
 			counterUpdateChck++;
-		} /*
-			 * else if (res.get(0).equals("Promociones")) {
-			 * icgPromociones.setInvisible(); if ((Boolean) res.get(1)) {
-			 * icgPromociones.setOK(); } else { icgPromociones.setWRONG(); }
-			 * counterUpdateChck++; }
-			 */else if (res.get(0).equals("Impuestos")) {
+		} else if (res.get(0).equals("Impuestos")) {
 			icgImpuestos.setInvisible();
 			if ((Boolean) res.get(1)) {
 				icgImpuestos.setOK();
@@ -265,16 +259,7 @@ public class ControlActualizacion extends Activity implements Observer {
 				icgDecos.setWRONG();
 			}
 			counterUpdateChck++;
-		} /*
-			 * else if (res.get(0).equals("Promociones Movilidad")) {
-			 * icgPromocionesMovilidad.setInvisible(); if ((Boolean) res.get(1))
-			 * { icgPromocionesMovilidad.setOK(); } else {
-			 * icgPromocionesMovilidad.setWRONG(); } counterUpdateChck++; }
-			 */ /*
-				 * else if (res.get(0).equals("Gpon")) { icgGpon.setInvisible();
-				 * if ((Boolean) res.get(1)) { icgGpon.setOK(); } else {
-				 * icgGpon.setWRONG(); } counterUpdateChck++; }
-				 */
+		}
 
 		if (counterUpdate == counterUpdateChck) {
 			btnUpdate.setEnabled(true);
@@ -377,6 +362,7 @@ public class ControlActualizacion extends Activity implements Observer {
 
 		if (icgProductos.isCheked()) {
 			counterUpdate++;
+			counterUpdate++;
 			ejecutarActualizacion("Productos");
 		}
 		if (icgPrecios.isCheked()) {
@@ -401,6 +387,7 @@ public class ControlActualizacion extends Activity implements Observer {
 		}
 		if (icgReglas.isCheked()) {
 			counterUpdate++;
+			counterUpdate++;
 			ejecutarActualizacion("Reglas");
 		}
 		if (icgCondiciones.isCheked()) {
@@ -408,6 +395,7 @@ public class ControlActualizacion extends Activity implements Observer {
 			ejecutarActualizacion("Condiciones");
 		}
 		if (icgDecos.isCheked()) {
+			counterUpdate++;
 			counterUpdate++;
 			ejecutarActualizacion("Decos");
 		}
@@ -440,5 +428,7 @@ public class ControlActualizacion extends Activity implements Observer {
 	public void onBackPressed() {
 
 	}
+
+
 
 }

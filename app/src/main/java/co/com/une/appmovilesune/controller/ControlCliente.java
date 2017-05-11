@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.kobjects.base64.Base64;
 import org.kobjects.util.Util;
 
 import android.annotation.SuppressLint;
@@ -41,6 +42,7 @@ import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.adapters.ItemKeyValue;
 import co.com.une.appmovilesune.adapters.ProyectosRurales;
+import co.com.une.appmovilesune.change.Interprete;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
 import co.com.une.appmovilesune.complements.Dialogo;
@@ -1771,6 +1773,28 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
             System.out.println("CoberturaNew " + resultado.get(1));
             validarCoberturaNew(resultado.get(1).toString());
+
+        }else if (resultado.get(0).equals("ValidacionConfiguracionMovil")) {
+
+            try {
+
+                JSONObject jop = new JSONObject(resultado.get(1).toString());
+                String data = jop.get("data").toString();
+
+                if (MainActivity.config.validarIntegridad(data, jop.get("crc").toString())) {
+
+                    data = new String(Base64.decode(data));
+                    // Confirmacion(data);
+                    JSONObject validacion = new JSONObject(data);
+                    Toast.makeText(MainActivity.context, "Datos Invalidos", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.MODULO_MENSAJES);
+                    intent.putExtra("mensajes", Interprete.mensajesConfiguracion(validacion).toString());
+                    startActivityForResult(intent, MainActivity.REQUEST_CODE);
+
+               }
+            } catch (JSONException e) {
+                Log.w("Error JSONException ",e.getMessage());
+            }
 
         }
     }
