@@ -574,7 +574,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         boolean trioDuoNuevo = UtilidadesTarificadorNew.isTrioDuoNuevo(productos);
         boolean comportamientoExistentes = UtilidadesTarificadorNew.isCotizacionConExistentes(productos);
 
-        clienteNuevo = !comportamientoExistentes;
         if (productos != null) {
             for (int i = 0; i < productos.size(); i++) {
 
@@ -583,7 +582,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 System.out.println("BanderaPA codigoPA " + codigoPA);
 
-                if(clienteNuevo){
+                if(clienteNuevo && !comportamientoExistentes){
                     productos.get(i).setClienteNuevo(true);
                 } else {
                     productos.get(i).setClienteNuevo(false);
