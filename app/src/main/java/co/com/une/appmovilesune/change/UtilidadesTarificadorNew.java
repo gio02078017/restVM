@@ -135,6 +135,24 @@ public class UtilidadesTarificadorNew {
         return trioDuoNuevo;
     }
 
+    public static boolean isCotizacionConExistentes(ArrayList<ProductoCotizador> productos){
+
+        boolean trioDuoNuevo = false;
+
+        ArrayList<Boolean> nuevos = new ArrayList<Boolean>();
+
+        for (ProductoCotizador producto: productos) {
+            Log.d("TipoPeticion",producto.getTipoPeticion());
+            if(producto.getTipoPeticion().equals("N") || producto.getTipoPeticion().equals("-")){
+                nuevos.add(true);
+            }else {
+                nuevos.add(false);
+            }
+        }
+
+        return nuevos.contains(false);
+    }
+
     public static boolean validarEstandarizacion(Cotizacion cotizacion, Cliente cliente, Context contex) {
 
         boolean validarEstandarizacion = true;

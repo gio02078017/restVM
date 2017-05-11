@@ -572,7 +572,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         // UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 
         boolean trioDuoNuevo = UtilidadesTarificadorNew.isTrioDuoNuevo(productos);
+        boolean comportamientoExistentes = UtilidadesTarificadorNew.isCotizacionConExistentes(productos);
 
+        clienteNuevo = !comportamientoExistentes;
         if (productos != null) {
             for (int i = 0; i < productos.size(); i++) {
 
@@ -583,6 +585,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 if(clienteNuevo){
                     productos.get(i).setClienteNuevo(true);
+                } else {
+                    productos.get(i).setClienteNuevo(false);
                 }
 
                 if (codigoPA.equalsIgnoreCase("00")) {
