@@ -1180,7 +1180,7 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
     @Override
     public void notifyObserver() {
         // TODO Auto-generated method stub
-        observer.update(resultado);
+        observer.update(resultado);observer.update(resultado);
     }
 
 }

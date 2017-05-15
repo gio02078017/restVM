@@ -2,6 +2,7 @@ package co.com.une.appmovilesune.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import org.json.JSONArray;
@@ -22,8 +23,9 @@ import co.com.une.appmovilesune.adapters.ListaIpDinamica;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesDecos;
 import co.com.une.appmovilesune.interfaces.Observer;
+import co.com.une.appmovilesune.interfaces.Subject;
 
-public class AmigoCuentas extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Object>> implements Serializable {
+public class AmigoCuentas extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Object>> implements Serializable{
 
     public final static String OFERTA_SUPER = "super";
     public final static String OFERTA_BASICA = "basica";
@@ -92,100 +94,131 @@ public class AmigoCuentas extends AsyncTask<ArrayList<Object>, Integer, ArrayLis
         // TODO Auto-generated method stub
         System.out.println("doInBackground");
         // System.out.println("parametros "+params[0]);
-        ArrayList<Object> respuesta = new ArrayList<Object>();
+        ArrayList<Object> resultados = new ArrayList<Object>();
+        ArrayList<String> intro = (ArrayList<String>) params[0].get(0);
+        System.out.println("observer " + params[0].get(1));
+        //observer = (Observer) params[0].get(1);
+        resultados.add("getAmigoCuentas");
+        resultados.add("respuesta Vacia");
+        resultados.add(null);
+        resultados.add((Observer) params[0].get(1));
+
         try {
 
-            ArrayList<String> intro = (ArrayList<String>) params[0].get(0);
+            //ArrayList<String> intro = (ArrayList<String>) params[0].get(0);
             String valor = intro.get(0);
             String tipo = intro.get(1);
             String municipio = intro.get(2);
 
             System.out.println("observer " + params[0].get(1));
-            respuesta.add(params[0].get(1));
 
             JSONObject data = new JSONObject();
             data.put("valor", valor);
             data.put("tipo", tipo);
             data.put("municipio", municipio);
 
-            // System.out.println("data "+data.toString());
-
             ArrayList<String[]> parametros = new ArrayList<String[]>();
             parametros.add(new String[]{"parametros", data.toString()});
-            JSONObject jo = new JSONObject(MainActivity.conexion.ejecutarSoap("getAmigoCuentas", parametros));
 
-            String res = jo.get("data").toString();
-            // System.out.println("Configuracion => "+data);
-            if (Configuracion.validarIntegridad(res, jo.get("crc").toString())) {
-                res = new String(Base64.decode(res));
+            resultados.set(1,MainActivity.conexion.ejecutarSoap("getAmigoCuentas", parametros));
+            resultados.set(2,true);
 
-                // System.out.println("res" + res);
+            System.out.println("respuesta doInBackground amigoCuentas "+resultados);
 
-                jo = new JSONObject(res);
-                this.tipo = jo.getString("tipo");
-                this.modulo = jo.getString("modulo");
-                if (this.tipo.equals("Oferta")) {
-                    portafolio = jo.getJSONObject("portafolio").toString();
-                    organizarEstructuraPortafolio();
+            if(MainActivity.conexion.isCambiarAccion()) {
+                System.out.println("Conexion doInBackground simulador validacion "+Utilidades.validacionConfig(resultados));
+                ArrayList<Object> validados = Utilidades.validacionConfig(resultados);
+                if((Boolean) validados.get(0)){
+                    //resultados.add(1,validados.get(1));
+                    //resultados.set(1,validados.get(1));
+                    JSONObject jo = new JSONObject(validados.get(1).toString());
+                    String res = jo.get("data").toString();
+                    // System.out.println("Configuracion => "+data);
+                    if (Configuracion.validarIntegridad(res, jo.get("crc").toString())) {
+                        res = new String(Base64.decode(res));
+                        jo = new JSONObject(res);
+                        this.tipo = jo.getString("tipo");
+                        this.modulo = jo.getString("modulo");
+                        resultados.add(jo.getString("tipo"));
+                        //resultados.set(1,"");
+                        if (this.tipo.equals("Oferta")) {
+                            portafolio = jo.getJSONObject("portafolio").toString();
+                            organizarEstructuraPortafolio();
 
-                    jo = jo.getJSONObject("data");
-                    if (modulo.equals("normal")) {
-                        ofertaSuper = jo.getJSONArray("superplay").toString();
-                        organizarEstructuraSuper();
-                        ofertaBasica = jo.getJSONArray("basica").toString();
-                        organizarEstructuraBasica();
-                    } else if (modulo.equals("digital")) {
-                        ofertaDigital = jo.getJSONArray("Ultra").toString();
-                        organizarEstructuraDigital();
-                        ofertaPromo12 = jo.getJSONArray("PROMO12").toString();
-                        organizarEstructuraPromo12();
-                        ofertaDigitalConfigurable = jo.getJSONArray("DigitalConfig").toString();
-                        organizarEstructuraDigitalConfig();
+                            jo = jo.getJSONObject("data");
+                            if (modulo.equals("normal")) {
+                                ofertaSuper = jo.getJSONArray("superplay").toString();
+                                organizarEstructuraSuper();
+                                ofertaBasica = jo.getJSONArray("basica").toString();
+                                organizarEstructuraBasica();
+                            } else if (modulo.equals("digital")) {
+                                ofertaDigital = jo.getJSONArray("Ultra").toString();
+                                organizarEstructuraDigital();
+                                ofertaPromo12 = jo.getJSONArray("PROMO12").toString();
+                                organizarEstructuraPromo12();
+                                ofertaDigitalConfigurable = jo.getJSONArray("DigitalConfig").toString();
+                                organizarEstructuraDigitalConfig();
+                            }
+
+                            if(jo.has("retencion")) {
+                                ofertaRetencion = jo.getJSONArray("retencion").toString();
+                                organizarEstructuraRetencion();
+                            }
+
+                        } else if (this.tipo.equals("Selector")) {
+                            direcciones = new ArrayList<String[]>();
+                            for (int i = 0; i < jo.getJSONArray("data").length(); i++) {
+                                JSONObject direccion = jo.getJSONArray("data").getJSONObject(i);
+                                String[] direccionData = new String[]{direccion.get("CH").toString(),
+                                        direccion.get("DIR").toString()};
+                                direcciones.add(direccionData);
+                            }
+                        } else {
+                            //respuesta.add(false);
+                            resultados.set(2,false);
+                            //return respuesta;
+                        }
                     }
 
-                    ofertaRetencion = jo.getJSONArray("retencion").toString();
-                    organizarEstructuraRetencion();
+                    //resultados;
 
-                } else if (this.tipo.equals("Selector")) {
-                    direcciones = new ArrayList<String[]>();
-                    for (int i = 0; i < jo.getJSONArray("data").length(); i++) {
-                        JSONObject direccion = jo.getJSONArray("data").getJSONObject(i);
-                        String[] direccionData = new String[]{direccion.get("CH").toString(),
-                                direccion.get("DIR").toString()};
-                        direcciones.add(direccionData);
-                    }
-                } else {
-                    respuesta.add(false);
-                    return respuesta;
+                }else{
+                    resultados.set(0,MainActivity.conexion.getNuevaAccion());
+                    //resultados;
                 }
             }
-
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            respuesta.add(false);
-            return respuesta;
+            resultados.add("");
+            resultados.add("");
+            resultados.set(2,false);
         }
 
         if (productosPortafolio != null) {
             if (!productosPortafolio.isEmpty()) {
-                respuesta.add(true);
+                resultados.set(2,true);
             } else {
-                respuesta.add(false);
+                resultados.set(2,false);
             }
         } else {
-            respuesta.add(false);
+            resultados.set(2,false);
         }
 
-        return respuesta;
+        return resultados;
     }
 
     @Override
     protected void onPostExecute(ArrayList<Object> result) {
-        boolean resultado = false;
+
+        /*boolean resultado = false;*/
+        System.out.println("resultado onPostExecute amigoCuentas result "+result);
         Observer ob = null;
-        ob = (Observer) result.get(0);
-        resultado = (Boolean) result.get(1);
+
+        System.out.println("Observer "+(Observer) result.get(3));
+
+        ob = (Observer) result.get(3);
+        /*resultado = (Boolean) result.get(1);
 
         MainActivity.btnAmigoCuentas.setInvisible();
         if (resultado) {
@@ -194,10 +227,32 @@ public class AmigoCuentas extends AsyncTask<ArrayList<Object>, Integer, ArrayLis
             MainActivity.btnAmigoCuentas.setWRONG();
         }
 
-        if (ob != null) {
+        System.out.println("resultado onPostExecute amigoCuentas "+result);
+
+        ob.update(result);
+       /* if (ob != null) {
             System.out.println("Observador AMC -> " + ob);
             ob.update(tipo);
+        }*/
+
+
+        System.out.println("resultado onPostExecute amigoCuentas result "+result);
+
+        System.out.println("resultado onPostExecute amigoCuentas (Boolean) result.get(2) "+(Boolean) result.get(2));
+
+        if ((Boolean) result.get(2)) {
+            MainActivity.btnAmigoCuentas.setOK();
+        } else {
+            MainActivity.btnAmigoCuentas.setWRONG();
         }
+
+        ob.update(result);
+
+        //resultado = result;
+
+        //System.out.println("resultado onPostExecute amigoCuentas resultado "+resultado);
+
+        //observer.update(result);
 
     }
 

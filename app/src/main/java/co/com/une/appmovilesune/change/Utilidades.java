@@ -3728,10 +3728,12 @@ public class Utilidades {
     public static ArrayList<Object> validacionConfig (ArrayList<Object> result){
 
         ArrayList<Object> validacion = new ArrayList<Object>();
+        validacion.clear();
 
         try {
 
             JSONObject jop = new JSONObject(String.valueOf(result.get(1)));
+
             String data = jop.get("data").toString();
 
             if (MainActivity.config.validarIntegridad(data, jop.get("crc").toString())) {
@@ -3739,20 +3741,35 @@ public class Utilidades {
                 // Confirmacion(data);
                 JSONObject informacion = new JSONObject(data);
 
-                System.out.println("respuesta validacion " + Utilidades.respuestaConfigMovil(informacion));
+                System.out.println("validacionConfig validacion " + Utilidades.respuestaConfigMovil(informacion));
 
                 boolean valido = Utilidades.respuestaConfigMovil(informacion);
 
                 validacion.add(valido);
+
+                //System.out.println("validacionConfig Data "+informacion.getJSONObject("respuesta"));
+
                 if(valido) {
-                    validacion.add(informacion.getJSONObject("respuesta"));
-                }
+                    if(informacion.get("respuesta").getClass().getSimpleName().equals("JSONArray")) {
+                        validacion.add(informacion.getJSONArray("respuesta"));
+                    }else if(informacion.get("respuesta").getClass().getSimpleName().equals("JSONObject")){
+                        validacion.add(informacion.getJSONObject("respuesta"));
+                    }else{
+                        validacion.add("Respuesta Vacia");
+                    }
+
+
+            }
 
             }
         } catch (JSONException e) {
+            validacion.clear();
             validacion.add(false);
             validacion.add("");
         }
+
+        System.out.println("validacionConfig resultadoValidacion "+validacion);
+
         return validacion;
     }
 

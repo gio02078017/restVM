@@ -202,7 +202,12 @@ public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Ob
 
 			System.out.println("Conecion ejecutarSoap accion "+accion);
 
-			if(!accion.equalsIgnoreCase("Ejecutar") && !accion.equalsIgnoreCase("Tarifas") && !accion.equalsIgnoreCase("obtenerPermisos")){
+			ArrayList<String> excluir= new ArrayList<String>();
+			excluir.add("Ejecutar");
+			excluir.add("Tarifas");
+			excluir.add("obtenerPermisos");
+
+			if(!excluir.contains(accion)){
 				accionDinamica = "ValidacionConfiguracionMovil";
 				cliente = new SoapObject(namespace, "ValidacionConfiguracionMovil");
 				SoapObject parametrosAccion = new SoapObject(namespace, "parametrosAccion");
@@ -252,6 +257,7 @@ public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Ob
 				cambiarAccion = true;
 				nuevaAccion = accionDinamica;
 			}
+
 			System.out.println("Conexion ejecutarSoap respuesta "+respuesta);
 			System.out.println("Conexion ejecutarSoap 170 => " + respuesta);
 

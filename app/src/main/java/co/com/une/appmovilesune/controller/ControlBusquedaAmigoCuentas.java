@@ -281,6 +281,9 @@ public class ControlBusquedaAmigoCuentas extends Activity implements Observer, S
     @Override
     public void update(Object value) {
 
+        if (pg != null) {
+            pg.dismiss();
+        }
 
         System.out.println("update busqueda amigo cuentas "+value);
 
@@ -314,14 +317,13 @@ public class ControlBusquedaAmigoCuentas extends Activity implements Observer, S
             validarSmartPromo(resultado.get(1).toString());
             mostrarOfertaDigital();
 
-        }else {
+        }else if (resultado != null && resultado.get(0).equals("getAmigoCuentas")){
 
-            if (pg != null) {
-                pg.dismiss();
-            }
             pgbProgreso.setVisibility(View.GONE);
 
             //value = resultado.get(1);
+
+            value = resultado.get(4);
 
             if (value != null) {
 
