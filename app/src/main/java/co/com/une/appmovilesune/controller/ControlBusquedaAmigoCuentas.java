@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.kobjects.base64.Base64;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.change.Busqueda;
+import co.com.une.appmovilesune.change.Interprete;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.complements.Dialogo;
 import co.com.une.appmovilesune.components.TituloPrincipal;
@@ -278,79 +280,106 @@ public class ControlBusquedaAmigoCuentas extends Activity implements Observer, S
 
     @Override
     public void update(Object value) {
-        // TODO Auto-generated method stub
-        if (pg != null) {
-            pg.dismiss();
-        }
-        pgbProgreso.setVisibility(View.GONE);
-        if (value != null) {
 
-            System.out.println("value amc " + value);
 
-            if (value.equals("Oferta")) {
-                cliente.ac = ac;
+        System.out.println("update busqueda amigo cuentas "+value);
 
-                System.out.println("cliente.ac " + cliente.ac);
+        ArrayList<Object> resultado = (ArrayList<Object>) value;
 
-                if (cliente.ac != null) {
+        if (resultado != null && resultado.get(0).equals("ValidacionConfiguracionMovil")) {
 
-                    System.out.println("cliente.ac.municipio " + cliente.ac.municipio);
-                    String capitalize = cliente.ac.municipio.substring(0, 1).toUpperCase() + cliente.ac.municipio.substring(1).toLowerCase();
-                    System.out.println("cliente.ac.municipio 2 " + capitalize);
-                    if (!Utilidades.excluir("siebelMunicipios", cliente.ac.municipio) && !Utilidades.excluir("siebelMunicipios", capitalize)) {
-                        if (cliente.ac.productosPortafolio != null) {
-                            if (!cliente.ac.productosPortafolio.isEmpty()) {
-                                Intent intent = new Intent();
-                                intent.putExtra("cliente", cliente);
-                                setResult(MainActivity.OK_RESULT_CODE, intent);
-                                finish();
+            try {
+
+                JSONObject jop = new JSONObject(resultado.get(1).toString());
+                String data = jop.get("data").toString();
+
+                if (MainActivity.config.validarIntegridad(data, jop.get("crc").toString())) {
+
+                    data = new String(Base64.decode(data));
+                    // Confirmacion(data);
+                    JSONObject validacion = new JSONObject(data);
+                    Toast.makeText(MainActivity.context, "Datos Invalidos", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.MODULO_MENSAJES);
+                    intent.putExtra("mensajes", Interprete.mensajesConfiguracion(validacion).toString());
+                    startActivityForResult(intent, MainActivity.REQUEST_CODE);
+
+                }
+            } catch (JSONException e) {
+                Log.w("Error JSONException ", e.getMessage());
+            }
+
+        }else if (resultado != null && resultado.get(0).equals("TipoHogar")) {
+
+            cliente.setlogSmartPromoRes(resultado.get(1).toString());
+            validarSmartPromo(resultado.get(1).toString());
+            mostrarOfertaDigital();
+
+        }else {
+
+            if (pg != null) {
+                pg.dismiss();
+            }
+            pgbProgreso.setVisibility(View.GONE);
+
+            //value = resultado.get(1);
+
+            if (value != null) {
+
+                System.out.println("value amc " + value);
+
+                if (value.equals("Oferta")) {
+                    cliente.ac = ac;
+
+                    System.out.println("cliente.ac " + cliente.ac);
+
+                    if (cliente.ac != null) {
+
+                        System.out.println("cliente.ac.municipio " + cliente.ac.municipio);
+                        String capitalize = cliente.ac.municipio.substring(0, 1).toUpperCase() + cliente.ac.municipio.substring(1).toLowerCase();
+                        System.out.println("cliente.ac.municipio 2 " + capitalize);
+                        if (!Utilidades.excluir("siebelMunicipios", cliente.ac.municipio) && !Utilidades.excluir("siebelMunicipios", capitalize)) {
+                            if (cliente.ac.productosPortafolio != null) {
+                                if (!cliente.ac.productosPortafolio.isEmpty()) {
+                                    Intent intent = new Intent();
+                                    intent.putExtra("cliente", cliente);
+                                    setResult(MainActivity.OK_RESULT_CODE, intent);
+                                    finish();
+                                } else {
+                                    txtMensaje.setVisibility(View.VISIBLE);
+                                    txtMensaje.setText("La Consulta no arrojo resultados");
+                                }
                             } else {
                                 txtMensaje.setVisibility(View.VISIBLE);
                                 txtMensaje.setText("La Consulta no arrojo resultados");
                             }
                         } else {
                             txtMensaje.setVisibility(View.VISIBLE);
-                            txtMensaje.setText("La Consulta no arrojo resultados");
+                            txtMensaje.setText("Para el muncipio de " + cliente.ac.municipio + " no es posible la venta por este modulo");
                         }
                     } else {
                         txtMensaje.setVisibility(View.VISIBLE);
-                        txtMensaje.setText("Para el muncipio de " + cliente.ac.municipio + " no es posible la venta por este modulo");
+                        txtMensaje.setText("La Consulta no arrojo resultados");
                     }
-                } else {
+
+                } else if (value.equals("Vacio")) {
                     txtMensaje.setVisibility(View.VISIBLE);
                     txtMensaje.setText("La Consulta no arrojo resultados");
-                }
+                } else if (value.equals("Selector")) {
+                    tipoBusqueda = "codigoHogar";
 
-            } else if (value.equals("Vacio")) {
-                txtMensaje.setVisibility(View.VISIBLE);
-                txtMensaje.setText("La Consulta no arrojo resultados");
-            } else if (value.equals("Selector")) {
-                tipoBusqueda = "codigoHogar";
+                    txtMensaje.setText("La consulta arroja multiples resultados");
+                    txtMensaje.setVisibility(View.VISIBLE);
 
-                txtMensaje.setText("La consulta arroja multiples resultados");
-                txtMensaje.setVisibility(View.VISIBLE);
+                } else {
+                    ArrayList<Object> resultados = (ArrayList<Object>) value;
 
-				/*
-				 * txtMensaje.setVisibility(View.GONE); ArrayList<String>
-				 * direcciones = new ArrayList<String>(); for (int i = 0; i <
-				 * ac.direcciones.size(); i++) {
-				 * direcciones.add(ac.direcciones.get(i)[1]); }
-				 * ArrayAdapter<String> adaptador = new
-				 * ArrayAdapter<String>(getApplicationContext(),
-				 * R.layout.simple_list_item, direcciones);
-				 * listaDirecciones.setAdapter(adaptador);
-				 * setListViewHeightBasedOnChildren(listaDirecciones);
-				 * listaDirecciones.setVisibility(View.VISIBLE);
-				 */
-            } else {
-                ArrayList<Object> resultado = (ArrayList<Object>) value;
+                    System.out.println("resultado " + resultados);
 
-                System.out.println("resultado " + resultado);
-
-                if (resultado != null && resultado.get(0).equals("TipoHogar")) {
-                    cliente.setlogSmartPromoRes(resultado.get(1).toString());
-                    validarSmartPromo(resultado.get(1).toString());
-                    mostrarOfertaDigital();
+                    if (resultados != null && resultados.get(0).equals("TipoHogar")) {
+                        cliente.setlogSmartPromoRes(resultados.get(1).toString());
+                        validarSmartPromo(resultados.get(1).toString());
+                        mostrarOfertaDigital();
+                    }
                 }
             }
         }
