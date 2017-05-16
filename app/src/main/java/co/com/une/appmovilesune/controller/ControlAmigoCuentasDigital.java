@@ -46,6 +46,8 @@ import co.com.une.appmovilesune.model.Tarificador;
 
 public class ControlAmigoCuentasDigital extends Activity implements Observer {
 
+    public static final String TAG = "ControlAMCD";
+
     private TituloPrincipal tp;
     private TabHost tabs;
     private LinearLayout llyCargosBasicos, llyAdicionales;
@@ -79,7 +81,7 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
     String planTo = "--Seleccione Tipo--", telefonia = "--Seleccione Producto--", idTelefonia = "", paTelefonia = "N/A",
             planTv = "--Seleccione Tipo--", television = "--Seleccione Producto--", idTelevision = "",
             paTelevision = "N/A", planBa = "--Seleccione Tipo--", internet = "--Seleccione Producto--", idInternet = "",
-            paInternet = "N/A";
+            paInternet = "N/A", pfAnterior = "";
 
     String ipDinamica = "";
 
@@ -1011,30 +1013,46 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
 
         ArrayList<ArrayList<String>> oferta = new ArrayList<ArrayList<String>>();
 
-        System.out.println("TO Ativa? " + cmpConfTO.isActive());
-        if (cmpConfTO.isActive()) {
-            planTo = "N";
-            toTeccr = teccr;
-            if (cmpConfTO.getPlan().equalsIgnoreCase("Telefonia Existente")) {
-                planTo = "E";
-                toTeccr = cmpConfTO.getProducto().tecnologiacr;
-            } else {
-                if (ac != null) {
-                    if (ac.productosPortafolio != null) {
-                        for (int i = 0; i < ac.productosPortafolio.size(); i++) {
-                            if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("TO")) {
-                                if (ac.productosPortafolio.get(i).planFacturacion.equals(cmpConfTO.getProducto().planFacturacion)) {
-                                    planTo = "E";
-                                } else {
-                                    planTo = "C";
+		System.out.println("TO Ativa? " + cmpConfTO.isActive());
+		if (cmpConfTO.isActive()) {
+			planTo = "N";
+			toTeccr = teccr;
+			if (cmpConfTO.getPlan().equalsIgnoreCase("Telefonia Existente")) {
+				planTo = "E";
+				toTeccr = cmpConfTO.getProducto().tecnologiacr;
+				if (ac != null) {
+					if (ac.productosPortafolio != null) {
+						for (int i = 0; i < ac.productosPortafolio.size(); i++) {
+							if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("TO")) {
+								idTelefonia = ac.productosPortafolio.get(i).identificador;
+								paTelefonia = Utilidades.nombrePlan(cliente.getDepartamento(),ac.productosPortafolio.get(i).planFacturacion,cliente.getEstrato());
+                                if(paTelefonia.equalsIgnoreCase("")){
+                                    paTelefonia = ac.productosPortafolio.get(i).plan;
                                 }
-                                idTelefonia = ac.productosPortafolio.get(i).identificador;
-                                paTelefonia = ac.productosPortafolio.get(i).plan;
-                                toTeccr = cmpConfTO.getProducto().tecnologiacr;
-                            }
-                        }
-                    }
-                }
+                                Log.d("planAnterior","TO "+paTelefonia);
+                                pfAnterior = ac.productosPortafolio.get(i).planFacturacion;
+							}
+						}
+					}
+				}
+			} else {
+				if (ac != null) {
+					if (ac.productosPortafolio != null) {
+						for (int i = 0; i < ac.productosPortafolio.size(); i++) {
+							if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("TO")) {
+								if(ac.productosPortafolio.get(i).planFacturacion.equals(cmpConfTO.getProducto().planFacturacion)){
+									planTo = "E";
+								}else{
+									planTo = "C";
+								}
+								idTelefonia = ac.productosPortafolio.get(i).identificador;
+								paTelefonia = ac.productosPortafolio.get(i).plan;
+                                pfAnterior = ac.productosPortafolio.get(i).planFacturacion;
+								toTeccr = cmpConfTO.getProducto().tecnologiacr;
+							}
+						}
+					}
+				}
 
             }
 
@@ -1043,31 +1061,47 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
             durDescTo = cmpConfTO.getDuracion();
         }
 
-        System.out.println("TV Ativa? " + cmpConfTO.isActive());
-        if (cmpConfTV.isActive()) {
-            planTv = "N";
-            tvTeccr = teccr;
-            if (cmpConfTV.getPlan().equalsIgnoreCase("HFC Existente")) {
-                planTv = "E";
-                tvTeccr = cmpConfTV.getProducto().tecnologiacr;
-            } else {
-                if (ac != null) {
-                    if (ac.productosPortafolio != null) {
-                        for (int i = 0; i < ac.productosPortafolio.size(); i++) {
-                            if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("TV")
-                                    || ac.productosPortafolio.get(i).producto.contains("TELEV")) {
-                                if (ac.productosPortafolio.get(i).planFacturacion.equals(cmpConfTV.getProducto().planFacturacion)) {
-                                    planTv = "E";
-                                } else {
-                                    planTv = "C";
+		System.out.println("TV Ativa? " + cmpConfTO.isActive());
+		if (cmpConfTV.isActive()) {
+			planTv = "N";
+			tvTeccr = teccr;
+			if (cmpConfTV.getPlan().equalsIgnoreCase("HFC Existente") || cmpConfTV.getPlan().equalsIgnoreCase("IPTV Existente") || cmpConfTV.getPlan().equalsIgnoreCase("Television Existente")) {
+				planTv = "E";
+				tvTeccr = cmpConfTV.getProducto().tecnologiacr;
+				if (ac != null) {
+					if (ac.productosPortafolio != null) {
+						for (int i = 0; i < ac.productosPortafolio.size(); i++) {
+							if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("TV")
+									|| ac.productosPortafolio.get(i).producto.contains("TELEV")) {
+								idTelevision = ac.productosPortafolio.get(i).identificador;
+								paTelevision = Utilidades.nombrePlan(cliente.getDepartamento(),ac.productosPortafolio.get(i).planFacturacion,cliente.getEstrato());
+                                if(paTelevision.equalsIgnoreCase("")){
+                                    paTelevision = ac.productosPortafolio.get(i).plan;
                                 }
-                                idTelevision = ac.productosPortafolio.get(i).identificador;
-                                paTelevision = ac.productosPortafolio.get(i).plan;
-                                tvTeccr = cmpConfTV.getProducto().tecnologiacr;
-                            }
-                        }
-                    }
-                }
+                                pfAnterior = ac.productosPortafolio.get(i).planFacturacion;
+							}
+						}
+					}
+				}
+			} else {
+				if (ac != null) {
+					if (ac.productosPortafolio != null) {
+						for (int i = 0; i < ac.productosPortafolio.size(); i++) {
+							if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("TV")
+									|| ac.productosPortafolio.get(i).producto.contains("TELEV")) {
+								if(ac.productosPortafolio.get(i).planFacturacion.equals(cmpConfTV.getProducto().planFacturacion)){
+									planTv = "E";
+								}else{
+									planTv = "C";
+								}
+								idTelevision = ac.productosPortafolio.get(i).identificador;
+								paTelevision = ac.productosPortafolio.get(i).plan;
+                                pfAnterior = ac.productosPortafolio.get(i).planFacturacion;
+								tvTeccr = cmpConfTV.getProducto().tecnologiacr;
+							}
+						}
+					}
+				}
 
             }
 
@@ -1076,40 +1110,56 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
             durDescTv = cmpConfTV.getDuracion();
         }
 
-        System.out.println("BA Ativa? " + cmpConfTO.isActive());
-        if (cmpConfBA.isActive()) {
-            planBa = "N";
-            baTeccr = teccr;
-            if (cmpConfBA.getPlan().equalsIgnoreCase("Internet Existente")) {
-                planBa = "E";
-                baTeccr = cmpConfBA.getProducto().tecnologiacr;
-            } else {
-                if (ac != null) {
-                    if (ac.productosPortafolio != null) {
-                        for (int i = 0; i < ac.productosPortafolio.size(); i++) {
-                            if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("BA")) {
-                                if (ac.productosPortafolio.get(i).planFacturacion.equals(cmpConfBA.getProducto().planFacturacion)) {
-                                    planBa = "E";
-                                } else {
-                                    planBa = "C";
+		System.out.println("BA Ativa? " + cmpConfTO.isActive());
+		if (cmpConfBA.isActive()) {
+			planBa = "N";
+			baTeccr = teccr;
+			if (cmpConfBA.getPlan().equalsIgnoreCase("Internet Existente")) {
+				planBa = "E";
+				baTeccr = cmpConfBA.getProducto().tecnologiacr;
+				if (ac != null) {
+					if (ac.productosPortafolio != null) {
+						for (int i = 0; i < ac.productosPortafolio.size(); i++) {
+							if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("BA")) {
+								idInternet = ac.productosPortafolio.get(i).identificador;
+								paInternet = Utilidades.nombrePlan(cliente.getDepartamento(),ac.productosPortafolio.get(i).planFacturacion,cliente.getEstrato());
+                                if(paInternet.equalsIgnoreCase("")){
+                                    paInternet = ac.productosPortafolio.get(i).plan;
                                 }
-                                idInternet = ac.productosPortafolio.get(i).identificador;
-                                paInternet = ac.productosPortafolio.get(i).plan;
-                                baTeccr = cmpConfBA.getProducto().tecnologiacr;
-                                if (ac.ipDinamica != null && ac.ipDinamica.size() > 0) {
-                                    for (int j = 0; j < ac.ipDinamica.size(); j++) {
-                                        System.out.println("idInternet " + idInternet);
-                                        System.out.println("ac " + ac.ipDinamica.get(j).getIdentificador());
-                                        System.out.println("ac " + ac.ipDinamica.get(j).getIdentificador());
-                                        if (ac.ipDinamica.get(j).getIdentificador().equalsIgnoreCase(idInternet)) {
-                                            ipDinamica = ac.ipDinamica.get(j).getIpDinamica();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                                pfAnterior = ac.productosPortafolio.get(i).planFacturacion;
+                                Log.d("pfAnterior",pfAnterior);
+							}
+						}
+					}
+				}
+			} else {
+				if (ac != null) {
+					if (ac.productosPortafolio != null) {
+						for (int i = 0; i < ac.productosPortafolio.size(); i++) {
+							if (ac.productosPortafolio.get(i).producto.equalsIgnoreCase("BA")) {
+								if(ac.productosPortafolio.get(i).planFacturacion.equals(cmpConfBA.getProducto().planFacturacion)){
+									planBa = "E";
+								}else{
+									planBa = "C";
+								}
+								idInternet = ac.productosPortafolio.get(i).identificador;
+								paInternet = ac.productosPortafolio.get(i).plan;
+                                pfAnterior = ac.productosPortafolio.get(i).planFacturacion;
+								baTeccr = cmpConfBA.getProducto().tecnologiacr;
+								if (ac.ipDinamica != null && ac.ipDinamica.size() > 0) {
+									for (int j = 0; j < ac.ipDinamica.size(); j++) {
+										System.out.println("idInternet " + idInternet);
+										System.out.println("ac " + ac.ipDinamica.get(j).getIdentificador());
+										System.out.println("ac " + ac.ipDinamica.get(j).getIdentificador());
+										if (ac.ipDinamica.get(j).getIdentificador().equalsIgnoreCase(idInternet)) {
+											ipDinamica = ac.ipDinamica.get(j).getIpDinamica();
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 
             }
 
@@ -1117,6 +1167,10 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
             descBa = cmpConfBA.getDescuento();
             durDescBa = cmpConfBA.getDuracion();
         }
+
+        Log.d("planAnterior",paTelefonia);
+        Log.d("planAnterior",paTelevision);
+        Log.d("planAnterior",paInternet);
 
         if (cmpAdicHD.isActive()) {
             int numAdicionales = cmpAdicionalesConf.getAdicionales().length;
@@ -1370,8 +1424,14 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
                     "0", descuentoTo.get(0).toString(), descuentoTo.get(1).toString(), idTelefonia, paTelefonia,
                     toTecnologiacr);
 
-            cotizacion.setPlanFacturacionTo_I(planesFacturacion.get(0));
-            cotizacion.setPlanFacturacionTo_P(planesFacturacion.get(3));
+            if(!telefoniaArr.get(0).equalsIgnoreCase("Telefonia Existente")){
+                cotizacion.setPlanFacturacionTo_I(planesFacturacion.get(0));
+                cotizacion.setPlanFacturacionTo_P(planesFacturacion.get(3));
+            } else {
+                cotizacion.setPlanFacturacionTo_I(pfAnterior);
+                cotizacion.setPlanFacturacionTo_P(pfAnterior);
+            }
+
 
             String tipoCotizacion = Utilidades.planNumerico((String) planTo);
             cotizacion.setTipoCotizacionTo(tipoCotizacion);
@@ -1419,8 +1479,13 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
 
             cotizacion.setAplicarAd(aplicarAd);
 
-            cotizacion.setPlanFacturacionTv_I(planesFacturacion.get(1));
-            cotizacion.setPlanFacturacionTv_P(planesFacturacion.get(4));
+            if(!televisionArr.get(0).equalsIgnoreCase("HFC Existente") && !televisionArr.get(0).equalsIgnoreCase("IPTV Existente") || !televisionArr.get(0).equalsIgnoreCase("Television Existente")){
+                cotizacion.setPlanFacturacionTv_I(planesFacturacion.get(1));
+                cotizacion.setPlanFacturacionTv_P(planesFacturacion.get(4));
+            } else {
+                cotizacion.setPlanFacturacionTv_I(pfAnterior);
+                cotizacion.setPlanFacturacionTv_P(pfAnterior);
+            }
 
             cotizacion.setTipoCotizacionTv(Utilidades.planNumerico(planTv));
         }
@@ -1435,8 +1500,14 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
                     descuentoBa.get(0).toString(), descuentoBa.get(1).toString(), idInternet, paInternet,
                     baTecnologiacr);
 
-            cotizacion.setPlanFacturacionBa_I(planesFacturacion.get(2));
-            cotizacion.setPlanFacturacionBa_P(planesFacturacion.get(5));
+            if(!internetArr.get(0).equalsIgnoreCase("Internet Existente")){
+                cotizacion.setPlanFacturacionBa_I(planesFacturacion.get(2));
+                cotizacion.setPlanFacturacionBa_P(planesFacturacion.get(5));
+            } else {
+                cotizacion.setPlanFacturacionBa_I(pfAnterior);
+                cotizacion.setPlanFacturacionBa_P(pfAnterior);
+            }
+
 
             System.out.println("(String)sltPlanBa.getSelectedItem() " + (String) planBa);
             cotizacion.setTipoCotizacionBa(Utilidades.planNumerico((String) planBa));
@@ -1521,6 +1592,9 @@ public class ControlAmigoCuentasDigital extends Activity implements Observer {
             cotizacion.setTotalIndDescuento(totalDescuentosAdicionales);
         }
         System.out.println("cotizacion.setTotalIndDescuento " + cotizacion.getTotalIndDescuento());
+
+        System.out.println("<<validacion Cotizacion>>  controlCotizacion "+controlCotizacion);
+        System.out.println("<<validacion Cotizacion>>  controlCotizacion.get(0) "+controlCotizacion.get(0));
 
         if (controlCotizacion.get(0).equalsIgnoreCase("00")) {
             if (UtilidadesTarificador.validarDependencias(cotizacion.getTelevision(), cotizacion.getAdicionales(), this)

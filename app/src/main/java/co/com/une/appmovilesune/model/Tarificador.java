@@ -844,26 +844,26 @@ public class Tarificador {
             control = true;
         }
 
-        System.out.println("control " + control);
+        System.out.println("<<validacion Cotizacion>> control " + control);
 
         System.out.println("Dependencias " + dependencia);
 
         if (dependencia) {
 
-            System.out.println("hola itemDependencias.sise() " + itemDependencias.size());
+            System.out.println("<<validacion Cotizacion>> hola itemDependencias.sise() " + itemDependencias.size());
 
             if (itemDependencias.size() > 0) {
                 contadorFija += ContadoOfertas(itemDependencias.get(0).getCantidad());
             }
 
-            System.out.println("contadorFija " + contadorFija + " itemDependencias.size() " + itemDependencias.size());
+            System.out.println("<<validacion Cotizacion>> contadorFija " + contadorFija + " itemDependencias.size() " + itemDependencias.size());
 
             if (itemDependencias.size() == contadorFija) {
                 for (int i = 0; i < itemDependencias.size(); i++) {
 
                     if (itemDependencias.get(i).getCantidad() != contadorFija) {
                         control = false;
-                        System.out.println("Salida por cantidad");
+                        System.out.println("<<validacion Cotizacion>> Salida por cantidad");
                         break;
                     }
 
@@ -872,18 +872,18 @@ public class Tarificador {
                     } else {
                         if (!controlDependencia.equalsIgnoreCase(itemDependencias.get(i).getDependencia())) {
                             control = false;
-                            System.out.println("Dependencia");
+                            System.out.println("<<validacion Cotizacion>> Dependencia");
                             break;
                         }
                     }
                 }
             } else {
                 control = false;
-                System.out.println("Salida por comparacion");
+                System.out.println("<<validacion Cotizacion>> Salida por comparacion");
             }
         }
 
-        System.out.println("control " + control + "dependencias " + dependencia);
+        System.out.println("<<validacion Cotizacion>> control " + control + "dependencias " + dependencia);
 
         if (control && dependencia) {
             Oferta = controlDependencia;
@@ -1137,6 +1137,8 @@ public class Tarificador {
         if (control) {
             controlCotizacion = "00";
         }
+
+        System.out.println("<<validacion Cotizacion>>  controlCotizacion "+controlCotizacion);
 
         Productos.add(new ItemTarificador("" + controlCotizacion, "Validaciones", "Control"));
 

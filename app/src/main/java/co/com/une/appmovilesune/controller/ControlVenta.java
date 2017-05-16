@@ -513,16 +513,21 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         System.out.println("Adicionales To -> " + adicionales);
 
-        if (adicionales == null) {
+        /*if (adicionales == null) {
             adicionales = new String[1][2];
             adicionales[0][0] = "Impuesto Telefonico";
             adicionales[0][1] = String.valueOf(UtilidadesTarificador.ImpuestoTelefonico(cliente.getCiudad(),
                     cliente.getDepartamento(), cliente.getEstrato()));
+        }*/
+
+        if(adicionales != null) {
+            for (int i = 0; i < adicionales.length; i++) {
+                listaAdicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses"));
+            }
         }
 
-        for (int i = 0; i < adicionales.length; i++) {
-            listaAdicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses"));
-        }
+        listaAdicionalesTo.add(new ListaAdicionales("Impuesto Telefonico", String.valueOf(UtilidadesTarificador.ImpuestoTelefonico(cliente.getCiudad(),
+                cliente.getDepartamento(), cliente.getEstrato())), "-", "0 Meses"));
 
         for (int i = 0; i < listaAdicionalesTo.size(); i++) {
 
@@ -1194,6 +1199,8 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 Utilidades.SI_NO);
         sltEmpaquetado.setAdapter(adaptador);
 
+        System.out.println("Empaquetamiento oferta "+cotizacion.getOferta());
+
         if (cotizacion.getOferta() != null) {
             if (!cotizacion.getOferta().equalsIgnoreCase("")) {
                 sltEmpaquetado.setEnabled(false);
@@ -1205,8 +1212,19 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         try {
             int contador = Integer.parseInt(cotizacion.getContadorProductos());
             if (contador > 1) {
-                sltEmpaquetado.setSelection(0);
-                Venta_Empaquetada();
+
+                System.out.println("Empaquetamiento contador "+contador);
+
+                if(Utilidades.validarNacionalValor("ofertaIndividual",cotizacion.getOferta())){
+                    System.out.println("Empaquetamiento ofertaIndividual ");
+                    sltEmpaquetado.setSelection(1);
+                    Venta_Individual();
+                }else{
+                    System.out.println("Empaquetamiento paquete ");
+                    sltEmpaquetado.setSelection(0);
+                    Venta_Empaquetada();
+                }
+
             } else {
                 sltEmpaquetado.setSelection(1);
                 sltEmpaquetado.setEnabled(false);
@@ -1242,10 +1260,20 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             lblAgendamiento.setText(venta.getHorarioAtencion());
         }
 
-        rto.Telefonia(this, this, cotizacion.getTipoTo(), cotizacion.getTelefonia(), cotizacion.getToInd(),
-                "Sin Promocion", "N/A", "0", cotizacion.getEstrato(), cotizacion.getPlanFacturacionTo_I(), segundaLinea,
-                cotizacion.toPlanAnt, cotizacion.getAdicionalesTo(), cotizacion.getTotalAdicionalesTo(),
-                cotizacion.toTecnologiacr, aplicarDescuentos);
+        System.out.println("cotizacion.getContadorProductos() "+cotizacion.getContadorProductos());
+
+        if (Utilidades.excluirNacional("descuestosIndividuales", cotizacion.getTelefonia()) && cotizacion.getContadorProductos().equalsIgnoreCase("1")) {
+            rto.Telefonia(this, this, cotizacion.getTipoTo(), cotizacion.getTelefonia(), cotizacion.getToInd(),
+                    cotizacion.getPromoTo(), cotizacion.getTiempoPromoTo(), "0", cotizacion.getEstrato(), cotizacion.getPlanFacturacionTo_I(), segundaLinea,
+                    cotizacion.toPlanAnt, cotizacion.getAdicionalesTo(), cotizacion.getTotalAdicionalesTo(),
+                    cotizacion.toTecnologiacr, aplicarDescuentos);
+
+        } else {
+            rto.Telefonia(this, this, cotizacion.getTipoTo(), cotizacion.getTelefonia(), cotizacion.getToInd(),
+                    "Sin Promocion", "N/A", "0", cotizacion.getEstrato(), cotizacion.getPlanFacturacionTo_I(), segundaLinea,
+                    cotizacion.toPlanAnt, cotizacion.getAdicionalesTo(), cotizacion.getTotalAdicionalesTo(),
+                    cotizacion.toTecnologiacr, aplicarDescuentos);
+        }
 
         if (cliente.getDepartamento().equalsIgnoreCase("Antioquia")) {
             rto.agregarImpuestoTelefonico(cliente.getCiudad(), cliente.getDepartamento(), cliente.getEstrato());
@@ -1320,7 +1348,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             rtv.setVisibility(View.GONE);
         }
 
-        if (Utilidades.excluirNacional("descuestosIndividuales", cotizacion.getInternet())) {
+        if (Utilidades.excluirNacional("descuestosIndividuales", cotizacion.getInternet()) && cotizacion.getContadorProductos().equalsIgnoreCase("1")) {
             if (Utilidades.excluir("cambiarPlan", Municipio)) {
                 rba.Internet(this, cotizacion.getTipoBa(), cotizacion.getInternet(), cotizacion.getBaInd(),
                         cotizacion.getPromoBa(), cotizacion.getTiempoPromoBa(), "0",

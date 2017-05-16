@@ -332,11 +332,17 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             tipoPaquete = "Ind";
         }
 
-        String clausula = "estrato like ? and tipo_paquete like ? and Tecnologia like ?";
-        String[] valores = new String[]{"%" + estrato + "%", "%" + tipoPaquete + "%", "%" + cliente.getTecnologia() + "%"};
+        /*String clausula = "estrato like ? and tipo_paquete like ? and Tecnologia like ?";
+        String[] valores = new String[]{"%" + estrato + "%", "%" + tipoPaquete + "%", "%" + cliente.getTecnologia() + "%"};*/
 
-        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Precios", new String[]{"Oferta"}, clausula,
-                valores, null, null, null);
+        String queryOferta = "select distinct Oferta from Precios p " +
+                UtilidadesTarificadorNew.innerJoinTarifas+
+                " where cxt.id_condicion in ("+ UtilidadesTarificadorNew.queryInternoTarifas(UtilidadesTarificadorNew.homologarDepartamentoCotizacion(cliente.getDepartamento(),cliente.getCiudad()),cliente.getCiudad())+")" +
+                " and estrato like '%" + estrato + "%' and tipo_paquete like '%"+tipoPaquete+"%' and Tecnologia like '%"+cliente.getTecnologia()+"%'";
+
+        System.out.println("queryOferta "+queryOferta);
+
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar2(queryOferta);
 
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
 
@@ -358,9 +364,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     }
 
     private void parametrizarComponentes() {
-        cprdTelevision.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem(), cliente.getCiudad());
-        cprdInternet.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem(), cliente.getCiudad());
-        cprdTelefonia.cargarPlanes(cliente.getDepartamento(), Integer.parseInt((String) spnestrato.getSelectedItem()), cliente.getTecnologia(), (String) spnoferta.getSelectedItem(), cliente.getCiudad());
+        cprdTelevision.cargarPlanes(cliente, Integer.parseInt((String) spnestrato.getSelectedItem()), (String) spnoferta.getSelectedItem());
+        cprdInternet.cargarPlanes(cliente, Integer.parseInt((String) spnestrato.getSelectedItem()), (String) spnoferta.getSelectedItem());
+        cprdTelefonia.cargarPlanes(cliente, Integer.parseInt((String) spnestrato.getSelectedItem()), (String) spnoferta.getSelectedItem());
         if (cotizacion != null) {
             //rellenarCotizacion();
         }
@@ -558,7 +564,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 cprdInternet.getPeticionProducto(), cprdInternet.getPlan(), adicionales,
                 0, (String) spnestrato.getSelectedItem(), false, cliente,
                 UtilidadesTarificador.jsonDatos(cliente, cliente.getSmartPromo(), cliente.getTecnologia(), aplicarAnaloga), this,
-                0);
+                0,(String)spnoferta.getSelectedItem());
 
         // ArrayList<ProductoCotizador> productos = tarificador.cotizacionVenta();
 
@@ -569,7 +575,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
 
-        // UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
+        UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 
         boolean trioDuoNuevo = UtilidadesTarificadorNew.isTrioDuoNuevo(productos);
         boolean comportamientoExistentes = UtilidadesTarificadorNew.isCotizacionConExistentes(productos);
@@ -1160,10 +1166,16 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 cotizacion.setSegundaTelefonia(UtilidadesTarificadorNew.validarSegundaTelefonia(cliente));
             }
+
+            cotizacion.setAdicionalesTo(cadcTelefonia.arrayAdicionales());
+            cotizacion.setTotalAdicionalesTo(String.valueOf(cadcTelefonia.calcularTotal()));
+
         } else {
             System.out.println("llenado To limpiar");
             cotizacion.Telefonia(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), String.valueOf(productoCotizador.getCargoBasicoInd()),
                     String.valueOf(productoCotizador.getCargoBasicoEmp()));
+            cotizacion.setAdicionalesTo(cadcTelefonia.arrayAdicionales());
+            cotizacion.setTotalAdicionalesTo(String.valueOf(cadcTelefonia.calcularTotal()));
         }
 
         //contProductos++;
