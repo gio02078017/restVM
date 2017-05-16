@@ -3755,10 +3755,8 @@ public class Utilidades {
                     }else if(informacion.get("respuesta").getClass().getSimpleName().equals("JSONObject")){
                         validacion.add(informacion.getJSONObject("respuesta"));
                     }else{
-                        validacion.add("Respuesta Vacia");
+                        validacion.add(informacion.getString("respuesta"));
                     }
-
-
             }
 
             }
