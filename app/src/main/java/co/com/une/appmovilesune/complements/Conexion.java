@@ -42,7 +42,7 @@ public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Ob
 	public static final String SERVIDOR_GIOVANNY = "http://10.65.68.118";
 
 	//private static final String RUTA_WS = "/wsVentaMovil/wsVentaMovil/";
-	private static final String RUTA_WS = "/wsVentaMovil/branch/";
+	private static final String RUTA_WS = "/wsVentaMovil/pre-produccion/";
 	// private static final String WS_GLOBAL = "ServerVentaMovil.php";
 	private static final String WS_GLOBAL = "ServerVentaMovilNew.php";
 	private static final String WS_SIMULADOR = "serverSimulador.php";
@@ -221,6 +221,7 @@ public class Conexion extends AsyncTask<ArrayList<Object>, Integer, ArrayList<Ob
 				cliente.addSoapObject(parametrosAccion);
 				cliente.addProperty("parametrosAutenticacion", Utilidades.generarJsonVerificacionServicios());
 				cliente.addProperty("accion", accion);
+				cliente.addProperty("log", true);
 				dependencia = true;
 			}else {
 				accionDinamica = accion;
