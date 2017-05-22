@@ -578,6 +578,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 
         boolean trioDuoNuevo = UtilidadesTarificadorNew.isTrioDuoNuevo(productos);
+        boolean duoNuevo = UtilidadesTarificadorNew.isDuoNuevo(productos);
         boolean comportamientoExistentes = UtilidadesTarificadorNew.isCotizacionConExistentes(productos);
 
         if (productos != null) {
@@ -588,11 +589,21 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 System.out.println("BanderaPA codigoPA " + codigoPA);
 
-                if(clienteNuevo && !comportamientoExistentes){
-                    productos.get(i).setClienteNuevo(true);
-                } else {
-                    productos.get(i).setClienteNuevo(false);
+                if(!codigoClienteNuevo.equalsIgnoreCase("00")){
+                    if(clienteNuevo && !comportamientoExistentes){
+                        productos.get(i).setClienteNuevo(true);
+                    } else {
+                        productos.get(i).setClienteNuevo(false);
+                    }
+                }else {
+                    if(clienteNuevo){
+                        productos.get(i).setClienteNuevo(true);
+                    } else {
+                        productos.get(i).setClienteNuevo(false);
+                    }
                 }
+
+
 
                 if (codigoPA.equalsIgnoreCase("00")) {
                     if(clienteNuevo){
@@ -617,6 +628,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     cliente.setPagoAnticipado("NO");
                 }
 
+
+                if(duoNuevo){
+                    if(productos.get(i).getTipoPeticion().equals("N")){
+                        productos.get(i).aplicarDescuentoDuo();
+                    }
+                }
 
                 if (trioDuoNuevo) {
                     if(productos.get(i).getTipoPeticion().equals("N")){

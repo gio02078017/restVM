@@ -135,6 +135,25 @@ public class UtilidadesTarificadorNew {
         return trioDuoNuevo;
     }
 
+    public static boolean isDuoNuevo(ArrayList<ProductoCotizador> productos){
+
+        boolean duoNuevo = false;
+
+        ArrayList<Boolean> nuevos = new ArrayList<Boolean>();
+
+        for (ProductoCotizador producto: productos) {
+            if(producto.getTipoPeticion().equals("N")){
+                nuevos.add(true);
+            }
+        }
+
+        if(nuevos.size() == 2){
+            duoNuevo = true;
+        }
+
+        return duoNuevo;
+    }
+
     public static boolean isCotizacionConExistentes(ArrayList<ProductoCotizador> productos){
 
         boolean trioDuoNuevo = false;

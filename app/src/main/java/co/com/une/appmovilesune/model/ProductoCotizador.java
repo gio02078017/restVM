@@ -98,6 +98,10 @@ public class ProductoCotizador {
         totalPagoParcial = 0;
     }
 
+    public void aplicarDescuentoDuo(){
+        totalPagoParcial = totalPagoParcial * 0.5;
+    }
+
     public static int getTELEFONIA() {
         return TELEFONIA;
     }
