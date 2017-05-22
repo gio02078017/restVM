@@ -424,6 +424,10 @@ public class ControlCompetencia extends Activity {
 
 		competencia.setSubMotivo((String) spnSubMotivoNoUne.getSelectedItem());
 
+		if(cliente.getIdGerenciaExistente() != null){
+			competencia.setIdGerencia(cliente.getIdGerenciaExistente());
+		}
+
 		cliente.setNombre(txtNombre.getText().toString());
 		cliente.setApellido(txtApellido.getText().toString());
 		cliente.setTelefono2(txtTelefono.getText().toString());

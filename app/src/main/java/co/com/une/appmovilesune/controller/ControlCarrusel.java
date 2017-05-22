@@ -134,11 +134,11 @@ public class ControlCarrusel extends Activity implements Observer {
 
             }
 
-            if (cliente.getCedula().equalsIgnoreCase("")) {
-                controlDatos = false;
-                ja.put(Utilidades.jsonMensajes("Documento", "Sin Diligenciar"));
+			/*if (cliente.getCedula().equalsIgnoreCase("")) {
+				controlDatos = false;
+				ja.put(Utilidades.jsonMensajes("Documento", "Sin Diligenciar"));
 
-            }
+			}*/
 
             if (crm.equalsIgnoreCase("FENIX_ATC")) {
                 if (!cliente.isControlNormalizada()) {
@@ -168,29 +168,34 @@ public class ControlCarrusel extends Activity implements Observer {
 
                 crm = Utilidades.camposUnicosCiudad("CRMCarrusel", cliente.getCiudad());
 
-                dataCarrusel.put("crm", crm);
-                dataCarrusel.put("apporigen", "VM");
-                dataCarrusel.put("documento", cliente.getCedula());
-                dataCarrusel.put("direccion", cliente.getDireccion());
-                dataCarrusel.put("municipio", ciudad);
-                dataCarrusel.put("departamento", departamento);
-                dataCarrusel.put("barrio", cliente.getBarrio());
-                dataCarrusel.put("codigoDireccion", codigoDireccion);
+				dataCarrusel.put("crm", crm);
+				dataCarrusel.put("apporigen", "VM");
+				if(!cliente.getCedula().equalsIgnoreCase("")){
+					dataCarrusel.put("documento", cliente.getCedula());
+				}else{
+					dataCarrusel.put("documento", "1234567");
+				}
 
-                parametros.add(dataCarrusel.toString());
-                parametros.add("false");
-                parametros.add("0");
-                carrusel.execute(parametros);
-            } else {
-                mensajes.put("Titulo", "Campos Requeridos");
-                mensajes.put("Mensajes", ja);
-                mensajeValidaciones(mensajes.toString());
-                // setMensajes(mensajes);
-            }
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            Log.w("Error", e.getMessage());
-        }
+				dataCarrusel.put("direccion", cliente.getDireccion());
+				dataCarrusel.put("municipio", ciudad);
+				dataCarrusel.put("departamento", departamento);
+				dataCarrusel.put("barrio", cliente.getBarrio());
+				dataCarrusel.put("codigoDireccion", codigoDireccion);
+				
+				parametros.add(dataCarrusel.toString());
+				parametros.add("false");
+				parametros.add("0");
+				carrusel.execute(parametros);
+			} else {
+				mensajes.put("Titulo", "Campos Requeridos");
+				mensajes.put("Mensajes", ja);
+				mensajeValidaciones(mensajes.toString());
+				// setMensajes(mensajes);
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			Log.w("Error", e.getMessage());
+		}
 
     }
 

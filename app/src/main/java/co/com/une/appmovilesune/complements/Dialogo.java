@@ -24,19 +24,20 @@ import co.com.une.appmovilesune.components.ItemCompetenciaFormulario;
 
 public class Dialogo extends Dialog {
 
-    public static final int DIALOGO_FECHA = 0;
-    public static final int DIALOGO_ALERTA = 1;
-    public static final int DIALOGO_CONFIRMACION = 2;
-    public static final int DIALOGO_SELECTOR_PRODUCTO = 3;
-    public static final int DIALOGO_ASESORIA = 4;
-    public static final int DIALOGO_CONFIGURACION = 5;
-    public static final int DIALOGO_SELECTOR_FRANJA = 6;
-    public static final int DIALOGO_SELECTOR_BARRIO = 7;
-    public static final int DIALOGO_SELECTOR_ASESORIA = 8;
-    public static final int DIALOGO_SELECTOR_RECUPERADOR = 9;
-    public static final int DIALOGO_SELECTOR_TIPO_ASESORIA = 10;
-    public static final int DIALOGO_SELECTOR_HOBBIES = 11;
-    public static final int DIALOGO_FORMULARIO_COMPETENCIA = 12;
+	public static final int DIALOGO_FECHA = 0;
+	public static final int DIALOGO_ALERTA = 1;
+	public static final int DIALOGO_CONFIRMACION = 2;
+	public static final int DIALOGO_SELECTOR_PRODUCTO = 3;
+	public static final int DIALOGO_ASESORIA = 4;
+	public static final int DIALOGO_CONFIGURACION = 5;
+	public static final int DIALOGO_SELECTOR_FRANJA = 6;
+	public static final int DIALOGO_SELECTOR_BARRIO = 7;
+	public static final int DIALOGO_SELECTOR_ASESORIA = 8;
+	public static final int DIALOGO_SELECTOR_RECUPERADOR = 9;
+	public static final int DIALOGO_SELECTOR_TIPO_ASESORIA = 10;
+	public static final int DIALOGO_SELECTOR_HOBBIES = 11;
+	public static final int DIALOGO_FORMULARIO_COMPETENCIA = 12;
+	public static final int DIALOGO_CUSTOM = 13;
 
     private String[] StHobbies = {"Cine", "Teatro", "Musica", "TV", "Lectura", "Deportes", "Otros"};
     private String[] StProductos = {"TO", "TV", "BA", "3G", "4G"};
@@ -223,8 +224,25 @@ public class Dialogo extends Dialog {
         }
     }
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	public Dialogo(Context context, int Tipo, String titulo, String mensaje, String tituloBotonOK, String tituloBotonCancel, OnClickListener accionBotonOK, OnClickListener accionBotonCancel) {
+		super(context);
+		this.context = context;
+		this.Tipo = Tipo;
+
+		AlertDialog.Builder dialogCustom = new AlertDialog.Builder(context);
+		dialogCustom.setInverseBackgroundForced(true);
+		dialogCustom.setIcon(R.drawable.icon_dialogo);
+		dialogCustom.setCancelable(false);
+		dialogCustom.setTitle(titulo);
+		dialogCustom.setMessage(mensaje);
+		dialogCustom.setPositiveButton(tituloBotonOK, accionBotonOK);
+		dialogCustom.setNegativeButton(tituloBotonCancel, accionBotonCancel);
+		dialogo = dialogCustom.create();
+
+	}
+
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
     }
 

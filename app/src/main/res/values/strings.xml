@@ -46,8 +46,8 @@
     <string name="atencion">Atención</string>
     <string name="documento">Documento</string>
     <string name="codigo">Código</string>
-    <string name="cod_prueba" />
-    <string name="ced_prueba" />
+    <string name="cod_prueba"/>
+    <string name="ced_prueba"/>
     <!--  <string name="cod_prueba">1234</string>
     <string name="ced_prueba">4321</string>-->
     <!-- <string name="cod_prueba">460137</string>
@@ -408,7 +408,8 @@
     <string name="carrusel">Validar Retiro</string>
     <string name="paquete">Paquete</string>
     <string name="fecharetiro">Fecha Retiro</string>
-    <string name="mensajeCarrusel">Por políticas de la compañía, la venta que intentas ingresar no es posible procesarla. Por favor proceder con la prospección.</string>
+    <string name="mensajeCarrusel">Productos con carrusel: </string>
+    <string name="mensajeCarrusel2">. Puede reconfigurar oferta con los productos restantes o prospectar.</string>
     <string name="mensajeRetiros">Para continuar debe validar primero el módulo de retiros.</string>
     <string name="direccioncercaa">Esta dirección contiene cerca a, la cual cobertura es asignada manualmente desde el campo tecnológia en la pestaña de Socioeconómico</string>
     <string name="valdiacionconfronta">Validación confronta</string>
@@ -469,4 +470,7 @@
     <string name="valordescuentoconexion">Valor Descuento por Conexión</string>
 
     <string name="validacionBarrio">El Barrio Deben Estar Diligenciados, Para seleccionar esta opción</string>
+
+    <string name="logautomaticocarrusel">Hubo algún problema guardando el log automático</string>
+
 </resources>
