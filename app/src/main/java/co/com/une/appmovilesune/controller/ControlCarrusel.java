@@ -156,10 +156,10 @@ public class ControlCarrusel extends Activity implements Observer {
                 if (cliente.getCiudad().equalsIgnoreCase("BogotaREDCO")) {
                     ciudad = "BOGOTA";
                     departamento = "Cundinamarca";
-                } else if (cliente.getCiudad().equalsIgnoreCase("Buga")) {
+                } /*else if (cliente.getCiudad().equalsIgnoreCase("Buga")) {
                     ciudad = "";
                     departamento = "";
-                } else {
+                }*/ else {
                     ciudad = cliente.getCiudad();
                     departamento = cliente.getDepartamento();
                 }
