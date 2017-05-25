@@ -1898,7 +1898,10 @@ public class Interprete {
 
             for (int i = 0; i < datosInvalidos.length(); i++) {
                 ja.put(Utilidades.jsonMensajes(datosInvalidos.getJSONObject(i).getString("campo"), datosInvalidos.getJSONObject(i).getString("mensaje")));
-                if(datosInvalidos.getJSONObject(i).getString("campo").equalsIgnoreCase("versionMovil")){
+                System.out.println("campo "+datosInvalidos.getJSONObject(i).getString("campo"));
+                String campoLimpio = Utilidades.Quitar_Tildes(datosInvalidos.getJSONObject(i).getString("campo"));
+                System.out.println("campo sin tilde"+campoLimpio);
+                if(datosInvalidos.getJSONObject(i).getString("campo").equalsIgnoreCase("Versión Base Datos Móvil") || campoLimpio.equalsIgnoreCase("VERSION BASE DATOS MOVIL")){
                      MainActivity.config.setControlVersionDB(false);
                 }
             }
