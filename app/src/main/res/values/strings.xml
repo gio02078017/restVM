@@ -473,4 +473,5 @@
 
     <string name="logautomaticocarrusel">Hubo algún problema guardando el log automático</string>
 
+    <string name="mensajeCotizacioninvalidaClienteNuevo">Cotización invalida, solo se pueden cotizar productos nuevos</string>
 </resources>
