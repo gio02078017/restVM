@@ -228,7 +228,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         System.out.println("Elite " + Utilidades.excluir("elite", cliente.getCiudad()));
 
-        if (!Utilidades.excluir("Elite", cliente.getCiudad())) {
+        if (!Utilidades.excluir("elite", cliente.getCiudad())) {
             obtenerPagoParcialAnticipado();
         }
 
@@ -2348,7 +2348,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         boolean cotizacionValida = false;
 
-        if (!Utilidades.excluir("Elite", cliente.getCiudad())) {
+        if (!Utilidades.excluir("elite", cliente.getCiudad())) {
             if(clienteNuevo && codigoClienteNuevo.equalsIgnoreCase("00")) {
                 if(!UtilidadesTarificadorNew.ventaConExistente(cotizacion)){
                     cotizacionValida = true;
