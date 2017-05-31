@@ -80,6 +80,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     private CompProducto cprdInternet;
     private CompProducto cprdTelefonia;
     private CompAdicional cadcTelefonia;
+    private CompAdicional cadcInternet;
 
     private CompTotalCotizador cttlTotales;
 
@@ -151,6 +152,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cadcTelevision = (CompAdicional) findViewById(R.id.cadcTelevision);
         cdcsDecodificadores = (CompDecos) findViewById(R.id.cdcsDecodificadores);
         cprdInternet = (CompProducto) findViewById(R.id.cprdInternet);
+        cadcInternet = (CompAdicional) findViewById(R.id.cadcInternet);
         cprdTelefonia = (CompProducto) findViewById(R.id.cprdTelefonia);
         cadcTelefonia = (CompAdicional) findViewById(R.id.cadcTelefonia);
         cttlTotales = (CompTotalCotizador) findViewById(R.id.cttlTotales);
@@ -163,6 +165,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cprdTelevision.addObserverAdicionales(cadcTelevision);
         cprdTelevision.addObserverDecodificadores(cdcsDecodificadores);
         cprdTelefonia.addObserverAdicionales(cadcTelefonia);
+        cprdInternet.addObserverAdicionales(cadcInternet);
 
         cdcsDecodificadores.setOferta("tarificador");
         cdcsDecodificadores.setCiudad(cliente.getCiudad());
@@ -174,9 +177,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cprdInternet.addObserver(this);
         cprdTelefonia.addObserver(this);
         cadcTelefonia.addObserver(this);
+        cadcInternet.addObserver(this);
 
         cadcTelevision.setCliente(cliente);
         cadcTelefonia.setCliente(cliente);
+        cadcInternet.setCliente(cliente);
 
         spnestrato.setOnItemSelectedListener(seleccionarEstrato);
         spntipooferta.setOnItemSelectedListener(seleccionarTipoOferta);
@@ -1117,9 +1122,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                             }
                                         }
                                     } else {
-                                        Toast.makeText(this,
+                                        /*Toast.makeText(this,
                                                 getResources().getString(R.string.mensajeCotizacioninvalidaClienteNuevo),
-                                                Toast.LENGTH_SHORT).show();
+                                                Toast.LENGTH_SHORT).show();*/
                                     }
 
                                 } else {

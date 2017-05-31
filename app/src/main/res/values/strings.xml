@@ -452,7 +452,8 @@
 
     <string name="oferta">Oferta</string>
     <string name="adicionalestelevision">Adicionales Televisión</string>
-    <string name="adiconalestelefonia">Adicionales Telefonía</string>
+    <string name="adicionalestelefonia">Adicionales Telefonía</string>
+    <string name="adicionalesinternet">Adicionales Internet</string>
 
     <string name="cotizador">Cotizador</string>
 

@@ -40,6 +40,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     public static final int TELEFONIA = 0;
     public static final int TELEVISION = 1;
+    public static final int INTERNET = 2;
 
     /*Componentes graficos del header*/
     public ImageView imgAdicional;
@@ -92,11 +93,15 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         switch (tipo) {
             case TELEFONIA:
                 imgAdicional.setImageDrawable(getResources().getDrawable(R.drawable.amgto));
-                lblTipoAdicional.setText(getResources().getString(R.string.adiconalestelefonia));
+                lblTipoAdicional.setText(getResources().getString(R.string.adicionalestelefonia));
                 break;
             case TELEVISION:
                 imgAdicional.setImageDrawable(getResources().getDrawable(R.drawable.amgtv));
                 lblTipoAdicional.setText(getResources().getString(R.string.adicionalestelevision));
+                break;
+            case INTERNET:
+                imgAdicional.setImageDrawable(getResources().getDrawable(R.drawable.amgba));
+                lblTipoAdicional.setText(getResources().getString(R.string.adicionalesinternet));
                 break;
         }
     }

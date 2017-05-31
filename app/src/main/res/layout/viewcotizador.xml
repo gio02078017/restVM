@@ -46,6 +46,13 @@
                 android:layout_height="wrap_content"
                 custom:tipo="Internet" />
 
+            <co.com.une.appmovilesune.components.CompAdicional
+                android:id="@+id/cadcInternet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                custom:tipoAdicional="AdicionalesInternet"
+                android:visibility="gone" />
+
             <co.com.une.appmovilesune.components.CompProducto
                 android:id="@+id/cprdTelefonia"
                 android:layout_width="match_parent"
