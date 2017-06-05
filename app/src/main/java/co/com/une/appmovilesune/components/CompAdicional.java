@@ -125,6 +125,37 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         spnSelectorAdicionales.setAdapter(adaptador);
     }
 
+    private void cargarAdicionalesBa(String plan) {
+
+        System.out.println("plan ba"+plan);
+
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Adicionales",
+                new String[]{"adicional"}, "departamento=? and tipoProducto=? and estrato like ? and tecnologia like ?",
+                new String[]{cliente.getDepartamento(), "ba", "%" + cliente.getEstrato() + "%", "%" + cliente.getTecnologia() + "%"}, null, null, null);
+
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item);
+        adaptador.add("-- Seleccione Adicional --");
+        if (respuesta != null) {
+            for (ArrayList<String> arrayList : respuesta) {
+                // adaptador.add(arrayList.get(0));
+                System.out.println("adicional name " + arrayList.get(0));
+                adaptador.add(arrayList.get(0));
+
+            }
+        }
+        spnSelectorAdicionales.setAdapter(adaptador);
+    }
+
+    public void limpiarAdicionalesBa() {
+
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item);
+        adaptador.add(Utilidades.inicial_guion);
+
+        spnSelectorAdicionales.setAdapter(adaptador);
+    }
+
     private void cargarAdicionalesTo(String plan) {
 
         System.out.println("plan to"+plan);
@@ -314,8 +345,11 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         System.out.println("plan adicional " + plan);
         if (tipo == TELEVISION) {
             cargarAdicionales(plan);
+            //limpiarAdicionalesBa();
         } else if (tipo == TELEFONIA) {
             cargarAdicionalesTo(plan);
+        }else if (tipo == INTERNET) {
+            cargarAdicionalesBa(plan);
         }
     }
 

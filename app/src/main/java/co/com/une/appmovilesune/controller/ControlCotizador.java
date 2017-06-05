@@ -44,6 +44,7 @@ import co.com.une.appmovilesune.components.CompProducto;
 import co.com.une.appmovilesune.components.CompTotalCotizador;
 import co.com.une.appmovilesune.components.TituloPrincipal;
 import co.com.une.appmovilesune.interfaces.Observer;
+import co.com.une.appmovilesune.interfaces.ObserverAdicionalesInternet;
 import co.com.une.appmovilesune.interfaces.ObserverTotales;
 import co.com.une.appmovilesune.interfaces.SubjectTotales;
 import co.com.une.appmovilesune.model.Cliente;
@@ -164,8 +165,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         funcionalidad de adicionales*/
         cprdTelevision.addObserverAdicionales(cadcTelevision);
         cprdTelevision.addObserverDecodificadores(cdcsDecodificadores);
+        cprdTelevision.addObserverAdicionalesInternet(cadcInternet);
         cprdTelefonia.addObserverAdicionales(cadcTelefonia);
         cprdInternet.addObserverAdicionales(cadcInternet);
+
 
         cdcsDecodificadores.setOferta("tarificador");
         cdcsDecodificadores.setCiudad(cliente.getCiudad());
@@ -599,6 +602,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             chkAnaloga.setEnabled(false);
             chkAnaloga.setChecked(false);
         }
+
+        System.out.println("cprdTelevision.getPlan() "+cprdTelevision.getPlan());
+
+       /* if(!cprdTelevision.getPlan().equalsIgnoreCase(Utilidades.inicial)){
+            cadcInternet.limpiarAdicionalesBa();
+        }*/
 
         tarificador.Consulta_Tarifaz(cprdTelefonia.getPeticionProducto(), cprdTelefonia.getPlan(),
                 cprdTelevision.getPeticionProducto(), cprdTelevision.getPlan(),
