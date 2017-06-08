@@ -31,6 +31,7 @@ import co.com.une.appmovilesune.complements.Calendario;
 public class Configuracion implements Serializable {
 
 	public String Version, srvVersion;
+	public String versionDB;
 
 	private String Departamento;
 	private String Ciudad;
@@ -88,6 +89,7 @@ public class Configuracion implements Serializable {
 		editor.putBoolean("cfgExtensiones", false);
 		editor.putBoolean("cfgBarrios", false);
 		editor.putBoolean("cfgImpuestos", false);
+		editor.putBoolean("cfgVersionDB", false);
 		editor.commit();
 	}
 
@@ -1168,7 +1170,11 @@ public class Configuracion implements Serializable {
 				JSONArray ja = new JSONArray(data);
 				for (int i = 0; i < ja.length(); i++) {
 					JSONObject jo = ja.getJSONObject(i);
-					editor.putString(jo.getString("lvi_clave"), jo.getString("lvi_valor"));
+					if(!jo.getString("lvi_clave").equalsIgnoreCase("versionDB")) {
+						editor.putString(jo.getString("lvi_clave"), jo.getString("lvi_valor"));
+					}else{
+						System.out.println("version db "+jo.getString("lvi_valor"));
+					}
 				}
 			} else {
 				reg.add(false);
@@ -1194,6 +1200,9 @@ public class Configuracion implements Serializable {
 	public boolean obteneListasValores() {
 		MainActivity.basedatos.eliminar("listasvalores", null, null);
 		ArrayList<Boolean> reg = new ArrayList<Boolean>();
+		String versionDBMovil = null;
+
+		System.out.println("version db versionDBMovil "+versionDBMovil);
 
 		Editor editor = MainActivity.preferencias.edit();
 		try {
@@ -1222,6 +1231,9 @@ public class Configuracion implements Serializable {
 					cv.put("lst_clave", jo.getString("lvi_clave"));
 					cv.put("lst_valor", jo.getString("lvi_valor"));
 					reg.add(MainActivity.basedatos.insertar("listasvalores", cv));
+					if(jo.getString("lvi_clave").equalsIgnoreCase("versionDB")){
+						versionDBMovil = jo.getString("lvi_valor");
+					}
 				}
 			} else {
 				reg.add(false);
@@ -1236,6 +1248,9 @@ public class Configuracion implements Serializable {
 			e.printStackTrace();
 		}
 		if (!reg.contains(false)) {
+			System.out.println("version db versionDBMovil "+versionDBMovil);
+			MainActivity.config.setVersionDB(versionDBMovil);
+			MainActivity.config.setControlVersionDB(true);
 			editor.commit();
 			return true;
 		} else {
@@ -1623,6 +1638,30 @@ public class Configuracion implements Serializable {
 	public void setContext(Context context) {
 		this.context = context;
 	}
+
+	public String getVersionDB() {
+		return MainActivity.preferencias.getString("versionDB", null);
+	}
+
+	public void setVersionDB(String versionDB) {
+		Editor editor = MainActivity.preferencias.edit();
+		editor.putString("versionDB", versionDB);
+		editor.commit();
+	}
+
+	public boolean isControlVersionDB() {
+		return MainActivity.preferencias.getBoolean("cfgVersionDB",false);
+	}
+
+	public void setControlVersionDB(boolean control) {
+		Editor editor = MainActivity.preferencias.edit();
+		editor.putBoolean("cfgVersionDB", control);
+		editor.commit();
+	}
+
+
+
+
 
 	/*
 	 * public boolean isActualizado() { return actualizado; }

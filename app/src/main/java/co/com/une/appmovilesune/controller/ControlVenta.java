@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.kobjects.base64.Base64;
+import org.kobjects.util.Util;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -47,6 +48,7 @@ import co.com.une.appmovilesune.adapters.ListaAgendamiento;
 import co.com.une.appmovilesune.adapters.ListaAgendamientoAdapter;
 import co.com.une.appmovilesune.adapters.ListaChecked;
 import co.com.une.appmovilesune.adapters.ListaCheckedAdapter;
+import co.com.une.appmovilesune.change.Interprete;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesDecos;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
@@ -2185,7 +2187,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
                     ArrayList<String> parametros = new ArrayList<String>();
                     parametros.add(IVR.toString());
-                    parametros.add(MainActivity.config.getCodigo());
+                    parametros.add(Utilidades.generarJsonVerificacionServicios());
                     ArrayList<Object> params = new ArrayList<Object>();
                     params.add(MainActivity.config.getCodigo());
                     params.add("InsertarConfirmacion");
@@ -2284,7 +2286,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
                 ArrayList<String> parametros = new ArrayList<String>();
                 parametros.add(IVR.toString());
-                parametros.add(MainActivity.config.getCodigo());
+                parametros.add(Utilidades.generarJsonVerificacionServicios());
                 ArrayList<Object> params = new ArrayList<Object>();
                 params.add(MainActivity.config.getCodigo());
                 params.add("InsertarConfirmacion");
@@ -2561,17 +2563,18 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                     data = new String(Base64.decode(data));
                     // Confirmacion(data);
                     JSONObject confirmacion = new JSONObject(data);
-                    if (confirmacion.has("id")) {
-                        id = confirmacion.getString("id");
 
-                        if (!id.equalsIgnoreCase("")) {
-                            // blindaje.idIVR = id;
-                            LanzarLLamada(id, "5", Mail, venta.getCobroDomingo());
-                            // LLamadaUneMas = true;
-                        } else {
-                            System.out.println("Error " + confirmacion.getString("mensaje"));
+                        if (confirmacion.has("id")) {
+                            id = confirmacion.getString("id");
+
+                            if (!id.equalsIgnoreCase("")) {
+                                // blindaje.idIVR = id;
+                                LanzarLLamada(id, "5", Mail, venta.getCobroDomingo());
+                                // LLamadaUneMas = true;
+                            } else {
+                                System.out.println("Error " + confirmacion.getString("mensaje"));
+                            }
                         }
-                    }
 
                 }
             } catch (JSONException e) {
@@ -2761,6 +2764,28 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }else if (resultado != null && resultado.get(0).equals("ValidacionConfiguracionMovil")) {
+
+            try {
+
+                JSONObject jop = new JSONObject(resultado.get(1).toString());
+                String data = jop.get("data").toString();
+
+                if (MainActivity.config.validarIntegridad(data, jop.get("crc").toString())) {
+
+                    data = new String(Base64.decode(data));
+                    // Confirmacion(data);
+                    JSONObject validacion = new JSONObject(data);
+                    Toast.makeText(MainActivity.context, "Datos Invalidos", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.MODULO_MENSAJES);
+                    intent.putExtra("mensajes", Interprete.mensajesConfiguracion(validacion).toString());
+                    startActivityForResult(intent, MainActivity.REQUEST_CODE);
+
+                }
+            } catch (JSONException e) {
+                Log.w("Error JSONException ", e.getMessage());
+            }
+
         }
     }
 

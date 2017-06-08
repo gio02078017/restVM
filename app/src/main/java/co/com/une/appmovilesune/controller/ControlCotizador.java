@@ -2,6 +2,7 @@ package co.com.une.appmovilesune.controller;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,6 +34,7 @@ import co.com.une.appmovilesune.adapters.BloqueoCobertura;
 import co.com.une.appmovilesune.adapters.ItemKeyValue2;
 import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
 import co.com.une.appmovilesune.adapters.ItemTarificador;
+import co.com.une.appmovilesune.change.Interprete;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
 import co.com.une.appmovilesune.complements.Dialogo;
@@ -97,6 +99,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     private ArrayList<ItemKeyValue2> countValidacion = new ArrayList<ItemKeyValue2>();
     private ArrayList<String> countValidacion2 = new ArrayList<String>();
 
+    private ArrayList<String> productosLog;
+
     private boolean validarAdicionales = true;
     private boolean validarEstandarizacion = true;
     private boolean validarTelefonoServicio = true;
@@ -115,6 +119,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     private String codigoPP = "";
     private String codigoPA = "";
+    private String codigoClienteNuevo = "";
+
+    private boolean clienteNuevo;
+
+    private Dialogo dialogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,9 +228,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         MainActivity.basedatos.eliminar("pagoparcialanticipado", null, null);
         MainActivity.basedatos.eliminar("valorconexion", null, null);
 
-        System.out.println("Elite " + Utilidades.excluir("elite", cliente.getCiudad()));
+        System.out.println("excluirppca " + Utilidades.excluir("excluirppca", cliente.getCiudad()));
 
-        if (!Utilidades.excluir("Elite", cliente.getCiudad())) {
+        if (!Utilidades.excluir("excluirppca", cliente.getCiudad())) {
             obtenerPagoParcialAnticipado();
         }
 
@@ -528,7 +537,32 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 //mostarComponenteDecos(resultado.get(1).toString());
             } else if (resultado != null && resultado.get(0).equals("consultarPagoParcialAnticipado")) {
                 tratarPagoParcialAnticipado(resultado.get(1).toString());
+            } else if (resultado != null && resultado.get(0).equals("guardarLogCarruselAutomatico")) {
+                Log.d(TAG,"guardarLogCarruselAutomatico "+resultado.get(1).toString());
+                tratarLogAutomaticoCarrusel(resultado.get(1).toString());
             } else if (resultado != null && resultado.get(0).equals("decos")) {
+
+            }else  if (resultado != null && resultado.get(0).equals("ValidacionConfiguracionMovil")) {
+
+                try {
+
+                    JSONObject jop = new JSONObject(resultado.get(1).toString());
+                    String data = jop.get("data").toString();
+
+                    if (MainActivity.config.validarIntegridad(data, jop.get("crc").toString())) {
+
+                        data = new String(Base64.decode(data));
+                        // Confirmacion(data);
+                        JSONObject validacion = new JSONObject(data);
+                        Toast.makeText(MainActivity.context, "Datos Invalidos", Toast.LENGTH_SHORT).show();
+                        /*Intent intent = new Intent(MainActivity.MODULO_MENSAJES);
+                        intent.putExtra("mensajes", Interprete.mensajesConfiguracion(validacion).toString());
+                        startActivityForResult(intent, MainActivity.REQUEST_CODE);*/
+
+                    }
+                } catch (JSONException e) {
+                    Log.w("Error JSONException ", e.getMessage());
+                }
 
             } else if(resultado != null && resultado.get(0).equals("validarDebitoAutomaticoExistente")){
                 tratarValidacionDebitoAutomatico(resultado.get(1).toString());
@@ -584,6 +618,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 
         boolean trioDuoNuevo = UtilidadesTarificadorNew.isTrioDuoNuevo(productos);
+        boolean duoNuevo = UtilidadesTarificadorNew.isDuoNuevo(productos);
+        boolean comportamientoExistentes = UtilidadesTarificadorNew.isCotizacionConExistentes(productos);
 
         if (productos != null) {
             for (int i = 0; i < productos.size(); i++) {
@@ -593,23 +629,51 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 System.out.println("BanderaPA codigoPA " + codigoPA);
 
-                if (codigoPA.equalsIgnoreCase("00")) {
-                    productos.get(i).setAplicaPA(true);
-                    cliente.setPagoAnticipado("SI");
-                } else if (codigoPA.equalsIgnoreCase("02")) {
-                    if (Utilidades.excluirEstadosPagoAnticipado()
-                            .contains(cliente.getScooringune().getRazonScooring())) {
-                        productos.get(i).setAplicaPA(true);
-                        cliente.setPagoAnticipado("SI");
+                if(!codigoClienteNuevo.equalsIgnoreCase("00")){
+                    if(clienteNuevo && !comportamientoExistentes){
+                        productos.get(i).setClienteNuevo(true);
                     } else {
+                        productos.get(i).setClienteNuevo(false);
+                    }
+                }else {
+                    if(clienteNuevo){
+                        productos.get(i).setClienteNuevo(true);
+                    } else {
+                        productos.get(i).setClienteNuevo(false);
+                    }
+                }
+
+
+
+                if (codigoPA.equalsIgnoreCase("00")) {
+                    if(clienteNuevo){
+                        if(cliente.getScooringune().isPasaScooring()){
+                            productos.get(i).setAplicaPA(false);
+                            cliente.setPagoAnticipado("NO");
+                        } else if (Utilidades.excluirEstadosPagoAnticipado()
+                                .contains(cliente.getScooringune().getRazonScooring())){
+                            productos.get(i).setAplicaPA(true);
+                            cliente.setPagoAnticipado("SI");
+                        } else {
+
+                        }
+                    }else{
+                        productos.get(i).setClienteNuevo(false);
                         productos.get(i).setAplicaPA(false);
                         cliente.setPagoAnticipado("NO");
                     }
+
                 } else {
                     productos.get(i).setAplicaPA(false);
-                    cliente.setPaginaAsignacion("NO");
+                    cliente.setPagoAnticipado("NO");
                 }
 
+
+                if(duoNuevo){
+                    if(productos.get(i).getTipoPeticion().equals("N")){
+                        productos.get(i).aplicarDescuentoDuo();
+                    }
+                }
 
                 if (trioDuoNuevo) {
                     if(productos.get(i).getTipoPeticion().equals("N")){
@@ -950,122 +1014,128 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                             if (cliente.isControlEstadoCuenta()) {
                                 if (validarCarrusel()) {
-                                    if (validarDigital()) {
-                                        if (validarTelefonoServicio) {
-                                            if (Utilidades.validarTelefonos(cliente, this)) {
+                                    if(validarCotizacionClienteNuevo(cotizacion)){
+                                        if (validarDigital()) {
+                                            if (validarTelefonoServicio) {
+                                                if (Utilidades.validarTelefonos(cliente, this)) {
 
-                                                System.out.println("Estandarizar validarEstandarizacion "+validarEstandarizacion);
-                                                System.out.println("Estandarizar cliente.isControlCerca() "+cliente.isControlCerca());
-                                                System.out.println("Estandarizar Utilidades.CoberturaRural(cliente) "+Utilidades.CoberturaRural(cliente));
+                                                    System.out.println("Estandarizar validarEstandarizacion "+validarEstandarizacion);
+                                                    System.out.println("Estandarizar cliente.isControlCerca() "+cliente.isControlCerca());
+                                                    System.out.println("Estandarizar Utilidades.CoberturaRural(cliente) "+Utilidades.CoberturaRural(cliente));
 
-                                                if (UtilidadesTarificadorNew.validarEstandarizacion(cotizacion,cliente, this) || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
+                                                    if (UtilidadesTarificadorNew.validarEstandarizacion(cotizacion,cliente, this) || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
 
-                                                    System.out.println("direccion " + cliente.getDireccion());
-                                                    System.out.println("tipoDocumento " + cliente.getTipoDocumento());
-                                                    System.out.println("Documento " + cliente.getCedula());
+                                                        System.out.println("direccion " + cliente.getDireccion());
+                                                        System.out.println("tipoDocumento " + cliente.getTipoDocumento());
+                                                        System.out.println("Documento " + cliente.getCedula());
 
-                                                    if ((!cliente.getDireccion().equalsIgnoreCase("") || cliente.isControlCerca())
-                                                            && !cliente.getCedula().equalsIgnoreCase("")
-                                                            && !cliente.getTipoDocumento()
-                                                            .equalsIgnoreCase(Utilidades.inicial_opcion)) {
-                                                        if (!cliente.getTelefonoDestino().equalsIgnoreCase("")
-                                                                && cliente.getTelefonoDestino().length() >= 7) {
-                                                            if (validarAgendaSiebel()) {
-                                                                if ((cliente.getTipoPropiedad() != null
-                                                                        && !cliente.getTipoPropiedad()
-                                                                        .equalsIgnoreCase(Utilidades.inicial_opcion)
-                                                                        && !cliente.getTipoPropiedad()
-                                                                        .equalsIgnoreCase("N/A"))
-                                                                        || Utilidades.excluir("excluirAgenda",
-                                                                        cliente.getCiudad())) {
-                                                                    if (cliente.isRealizoConfronta()) {
-                                                                        if (cliente.isConfronta()) {
-                                                                            if (validarCarteraUNE()) {
-                                                                                if (validarScooring()) {
-                                                                                    if (Utilidades.validarCliente(
-                                                                                            cliente.getCiudad(),
-                                                                                            scooring.getAccion(),
-                                                                                            scooring.getEstadoValidador(), this)) {
+                                                        if ((!cliente.getDireccion().equalsIgnoreCase("") || cliente.isControlCerca())
+                                                                && !cliente.getCedula().equalsIgnoreCase("")
+                                                                && !cliente.getTipoDocumento()
+                                                                .equalsIgnoreCase(Utilidades.inicial_opcion)) {
+                                                            if (!cliente.getTelefonoDestino().equalsIgnoreCase("")
+                                                                    && cliente.getTelefonoDestino().length() >= 7) {
+                                                                if (validarAgendaSiebel()) {
+                                                                    if ((cliente.getTipoPropiedad() != null
+                                                                            && !cliente.getTipoPropiedad()
+                                                                            .equalsIgnoreCase(Utilidades.inicial_opcion)
+                                                                            && !cliente.getTipoPropiedad()
+                                                                            .equalsIgnoreCase("N/A"))
+                                                                            || Utilidades.excluir("excluirAgenda",
+                                                                            cliente.getCiudad())) {
+                                                                        if (cliente.isRealizoConfronta()) {
+                                                                            if (cliente.isConfronta()) {
+                                                                                if (validarCarteraUNE()) {
+                                                                                    if (validarScooring()) {
+                                                                                        if (Utilidades.validarCliente(
+                                                                                                cliente.getCiudad(),
+                                                                                                scooring.getAccion(),
+                                                                                                scooring.getEstadoValidador(), this)) {
 
-                                                                                        if (validarAdicionales) {
-                                                                                            if (cprdInternet.getPlan().equals(
-                                                                                                    "Segunda Banda Ancha")) {
-                                                                                                if (procesarSegundaBA()) {
+                                                                                            if (validarAdicionales) {
+                                                                                                if (cprdInternet.getPlan().equals(
+                                                                                                        "Segunda Banda Ancha")) {
+                                                                                                    if (procesarSegundaBA()) {
+                                                                                                        resultCotizador("venta");
+                                                                                                    }
+                                                                                                } else {
                                                                                                     resultCotizador("venta");
                                                                                                 }
                                                                                             } else {
-                                                                                                resultCotizador("venta");
+                                                                                                Toast.makeText(this,
+                                                                                                        "Verifique hay incompatibilidad en los adicionales",
+                                                                                                        Toast.LENGTH_SHORT).show();
                                                                                             }
-                                                                                        } else {
-                                                                                            Toast.makeText(this,
-                                                                                                    "Verifique hay incompatibilidad en los adicionales",
-                                                                                                    Toast.LENGTH_SHORT).show();
                                                                                         }
                                                                                     }
+                                                                                } else {
+                                                                                    Toast.makeText(this,
+                                                                                            "Cliente con calificacion negativa, prospectar por el modulo Gestor de Visitas",
+                                                                                            Toast.LENGTH_SHORT).show();
                                                                                 }
                                                                             } else {
                                                                                 Toast.makeText(this,
-                                                                                        "Cliente con calificacion negativa, prospectar por el modulo Gestor de Visitas",
+                                                                                        getResources().getText(R.string.mensajeconfrontanoaprobado),
                                                                                         Toast.LENGTH_SHORT).show();
                                                                             }
                                                                         } else {
                                                                             Toast.makeText(this,
-                                                                                    getResources().getText(R.string.mensajeconfrontanoaprobado),
+                                                                                    getResources().getText(R.string.mensajeconfrontanorealizado),
                                                                                     Toast.LENGTH_SHORT).show();
+                                                                            resultCotizador("estado cuenta");
                                                                         }
                                                                     } else {
-                                                                        Toast.makeText(this,
-                                                                                getResources().getText(R.string.mensajeconfrontanorealizado),
+                                                                        Toast.makeText(this, "No ha Ingresado TipoPropiedad",
                                                                                 Toast.LENGTH_SHORT).show();
-                                                                        resultCotizador("estado cuenta");
                                                                     }
                                                                 } else {
-                                                                    Toast.makeText(this, "No ha Ingresado TipoPropiedad",
-                                                                            Toast.LENGTH_SHORT).show();
+                                                                    try {
+                                                                        Toast.makeText(this,
+                                                                                "Faltan Datos Necesarios Para Agendar En Siebel",
+                                                                                Toast.LENGTH_SHORT).show();
+                                                                        Intent intent = new Intent(
+                                                                                MainActivity.MODULO_MENSAJES);
+                                                                        intent.putExtra("mensajes",
+                                                                                Validaciones.getMensajes().toString());
+                                                                        startActivityForResult(intent,
+                                                                                MainActivity.REQUEST_CODE);
+                                                                    } catch (Exception e) {
+                                                                        //Log.w("Error Validacion Agenda ", e.getMessage());
+                                                                    }
                                                                 }
                                                             } else {
-                                                                try {
-                                                                    Toast.makeText(this,
-                                                                            "Faltan Datos Necesarios Para Agendar En Siebel",
-                                                                            Toast.LENGTH_SHORT).show();
-                                                                    Intent intent = new Intent(
-                                                                            MainActivity.MODULO_MENSAJES);
-                                                                    intent.putExtra("mensajes",
-                                                                            Validaciones.getMensajes().toString());
-                                                                    startActivityForResult(intent,
-                                                                            MainActivity.REQUEST_CODE);
-                                                                } catch (Exception e) {
-                                                                    //Log.w("Error Validacion Agenda ", e.getMessage());
-                                                                }
+                                                                Toast.makeText(this, "No ha Ingresado Telefono de destino",
+                                                                        Toast.LENGTH_SHORT).show();
                                                             }
                                                         } else {
-                                                            Toast.makeText(this, "No ha Ingresado Telefono de destino",
+                                                            Toast.makeText(this,
+                                                                    "Los Campos Tipo Documento, Documento Y Dirección Siempre Debe Estar Diligenciados Antes De Consolidar La Venta",
                                                                     Toast.LENGTH_SHORT).show();
                                                         }
                                                     } else {
                                                         Toast.makeText(this,
-                                                                "Los Campos Tipo Documento, Documento Y Dirección Siempre Debe Estar Diligenciados Antes De Consolidar La Venta",
+                                                                getResources().getString(
+                                                                        R.string.campostipodocumentodireccionsiemprediligenciados),
                                                                 Toast.LENGTH_SHORT).show();
                                                     }
-                                                } else {
-                                                    Toast.makeText(this,
-                                                            getResources().getString(
-                                                                    R.string.campostipodocumentodireccionsiemprediligenciados),
-                                                            Toast.LENGTH_SHORT).show();
                                                 }
+                                            } else {
+                                                Toast.makeText(this,
+                                                        getResources().getString(R.string.telefonoservicioinvalido),
+                                                        Toast.LENGTH_SHORT).show();
                                             }
-                                        } else {
-                                            Toast.makeText(this,
-                                                    getResources().getString(R.string.telefonoservicioinvalido),
-                                                    Toast.LENGTH_SHORT).show();
                                         }
+                                    } else {
+                                        Toast.makeText(this,
+                                                getResources().getString(R.string.mensajeCotizacioninvalidaClienteNuevo),
+                                                Toast.LENGTH_SHORT).show();
                                     }
+
                                 } else {
-                                    Toast.makeText(this, getResources().getString(R.string.mensajeCarrusel),
-                                            Toast.LENGTH_SHORT).show();
                                     cliente.setCarrusel(true);
                                     cliente.setProductosCarrusel(UtilidadesTarificador.productosCotizacionCarrusel(cotizacion));
-                                    resultCotizador("gerencia de ruta");
+
+                                    enviarLogCarruselAutomatico();
                                 }
                             } else {
                                 Toast.makeText(this,
@@ -1089,6 +1159,68 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         } else {
             Toast.makeText(this, "Seleccione productos para cotizar", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    private void enviarLogCarruselAutomatico(){
+
+        try{
+
+            ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
+
+            JSONObject  dataLogCarrusel = new JSONObject();
+            dataLogCarrusel.put("documento",cliente.getCedula());
+            dataLogCarrusel.put("tipoDocumento",cliente.getTipoDocumento());
+            dataLogCarrusel.put("departamento",cliente.getDepartamento());
+            dataLogCarrusel.put("municipio",cliente.getCiudad());
+            dataLogCarrusel.put("direccion",cliente.getDireccion());
+            dataLogCarrusel.put("codigoAsesor",MainActivity.config.getCodigo_asesor());
+            dataLogCarrusel.put("nombreAsesor",MainActivity.config.getNombre_asesor());
+            dataLogCarrusel.put("codigoCanal",MainActivity.config.getCanal());
+            dataLogCarrusel.put("nombreCanal","");
+            dataLogCarrusel.put("motivo","VALIDACION SEGUNDO NIVEL");
+            dataLogCarrusel.put("submotivo","Carrusel");
+            dataLogCarrusel.put("crm",cliente.getCrmCarrusel());
+
+            JSONArray dataLogCarruselProductos = new JSONArray();
+
+            for (ProductoCotizador producto:productos) {
+                JSONObject productoJson = new JSONObject();
+                productoJson.put("tipo",producto.traducirProducto().toUpperCase());
+                productoJson.put("plan",producto.getPlan());
+                if(productosLog.contains(producto.traducirProducto().toUpperCase())){
+                    productoJson.put("carrusel","1");
+                }else{
+                    productoJson.put("carrusel","0");
+                }
+                dataLogCarruselProductos.put(productoJson);
+            }
+
+            dataLogCarrusel.put("productos",dataLogCarruselProductos);
+
+            Log.i(TAG,"JSON Automatico "+dataLogCarrusel.toString());
+
+            Simulador simulador = new Simulador();
+            simulador.setManual(this);
+            simulador.addObserver(this);
+
+            ArrayList<String> parametros = new ArrayList<String>();
+            parametros.add(dataLogCarrusel.toString());
+
+            ArrayList<Object> params = new ArrayList<Object>();
+            params.add(MainActivity.config.getCodigo());
+            params.add("guardarLogCarruselAutomatico");
+            params.add(parametros);
+
+            simulador.execute(params);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -1672,6 +1804,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     public boolean validarCarrusel() {
         boolean validar = true;
 
+        productosLog = new ArrayList<String>();
+
         if (Utilidades.validarPermiso("carrusel") || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
             return true;
         }
@@ -1679,31 +1813,44 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         if (Utilidades.excluir("MunicipiosCarrusel", cliente.getCiudad())) {
             if (cliente.isControlCarrusel()) {
                 if (cliente.getCodigoCarrusel().equals("02") || cliente.getCodigoCarrusel().equals("-1")) {
-                } else if (cliente.getCedula().equalsIgnoreCase(cliente.getDocumentoCarrusel())
-                        && cliente.getDireccion().equalsIgnoreCase(cliente.getDireccionCarrusel())) {
+                } else if (cliente.getDireccion().equalsIgnoreCase(cliente.getDireccionCarrusel())) {
                     if (cliente.getCodigoCarrusel().equals("00") && cliente.getArraycarrusel() != null) {
                         if (cliente.getArraycarrusel().size() > 0) {
                             for (int i = 0; i < cliente.getArraycarrusel().size(); i++) {
                                 if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("TO")) {
-                                    if (!UtilidadesTarificador.validarCarruselProductos(
-                                            cotizacion.getTipoCotizacionTo(), cotizacion.getTelefonia(), this)) {
-                                        validar = false;
-                                        break;
+                                    if(cprdTelefonia.isActivo()){
+                                        if (!UtilidadesTarificador.validarCarruselProductos(
+                                                cotizacion.getTipoCotizacionTo(), cotizacion.getTelefonia(), this)) {
+                                            productosLog.add("TO");
+                                        }
                                     }
                                 } else if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("TV")) {
-                                    if (!UtilidadesTarificador.validarCarruselProductos(
-                                            cotizacion.getTipoCotizacionTv(), cotizacion.getTelevision(), this)) {
-                                        validar = false;
-                                        break;
+                                    if(cprdTelevision.isActivo()){
+                                        if (!UtilidadesTarificador.validarCarruselProductos(
+                                                cotizacion.getTipoCotizacionTv(), cotizacion.getTelevision(), this)) {
+                                            productosLog.add("TV");
+                                        }
                                     }
+
                                 } else if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("BA")) {
-                                    if (!UtilidadesTarificador.validarCarruselProductos(
-                                            cotizacion.getTipoCotizacionBa(), cotizacion.getInternet(), this)) {
-                                        validar = false;
-                                        break;
+                                    if(cprdInternet.isActivo()){
+                                        if (!UtilidadesTarificador.validarCarruselProductos(
+                                                cotizacion.getTipoCotizacionBa(), cotizacion.getInternet(), this)) {
+                                            productosLog.add("BA");
+                                        }
                                     }
                                 }
                             }
+
+                            if(productosLog.size() > 0){
+                                validar = false;
+                                for (String prod: productosLog) {
+                                    Log.i(TAG,"LOG "+prod);
+                                }
+                            }
+
+
+
                         }
                     } else if (cliente.getCodigoCarrusel().equals("01")) {
                     }
@@ -1756,8 +1903,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     public boolean validarScooring() {
 
         boolean valid = true;
-
-        System.out.println();
         if (!scooring.isValidarCartera()) {
             if (cliente.getScooringune() != null) {
                 if (cliente.getScooringune().getDocumentoScooring().equalsIgnoreCase(cliente.getCedula())) {
@@ -2139,9 +2284,16 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 codigoPP = json.getJSONObject("codigoRespuesta").getString("pagoParcial");
                 codigoPA = json.getJSONObject("codigoRespuesta").getString("pagoAnticipado");
+                codigoClienteNuevo = json.getJSONObject("codigoRespuesta").getString("clienteNuevo");
 
                 JSONArray jsonProdutos = json.getJSONObject("data").getJSONArray("productos");
                 JSONArray jsonValoresConexion = json.getJSONObject("data").getJSONArray("valorConexion");
+
+                if(codigoClienteNuevo.equalsIgnoreCase("00")){
+                    clienteNuevo = json.getJSONObject("data").getBoolean("clienteNuevo");
+                }else {
+                    clienteNuevo = true;
+                }
 
                 guardarPagoParcialAnticipado(jsonProdutos);
                 guardarValorConexion(jsonValoresConexion);
@@ -2190,6 +2342,77 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void tratarLogAutomaticoCarrusel(String respuesta){
+
+        try {
+            JSONObject json = new JSONObject(respuesta);
+
+            if (Configuracion.validarIntegridad(json.getString("data"), json.getString("crc"))) {
+                String data = new String(Base64.decode(json.getString("data")));
+
+                json = new JSONObject(data);
+
+                if(json.getString("codigoMensaje").equalsIgnoreCase("00")){
+                    cliente.setIdGerenciaExistente(json.get("idGerencia").toString());
+                }else {
+                    //Toast.makeText(this, getResources().getString(R.string.logautomaticocarrusel), Toast.LENGTH_LONG).show();
+                }
+
+                String prodcutosCarrusel = "";
+                for(String producto: productosLog){
+                    prodcutosCarrusel += producto+"-";
+                }
+
+                dialogo = new Dialogo(this,Dialogo.DIALOGO_CUSTOM,"Carrusel",getResources().getString(R.string.mensajeCarrusel)+prodcutosCarrusel.substring(0,prodcutosCarrusel.length()-1)+getResources().getString(R.string.mensajeCarrusel2),"Prospectar","Reconfigurar",carruselOK,carruselCANCEL);
+                dialogo.dialogo.show();
+
+            } else {
+                //Toast.makeText(this, getResources().getString(R.string.logautomaticocarrusel), Toast.LENGTH_LONG).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    DialogInterface.OnClickListener carruselOK = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            Log.i(TAG,"Prospectar");
+            resultCotizador("gerencia de ruta");
+        }
+    };
+
+    DialogInterface.OnClickListener carruselCANCEL = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            Log.i(TAG,"Reconfigurar");
+        }
+    };
+
+    private boolean validarCotizacionClienteNuevo(Cotizacion cotizacion){
+
+        boolean cotizacionValida = false;
+
+        if (!Utilidades.excluir("excluirppca", cliente.getCiudad())) {
+            if(clienteNuevo && codigoClienteNuevo.equalsIgnoreCase("00")) {
+                if(!UtilidadesTarificadorNew.ventaConExistente(cotizacion)){
+                    cotizacionValida = true;
+                }
+            } else if (clienteNuevo && !codigoClienteNuevo.equalsIgnoreCase("00")) {
+                cotizacionValida = true;
+            } else {
+                cotizacionValida = true;
+            }
+        } else {
+            cotizacionValida = true;
+        }
+
+
+        return cotizacionValida;
+
     }
 
     private void tratarValidacionDebitoAutomatico(String respuesta){

@@ -128,11 +128,48 @@ public class UtilidadesTarificadorNew {
             }
         }
 
-        if(nuevos.size() >= 2){
+        if(nuevos.size() >= 3){
             trioDuoNuevo = true;
         }
 
         return trioDuoNuevo;
+    }
+
+    public static boolean isDuoNuevo(ArrayList<ProductoCotizador> productos){
+
+        boolean duoNuevo = false;
+
+        ArrayList<Boolean> nuevos = new ArrayList<Boolean>();
+
+        for (ProductoCotizador producto: productos) {
+            if(producto.getTipoPeticion().equals("N")){
+                nuevos.add(true);
+            }
+        }
+
+        if(nuevos.size() == 2){
+            duoNuevo = true;
+        }
+
+        return duoNuevo;
+    }
+
+    public static boolean isCotizacionConExistentes(ArrayList<ProductoCotizador> productos){
+
+        boolean trioDuoNuevo = false;
+
+        ArrayList<Boolean> nuevos = new ArrayList<Boolean>();
+
+        for (ProductoCotizador producto: productos) {
+            Log.d("TipoPeticion",producto.getTipoPeticion());
+            if(producto.getTipoPeticion().equals("N") || producto.getTipoPeticion().equals("-")){
+                nuevos.add(true);
+            }else {
+                nuevos.add(false);
+            }
+        }
+
+        return nuevos.contains(false);
     }
 
     public static boolean validarEstandarizacion(Cotizacion cotizacion, Cliente cliente, Context contex) {
@@ -214,5 +251,44 @@ public class UtilidadesTarificadorNew {
         }
 
         return departamento;
+    }
+
+    public static boolean ventaConExistente(Cotizacion cotizacion){
+        boolean existentes = false;
+
+        System.out.println("nuevos " + existentes);
+
+        if (!cotizacion.getTelefonia().equalsIgnoreCase(Utilidades.inicial_guion)
+                && !cotizacion.getTelefonia().equalsIgnoreCase("")) {
+
+            System.out.println("cotizacion.getTipoCotizacionTo() " + cotizacion.getTipoCotizacionTo());
+            if (!cotizacion.getTipoCotizacionTo().equalsIgnoreCase("1")) {
+                existentes = true;
+            }
+        }
+
+        if (!cotizacion.getInternet().equalsIgnoreCase(Utilidades.inicial_guion)
+                && !cotizacion.getInternet().equalsIgnoreCase("")) {
+
+            System.out.println("cotizacion.getTipoCotizacionBa() " + cotizacion.getTipoCotizacionBa());
+
+            if (!cotizacion.getTipoCotizacionBa().equalsIgnoreCase("1")) {
+                existentes = true;
+            }
+        }
+
+        if (!cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial_guion)
+                && !cotizacion.getTelevision().equalsIgnoreCase("")) {
+
+            System.out.println("cotizacion.getTipoCotizacionTv() " + cotizacion.getTipoCotizacionTv());
+
+            if (!cotizacion.getTipoCotizacionTv().equalsIgnoreCase("1")) {
+                existentes = true;
+            }
+        }
+
+        System.out.println("nuevos " + existentes);
+
+        return existentes;
     }
 }

@@ -209,6 +209,8 @@
                                         android:inputType="textNoSuggestions"
                                         android:paddingLeft="25dp"
                                         android:paddingRight="25dp" />
+
+
                                 </TableRow>
 
                                 <TableRow

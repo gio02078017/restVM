@@ -41,6 +41,7 @@ import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
 import co.com.une.appmovilesune.adapters.ItemTarificador;
 import co.com.une.appmovilesune.adapters.ListaChecked;
 import co.com.une.appmovilesune.adapters.ListaCheckedAdapter;
+import co.com.une.appmovilesune.change.Interprete;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesDecos;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
@@ -2225,6 +2226,28 @@ public class ControlTarificador extends Activity implements Subject, Observer {
             } else if (resultado != null && resultado.get(0).equals("Portafolio")) {
                 System.out.println("Portafolio " + resultado.get(1));
                 cliente.setPortafolio(resultado.get(1).toString());
+            }else  if (resultado != null && resultado.get(0).equals("ValidacionConfiguracionMovil")) {
+
+                try {
+
+                    JSONObject jop = new JSONObject(resultado.get(1).toString());
+                    String data = jop.get("data").toString();
+
+                    if (MainActivity.config.validarIntegridad(data, jop.get("crc").toString())) {
+
+                        data = new String(Base64.decode(data));
+                        // Confirmacion(data);
+                        JSONObject validacion = new JSONObject(data);
+                        Toast.makeText(MainActivity.context, "Datos Invalidos", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.MODULO_MENSAJES);
+                        intent.putExtra("mensajes", Interprete.mensajesConfiguracion(validacion).toString());
+                        startActivityForResult(intent, MainActivity.REQUEST_CODE);
+
+                    }
+                } catch (JSONException e) {
+                    Log.w("Error JSONException ", e.getMessage());
+                }
+
             }
 
         } catch (Exception e) {

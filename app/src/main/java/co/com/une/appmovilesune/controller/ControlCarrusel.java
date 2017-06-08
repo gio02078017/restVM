@@ -22,12 +22,14 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.adapters.ItemCarrusel;
 import co.com.une.appmovilesune.adapters.ListaCarruselAdapter;
 import co.com.une.appmovilesune.change.ControlSimulador;
+import co.com.une.appmovilesune.change.Interprete;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.complements.Dialogo;
 import co.com.une.appmovilesune.complements.Validaciones;
@@ -132,11 +134,11 @@ public class ControlCarrusel extends Activity implements Observer {
 
             }
 
-            if (cliente.getCedula().equalsIgnoreCase("")) {
-                controlDatos = false;
-                ja.put(Utilidades.jsonMensajes("Documento", "Sin Diligenciar"));
+			/*if (cliente.getCedula().equalsIgnoreCase("")) {
+				controlDatos = false;
+				ja.put(Utilidades.jsonMensajes("Documento", "Sin Diligenciar"));
 
-            }
+			}*/
 
             if (crm.equalsIgnoreCase("FENIX_ATC")) {
                 if (!cliente.isControlNormalizada()) {
@@ -166,29 +168,34 @@ public class ControlCarrusel extends Activity implements Observer {
 
                 crm = Utilidades.camposUnicosCiudad("CRMCarrusel", cliente.getCiudad());
 
-                dataCarrusel.put("crm", crm);
-                dataCarrusel.put("apporigen", "VM");
-                dataCarrusel.put("documento", cliente.getCedula());
-                dataCarrusel.put("direccion", cliente.getDireccion());
-                dataCarrusel.put("municipio", ciudad);
-                dataCarrusel.put("departamento", departamento);
-                dataCarrusel.put("barrio", cliente.getBarrio());
-                dataCarrusel.put("codigoDireccion", codigoDireccion);
+				dataCarrusel.put("crm", crm);
+				dataCarrusel.put("apporigen", "VM");
+				if(!cliente.getCedula().equalsIgnoreCase("")){
+					dataCarrusel.put("documento", cliente.getCedula());
+				}else{
+					dataCarrusel.put("documento", "1234567");
+				}
 
-                parametros.add(dataCarrusel.toString());
-                parametros.add("false");
-                parametros.add("0");
-                carrusel.execute(parametros);
-            } else {
-                mensajes.put("Titulo", "Campos Requeridos");
-                mensajes.put("Mensajes", ja);
-                mensajeValidaciones(mensajes.toString());
-                // setMensajes(mensajes);
-            }
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            Log.w("Error", e.getMessage());
-        }
+				dataCarrusel.put("direccion", cliente.getDireccion());
+				dataCarrusel.put("municipio", ciudad);
+				dataCarrusel.put("departamento", departamento);
+				dataCarrusel.put("barrio", cliente.getBarrio());
+				dataCarrusel.put("codigoDireccion", codigoDireccion);
+				
+				parametros.add(dataCarrusel.toString());
+				parametros.add("false");
+				parametros.add("0");
+				carrusel.execute(parametros);
+			} else {
+				mensajes.put("Titulo", "Campos Requeridos");
+				mensajes.put("Mensajes", ja);
+				mensajeValidaciones(mensajes.toString());
+				// setMensajes(mensajes);
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			Log.w("Error", e.getMessage());
+		}
 
     }
 
@@ -224,74 +231,100 @@ public class ControlCarrusel extends Activity implements Observer {
         // TODO Auto-generated method stub
         System.out.println(value);
         arraycarrusel.clear();
-        try {
-            JSONObject jop = new JSONObject(value.toString());
-            cliente.setControlCarrusel(true);
-            if (jop.has("data")) {
+        ArrayList<Object> resultado = (ArrayList<Object>) value;
+        if (resultado.get(0).equals("ValidacionConfiguracionMovil")) {
+
+            try {
+
+                JSONObject jop = new JSONObject(resultado.get(1).toString());
                 String data = jop.get("data").toString();
+
                 if (MainActivity.config.validarIntegridad(data, jop.get("crc").toString())) {
+
                     data = new String(Base64.decode(data));
-                    System.out.println("data => " + data);
-                    JSONObject respuesta = new JSONObject(data);
+                    // Confirmacion(data);
+                    JSONObject validacion = new JSONObject(data);
+                    Toast.makeText(MainActivity.context, "Datos Invalidos", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.MODULO_MENSAJES);
+                    intent.putExtra("mensajes", Interprete.mensajesConfiguracion(validacion).toString());
+                    startActivityForResult(intent, MainActivity.REQUEST_CODE);
 
-                    System.out.println("respuesta " + respuesta);
+                }
+            } catch (JSONException e) {
+                Log.w("Error JSONException ", e.getMessage());
+            }
 
-                    if (respuesta.has("codigo")) {
+        }else if(resultado.get(0).equals("consultarCarrusel")) {
+            try {
 
-                        cliente.setCodigoCarrusel(respuesta.getString("codigo"));
+                JSONObject jop = new JSONObject(resultado.get(1).toString());
+                cliente.setControlCarrusel(true);
+                if (jop.has("data")) {
+                    String data = jop.get("data").toString();
+                    if (MainActivity.config.validarIntegridad(data, jop.get("crc").toString())) {
+                        data = new String(Base64.decode(data));
+                        System.out.println("data => " + data);
+                        JSONObject respuesta = new JSONObject(data);
 
-                        if (respuesta.has("direccion") && respuesta.getJSONObject("direccion").has("natural")) {
-                            cliente.setDireccionCarrusel(respuesta.getJSONObject("direccion").getString("natural"));
-                        }
+                        System.out.println("respuesta " + respuesta);
 
-                        if (respuesta.has("id_cliente")) {
-                            cliente.setDocumentoCarrusel(respuesta.getString("id_cliente"));
-                        }
+                        if (respuesta.has("codigo")) {
 
-                        cliente.setCrmCarrusel(crm);
+                            cliente.setCodigoCarrusel(respuesta.getString("codigo"));
 
-                        if (respuesta.getString("codigo").equalsIgnoreCase("00")) {
+                            if (respuesta.has("direccion") && respuesta.getJSONObject("direccion").has("natural")) {
+                                cliente.setDireccionCarrusel(respuesta.getJSONObject("direccion").getString("natural"));
+                            }
 
-                            if (respuesta.has("productos")) {
-                                JSONArray productos = respuesta.getJSONArray("productos");
+                            if (respuesta.has("id_cliente")) {
+                                cliente.setDocumentoCarrusel(respuesta.getString("id_cliente"));
+                            }
 
-                                System.out.println("productos " + productos);
+                            cliente.setCrmCarrusel(crm);
 
-                                for (int i = 0; i < productos.length(); i++) {
+                            if (respuesta.getString("codigo").equalsIgnoreCase("00")) {
 
-                                    String producto = productos.getJSONObject(i).getString("producto");
+                                if (respuesta.has("productos")) {
+                                    JSONArray productos = respuesta.getJSONArray("productos");
 
-                                    if (producto.equalsIgnoreCase("ba") || producto.equalsIgnoreCase("inter")) {
-                                        producto = "BA";
-                                    } else if (producto.equalsIgnoreCase("tv") || producto.equalsIgnoreCase("telev")) {
-                                        producto = "TV";
+                                    System.out.println("productos " + productos);
+
+                                    for (int i = 0; i < productos.length(); i++) {
+
+                                        String producto = productos.getJSONObject(i).getString("producto");
+
+                                        if (producto.equalsIgnoreCase("ba") || producto.equalsIgnoreCase("inter")) {
+                                            producto = "BA";
+                                        } else if (producto.equalsIgnoreCase("tv") || producto.equalsIgnoreCase("telev")) {
+                                            producto = "TV";
+                                        }
+
+                                        arraycarrusel.add(new ItemCarrusel(
+                                                productos.getJSONObject(i).getString("fecha_retiro"), producto,
+                                                productos.getJSONObject(i).getString("motivo"), "PQ-12341xxxx"));
+
                                     }
 
-                                    arraycarrusel.add(new ItemCarrusel(
-                                            productos.getJSONObject(i).getString("fecha_retiro"), producto,
-                                            productos.getJSONObject(i).getString("motivo"), "PQ-12341xxxx"));
+                                    System.out.println("arraycarrusel " + arraycarrusel);
 
+                                    ListaCarruselAdapter adapter = new ListaCarruselAdapter(this, arraycarrusel, this);
+
+                                    listacarrusel.setAdapter(adapter);
+                                    ControlSimulador.setListViewHeightBasedOnChildren(listacarrusel);
+
+                                    cliente.setArraycarrusel(arraycarrusel);
                                 }
-
-                                System.out.println("arraycarrusel " + arraycarrusel);
-
-                                ListaCarruselAdapter adapter = new ListaCarruselAdapter(this, arraycarrusel, this);
-
-                                listacarrusel.setAdapter(adapter);
-                                ControlSimulador.setListViewHeightBasedOnChildren(listacarrusel);
-
-                                cliente.setArraycarrusel(arraycarrusel);
+                            } else {
+                                rowMensaje.setVisibility(View.VISIBLE);
+                                mensajecarrusel.setText(respuesta.getString("mensaje"));
                             }
-                        } else {
-                            rowMensaje.setVisibility(View.VISIBLE);
-                            mensajecarrusel.setText(respuesta.getString("mensaje"));
                         }
                     }
-                }
 
+                }
+            } catch (JSONException e) {
+                Log.w("Error", e.getMessage());
             }
-        } catch (JSONException e) {
-            Log.w("Error", e.getMessage());
         }
     }
 

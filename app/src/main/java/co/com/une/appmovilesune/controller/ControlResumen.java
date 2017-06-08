@@ -35,6 +35,7 @@ import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.adapters.ListaDefault;
 import co.com.une.appmovilesune.adapters.ListaDefaultAdapter;
+import co.com.une.appmovilesune.change.Interprete;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.complements.Dialogo;
 import co.com.une.appmovilesune.complements.Pdf;
@@ -485,12 +486,6 @@ public class ControlResumen extends Activity implements Observer {
         // TODO Auto-generated method stub
         boolean valida = true;
 
-        if (asesoria.venta != null) {
-            // System.out.println("Tiene Venta");
-        } else {
-            // System.out.println("Sin venta");
-        }
-
         String venMensaje = "";
         String prosMensaje = "";
         String CompMensaje = "";
@@ -500,13 +495,33 @@ public class ControlResumen extends Activity implements Observer {
         ArrayList<Object> resultado = (ArrayList<Object>) value;
         String res = resultado.get(1).toString();
         System.out.println("Respuesta cr 478 => " + res);
-        try {
-            JSONObject jop = new JSONObject(res);
-            String data = jop.get("data").toString();
-            if (MainActivity.config.validarIntegridad(data, jop.get("crc").toString())) {
-                data = new String(Base64.decode(data));
-                System.out.println("data => " + data);
-                JSONObject respuesta = new JSONObject(data);
+
+        if(resultado.get(0).equals("ValidacionConfiguracionMovil")){
+            try {
+
+                JSONObject jop = new JSONObject(resultado.get(1).toString());
+                String data = jop.get("data").toString();
+
+                if (MainActivity.config.validarIntegridad(data, jop.get("crc").toString())) {
+
+                    data = new String(Base64.decode(data));
+                    JSONObject validacion = new JSONObject(data);
+                    Toast.makeText(MainActivity.context, "Datos Invalidos", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.MODULO_MENSAJES);
+                    intent.putExtra("mensajes", Interprete.mensajesConfiguracion(validacion).toString());
+                    startActivityForResult(intent, MainActivity.REQUEST_CODE);
+                }
+            } catch (JSONException e) {
+                Log.w("Error JSONException ",e.getMessage());
+            }
+        }else {
+            try {
+                JSONObject jop = new JSONObject(res);
+                String data = jop.get("data").toString();
+                if (MainActivity.config.validarIntegridad(data, jop.get("crc").toString())) {
+                    data = new String(Base64.decode(data));
+                    System.out.println("data => " + data);
+                    JSONObject respuesta = new JSONObject(data);
 
 				if(resultado != null && resultado.get(0).equals("validarDebitoAutomaticoExistente")){
 					tratarValidacionDebitoAutomatico(resultado.get(1).toString());
@@ -774,15 +789,16 @@ public class ControlResumen extends Activity implements Observer {
 				// erronea");
 			}
 
-        } catch (JSONException e) {
-            // Log.w("Error", e.getMessage());
-            e.printStackTrace();
-            if (MainActivity.seguimiento) {
-                GoogleAnalytics mga = GoogleAnalytics.getInstance(this);
-                Tracker mtraker = mga.getTracker("UA-44799901-1");
-                mga.getLogger().setLogLevel(LogLevel.VERBOSE);
-                mtraker.set("Respuesta", e.getMessage());
-                mtraker.send(MapBuilder.createEvent("SEND_ASESORIA", "VACIA", e.getMessage(), null).build());
+            } catch (JSONException e) {
+                // Log.w("Error", e.getMessage());
+                e.printStackTrace();
+                if (MainActivity.seguimiento) {
+                    GoogleAnalytics mga = GoogleAnalytics.getInstance(this);
+                    Tracker mtraker = mga.getTracker("UA-44799901-1");
+                    mga.getLogger().setLogLevel(LogLevel.VERBOSE);
+                    mtraker.set("Respuesta", e.getMessage());
+                    mtraker.send(MapBuilder.createEvent("SEND_ASESORIA", "VACIA", e.getMessage(), null).build());
+                }
             }
         }
 

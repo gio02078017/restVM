@@ -1091,11 +1091,14 @@ public class UtilidadesTarificador {
 
         boolean validacion = true;
 
-        if (!plan.equalsIgnoreCase("-") && !producto.equalsIgnoreCase("-")) {
-            if (plan.equalsIgnoreCase("1")) {
-                validacion = false;
-            }
-        }
+		if(plan != null){
+			if (!plan.equalsIgnoreCase("-") && !producto.equalsIgnoreCase("-")) {
+				if (plan.equalsIgnoreCase("1")) {
+					validacion = false;
+				}
+			}
+		}
+
 
         return validacion;
     }

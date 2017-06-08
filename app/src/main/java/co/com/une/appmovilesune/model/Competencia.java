@@ -15,35 +15,38 @@ import co.com.une.appmovilesune.complements.Calendario;
 
 public class Competencia implements Serializable {
 
-    private String id;
-    public ArrayList<ItemCompetencia> Competencia;
-    private String Empaquetado;
-    private String NoUne;
-    private String Observaciones;
-    private String Fecha;
-    private String Hora;
-    private String Atencion;
-    private String SubMotivo;
+	private String id;
+	public ArrayList<ItemCompetencia> Competencia;
+	private String Empaquetado;
+	private String NoUne;
+	private String Observaciones;
+	private String Fecha;
+	private String Hora;
+	private String Atencion;
+	private String SubMotivo;
+	private String idGerencia;
 
-    public Competencia() {
-        Atencion = "";
-        Competencia = new ArrayList<ItemCompetencia>();
-        Empaquetado = "";
-        NoUne = "";
-        Observaciones = "";
-        Fecha = "";
-        Hora = "";
-        SubMotivo = "";
-    }
+	public Competencia() {
+		Atencion = "";
+		Competencia = new ArrayList<ItemCompetencia>();
+		Empaquetado = "";
+		NoUne = "";
+		Observaciones = "";
+		Fecha = "";
+		Hora = "";
+		SubMotivo = "";
+		idGerencia = "";
+	}
 
     public Competencia(String Atencion, ArrayList<ItemCompetencia> Competencia, String NoUne, String Observaciones) {
 
-        this.Atencion = Atencion;
-        this.Competencia = Competencia;
-        this.NoUne = NoUne;
-        this.Observaciones = Observaciones;
-        this.Fecha = Calendario.getFecha();
-        this.Hora = Calendario.getHora();
+		this.Atencion = Atencion;
+		this.Competencia = Competencia;
+		this.NoUne = NoUne;
+		this.Observaciones = Observaciones;
+		this.Fecha = Calendario.getFecha();
+		this.Hora = Calendario.getHora();
+		idGerencia = "";
 
     }
 
@@ -82,17 +85,25 @@ public class Competencia implements Serializable {
             jo.put("items", ja);
             jo.put("Empaquetado", Empaquetado);
 
-            jo.put("motivo", NoUne);
-            jo.put("submotivo", SubMotivo);
-            jo.put("observacion", Observaciones);
-            jo.put("fecha", Fecha + " " + Hora);
-            jo.put("atencion", Atencion);
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return jo;
-    }
+			jo.put("motivo", NoUne);
+			jo.put("submotivo", SubMotivo);
+			jo.put("observacion", Observaciones);
+			jo.put("fecha", Fecha + " " + Hora);
+			jo.put("atencion", Atencion);
+			jo.put("idGerencia", idGerencia);
+			if(!idGerencia.equalsIgnoreCase("")){
+				jo.put("accion","Update");
+			}else{
+				jo.put("accion","Insert");
+			}
+
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jo;
+	}
 
     public String getEmpaquetado() {
         return Empaquetado;
@@ -146,7 +157,15 @@ public class Competencia implements Serializable {
         return SubMotivo;
     }
 
-    public void setSubMotivo(String subMotivo) {
-        SubMotivo = subMotivo;
-    }
+	public void setSubMotivo(String subMotivo) {
+		SubMotivo = subMotivo;
+	}
+
+	public String getIdGerencia() {
+		return idGerencia;
+	}
+
+	public void setIdGerencia(String idGerencia) {
+		this.idGerencia = idGerencia;
+	}
 }
