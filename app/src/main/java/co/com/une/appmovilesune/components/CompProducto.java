@@ -310,20 +310,29 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
             observer.update(null);
 
-            if (observerAdicionales != null || observerAdicionalesInternet != null) {
+            if (observerAdicionales != null) {
                 observerAdicionales.limpiarAdicionales();
                 System.out.println("observerAdicionales "+observerAdicionales.toString());
                 if(tipo == TELEVISION) {
                     observerAdicionales.seleccionarPlan(Utilidades.traducirPlanOfertaDigital((String) parent.getSelectedItem()));
-                    if(!((String) parent.getSelectedItem()).equalsIgnoreCase(Utilidades.inicial)){
+                    /*if(!((String) parent.getSelectedItem()).equalsIgnoreCase(Utilidades.inicial)){
                         observerAdicionalesInternet.limpiarAdicionales();
-                    }
+                    }*/
                 }else if (tipo == TELEFONIA){
                     observerAdicionales.seleccionarPlan((String) parent.getSelectedItem());
+                }/*else if (tipo == INTERNET){
+                    observerAdicionalesInternet.seleccionarPlan((String) parent.getSelectedItem());
+                }*/
+            }else if(observerAdicionalesInternet != null){
+                observerAdicionalesInternet.limpiarAdicionales();
+                if(tipo == TELEVISION) {
+                    if (!((String) parent.getSelectedItem()).equalsIgnoreCase(Utilidades.inicial)) {
+                        observerAdicionalesInternet.limpiarAdicionales();
+                    }
                 }else if (tipo == INTERNET){
-                    observerAdicionales.seleccionarPlan((String) parent.getSelectedItem());
+                    observerAdicionalesInternet.seleccionarPlan((String) parent.getSelectedItem());
                 }
-            }
+            }//
 
             if (observerDecodificadores != null) {
                 observerDecodificadores.limpiarDecodificadores();
