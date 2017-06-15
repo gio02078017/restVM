@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
@@ -290,5 +291,52 @@ public class UtilidadesTarificadorNew {
         System.out.println("nuevos " + existentes);
 
         return existentes;
+    }
+
+    public static boolean validarVelocidadInternet(String plan, Cliente cliente) {
+
+        boolean result = false;
+
+        String parametros = "departamento like ? and tipoProducto = ? and estrato like ? and Producto = ?";
+        String[] datos = new String[]{"%" + cliente.getDepartamento() + "%",  "ba", "%" + cliente.getEstrato() + "%", plan};
+
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Precios",
+                new String[]{"ProductoHomologado", "velocidadGota"},
+                parametros, datos,
+                null, null, null);
+
+
+        if(respuesta != null){
+
+            int velocidadPlan = Integer.parseInt(respuesta.get(0).get(0).replace("MB",""));
+
+            if(velocidadPlan >= obtenerVelocidadMinimaInternet()){
+                result = true;
+            } else {
+                if(!respuesta.get(0).get(1).equalsIgnoreCase("") && !respuesta.get(0).get(1).equalsIgnoreCase("N/A")){
+
+                }
+            }
+
+        }
+
+        return result;
+
+    }
+
+    public static int obtenerVelocidadMinimaInternet(){
+
+        int velocidad = -1;
+
+        ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
+                new String[]{"lst_valor"}, "lst_nombre = ? and lst_clave = ?", new String[]{"velocidadMinimaInternet", "velocidadMinimaInternet"}, null,
+                null, null);
+
+        if(resultado != null){
+            velocidad = Integer.parseInt(resultado.get(0).get(0));
+        }
+
+        return velocidad;
+
     }
 }

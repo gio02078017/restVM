@@ -312,6 +312,8 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
                     observerAdicionales.seleccionarPlan(Utilidades.traducirPlanOfertaDigital((String) parent.getSelectedItem()));
                 }else if (tipo == TELEFONIA){
                     observerAdicionales.seleccionarPlan((String) parent.getSelectedItem());
+                } else if (tipo == INTERNET) {
+                    observerAdicionales.seleccionarPlan((String) parent.getSelectedItem());
                 }
             }
 

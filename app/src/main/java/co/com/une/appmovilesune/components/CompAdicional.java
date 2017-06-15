@@ -40,6 +40,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     public static final int TELEFONIA = 0;
     public static final int TELEVISION = 1;
+    public static final int INTERNET = 2;
 
     /*Componentes graficos del header*/
     public ImageView imgAdicional;
@@ -98,6 +99,10 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
                 imgAdicional.setImageDrawable(getResources().getDrawable(R.drawable.amgtv));
                 lblTipoAdicional.setText(getResources().getString(R.string.adicionalestelevision));
                 break;
+            case INTERNET:
+                imgAdicional.setImageDrawable(getResources().getDrawable(R.drawable.amgba));
+                lblTipoAdicional.setText(getResources().getString(R.string.adicionalesinternet));
+                break;
         }
     }
 
@@ -120,9 +125,33 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         spnSelectorAdicionales.setAdapter(adaptador);
     }
 
-    private void cargarAdicionalesTo(String plan) {
+    private void cargarAdicionalesBa(String plan) {
 
-        System.out.println("plan to"+plan);
+        System.out.println("plan ba"+plan);
+
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Adicionales",
+                new String[]{"adicional"}, "departamento=? and tipoProducto=? and estrato like ? and tecnologia like ?",
+                new String[]{cliente.getDepartamento(), "ba", "%" + cliente.getEstrato() + "%", "%" + cliente.getTecnologia() + "%" }, null, null, null);
+
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item);
+        adaptador.add("-- Seleccione Adicional --");
+        if(!plan.equalsIgnoreCase(Utilidades.inicial)){
+            if (respuesta != null) {
+                for (ArrayList<String> arrayList : respuesta) {
+                    // adaptador.add(arrayList.get(0));
+                    System.out.println("adicional name " + arrayList.get(0));
+                    adaptador.add(arrayList.get(0));
+
+                }
+            }
+        }
+
+        spnSelectorAdicionales.setAdapter(adaptador);
+    }
+
+    private void cargarAdicionalesTo(String plan) {
+        System.out.println("plan to "+plan);
 
         String homologarPlanTO =  Utilidades.claveValor("homologarPlanTO",plan);
 
@@ -157,6 +186,9 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         } else if (tipo == TELEFONIA) {
             parametros = "departamento like ? and tipoProducto = ? and estrato like ? and adicional = ?";
             datos = new String[]{"%" + cliente.getDepartamento() + "%",  "to", "%" + cliente.getEstrato() + "%", adicional};
+        } else if(tipo == INTERNET) {
+            parametros = "departamento like ? and tipoProducto = ? and estrato like ? and adicional = ?";
+            datos = new String[]{"%" + cliente.getDepartamento() + "%",  "ba", "%" + cliente.getEstrato() + "%", adicional};
         }
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Adicionales",
@@ -178,8 +210,15 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 			 * .consultarDescuentos(data, departamento, true, 1);
 			 */
 
-            ArrayList<ArrayList<String>> result = Tarificador.consultarDescuentos2(data, departamento, true, 1,
-                    UtilidadesTarificador.jsonDatos(cliente, "1", "N/A", "ingresar 0 o 1"));
+            ArrayList<ArrayList<String>> result = null;
+
+            if(tipo == TELEVISION){
+                result = Tarificador.consultarDescuentos2(data, departamento, true, 1,
+                        UtilidadesTarificador.jsonDatos(cliente, "1", "N/A", "ingresar 0 o 1"));
+            } else if (tipo == INTERNET) {
+                result = Tarificador.consultarDescuentosAdicionalesInternet(data, departamento, true, 1,
+                        UtilidadesTarificador.jsonDatos(cliente, "1", "N/A", "N/A"));
+            }
 
             System.out.println(result);
 
@@ -311,6 +350,8 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
             cargarAdicionales(plan);
         } else if (tipo == TELEFONIA) {
             cargarAdicionalesTo(plan);
+        } else if(tipo == INTERNET){
+            cargarAdicionalesBa(plan);
         }
     }
 

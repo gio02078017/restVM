@@ -374,7 +374,7 @@ public class Tarificador {
             Cantidad = Integer.parseInt(CantidadProductos);
         } catch (NumberFormatException e) {
 
-            Log.w("Error NumberFormatException", "Mensaje " + e.getMessage());
+            Log.w("Error NFE", "Mensaje " + e.getMessage());
         }
 
         if (Tipo.equalsIgnoreCase(Utilidades.tipo_producto_to)) {
@@ -468,7 +468,7 @@ public class Tarificador {
             try {
                 porcentajedescuento = Double.parseDouble(descuento.replaceAll("%", ""));
             } catch (NumberFormatException e) {
-                Log.w("Error NumberFormatException", "Mensaje " + e.getMessage());
+                Log.w("Error NFE", "Mensaje " + e.getMessage());
                 porcentajedescuento = 0;
             }
 
@@ -508,11 +508,11 @@ public class Tarificador {
 
             } catch (NumberFormatException e) {
 
-                Log.w("Error NumberFormatException", "Mensaje " + e.getMessage());
+                Log.w("Error NFE", "Mensaje " + e.getMessage());
                 control = "N/A";
             } catch (Exception e) {
 
-                Log.w("Error NumberFormatException", "Mensaje " + e.getMessage());
+                Log.w("Error NFE", "Mensaje " + e.getMessage());
                 control = "N/A";
             }
 
@@ -815,6 +815,46 @@ public class Tarificador {
         }
 
         String query = "SELECT DISTINCT (regla) FROM reglas " + "WHERE Tipo_Producto = 'adic_tv' " + "   AND Plan IN ("
+                + adicionalesCadena + ")" + "   AND (Cantidad LIKE '%3%' OR Cantidad IS NULL OR Cantidad ='')"
+                + "   AND (Nuevo = '1' OR Nuevo = '' OR Nuevo IS NULL)";
+
+        query = Utilidades.queryExternoPromocionesAdicionales(query, jsonDatos);
+
+        System.out.println("query Adicionales 2" + query);
+
+        promociones = MainActivity.basedatos.consultarDescuentos(query);
+
+        System.out.println("promociones 2 Adicionales " + promociones);
+
+        return promociones;
+
+    }
+
+    public static ArrayList<ArrayList<String>> consultarDescuentosAdicionalesInternet(String[][] adicionales, String ciudad,
+                                                                    boolean nuevo, int contadorFija, String jsonDatos) {
+
+        ArrayList<ArrayList<String>> promociones = null;
+        int isNuevo = 0;
+
+        String adicionalesCadena = "";
+        int cantidad = adicionales.length;
+        for (int i = 0; i < cantidad; i++) {
+            if (i == 0 && cantidad > 1) {
+                adicionalesCadena += "'" + adicionales[i][0] + "',";
+            } else if (i == (adicionales.length - 1)) {
+                adicionalesCadena += "'" + adicionales[i][0] + "'";
+            } else {
+                adicionalesCadena += "'" + adicionales[i][0] + "',";
+            }
+        }
+
+        if (nuevo) {
+            isNuevo = 1;
+        } else {
+            isNuevo = 0;
+        }
+
+        String query = "SELECT DISTINCT (regla) FROM reglas " + "WHERE Tipo_Producto = 'adic_ba' " + "   AND Plan IN ("
                 + adicionalesCadena + ")" + "   AND (Cantidad LIKE '%3%' OR Cantidad IS NULL OR Cantidad ='')"
                 + "   AND (Nuevo = '1' OR Nuevo = '' OR Nuevo IS NULL)";
 

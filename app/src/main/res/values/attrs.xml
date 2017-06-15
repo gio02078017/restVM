@@ -12,6 +12,7 @@
     <attr name="tipoAdicional" format="enum">
         <enum name="AdicionalesTelefonia" value="0" />
         <enum name="AdicionalesTelevision" value="1" />
+        <enum name="AdicionalesInternet" value="2" />
     </attr>
 
     <attr name="ubicacion" format="enum">

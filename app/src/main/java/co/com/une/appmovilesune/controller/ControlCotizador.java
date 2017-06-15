@@ -82,6 +82,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     private CompProducto cprdInternet;
     private CompProducto cprdTelefonia;
     private CompAdicional cadcTelefonia;
+    private CompAdicional cadcInternet;
 
     private CompTotalCotizador cttlTotales;
 
@@ -94,6 +95,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionales = new ArrayList<ItemPromocionesAdicionales>();
     ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionalesGratis = new ArrayList<ItemPromocionesAdicionales>();
+    ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionalesInternet = new ArrayList<ItemPromocionesAdicionales>();
 
     private ArrayList<ItemKeyValue2> datosValidacion = new ArrayList<ItemKeyValue2>();
     private ArrayList<ItemKeyValue2> countValidacion = new ArrayList<ItemKeyValue2>();
@@ -153,6 +155,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cadcTelevision = (CompAdicional) findViewById(R.id.cadcTelevision);
         cdcsDecodificadores = (CompDecos) findViewById(R.id.cdcsDecodificadores);
         cprdInternet = (CompProducto) findViewById(R.id.cprdInternet);
+        cadcInternet = (CompAdicional) findViewById(R.id.cadcInternet);
         cprdTelefonia = (CompProducto) findViewById(R.id.cprdTelefonia);
         cadcTelefonia = (CompAdicional) findViewById(R.id.cadcTelefonia);
         cttlTotales = (CompTotalCotizador) findViewById(R.id.cttlTotales);
@@ -165,6 +168,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cprdTelevision.addObserverAdicionales(cadcTelevision);
         cprdTelevision.addObserverDecodificadores(cdcsDecodificadores);
         cprdTelefonia.addObserverAdicionales(cadcTelefonia);
+        cprdInternet.addObserverAdicionales(cadcInternet);
 
         cdcsDecodificadores.setOferta("tarificador");
         cdcsDecodificadores.setCiudad(cliente.getCiudad());
@@ -174,11 +178,13 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cprdTelevision.addObserver(this);
         cadcTelevision.addObserver(this);
         cprdInternet.addObserver(this);
+        cadcInternet.addObserver(this);
         cprdTelefonia.addObserver(this);
         cadcTelefonia.addObserver(this);
 
         cadcTelevision.setCliente(cliente);
         cadcTelefonia.setCliente(cliente);
+        cadcInternet.setCliente(cliente);
 
         spnestrato.setOnItemSelectedListener(seleccionarEstrato);
         spntipooferta.setOnItemSelectedListener(seleccionarTipoOferta);
@@ -820,6 +826,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 System.out.println("cprdTelefonia " + cprdTelefonia.getPlan());
 
                 itemPromocionesAdicionales = cadcTelevision.itemPromocionesAdicionales();
+                itemPromocionesAdicionalesInternet = cadcInternet.itemPromocionesAdicionales();
+
 
                 for (int i = 0; i < itemPromocionesAdicionales.size(); i++) {
                     System.out.println("itemPromocionesAdicionales.get(i).getTipoProducto() " + itemPromocionesAdicionales.get(i).getTipoProducto());
