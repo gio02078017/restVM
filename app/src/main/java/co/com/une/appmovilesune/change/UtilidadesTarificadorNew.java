@@ -297,7 +297,7 @@ public class UtilidadesTarificadorNew {
 
         boolean result = false;
 
-        String parametros = "departamento like ? and tipoProducto = ? and estrato like ? and Producto = ?";
+        String parametros = "departamento like ? and tipo_producto = ? and estrato like ? and Producto = ?";
         String[] datos = new String[]{"%" + cliente.getDepartamento() + "%",  "ba", "%" + cliente.getEstrato() + "%", plan};
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "Precios",
@@ -309,13 +309,16 @@ public class UtilidadesTarificadorNew {
         if(respuesta != null){
 
             int velocidadPlan = Integer.parseInt(respuesta.get(0).get(0).replace("MB",""));
+            int velocidadGota = 0;
 
-            if(velocidadPlan >= obtenerVelocidadMinimaInternet()){
+            if(!respuesta.get(0).get(1).equalsIgnoreCase("") && !respuesta.get(0).get(1).equalsIgnoreCase("N/A")){
+                velocidadGota = Integer.parseInt(respuesta.get(0).get(1).replace("MB",""));
+            }
+
+            if(velocidadPlan >= obtenerVelocidadMinimaInternet() || velocidadGota >= obtenerVelocidadMinimaInternet()){
                 result = true;
             } else {
-                if(!respuesta.get(0).get(1).equalsIgnoreCase("") && !respuesta.get(0).get(1).equalsIgnoreCase("N/A")){
-
-                }
+                result = false;
             }
 
         }

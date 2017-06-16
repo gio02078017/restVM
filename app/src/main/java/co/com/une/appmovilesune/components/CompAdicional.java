@@ -24,6 +24,7 @@ import co.com.une.appmovilesune.adapters.ListaAdicionalesAdapter;
 import co.com.une.appmovilesune.change.ControlSimulador;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
+import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
 import co.com.une.appmovilesune.interfaces.ObserverTotales;
@@ -141,7 +142,13 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
                 for (ArrayList<String> arrayList : respuesta) {
                     // adaptador.add(arrayList.get(0));
                     System.out.println("adicional name " + arrayList.get(0));
-                    adaptador.add(arrayList.get(0));
+                    if(arrayList.get(0).equalsIgnoreCase("HBO GO") || arrayList.get(0).equalsIgnoreCase("HBOGO")){
+                        if(UtilidadesTarificadorNew.validarVelocidadInternet(plan,cliente)){
+                            adaptador.add(arrayList.get(0));
+                        }
+                    } else {
+                        adaptador.add(arrayList.get(0));
+                    }
 
                 }
             }
