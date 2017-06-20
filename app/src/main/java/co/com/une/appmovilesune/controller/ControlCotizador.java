@@ -167,6 +167,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         funcionalidad de adicionales*/
         cprdTelevision.addObserverAdicionales(cadcTelevision);
         cprdTelevision.addObserverDecodificadores(cdcsDecodificadores);
+        cprdTelevision.addObserverAdicionalesInternet(cadcInternet);
         cprdTelefonia.addObserverAdicionales(cadcTelefonia);
         cprdInternet.addObserverAdicionales(cadcInternet);
 

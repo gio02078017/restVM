@@ -25,10 +25,12 @@ import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
+import co.com.une.appmovilesune.interfaces.ObserverAdicionalesInternet;
 import co.com.une.appmovilesune.interfaces.ObserverDecodificadores;
 import co.com.une.appmovilesune.interfaces.ObserverTotales;
 import co.com.une.appmovilesune.interfaces.Subject;
 import co.com.une.appmovilesune.interfaces.SubjectAdicionales;
+import co.com.une.appmovilesune.interfaces.SubjectAdicionalesInternet;
 import co.com.une.appmovilesune.interfaces.SubjectDecodificadores;
 import co.com.une.appmovilesune.interfaces.SubjectTotales;
 import co.com.une.appmovilesune.model.Cliente;
@@ -38,7 +40,7 @@ import co.com.une.appmovilesune.model.ProductoCotizador;
  * Created by davids on 13/10/16.
  */
 
-public class CompProducto extends LinearLayout implements SubjectAdicionales, Subject, SubjectDecodificadores {
+public class CompProducto extends LinearLayout implements SubjectAdicionales, Subject, SubjectDecodificadores, SubjectAdicionalesInternet {
 
     public static final int TELEFONIA = 0;
     public static final int TELEVISION = 1;
@@ -72,6 +74,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
     private TextView txtvalorpagoparcial;
 
     private ObserverAdicionales observerAdicionales;
+    private ObserverAdicionalesInternet observerAdicionalesInternet;
     private Observer observer;
     private ObserverDecodificadores observerDecodificadores;
 
@@ -310,6 +313,12 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
                 observerAdicionales.limpiarAdicionales();
                 if(tipo == TELEVISION) {
                     observerAdicionales.seleccionarPlan(Utilidades.traducirPlanOfertaDigital((String) parent.getSelectedItem()));
+                    if(!((String) parent.getSelectedItem()).equalsIgnoreCase(Utilidades.inicial)){
+                        observerAdicionalesInternet.limpiarAdicionalHBOGO(true);
+                    } else {
+                        observerAdicionalesInternet.limpiarAdicionalHBOGO(false);
+                    }
+
                 }else if (tipo == TELEFONIA){
                     observerAdicionales.seleccionarPlan((String) parent.getSelectedItem());
                 } else if (tipo == INTERNET) {
@@ -499,6 +508,20 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
 
     @Override
     public void notifyObserverDecodificadores() {
+    }
+
+    @Override
+    public void addObserverAdicionalesInternet(ObserverAdicionalesInternet o) {
+        observerAdicionalesInternet = o;
+    }
+
+    @Override
+    public void removeObserverAdicionalesInternet(ObserverAdicionalesInternet o) {
+        observerAdicionalesInternet = null;
+    }
+
+    @Override
+    public void notifyObserverAdicionalesInternet() {
     }
 }
 

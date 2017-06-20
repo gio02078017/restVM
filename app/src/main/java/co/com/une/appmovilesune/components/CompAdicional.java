@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,6 +28,7 @@ import co.com.une.appmovilesune.change.UtilidadesTarificador;
 import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
+import co.com.une.appmovilesune.interfaces.ObserverAdicionalesInternet;
 import co.com.une.appmovilesune.interfaces.ObserverTotales;
 import co.com.une.appmovilesune.interfaces.Subject;
 import co.com.une.appmovilesune.interfaces.SubjectTotales;
@@ -37,7 +39,7 @@ import co.com.une.appmovilesune.model.Tarificador;
  * Created by davids on 25/10/16.
  */
 
-public class CompAdicional extends LinearLayout implements ObserverAdicionales, Observer, Subject {
+public class CompAdicional extends LinearLayout implements ObserverAdicionales, Observer, Subject, ObserverAdicionalesInternet {
 
     public static final int TELEFONIA = 0;
     public static final int TELEVISION = 1;
@@ -58,6 +60,8 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
     private ArrayList<ListaAdicionales> adicionales = new ArrayList<ListaAdicionales>();
 
     private Observer observer;
+
+    private String planBA = "";
 
     public CompAdicional(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -126,9 +130,10 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         spnSelectorAdicionales.setAdapter(adaptador);
     }
 
-    private void cargarAdicionalesBa(String plan) {
+    private void cargarAdicionalesBa(String plan, boolean limpiar) {
 
         System.out.println("plan ba"+plan);
+        planBA = plan;
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Adicionales",
                 new String[]{"adicional"}, "departamento=? and tipoProducto=? and estrato like ? and tecnologia like ?",
@@ -137,13 +142,13 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item);
         adaptador.add("-- Seleccione Adicional --");
-        if(!plan.equalsIgnoreCase(Utilidades.inicial)){
+        if(!planBA.equalsIgnoreCase(Utilidades.inicial)){
             if (respuesta != null) {
                 for (ArrayList<String> arrayList : respuesta) {
                     // adaptador.add(arrayList.get(0));
                     System.out.println("adicional name " + arrayList.get(0));
                     if(arrayList.get(0).equalsIgnoreCase("HBO GO") || arrayList.get(0).equalsIgnoreCase("HBOGO")){
-                        if(UtilidadesTarificadorNew.validarVelocidadInternet(plan,cliente)){
+                        if(UtilidadesTarificadorNew.validarVelocidadInternet(planBA,cliente) && !limpiar){
                             adaptador.add(arrayList.get(0));
                         }
                     } else {
@@ -358,7 +363,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         } else if (tipo == TELEFONIA) {
             cargarAdicionalesTo(plan);
         } else if(tipo == INTERNET){
-            cargarAdicionalesBa(plan);
+            cargarAdicionalesBa(plan, false);
         }
     }
 
@@ -376,6 +381,19 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
     public void limpiarAdicionales() {
         adicionales.clear();
         actualizarLista();
+    }
+
+    @Override
+    public void limpiarAdicionalHBOGO(boolean limpiar) {
+        for(ListaAdicionales adicional: adicionales){
+            Log.d("HBOGO",adicional.getAdicional());
+            if(adicional.getAdicional().equalsIgnoreCase("HBOGO") || adicional.getAdicional().equalsIgnoreCase("HBO GO")){
+                adicionales.remove(adicional);
+            }
+        }
+        actualizarLista();
+        cargarAdicionalesBa(planBA, limpiar);
+
     }
 
     @Override
@@ -402,6 +420,5 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     @Override
     public void notifyObserver() {
-
     }
 }
