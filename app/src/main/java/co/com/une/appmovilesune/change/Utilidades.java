@@ -703,6 +703,16 @@ public class Utilidades {
         }
     }
 
+    public static String traducirDepartamentoDane(String departamento) {
+        ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(true, "Departamentos",
+                new String[]{"CodigoDaneDepartamento"}, "Departamento = ?", new String[]{departamento}, null, null, null);
+        if (resultado != null) {
+            return resultado.get(0).get(0);
+        } else {
+            return "Ninguna";
+        }
+    }
+
     public static String traducirCiudadGIIS(String ciudad) {
         ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "Departamentos",
                 new String[]{"Codigo_Giis"}, "Ciudad = ?", new String[]{ciudad}, null, null, null);

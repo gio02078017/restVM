@@ -1141,6 +1141,13 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
     }
 
+    private void llenarCamposElite() {
+
+        if(cliente.getEstandarizarElite() == 1) {
+            txtDireccion.setText(cliente.getDireccion());
+        }
+    }
+
     public void preLLenar(View v) {
 
         sltFechaNacimiento.setTexto("1971-12-9");
@@ -1346,7 +1353,9 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
                 estandarizarDireccion();
             } else if (Utilidades.excluir("siebelMunicipios", cliente.getCiudad())) {
                 estandarizarDireccionSiebel();
-            } else {
+            } else if (Utilidades.excluir("eliteMunicipios", cliente.getCiudad())) {
+                estandarizarDireccionElite();
+            }else {
                 Intent intent = new Intent(MainActivity.MODULO_DIRECCIONES);
                 startActivityForResult(intent, MainActivity.REQUEST_CODE);
             }
@@ -1440,6 +1449,24 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         } else {
             Toast.makeText(this, "El Barrio Deben Estar Diligenciados, Para Realizar La Consulta", Toast.LENGTH_SHORT)
                     .show();
+        }
+    }
+
+    public void estandarizarDireccionElite() {
+        if (!txtDireccion.getText().toString().equalsIgnoreCase("")/*
+                && !txtBarrio.getText().toString().equalsIgnoreCase("")*/) {
+            JSONObject jo = new JSONObject();
+            try {
+
+                jo.put("daneDepartamento", cliente.getDepartamentoDane());
+                jo.put("daneMunicipio", cliente.getCiudadDane());
+                jo.put("direccion", txtDireccion.getText().toString());
+                VerificarDireccionElite(jo.toString(), "integrada");
+
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+            }
         }
     }
 
@@ -1782,7 +1809,12 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 			cliente.reorganizarClienteSiebel(resultado.get(1).toString());
 			llenarCampos();
 			// Resultado_Portafolio(cliente.getPortafolio());
-		} else if (resultado.get(0).equals("ConsolidarSiebel")) {
+		}else if (resultado.get(0).equals("PortafolioElite")) {
+            System.out.println("Control Cliente Elite "+resultado.get(1).toString());
+            cliente.reorganizarClienteElite(resultado.get(1).toString());
+            llenarCamposElite();
+            // Resultado_Portafolio(cliente.getPortafolio());
+        } else if (resultado.get(0).equals("ConsolidarSiebel")) {
 			validarConsolidar(resultado.get(1).toString());
 			Utilidades.pintarBotones(resultado.get(1).toString());
 		} else if (resultado.get(0).equals("ValidarLogin")) {
@@ -2344,6 +2376,21 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         params.add("direccion");
         params.add(parametros);
         params.add(salida);
+        Simulador simulador = new Simulador();
+        simulador.setManual(this);
+        simulador.addObserver(this);
+        simulador.execute(params);
+    }
+
+    public void VerificarDireccionElite(String cliente, String tipoConsulta) {
+        // System.out.println("Control Simulador 479 => "+Cedula);
+        ArrayList<String> parametros = new ArrayList<String>();
+        parametros.add(cliente);
+        ArrayList<Object> params = new ArrayList<Object>();
+        params.add(MainActivity.config.getCodigo());
+        params.add("PortafolioElite");
+        params.add(parametros);
+        params.add(tipoConsulta);
         Simulador simulador = new Simulador();
         simulador.setManual(this);
         simulador.addObserver(this);

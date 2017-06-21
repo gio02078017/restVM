@@ -8,6 +8,7 @@ import java.util.Calendar;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.kobjects.base64.Base64;
 
 import com.google.gson.JsonParseException;
 
@@ -105,6 +106,7 @@ public class Cliente implements Serializable, Observer, Subject {
     private Facturacion facturacion;
 
     private String portafolio;
+    private String portafolioElite;
     private String cobertura;
     private String carteraUNE;
     private String consolidado;
@@ -118,6 +120,7 @@ public class Cliente implements Serializable, Observer, Subject {
     public Context context;
 
     private String ciudadDane;
+    private String departamentoDane;
 
     private int idIVR = 0;
 
@@ -134,6 +137,7 @@ public class Cliente implements Serializable, Observer, Subject {
     private String hogarNuevo = "0";
 
     private int estandarizarSiebel = 2;
+    private int estandarizarElite = 2;
 
     public AmigoCuentas ac;
 
@@ -258,6 +262,7 @@ public class Cliente implements Serializable, Observer, Subject {
         this.ciudadFenix = Utilidades.traducirCiudad(Municipio);
         this.ciudadDane = Utilidades.traducirCiudadDane(Municipio,departamento);
         this.departamentoSiebel = Utilidades.traducirCiudadDane(Municipio,departamento);
+        this.departamentoDane = Utilidades.traducirDepartamentoDane(departamento);
         this.ciudadSiebel = Utilidades.traducirCiudadGIIS(Municipio);
         this.ciudadAmc = Utilidades.traducirCiudadAmc(Municipio);
         this.TipoServicio = "";
@@ -750,6 +755,102 @@ public class Cliente implements Serializable, Observer, Subject {
             } else {
                 estandarizarSiebel = 0;
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void reorganizarClienteElite(String consolidado) {
+
+        Utilidades.pintarBotones(consolidado);
+
+        System.out.println("Control Cliente reorganizarClienteSiebel adentro");
+
+        try {
+            JSONObject jo = new JSONObject(consolidado);
+            System.out.println("Control Cliente jo Elite " + jo);
+
+            String data = jo.get("data").toString();
+
+            if (MainActivity.config.validarIntegridad(data, jo.get("crc").toString())) {
+                String resultado = new String(Base64.decode(data));
+
+                System.out.println("result "+resultado);
+
+                JSONObject jsonResultado = new JSONObject(resultado);
+
+                if (jsonResultado.has("estandarizar")) {
+                    if(jsonResultado.getJSONObject("estandarizar").getString("codigoRespuesta").equals("00")){
+                        if(jsonResultado.getJSONObject("estandarizar").has("datos")){
+                            JSONObject datos = jsonResultado.getJSONObject("estandarizar").getJSONObject("datos");
+
+                            Direccion = datos.getString("cDireccion");
+                            estandarizarElite =1;
+                        }
+                    }
+
+                }
+
+                if (jsonResultado.has("portafolio")) {
+                    if(jsonResultado.getJSONObject("portafolio").getString("codigoRespuesta").equals("00")){
+                        if(jsonResultado.getJSONObject("portafolio").has("datos")){
+                            JSONObject datos = jsonResultado.getJSONObject("portafolio").getJSONObject("datos");
+
+                            portafolioElite = datos.toString();
+                        }
+                    }
+
+                }
+
+            }
+
+
+            /*if (jo.has("CodigoMensaje")) {
+                if (jo.getString("CodigoMensaje").equalsIgnoreCase("00")) {
+                    setConsolidado(consolidado);
+                }
+                System.out.println("Control Cliente jo siebel" + jo);
+                if (jo.has("ListaDatosClienteVent")) {
+                    JSONArray arrayJson = jo.getJSONArray("ListaDatosClienteVent");
+                    System.out.println("Control Cliente arrayJson siebel " + arrayJson);
+                    if (arrayJson.length() > 0) {
+                        JSONObject cliente = arrayJson.getJSONObject(0);
+                        System.out.println("cliente " + cliente);
+                        Direccion = cliente.getString("Direccion");
+
+                        Estrato = cliente.getString("Estrato");
+                        Cedula = cliente.getString("Cliente_id");
+                        Nombre = cliente.getString("Nombres");
+                        Apellido = cliente.getString("Apellidos");
+                        IdDireccionGis = cliente.getString("IdDireccionGis");
+                        TipoDocumento = cliente.getString("TipoDocumento");
+                        CodigoHogar = cliente.getString("Codigo_Hogar");
+                        System.out.println("Telefono " + Telefono);
+                        if (Telefono != null && !Telefono.equalsIgnoreCase("")) {
+                            Telefono = Telefono;
+                        }
+
+                        if (!ciudad.equalsIgnoreCase(cliente.getString("Municipio"))) {
+
+                            System.out.println(
+                                    "Control Cliente cliente.getString(Municipio) " + cliente.getString("Municipio"));
+
+                            if (!cliente.getString("Municipio").equalsIgnoreCase("Bogota")) {
+                                ciudad = cliente.getString("Municipio");
+                            }
+                        }
+
+                        System.out.println("Control Cliente ciudad cliente " + ciudad);
+
+                        controlClienteSiebel = true;
+                        estandarizarSiebel = 1;
+                    }
+                } else {
+                    estandarizarSiebel = 0;
+                }
+            } else {
+                estandarizarSiebel = 0;
+            }*/
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -1564,6 +1665,14 @@ public class Cliente implements Serializable, Observer, Subject {
         this.ciudadDane = ciudadDane;
     }
 
+    public String getDepartamentoDane() {
+        return departamentoDane;
+    }
+
+    public void setDepartamentoDane(String departamentoDane) {
+        this.departamentoDane = departamentoDane;
+    }
+
     public String getCiudadSiebel() {
         return ciudadSiebel;
     }
@@ -1602,6 +1711,14 @@ public class Cliente implements Serializable, Observer, Subject {
 
     public void setPortafolio(String portafolio) {
         this.portafolio = portafolio;
+    }
+
+    public String getPortafolioElite() {
+        return portafolioElite;
+    }
+
+    public void setPortafolioElite(String portafolioElite) {
+        this.portafolioElite = portafolioElite;
     }
 
     public String getCobertura() {
@@ -1854,6 +1971,14 @@ public class Cliente implements Serializable, Observer, Subject {
 
     public void setEstandarizarSiebel(int estandarizarSiebel) {
         this.estandarizarSiebel = estandarizarSiebel;
+    }
+
+    public int getEstandarizarElite() {
+        return estandarizarElite;
+    }
+
+    public void setEstandarizarElite(int estandarizarElite) {
+        this.estandarizarElite = estandarizarElite;
     }
 
     public boolean isControlEstadoCuenta() {
