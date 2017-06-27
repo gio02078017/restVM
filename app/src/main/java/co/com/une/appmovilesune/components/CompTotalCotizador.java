@@ -59,17 +59,21 @@ public class CompTotalCotizador extends LinearLayout {
         txtvalortotalpagoanticipado = (TextView) findViewById(R.id.txtvalortotalpagoanticipado);
     }
 
-    public void llenarTotales(double totalIndividual, double totalEmpaquetado, double totalAdicionalesTV, double totalDecodificadores, double totalAdicionalesTO, double totalConexion, double totalPagoParcial, double valorDescuentoConexion, double totalPagoAnticipado) {
+    public void llenarTotales(double totalIndividual, double totalEmpaquetado, double totalAdicionalesTV, double totalDecodificadores, double totalAdicionalesTO, double totalAdicionalesBA, double totalConexion, double totalPagoParcial, double valorDescuentoConexion, double totalPagoAnticipado) {
 
         System.out.println("TotalesCot ltll ind " + totalIndividual);
         System.out.println("TotalesCot ltll emp " + totalEmpaquetado);
 
-        double totalAdicionales = totalAdicionalesTO + totalAdicionalesTV;
+        double totalAdicionales = totalAdicionalesTO + totalAdicionalesTV + totalAdicionalesBA;
         setTotalIndividual("$" + totalIndividual);
         setTotalEmpaquetado("$" + totalEmpaquetado);
 
         totalIndividual += totalAdicionales + totalDecodificadores;
-        totalEmpaquetado += totalAdicionales + totalDecodificadores;
+
+        if(totalEmpaquetado != 0.0){
+            totalEmpaquetado += totalAdicionales + totalDecodificadores;
+        }
+
 
         System.out.println("TotalesCot suma ind " + totalIndividual);
         System.out.println("TotalesCot suma emp " + totalEmpaquetado);

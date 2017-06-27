@@ -342,4 +342,17 @@ public class UtilidadesTarificadorNew {
         return velocidad;
 
     }
+
+    public static String validarHomologadoHBOGO(String adicional){
+
+        ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
+                new String[]{"lst_valor"}, "lst_nombre = ? and lst_clave = ?", new String[]{"HomologadosHBOGO", adicional}, null,
+                null, null);
+
+        if(resultado != null){
+            adicional = resultado.get(0).get(0);
+        }
+
+        return adicional;
+    }
 }

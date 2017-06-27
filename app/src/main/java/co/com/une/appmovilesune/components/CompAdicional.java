@@ -147,7 +147,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
                 for (ArrayList<String> arrayList : respuesta) {
                     // adaptador.add(arrayList.get(0));
                     System.out.println("adicional name " + arrayList.get(0));
-                    if(arrayList.get(0).equalsIgnoreCase("HBO GO") || arrayList.get(0).equalsIgnoreCase("HBOGO")){
+                    if(UtilidadesTarificadorNew.validarHomologadoHBOGO(arrayList.get(0)).equalsIgnoreCase("HBO GO")){
                         if(UtilidadesTarificadorNew.validarVelocidadInternet(planBA,cliente) && !limpiar){
                             adaptador.add(arrayList.get(0));
                         }
@@ -387,7 +387,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
     public void limpiarAdicionalHBOGO(boolean limpiar) {
         for(ListaAdicionales adicional: adicionales){
             Log.d("HBOGO",adicional.getAdicional());
-            if(adicional.getAdicional().equalsIgnoreCase("HBOGO") || adicional.getAdicional().equalsIgnoreCase("HBO GO")){
+            if(UtilidadesTarificadorNew.validarHomologadoHBOGO(adicional.getAdicional()).equalsIgnoreCase("HBO GO")){
                 adicionales.remove(adicional);
             }
         }

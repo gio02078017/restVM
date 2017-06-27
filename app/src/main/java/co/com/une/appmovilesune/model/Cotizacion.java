@@ -50,6 +50,9 @@ public class Cotizacion implements Serializable {
     private String[][] adicionalesTo;
     private String adIndTo, adEmpTo, totalAdicionalesTo;
 
+    private String[][] adicionalesBa;
+    private String adIndBa, adEmpBa, totalAdicionalesBa;
+
     private String tipoBa;
     private String internet;
     private String baInd, baEmp;
@@ -134,6 +137,7 @@ public class Cotizacion implements Serializable {
         this.promoTv = "";
         this.adicionales = null;
         this.adicionalesTo = null;
+        this.adicionalesBa = null;
         this.adInd = "";
         this.adEmp = "";
         this.internet = "";
@@ -480,6 +484,12 @@ public class Cotizacion implements Serializable {
         this.adicionalesTo = adicionales;
         this.adIndTo = adInd;
         this.adEmpTo = adEmp;
+    }
+
+    public void AdicionalesBA(String[][] adicionales, String adInd, String adEmp) {
+        this.adicionalesBa = adicionales;
+        this.adIndBa = adInd;
+        this.adEmpBa = adEmp;
     }
 
     public void Internet(String tipoBa, String internet, String baInd, String baEmp, String baDInd, String baDEmp,
@@ -1113,6 +1123,38 @@ public class Cotizacion implements Serializable {
 
     public void setTotalAdicionalesTo(String totalAdicionalesTo) {
         this.totalAdicionalesTo = totalAdicionalesTo;
+    }
+
+    public String[][] getAdicionalesBa() {
+        return adicionalesBa;
+    }
+
+    public void setAdicionalesBa(String[][] adicionalesBa) {
+        this.adicionalesBa = adicionalesBa;
+    }
+
+    public String getAdIndBa() {
+        return adIndBa;
+    }
+
+    public void setAdIndBa(String adIndBa) {
+        this.adIndBa = adIndBa;
+    }
+
+    public String getAdEmpBa() {
+        return adEmpBa;
+    }
+
+    public void setAdEmpBa(String adEmpBa) {
+        this.adEmpBa = adEmpBa;
+    }
+
+    public String getTotalAdicionalesBa() {
+        return totalAdicionalesBa;
+    }
+
+    public void setTotalAdicionalesBa(String totalAdicionalesBa) {
+        this.totalAdicionalesBa = totalAdicionalesBa;
     }
 
     public boolean isPromoTo_12_100() {

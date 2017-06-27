@@ -1352,15 +1352,15 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         if (Utilidades.excluirNacional("descuestosIndividuales", cotizacion.getInternet()) && cotizacion.getContadorProductos().equalsIgnoreCase("1")) {
             if (Utilidades.excluir("cambiarPlan", Municipio)) {
-                rba.Internet(this, cotizacion.getTipoBa(), cotizacion.getInternet(), cotizacion.getBaInd(),
+                rba.Internet(this, this, cotizacion.getTipoBa(), cotizacion.getInternet(), cotizacion.getBaInd(),
                         cotizacion.getPromoBa(), cotizacion.getTiempoPromoBa(), "0",
                         cotizacion.getPlanFacturacionBa_I(), cotizacion.getEstrato(), cotizacion.baPlanAnt,
-                        cotizacion.baTecnologiacr, aplicarDescuentos);
+                        cotizacion.getAdicionalesBa(), cotizacion.getTotalAdicionalesBa(), cotizacion.baTecnologiacr, aplicarDescuentos);
             } else {
-                rba.Internet(this, cotizacion.getTipoBa(), cotizacion.getInternet(), cotizacion.getBaInd(),
+                rba.Internet(this, this, cotizacion.getTipoBa(), cotizacion.getInternet(), cotizacion.getBaInd(),
                         cotizacion.getPromoBa(), cotizacion.getTiempoPromoBa(), "0",
                         cotizacion.getPlanFacturacionBa_I(), cotizacion.getEstrato(), cotizacion.baPlanAnt,
-                        cotizacion.baTecnologiacr, aplicarDescuentos);
+                        cotizacion.getAdicionalesBa(), cotizacion.getTotalAdicionalesBa(), cotizacion.baTecnologiacr, aplicarDescuentos);
             }
 
             if (cotizacion.isControlGota()) {
@@ -1370,13 +1370,13 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 rba.setLblValorGota("" + cotizacion.getPrecioGota());
             }
         } else if (Utilidades.excluir("cambiarPlan", Municipio)) {
-            rba.Internet(this, cotizacion.getTipoBa(), cotizacion.getInternet(), cotizacion.getBaInd(), "Sin Promocion",
+            rba.Internet(this, this, cotizacion.getTipoBa(), cotizacion.getInternet(), cotizacion.getBaInd(), "Sin Promocion",
                     "N/A", "0", cotizacion.getPlanFacturacionBa_I(), cotizacion.getEstrato(), cotizacion.baPlanAnt,
-                    cotizacion.baTecnologiacr, aplicarDescuentos);
+                    cotizacion.getAdicionalesBa(), cotizacion.getTotalAdicionalesBa(), cotizacion.baTecnologiacr, aplicarDescuentos);
         } else {
-            rba.Internet(this, cotizacion.getTipoBa(), cotizacion.getInternet(), cotizacion.getBaInd(), "Sin Promocion",
+            rba.Internet(this, this, cotizacion.getTipoBa(), cotizacion.getInternet(), cotizacion.getBaInd(), "Sin Promocion",
                     "N/A", "0", cotizacion.getPlanFacturacionBa_I(), cotizacion.getEstrato(), cotizacion.baPlanAnt,
-                    cotizacion.baTecnologiacr, aplicarDescuentos);
+                    cotizacion.getAdicionalesBa(), cotizacion.getTotalAdicionalesBa(), cotizacion.baTecnologiacr, aplicarDescuentos);
         }
 
         if (venta != null) {
@@ -1489,19 +1489,19 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         }
 
         if (Utilidades.excluirNacional("quitarPromocion", cotizacion.getInternet())) {
-            rba.Internet(this, cotizacion.getTipoBa(), cotizacion.getInternet(), cotizacion.getBaEmp(), "Sin Promocion",
-                    "N/A", "0", "N/A", cotizacion.getEstrato(), cotizacion.baPlanAnt, cotizacion.baTecnologiacr,
-                    aplicarDescuentos);
+            rba.Internet(this, this, cotizacion.getTipoBa(), cotizacion.getInternet(), cotizacion.getBaEmp(), "Sin Promocion",
+                    "N/A", "0", "N/A", cotizacion.getEstrato(), cotizacion.baPlanAnt, cotizacion.getAdicionalesBa(), cotizacion.getTotalAdicionalesBa(),
+                    cotizacion.baTecnologiacr, aplicarDescuentos);
 
             if (cotizacion.isControlGota()) {
                 System.out.println("nombre Gota " + cotizacion.getNombreGota());
                 System.out.println("valor Gota " + cotizacion.getPrecioGota());
             }
         } else {
-            rba.Internet(this, cotizacion.getTipoBa(), cotizacion.getInternet(), cotizacion.getBaEmp(),
+            rba.Internet(this, this, cotizacion.getTipoBa(), cotizacion.getInternet(), cotizacion.getBaEmp(),
                     cotizacion.getPromoBa(), cotizacion.getTiempoPromoBa(), cotizacion.getBaDEmp(),
                     cotizacion.getPlanFacturacionBa_P(), cotizacion.getEstrato(), cotizacion.baPlanAnt,
-                    cotizacion.baTecnologiacr, aplicarDescuentos);
+                    cotizacion.getAdicionalesBa(), cotizacion.getTotalAdicionalesBa(), cotizacion.baTecnologiacr, aplicarDescuentos);
 
             if (cotizacion.isControlGota()) {
                 System.out.println("nombre Gota " + cotizacion.getNombreGota());
@@ -1745,26 +1745,27 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         venta.setListAdicionalesTo(listObjectAdicionalesTo.toString());
 
+        listObjectAdicionalesBa.clear();
         if (venta.isControlGota()) {
-            listObjectAdicionalesBa.clear();
             listObjectAdicionalesBa = arraylistAdicionalesBa(cotizacion.getNombreGota(),
                     "" + cotizacion.getPrecioGota(), "" + cotizacion.getPrecioGotaSinIva(),
                     cotizacion.getVelocidadInicial(), cotizacion.getVelocidadFinal());
-            JSONArray arrayadicionalesBa = new JSONArray();
-            if (listObjectAdicionalesBa.size() > 0) {
-                for (int i = 0; i < listObjectAdicionalesBa.size(); i++) {
-                    // System.out.println("lista
-                    // "+listObjectAdicionales.get(i));
-                    arrayadicionalesBa.put(listObjectAdicionalesBa.get(i));
-                }
-            }
 
-            venta.setListAdicionalesBa(arrayadicionalesBa.toString());
-
-        } else {
-            JSONArray arrayadicionalesBa = new JSONArray();
-            venta.setListAdicionalesBa(arrayadicionalesBa.toString());
         }
+
+        JSONArray arrayadicionalesBa = new JSONArray();
+
+
+
+        if (listObjectAdicionalesBa.size() > 0) {
+            for (int i = 0; i < listObjectAdicionalesBa.size(); i++) {
+                // System.out.println("lista
+                // "+listObjectAdicionales.get(i));
+                arrayadicionalesBa.put(listObjectAdicionalesBa.get(i));
+            }
+        }
+
+        venta.setListAdicionalesBa(arrayadicionalesBa.toString());
 
         listObjectAdicionales.clear();
         listObjectAdicionales = arraylistAdicionales();

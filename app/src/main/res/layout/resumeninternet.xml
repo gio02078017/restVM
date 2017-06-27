@@ -148,6 +148,48 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <ListView
+                android:id="@+id/lstAdicionalesInternet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="7" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="4">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Valor Adicionales" />
+
+                <TextView
+                    android:id="@+id/lblValorAdicionales"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="25dp"
+                    android:gravity="right"
+                    android:textColor="@color/purple"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:background="@color/white"
             android:padding="10dp">

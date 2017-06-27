@@ -4,16 +4,22 @@ import java.util.ArrayList;
 
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
+import co.com.une.appmovilesune.adapters.ListaAdicionales;
+import co.com.une.appmovilesune.adapters.ListaPrecios;
+import co.com.une.appmovilesune.adapters.ListaPreciosAdapter;
 import co.com.une.appmovilesune.change.Utilidades;
 
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -27,6 +33,9 @@ public class ResumenInternet extends LinearLayout {
 
     private TableRow trlTipoMigracion;
 
+    private ListView lstAdicionales;
+    private TextView lblValorAdicionales;
+
     private Context context;
 
     private boolean migracion, wifi;
@@ -34,6 +43,15 @@ public class ResumenInternet extends LinearLayout {
     private String planFacturacion;
 
     private String tecnologiacr;
+
+    String[][] adicionales;
+    String precioAdicionales;
+
+    private ArrayList<ListaAdicionales> adicionalesBa = new ArrayList<ListaAdicionales>();
+
+    ListaPreciosAdapter adaptador;
+
+    private Activity activity;
 
     TextView lblGota, lblValorGota, tituloValorDescuento;
 
@@ -58,6 +76,9 @@ public class ResumenInternet extends LinearLayout {
         lblGota = (TextView) findViewById(R.id.lblGota);
         lblValorGota = (TextView) findViewById(R.id.lblValorGota);
         tituloValorDescuento = (TextView) findViewById(R.id.tituloValorDescuento);
+
+        lstAdicionales = (ListView) findViewById(R.id.lstAdicionalesInternet);
+        lblValorAdicionales = (TextView) findViewById(R.id.lblValorAdicionales);
 
         trlTipoMigracion = (TableRow) findViewById(R.id.trlTipoMigracion);
 
@@ -233,11 +254,16 @@ public class ResumenInternet extends LinearLayout {
         lblValorGota.setText(valorGota);
     }
 
-    public void Internet(Context context, String tipo, String internet, String precio, String descuento,
+    public void Internet(Activity activity, Context context, String tipo, String internet, String precio, String descuento,
                          String Duracion, String precioDescuento, String planFacturacion, String estrato, String planAnt,
-                         String tecnologiacr, boolean aplicarDescuentos) {
+                         String[][] adicionales, String precioAdicionales, String tecnologiacr, boolean aplicarDescuentos) {
+
+        this.activity = activity;
         this.context = context;
         this.tecnologiacr = tecnologiacr;
+
+        this.adicionales = adicionales;
+        this.precioAdicionales = precioAdicionales;
 
         System.out.println("rtiInternet->tecnologiacr " + this.tecnologiacr);
         asignarPlan(internet);
@@ -301,6 +327,46 @@ public class ResumenInternet extends LinearLayout {
             sltTipoMigracion.setEnabled(false);
         }
 
+        ArrayAdicionales();
+
+        llenarAdicionales();
+
+    }
+
+    public void ArrayAdicionales() {
+        adicionalesBa.clear();
+        if (adicionales != null) {
+            for (int i = 0; i < adicionales.length; i++) {
+                adicionalesBa.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "", ""));
+            }
+        }
+    }
+
+    public void llenarAdicionales() {
+
+        imprimirAdicionales();
+
+        ArrayList<ListaPrecios> adicional = new ArrayList<ListaPrecios>();
+        // System.out.println("adicionales resumen tv => " + adicionales);
+        if (adicionalesBa.size() > 0) {
+            for (int i = 0; i < adicionalesBa.size(); i++) {
+                adicional.add(new ListaPrecios(adicionalesBa.get(i).getAdicional(), adicionalesBa.get(i).getPrecio()));
+            }
+        }
+
+        adaptador = new ListaPreciosAdapter(activity, adicional, context);
+        lstAdicionales.setAdapter(adaptador);
+        setListViewHeightBasedOnChildren(lstAdicionales);
+
+        lblValorAdicionales.setText(precioAdicionales);
+    }
+
+    public void imprimirAdicionales() {
+
+        for (int i = 0; i < adicionalesBa.size(); i++) {
+            System.out.println("adicionales ba impresion adicional " + adicionalesBa.get(i).getAdicional());
+            System.out.println("adicionales ba impresion precio " + adicionalesBa.get(i).getPrecio());
+        }
     }
 
     OnCheckedChangeListener cambioMigracion = new OnCheckedChangeListener() {
@@ -328,5 +394,28 @@ public class ResumenInternet extends LinearLayout {
             // System.out.println("linea Adicional => " + wifi);
         }
     };
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        // System.out.println("listView " + listView);
+        // System.out.println("listAdapter " + listAdapter);
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        int desiredWidth = MeasureSpec.makeMeasureSpec(listView.getWidth(), MeasureSpec.UNSPECIFIED);
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
 
 }

@@ -717,7 +717,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         String cadenaConexion = obtenerCadenaValorConexion();
         double valorConexion = obtenerValorConexion(cadenaConexion);
         double valorDescuentoComercial = valorConexion - totalPagoParcial;
-        cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal(), valorConexion, totalPagoParcial, valorDescuentoComercial, totalPagoAnticipado);
+        cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal(), cadcInternet.calcularTotal(), valorConexion, totalPagoParcial, valorDescuentoComercial, totalPagoAnticipado);
 
     }
 
@@ -1335,6 +1335,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             String tipoCotizacion = Utilidades.planNumerico(productoCotizador.getTipoPeticion());
             cotizacion.setTipoCotizacionBa(tipoCotizacion);
 
+            cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+            cotizacion.setTotalAdicionalesBa(String.valueOf(cadcInternet.calcularTotal()));
+
             if (cotizacionCliente.getGotaba().isControlGota()) {
 
                 String nombreGota = "Gota de " + cotizacionCliente.getGotaba().getVelocidadInicial() + " a " + cotizacionCliente.getGotaba().getVelocidadFinal();
@@ -1350,6 +1353,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             System.out.println("llenado Ba limpiar");
             cotizacion.Internet(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), String.valueOf(productoCotizador.getCargoBasicoInd()),
                     String.valueOf(productoCotizador.getCargoBasicoEmp()));
+
+            cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+            cotizacion.setTotalAdicionalesBa(String.valueOf(cadcInternet.calcularTotal()));
         }
         //contProductos++;
 
