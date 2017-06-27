@@ -909,6 +909,7 @@ public class Configuracion implements Serializable {
                         cv.put("Codigo_Amc", jo.getString("Codigo_Amc"));
                         cv.put("Identificador", jo.getString("Identificador"));
                         cv.put("CodigoDaneMunicipio", jo.getString("codigoDaneMunicipio"));
+						cv.put("CodigoDaneDepartamento", jo.getString("codigoDaneDepartamento"));
                         cv.put("Estado", jo.getString("Estado"));
                         cv.put("visible", jo.getString("visible"));
 

@@ -69,6 +69,10 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
         if (accion.equals("Portafolio")) {
             parametros = (ArrayList<String>) params[0].get(3);
             resultados.add(consultarPortafolio(tipo, parametros));
+        }else if (accion.equals("PortafolioElite")) {
+            parametros = (ArrayList<String>) params[0].get(2);
+            String salida = params[0].get(3).toString();
+            resultados.add(consultarPortafolioElite(parametros,salida));
         } else if (accion.equals("ConsolidarSiebel")) {
             parametros = (ArrayList<String>) params[0].get(3);
             String salida = params[0].get(4).toString();
@@ -229,6 +233,19 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
         }
 
         if (result.get(0).equals("Portafolio")) {
+            MainActivity.btnPortafolio.setInvisible();
+            System.out.println("Simulador 88 => " + result.get(1));
+            if (result.get(1).equals("0") || result.get(1).equals("-1") || result.get(1).equals("Respuesta Vacia")
+                    || result.get(1).equals("Ha superado el limite de consultas por dia")
+                    || result.get(1).equals("Consulta Hecha fuera del horario establecido")) {
+                MainActivity.btnPortafolio.setWRONG();
+                resultado = result;
+            } else {
+                MainActivity.btnPortafolio.setOK();
+                resultado = result;
+            }
+            notifyObserver();
+        }else if (result.get(0).equals("PortafolioElite")) {
             MainActivity.btnPortafolio.setInvisible();
             System.out.println("Simulador 88 => " + result.get(1));
             if (result.get(1).equals("0") || result.get(1).equals("-1") || result.get(1).equals("Respuesta Vacia")
@@ -644,6 +661,19 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
         }
         param.add(new String[]{"Salida", salida});
         return MainActivity.conexion.ejecutarSoap("ConsolidadoSiebel", param);
+    }
+
+    public String consultarPortafolioElite(ArrayList<String> parametros, String tipoConsulta) {
+        JSONArray datos = new JSONArray(parametros);
+        System.out.println(" datos " + datos);
+        ArrayList<String[]> param = new ArrayList<String[]>();
+        try {
+            param.add(new String[]{"Parametros", datos.get(0).toString()});
+        } catch (JSONException e) {
+            Log.w("error", e.getMessage());
+        }
+        param.add(new String[]{"tipoConsulta", tipoConsulta});
+        return MainActivity.conexion.ejecutarSoap("portafolioElite", param);
     }
 
     public String consultarCobertura(String tipo, ArrayList<String> parametros) {

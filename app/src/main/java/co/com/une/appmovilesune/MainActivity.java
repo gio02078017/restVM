@@ -711,6 +711,7 @@ public class MainActivity extends Activity implements Observer {
                 if (modulo.equals(MODULO_CLIENTE)) {
                     asesoria.cliente = (Cliente) data.getSerializableExtra("Cliente");
                     System.out.println("asesoria.cliente.getPortafolio() " + asesoria.cliente.getPortafolio());
+                    System.out.println("asesoria.cliente.getPortafolioElite() " + asesoria.cliente.getPortafolioElite());
                 } else if (modulo.equals(MODULO_COMPETENCIA)) {
                     asesoria.competencia = (Competencia) data.getSerializableExtra("competencia");
                     asesoria.cliente = (Cliente) data.getSerializableExtra("cliente");
