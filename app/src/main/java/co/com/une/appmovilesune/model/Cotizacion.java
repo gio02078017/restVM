@@ -107,6 +107,7 @@ public class Cotizacion implements Serializable {
     private boolean cambiarCotizacion = false;
 
     private ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionales;
+    private ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionalesInternet;
 
     private ArrayList<ItemDecodificador> itemDecodificadores;
 
@@ -955,6 +956,14 @@ public class Cotizacion implements Serializable {
 
     public void setItemPromocionesAdicionales(ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionales) {
         this.itemPromocionesAdicionales = itemPromocionesAdicionales;
+    }
+
+    public ArrayList<ItemPromocionesAdicionales> getItemPromocionesAdicionalesInternet() {
+        return itemPromocionesAdicionalesInternet;
+    }
+
+    public void setItemPromocionesAdicionalesInternet(ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionalesInternet) {
+        this.itemPromocionesAdicionalesInternet = itemPromocionesAdicionalesInternet;
     }
 
     public ArrayList<ItemDecodificador> getItemDecodificadores() {

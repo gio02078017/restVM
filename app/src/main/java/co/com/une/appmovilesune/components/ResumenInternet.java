@@ -418,4 +418,37 @@ public class ResumenInternet extends LinearLayout {
         listView.requestLayout();
     }
 
+    public String[][] getAdicionales() {
+        return adicionales;
+    }
+
+    public String getAdicionalesCadena() {
+        String adicionalesCadena = "";
+        for (int i = 0; i < adicionales.length; i++) {
+            adicionalesCadena += adicionales[i][0] + ",";
+        }
+
+        return adicionalesCadena;
+    }
+
+    public String getPreciosAdicionalesCadena() {
+        String preciosAdicionalesCadena = "";
+        for (int i = 0; i < adicionales.length; i++) {
+            preciosAdicionalesCadena += adicionales[i][1] + ",";
+        }
+        return preciosAdicionalesCadena;
+    }
+
+    public void setAdicionales(String[][] adicionales) {
+        this.adicionales = adicionales;
+    }
+
+    public String getPrecioAdicionales() {
+        return precioAdicionales;
+    }
+
+    public void setPrecioAdicionales(String precioAdicionales) {
+        this.precioAdicionales = precioAdicionales;
+    }
+
 }

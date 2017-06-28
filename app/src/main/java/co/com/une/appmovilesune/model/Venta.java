@@ -1,17 +1,14 @@
 package co.com.une.appmovilesune.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
+import android.content.ContentValues;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.JsonArray;
-
-import android.content.ContentValues;
-import android.content.pm.FeatureInfo;
-import android.util.Log;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.adapters.ItemDecodificador;
@@ -31,7 +28,7 @@ public class Venta implements Serializable {
 
     private String[] telefonia = new String[19];
     private String[] television = new String[19];
-    private String[] internet = new String[15];
+    private String[] internet = new String[18];
     private String[] internet3g = new String[12];
     private String[] internet4g = new String[5];
     private String[] gota = new String[4];
@@ -145,7 +142,8 @@ public class Venta implements Serializable {
 
     public void setInternet(String plan, String precio, String wifi, String migracion, String tipoMigracion,
                             String promocion, String duracion, String precioDescuento, String planFacturacion, String tipoCotizacion,
-                            String identificador, String baTecnologiacr, String ipDinamica, String PagoAntCargoFijo, String PagoParcialConexion) {
+                            String identificador, String baTecnologiacr, String ipDinamica, String PagoAntCargoFijo, String PagoParcialConexion,
+                            String Adicionales, String precioAdicionalesIndividuales, String precioAdicionales) {
         this.internet[0] = plan;
         this.internet[1] = precio;
         this.internet[2] = wifi;
@@ -161,6 +159,9 @@ public class Venta implements Serializable {
         this.internet[12] = ipDinamica;
         this.internet[13] = PagoAntCargoFijo;
         this.internet[14] = PagoParcialConexion;
+        this.internet[15] = Adicionales;
+        this.internet[16] = precioAdicionalesIndividuales;
+        this.internet[17] = precioAdicionales;
 
         System.out.println("this.internet[11] " + this.internet[11]);
     }

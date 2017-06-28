@@ -132,6 +132,8 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
     TabHost tabs;
 
     ArrayList<ItemPromocionesAdicionales> promocionesAdicionales = new ArrayList<ItemPromocionesAdicionales>();
+    ArrayList<ItemPromocionesAdicionales> promocionesAdicionalesInternet = new ArrayList<ItemPromocionesAdicionales>();
+
 
     ArrayList<ListaAdicionales> listaAdicionalesTo = new ArrayList<ListaAdicionales>();
     ArrayList<ListaAdicionales> listaAdicionales = new ArrayList<ListaAdicionales>();
@@ -681,6 +683,73 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        return arraylistAdicionales;
+
+    }
+
+    public ArrayList<JSONObject> arraylistAdicionalesBa() {
+        ArrayList<JSONObject> arraylistAdicionales = new ArrayList<JSONObject>();
+
+        promocionesAdicionalesInternet = cotizacion.getItemPromocionesAdicionalesInternet();
+
+        listaAdicionales.clear();
+        String[][] adicionales = cotizacion.getAdicionalesBa();
+
+        for (int i = 0; i < adicionales.length; i++){
+
+            String descuento = "-";
+            String duracion = "0 Meses";
+
+            if (promocionesAdicionalesInternet.size() > 0) {
+                for (int j = 0; j < promocionesAdicionalesInternet.size(); j++) {
+
+                    System.out.println("promocionesAdicionalesInternet.get(j) " + promocionesAdicionalesInternet.get(j));
+                    System.out.println("promocionesAdicionalesInternet.get(j) " + promocionesAdicionalesInternet.get(j).getAdicional());
+                    if (promocionesAdicionalesInternet.get(j).getAdicional().equalsIgnoreCase(adicionales[i][0])) {
+
+                        descuento = promocionesAdicionalesInternet.get(j).getDescuento() + "%";
+                        duracion = promocionesAdicionalesInternet.get(j).getMeses();
+                    }
+                }
+
+                if (descuento.equalsIgnoreCase("0") || descuento.equalsIgnoreCase("0%")) {
+                    descuento = "-";
+                }
+
+                System.out.println("adicionales[i][0] " + adicionales[i][0]);
+                System.out.println("descuento " + descuento);
+                System.out.println("duracion " + duracion);
+
+                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], descuento, duracion));
+
+            } else {
+                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses"));
+            }
+        }
+
+        for (int i = 0; i < listaAdicionales.size(); i++) {
+
+            JSONObject adicional = new JSONObject();
+            try {
+                adicional.put("tipo", "ADBA");
+                adicional.put("producto", listaAdicionales.get(i).getAdicional());
+                adicional.put("precio", listaAdicionales.get(i).getPrecio());
+                adicional.put("descuento", listaAdicionales.get(i).getDescuento());
+                adicional.put("duracion", listaAdicionales.get(i).getDuracion());
+                adicional.put("permanencia", "0");
+
+                System.out.println("listaAdicionales.get(i).getDuracion() " + listaAdicionales.get(i).getDescuento());
+                System.out.println("listaAdicionales.get(i).getDuracion() " + listaAdicionales.get(i).getDuracion());
+
+                adicional.put("demo", demosAd(listaAdicionalesTo.get(i).getAdicional()));
+                arraylistAdicionales.add(adicional);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("adba "+arraylistAdicionales.toString());
 
         return arraylistAdicionales;
 
@@ -1653,7 +1722,8 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         venta.setInternet(rba.getPlan(), rba.getValor(), rba.getWifi(), rba.getMigracion(), rba.getTipoMigracion(),
                 rba.getDescuento(), rba.getDuracion(), rba.getValorDescuento(), rba.getPlanFacturacion(),
                 cotizacion.getTipoCotizacionBa(), cotizacion.baIdent, rba.getTecnologiacr(),
-                cotizacion.getIpdinamica(), cotizacion.getBaPagoAntCargoFijo(), cotizacion.getBaPagoParcialConexion());
+                cotizacion.getIpdinamica(), cotizacion.getBaPagoAntCargoFijo(), cotizacion.getBaPagoParcialConexion(),
+                rba.getAdicionalesCadena(), rba.getPreciosAdicionalesCadena(), rba.getPrecioAdicionales());
 
         // venta.setDocumentacion(datosPersonales, mensajes, mail,
         // contrato,factura, tipoContracto, telemercadeo);
@@ -1753,10 +1823,10 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         }
 
+        listObjectAdicionalesBa.addAll(arraylistAdicionalesBa());
+
+
         JSONArray arrayadicionalesBa = new JSONArray();
-
-
-
         if (listObjectAdicionalesBa.size() > 0) {
             for (int i = 0; i < listObjectAdicionalesBa.size(); i++) {
                 // System.out.println("lista

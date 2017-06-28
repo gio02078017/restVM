@@ -1358,6 +1358,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             cotizacion.setTotalAdicionalesBa(String.valueOf(cadcInternet.calcularTotal()));
         }
         //contProductos++;
+        cotizacion.setItemPromocionesAdicionalesInternet(itemPromocionesAdicionalesInternet);
 
     }
 
