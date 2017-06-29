@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -148,8 +149,12 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
                     // adaptador.add(arrayList.get(0));
                     System.out.println("adicional name " + arrayList.get(0));
                     if(UtilidadesTarificadorNew.validarHomologadoHBOGO(arrayList.get(0)).equalsIgnoreCase("HBO GO")){
-                        if(UtilidadesTarificadorNew.validarVelocidadInternet(planBA,cliente) && !limpiar){
-                            adaptador.add(arrayList.get(0));
+                        if(!UtilidadesTarificadorNew.televisionExistentePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula())){
+                            if(UtilidadesTarificadorNew.validarVelocidadInternet(planBA,cliente) && !limpiar){
+                                adaptador.add(arrayList.get(0));
+                            }
+                        } else {
+                            Toast.makeText(getContext(),getResources().getString(R.string.mensajehbogotvexistente),Toast.LENGTH_LONG).show();
                         }
                     } else {
                         adaptador.add(arrayList.get(0));

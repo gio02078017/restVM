@@ -355,4 +355,48 @@ public class UtilidadesTarificadorNew {
 
         return adicional;
     }
+
+    public static boolean televisionExistentePortafolioElite(String portafolio, String documento) {
+        boolean televisionExistente = false;
+
+        try {
+            JSONObject datosPortafolio = new JSONObject(portafolio);
+            JSONArray productosInstalados = datosPortafolio.getJSONArray("ListaDatosIdentificador");
+
+            for (int i = 0; i < productosInstalados.length(); i++){
+                JSONObject producto = productosInstalados.getJSONObject(i);
+                if(producto.getString("Producto").equalsIgnoreCase("TELEV") && producto.getString("clienteId").equalsIgnoreCase(documento)){
+                    televisionExistente = true;
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return televisionExistente;
+    }
+
+    public static boolean validarHBOGOPortafolioElite(String portafolio, String documento){
+
+        boolean hboGoExistente = false;
+
+        try {
+            JSONObject datosPortafolio = new JSONObject(portafolio);
+            JSONArray productosInstalados = datosPortafolio.getJSONArray("ListaDatosIdentificador");
+
+            for (int i = 0; i < productosInstalados.length(); i++){
+                JSONObject producto = productosInstalados.getJSONObject(i);
+                if(producto.getString("Adicionales").contains("HBO GO") && producto.getString("clienteId").equalsIgnoreCase(documento)){
+                    hboGoExistente = true;
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return hboGoExistente;
+
+    }
 }

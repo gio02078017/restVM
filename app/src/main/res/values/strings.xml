@@ -485,4 +485,6 @@
     <string name="mensajedebitoautomaticoexistente">No se pudo obtener la información de débito automático existente</string>
     <string name="mensajedebitoautomaticodebito">Ya posee débito automático</string>
     <string name="mensajedebitoautomaticredito">Ya posee Domiciliación</string>
+
+    <string name="mensajehbogotvexistente">Cliente con TV Existente. Si el cliente desea el paquete HBO y tiene el servicio de televisión no puede vender el HBO GO, debe adicionar el paquete de canales HBO Max sobre la televisión.</string>
 </resources>
