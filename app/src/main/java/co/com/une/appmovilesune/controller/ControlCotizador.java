@@ -261,9 +261,13 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 data.put("medio", "Siebel");
                 if (cliente.getIdDireccionGis() != null && !cliente.getIdDireccionGis().equalsIgnoreCase("")) {
                     data.put("IdDireccionGis", cliente.getIdDireccionGis());
+                    data.put("strDepartamento", cliente.getDepartamento());
+                    data.put("strMunicipio", Utilidades.homologarMunicipio(cliente.getCiudad()));
                 } else if (cliente.getIdDireccionGisEx() != null
                         && !cliente.getIdDireccionGisEx().equalsIgnoreCase("")) {
                     data.put("IdDireccionGis", cliente.getIdDireccionGisEx());
+                    data.put("strDepartamento", cliente.getIdDireccionGis());
+                    data.put("strMunicipio", Utilidades.homologarMunicipio(cliente.getCiudad()));
                 } else {
                     consultar = false;
                 }

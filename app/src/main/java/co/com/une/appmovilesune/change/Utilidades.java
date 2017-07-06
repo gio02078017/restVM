@@ -3771,4 +3771,14 @@ public class Utilidades {
         return validacion;
     }
 
+    public static String homologarMunicipio (String ciudad){
+
+        if (ciudad.equalsIgnoreCase("BogotaREDCO")
+                || ciudad.equalsIgnoreCase("BogotaHFC")) {
+            ciudad = "Bogota";
+        }
+
+        return ciudad;
+    }
+
 }
