@@ -1908,7 +1908,14 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
                         }
                     }
 
-                    cliente.setDireccion(cli.getString("Direccion"));
+                    if (cli.has("Direccion")) {
+                        if (!cli.getString("Direccion").equalsIgnoreCase("")
+                                && !cli.getString("Direccion").equalsIgnoreCase("null")
+                                && !cli.getString("Direccion").equalsIgnoreCase("0")) {
+                            cliente.setDireccion(cli.getString("Direccion"));
+                        }
+                    }
+
                     if (cli.has("Cliente_id")) {
                         txtDocumento.setText(cli.getString("Cliente_id"));
                     }
