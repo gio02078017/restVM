@@ -1977,9 +1977,12 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
                         if (consolidado.has("ListaResulInfraVent")) {
                             JSONObject infraestructura = consolidado.getJSONObject("ListaResulInfraVent");
                             if (infraestructura.has("paginaNlectura")) {
-                                JSONObject nlectura = infraestructura.getJSONObject("paginaNlectura");
-                                if (nlectura.has("PaginaInstalacion")) {
-                                    txtPaginacion.setText(nlectura.getString("PaginaInstalacion"));
+                                System.out.println("infraestructura.get(\"paginaNlectura\").getClass().getSimpleName() "+infraestructura.get("paginaNlectura").getClass().getSimpleName());
+                                if(infraestructura.get("paginaNlectura").getClass().getSimpleName().equals("JSONObject")){
+                                    JSONObject nlectura = infraestructura.getJSONObject("paginaNlectura");
+                                    if (nlectura.has("PaginaInstalacion")) {
+                                        txtPaginacion.setText(nlectura.getString("PaginaInstalacion"));
+                                    }
                                 }
                             }
                         }

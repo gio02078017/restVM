@@ -1066,12 +1066,18 @@ public class Validaciones {
 				reg.add(false);
 				ja.put(Utilidades.jsonMensajes("Documento", "Sin Diligenciar"));
 			}
+
+			System.out.println("cliente.getDireccion() "+cliente.getDireccion());
+
 			if (!cliente.getDireccion().equals("")) {
 				reg.add(true);
 			} else {
 				reg.add(false);
 				ja.put(Utilidades.jsonMensajes("Dirección", "Sin Diligenciar"));
 			}
+
+			System.out.println("cliente.getIdDireccionGis() "+cliente.getIdDireccionGis());
+
 			if (cliente.getIdDireccionGis() != null && !cliente.getIdDireccionGis().equals("")) {
 				reg.add(true);
 			} else {

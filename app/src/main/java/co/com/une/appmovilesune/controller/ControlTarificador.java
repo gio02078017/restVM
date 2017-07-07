@@ -2752,6 +2752,7 @@ public class ControlTarificador extends Activity implements Subject, Observer {
         // System.out.println("planTO " + planTO);
 
         System.out.println("cliente.isCoberRural() " + Utilidades.CoberturaRural(cliente));
+        System.out.println("estandarizarDireccion validarPortafolio "+Utilidades.visible("estandarizarDireccion", cliente.getCiudad()));
 
         if (planTO.equalsIgnoreCase("N") && !Resumen.get(0).getDato().equalsIgnoreCase(Utilidades.inicial_guion)) {
             if (Utilidades.visible("portafolioATC", cliente.getCiudad())
@@ -2798,6 +2799,8 @@ public class ControlTarificador extends Activity implements Subject, Observer {
                         .show();
             }
         }
+
+        System.out.println("validarEstandarizacion validarPortafolio "+validarEstandarizacion);
     }
 
     public boolean validarAgendaSiebel() {

@@ -1990,6 +1990,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     public boolean validarAgendaSiebel() {
         boolean agenda = true;
+        System.out.println("cliente.getEstandarizarSiebel()  "+cliente.getEstandarizarSiebel() );
+
         if (Utilidades.excluir("siebelMunicipios", cliente.getCiudad())) {
             if (cliente.getEstandarizarSiebel() == 1) {
                 if (Utilidades.excluir("agendaSantander", cliente.getCiudad())) {
@@ -2003,7 +2005,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 if (!Validaciones.validarAgendaSiebel(cliente)) {
                     agenda = false;
                 } else {
-                    agenda = false;
+                    agenda = true;
                 }
             }
         }
