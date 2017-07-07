@@ -52,6 +52,7 @@ import co.com.une.appmovilesune.change.Interprete;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesDecos;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
+import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
 import co.com.une.appmovilesune.complements.Conexion;
 import co.com.une.appmovilesune.complements.Dialogo;
 import co.com.une.appmovilesune.complements.Validaciones;
@@ -678,6 +679,8 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             adicional.put("duracion", "0 Meses");
             adicional.put("permanencia", "0");
             adicional.put("demo", "0");
+            adicional.put("tiposolicitud","Nuevo");
+
 
             arraylistAdicionales.add(adicional);
         } catch (JSONException e) {
@@ -743,6 +746,21 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 System.out.println("listaAdicionales.get(i).getDuracion() " + listaAdicionales.get(i).getDuracion());
 
                 adicional.put("demo", demosAd(listaAdicionalesTo.get(i).getAdicional()));
+
+                if(listaAdicionales.get(i).getAdicional().equalsIgnoreCase("HBO GO")){
+                    Log.d("cotizacion TV ",cotizacion.getTelevision());
+                    if(!cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial)){
+                        if(UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(), cliente.getCedula())){
+                            adicional.put("tiposolicitud","Eliminar");
+                        }
+                    } else {
+                        adicional.put("tiposolicitud","Nuevo");
+                    }
+
+                } else {
+                    adicional.put("tiposolicitud","Nuevo");
+                }
+
                 arraylistAdicionales.add(adicional);
             } catch (JSONException e) {
                 e.printStackTrace();
