@@ -218,12 +218,16 @@ public class UtilidadesTarificadorNew {
                 }
             }
         } else if (Utilidades.visible("estandarizarDireccion", cliente.getCiudad())) {
+            System.out.println("cliente.isControlNormalizada() "+cliente.isControlNormalizada());
+            System.out.println("Utilidades.CoberturaRural(cliente) "+Utilidades.CoberturaRural(cliente));
             if (!cliente.isControlNormalizada() && !Utilidades.CoberturaRural(cliente)) {
                 validarEstandarizacion = false;
                 Toast.makeText(contex, contex.getResources().getString(R.string.normailizardireccion), Toast.LENGTH_SHORT)
                         .show();
             }
         }
+
+        System.out.println("validarEstandarizacion "+validarEstandarizacion);
 
         return validarEstandarizacion;
 
