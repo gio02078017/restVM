@@ -64,6 +64,8 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     private String planBA = "";
 
+    private boolean HBOGOExistente = false;
+
     public CompAdicional(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.compadicional);
@@ -151,6 +153,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
                     if(UtilidadesTarificadorNew.validarHomologadoHBOGO(arrayList.get(0)).equalsIgnoreCase("HBO GO")){
                         if(!UtilidadesTarificadorNew.televisionExistentePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula()) &&
                                 !UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(),cliente.getCedula())){
+                            HBOGOExistente = false;
                             if(UtilidadesTarificadorNew.validarVelocidadInternet(planBA,cliente) && !limpiar){
                                 adaptador.add(arrayList.get(0));
                             }
@@ -159,7 +162,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
                                 Toast.makeText(getContext(),getResources().getString(R.string.mensajehbogotvexistente),Toast.LENGTH_LONG).show();
                             } else if(UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(),cliente.getCedula())){
                                 Toast.makeText(getContext(),getResources().getString(R.string.mensajehbogoexistente),Toast.LENGTH_LONG).show();
-                                //consultarAdicional("HBO GO",tipo);
+                                HBOGOExistente = true;
                             }
                         }
                     } else {
@@ -311,6 +314,25 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     }
 
+    public String[][] arrayAdicionalesHBOGO() {
+        int contAdicionales = adicionales.size();
+
+        String[][] arrayAd = new String[contAdicionales+1][2];
+
+        for (int i = 0; i < adicionales.size(); i++) {
+            arrayAd[i][0] = adicionales.get(i).getAdicional();
+            arrayAd[i][1] = adicionales.get(i).getPrecio();
+        }
+
+        arrayAd[contAdicionales][0] = "HBO GO";
+        arrayAd[contAdicionales][1] = "0";
+
+
+
+        return arrayAd;
+
+    }
+
     public ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionales() {
 
         ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionales = new ArrayList<ItemPromocionesAdicionales>();
@@ -352,6 +374,14 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public boolean isHBOGOExistente() {
+        return HBOGOExistente;
+    }
+
+    public void setHBOGOExistente(boolean HBOGOExistente) {
+        this.HBOGOExistente = HBOGOExistente;
     }
 
     AdapterView.OnItemSelectedListener seleccionarAdicional = new AdapterView.OnItemSelectedListener() {

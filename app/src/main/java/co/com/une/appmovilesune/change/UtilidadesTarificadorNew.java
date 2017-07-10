@@ -360,15 +360,21 @@ public class UtilidadesTarificadorNew {
         boolean televisionExistente = false;
 
         try {
-            JSONObject datosPortafolio = new JSONObject(portafolio);
-            JSONArray productosInstalados = datosPortafolio.getJSONArray("ListaDatosIdentificador");
 
-            for (int i = 0; i < productosInstalados.length(); i++){
-                JSONObject producto = productosInstalados.getJSONObject(i);
-                if(producto.getString("Producto").equalsIgnoreCase("TELEV") && producto.getString("clienteId").equalsIgnoreCase(documento)){
-                    televisionExistente = true;
+            if(portafolio != null){
+                JSONObject datosPortafolio = new JSONObject(portafolio);
+                JSONArray productosInstalados = datosPortafolio.getJSONArray("ListaDatosIdentificador");
+
+                if(productosInstalados != null){
+                    for (int i = 0; i < productosInstalados.length(); i++){
+                        JSONObject producto = productosInstalados.getJSONObject(i);
+                        if(producto.getString("Producto").equalsIgnoreCase("TELEV") && producto.getString("clienteId").equalsIgnoreCase(documento)){
+                            televisionExistente = true;
+                        }
+                    }
                 }
             }
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -382,13 +388,18 @@ public class UtilidadesTarificadorNew {
         boolean hboGoExistente = false;
 
         try {
-            JSONObject datosPortafolio = new JSONObject(portafolio);
-            JSONArray productosInstalados = datosPortafolio.getJSONArray("ListaDatosIdentificador");
 
-            for (int i = 0; i < productosInstalados.length(); i++){
-                JSONObject producto = productosInstalados.getJSONObject(i);
-                if(producto.getString("Adicionales").contains("HBO GO") && producto.getString("clienteId").equalsIgnoreCase(documento)){
-                    hboGoExistente = true;
+            if(portafolio != null){
+                JSONObject datosPortafolio = new JSONObject(portafolio);
+                JSONArray productosInstalados = datosPortafolio.getJSONArray("ListaDatosIdentificador");
+
+                if(productosInstalados != null){
+                    for (int i = 0; i < productosInstalados.length(); i++){
+                        JSONObject producto = productosInstalados.getJSONObject(i);
+                        if(producto.getString("Adicionales").contains("HBO GO") && producto.getString("clienteId").equalsIgnoreCase(documento)){
+                            hboGoExistente = true;
+                        }
+                    }
                 }
             }
 

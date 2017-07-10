@@ -888,7 +888,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                 llenarcotizacionTelevision(cotizacionCliente.getProductoCotizador().get(i), tv, cotizacionCliente.getContadorProductos(), trioNuevo);
                                 break;
                             case 2:
-                                llenarcotizacionInternet(cotizacionCliente.getProductoCotizador().get(i), cotizacionCliente, ba, cotizacionCliente.getContadorProductos(), trioNuevo);
+                                llenarcotizacionInternet(cotizacionCliente.getProductoCotizador().get(i), cotizacionCliente, ba, cotizacionCliente.getContadorProductos(), trioNuevo, cadcInternet.isHBOGOExistente());
                                 break;
                         }
                     }
@@ -1314,13 +1314,16 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     }
 
-    public void llenarcotizacionInternet(ProductoCotizador productoCotizador, CotizacionCliente cotizacionCliente, String ba, int contadorProd, boolean trioNuevo) {
+    public void llenarcotizacionInternet(ProductoCotizador productoCotizador, CotizacionCliente cotizacionCliente, String ba, int contadorProd, boolean trioNuevo, boolean HBOGOExistente) {
 
         String descuentoCadena = Utilidades.limpiarDecimales(String.valueOf(productoCotizador.getDescuentoCargobasico()));
 
         ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(descuentoCadena, String.valueOf(productoCotizador.getDuracionDescuento()));
 
         System.out.println("llenarcotizacion Internet" + productoCotizador.getPlan());
+
+
+
         if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
             // System.out.println("descuentoTo " + descuentoTo);
             cotizacion.Internet(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), "" + productoCotizador.getCargoBasicoInd(),
@@ -1335,7 +1338,16 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             String tipoCotizacion = Utilidades.planNumerico(productoCotizador.getTipoPeticion());
             cotizacion.setTipoCotizacionBa(tipoCotizacion);
 
-            cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+            if(HBOGOExistente){
+                if(!cprdTelevision.getPlan().equalsIgnoreCase(Utilidades.inicial)){
+                    cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO());
+                }else {
+                    cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+                }
+
+            } else {
+                cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+            }
             cotizacion.setTotalAdicionalesBa(String.valueOf(cadcInternet.calcularTotal()));
 
             if (cotizacionCliente.getGotaba().isControlGota()) {
@@ -1351,10 +1363,27 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             }
         } else {
             System.out.println("llenado Ba limpiar");
-            cotizacion.Internet(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), String.valueOf(productoCotizador.getCargoBasicoInd()),
-                    String.valueOf(productoCotizador.getCargoBasicoEmp()));
+            if(HBOGOExistente){
 
-            cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+                String tipoCotizacion = Utilidades.planNumerico("E");
+                cotizacion.setTipoCotizacionBa(tipoCotizacion);
+
+                cotizacion.setPlanFacturacionBa_I("");
+                cotizacion.setPlanFacturacionBa_P("");
+
+                cotizacion.Internet("E", "Internet Existente", "0",
+                        "0");
+
+                cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO());
+            } else {
+                cotizacion.Internet(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), String.valueOf(productoCotizador.getCargoBasicoInd()),
+                        String.valueOf(productoCotizador.getCargoBasicoEmp()));
+
+                cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+            }
+
+
+
             cotizacion.setTotalAdicionalesBa(String.valueOf(cadcInternet.calcularTotal()));
         }
         //contProductos++;
