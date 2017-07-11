@@ -66,6 +66,8 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     private boolean HBOGOExistente = false;
 
+    private boolean limpiar = false;
+
     public CompAdicional(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.compadicional);
@@ -137,6 +139,8 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
         System.out.println("plan ba"+plan);
         planBA = plan;
+
+        this.limpiar = limpiar;
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "Adicionales",
                 new String[]{"adicional"}, "departamento=? and tipoProducto=? and estrato like ? and tecnologia like ?",
@@ -404,7 +408,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         } else if (tipo == TELEFONIA) {
             cargarAdicionalesTo(plan);
         } else if(tipo == INTERNET){
-            cargarAdicionalesBa(plan, false);
+            cargarAdicionalesBa(plan, limpiar);
         }
     }
 
