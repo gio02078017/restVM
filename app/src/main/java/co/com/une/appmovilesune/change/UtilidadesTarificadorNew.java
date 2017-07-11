@@ -383,7 +383,7 @@ public class UtilidadesTarificadorNew {
         return televisionExistente;
     }
 
-    public static boolean validarHBOGOPortafolioElite(String portafolio, String documento){
+    public static boolean validarHBOGOPortafolioElite(String portafolio, String documento, String tipoOferta){
 
         boolean hboGoExistente = false;
 
@@ -396,7 +396,7 @@ public class UtilidadesTarificadorNew {
                 if(productosInstalados != null){
                     for (int i = 0; i < productosInstalados.length(); i++){
                         JSONObject producto = productosInstalados.getJSONObject(i);
-                        if(producto.getString("Adicionales").contains("HBO GO") && producto.getString("clienteId").equalsIgnoreCase(documento)){
+                        if(producto.getString("Adicionales").contains("HBO GO") && (producto.getString("clienteId").equalsIgnoreCase(documento) || (tipoOferta.equalsIgnoreCase("DUO") || tipoOferta.equalsIgnoreCase("TRIO")))){
                             hboGoExistente = true;
                         }
                     }

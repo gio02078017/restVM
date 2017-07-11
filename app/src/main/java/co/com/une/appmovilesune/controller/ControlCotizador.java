@@ -385,6 +385,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cprdTelevision.cargarPlanes(cliente, Integer.parseInt((String) spnestrato.getSelectedItem()), (String) spnoferta.getSelectedItem());
         cprdInternet.cargarPlanes(cliente, Integer.parseInt((String) spnestrato.getSelectedItem()), (String) spnoferta.getSelectedItem());
         cprdTelefonia.cargarPlanes(cliente, Integer.parseInt((String) spnestrato.getSelectedItem()), (String) spnoferta.getSelectedItem());
+        cadcInternet.setTipoOferta((String) spntipooferta.getSelectedItem());
         if (cotizacion != null) {
             //rellenarCotizacion();
         }
@@ -1342,7 +1343,17 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 if(!cprdTelevision.getPlan().equalsIgnoreCase(Utilidades.inicial)){
                     cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO());
                 }else {
-                    cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+                    if(!UtilidadesTarificadorNew.validarVelocidadInternet(productoCotizador.getPlan(),cliente)){
+                        cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO());
+                    } else {
+                        if(cotizacion.getTipoOferta().equalsIgnoreCase("DUO") || cotizacion.getTipoOferta().equalsIgnoreCase("TRIO")){
+                            cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO());
+                        } else {
+                            cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+                        }
+
+                    }
+
                 }
 
             } else {

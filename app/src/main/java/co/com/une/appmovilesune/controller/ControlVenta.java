@@ -750,7 +750,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 if(listaAdicionales.get(i).getAdicional().equalsIgnoreCase("HBO GO")){
                     Log.d("cotizacion TV ",cotizacion.getTelevision());
                     if(!cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial)){
-                        if(UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(), cliente.getCedula())){
+                        if(UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(), cliente.getCedula(), cotizacion.getTipoOferta())){
                             adicional.put("tiposolicitud","Eliminar");
                         }
                     } else {
