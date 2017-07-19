@@ -2341,6 +2341,14 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         }
                     }
 
+                    if (listObjectAdicionalesBa.size() > 0) {
+                        for (int i = 0; i < listObjectAdicionalesBa.size(); i++) {
+                            // System.out.println("lista
+                            // "+listObjectAdicionales.get(i));
+                            cotizacion.put(listObjectAdicionalesBa.get(i));
+                        }
+                    }
+
                     if (venta.getItemDecodificadors() != null && venta.getItemDecodificadors().size() > 0) {
                         for (int i = 0; i < venta.getItemDecodificadors().size(); i++) {
 
