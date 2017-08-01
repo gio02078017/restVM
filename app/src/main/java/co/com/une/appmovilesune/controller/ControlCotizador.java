@@ -709,6 +709,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         String cadenaConexion = obtenerCadenaValorConexion();
         double valorConexion = obtenerValorConexion(cadenaConexion);
+        totalPagoParcial = Math.ceil(totalPagoParcial);
         double valorDescuentoComercial = valorConexion - totalPagoParcial;
         cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal(), valorConexion, totalPagoParcial, valorDescuentoComercial, totalPagoAnticipado);
 
