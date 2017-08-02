@@ -228,6 +228,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     protected void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
+
+        System.out.println("smart promo => " + Utilidades.excluir("ConsultarSmartPromo", cliente.getCiudad()));
+
         if (Utilidades.excluir("ConsultarSmartPromo", cliente.getCiudad())) {
             lanzarTipoHogar();
         }
@@ -268,9 +271,17 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 data.put("medio", "Siebel");
                 if (cliente.getIdDireccionGis() != null && !cliente.getIdDireccionGis().equalsIgnoreCase("")) {
                     data.put("IdDireccionGis", cliente.getIdDireccionGis());
+                    data.put("strDepartamento", cliente.getDepartamento());
+                    data.put("strMunicipio", Utilidades.homologarMunicipio(cliente.getCiudad()));
+                    data.put("strBarrio", cliente.getBarrio());
+                    data.put("strDireccion", cliente.getDireccion());
                 } else if (cliente.getIdDireccionGisEx() != null
                         && !cliente.getIdDireccionGisEx().equalsIgnoreCase("")) {
                     data.put("IdDireccionGis", cliente.getIdDireccionGisEx());
+                    data.put("strDepartamento", cliente.getIdDireccionGis());
+                    data.put("strMunicipio", Utilidades.homologarMunicipio(cliente.getCiudad()));
+                    data.put("strBarrio", cliente.getBarrio());
+                    data.put("strDireccion", cliente.getDireccion());
                 } else {
                     consultar = false;
                 }
@@ -284,7 +295,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             Log.w("Error", e.getMessage());
         }
 
+        System.out.println("smart promo => consultar "+consultar);
+        System.out.println("smart promo => dataa "+data);
         if (consultar) {
+
+            System.out.println("smart promo => data "+data);
+
             ArrayList<String> parametros = new ArrayList<String>();
             parametros.add(data.toString());
             cliente.setlogSmartPromoEnv(data.toString());
@@ -2030,6 +2046,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     public boolean validarAgendaSiebel() {
         boolean agenda = true;
+        System.out.println("cliente.getEstandarizarSiebel()  "+cliente.getEstandarizarSiebel() );
+
         if (Utilidades.excluir("siebelMunicipios", cliente.getCiudad())) {
             if (cliente.getEstandarizarSiebel() == 1) {
                 if (Utilidades.excluir("agendaSantander", cliente.getCiudad())) {
@@ -2043,7 +2061,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 if (!Validaciones.validarAgendaSiebel(cliente)) {
                     agenda = false;
                 } else {
-                    agenda = false;
+                    agenda = true;
                 }
             }
         }
