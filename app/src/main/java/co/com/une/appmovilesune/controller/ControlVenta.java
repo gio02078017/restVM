@@ -663,7 +663,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
     }
 
-    public ArrayList<JSONObject> arraylistAdicionalesBa(String nombreGota, String valorGota, String valorGotaSinIva,
+    public ArrayList<JSONObject> arraylistAdicionalesBaGota(String nombreGota, String valorGota, String valorGotaSinIva,
                                                         String velocidadInicial, String velocidadFinal) {
         ArrayList<JSONObject> arraylistAdicionales = new ArrayList<JSONObject>();
 
@@ -703,6 +703,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
             String descuento = "-";
             String duracion = "0 Meses";
+            String tipoSolicitud = "N/A";
 
             if (promocionesAdicionalesInternet.size() > 0) {
                 for (int j = 0; j < promocionesAdicionalesInternet.size(); j++) {
@@ -747,11 +748,16 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
                 adicional.put("demo", demosAd(listaAdicionalesTo.get(i).getAdicional()));
 
+                System.out.println("jsonAdicionalesBa listaAdicionales.get(i).getAdicional() "+listaAdicionales.get(i).getAdicional());
+
                 if(listaAdicionales.get(i).getAdicional().equalsIgnoreCase("HBO GO")){
                     Log.d("cotizacion TV ",cotizacion.getTelevision());
-                    if(!cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial)){
+
+                    if(!cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial) && cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial_guion)){
                         if(UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(), cliente.getCedula(), cotizacion.getTipoOferta())){
                             adicional.put("tiposolicitud","Eliminar");
+                        }else {
+                            adicional.put("tiposolicitud","Nuevo");
                         }
                     } else {
                         adicional.put("tiposolicitud","Nuevo");
@@ -761,7 +767,12 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                     adicional.put("tiposolicitud","Nuevo");
                 }
 
+                System.out.println("jsonAdicionalesBa adicional "+adicional);
+
                 arraylistAdicionales.add(adicional);
+
+                System.out.println("jsonAdicionalesBa arraylistAdicionales"+arraylistAdicionales);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -1835,7 +1846,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         listObjectAdicionalesBa.clear();
         if (venta.isControlGota()) {
-            listObjectAdicionalesBa = arraylistAdicionalesBa(cotizacion.getNombreGota(),
+            listObjectAdicionalesBa = arraylistAdicionalesBaGota(cotizacion.getNombreGota(),
                     "" + cotizacion.getPrecioGota(), "" + cotizacion.getPrecioGotaSinIva(),
                     cotizacion.getVelocidadInicial(), cotizacion.getVelocidadFinal());
 
