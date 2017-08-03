@@ -257,8 +257,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         cliente.setSmartPromo("");
 
-        cliente.setSmartPromo("");
-
         boolean consultar = true;
 
         try {
