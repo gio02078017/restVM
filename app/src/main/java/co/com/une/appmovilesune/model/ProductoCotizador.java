@@ -95,7 +95,9 @@ public class ProductoCotizador {
     }
 
     public void aplciarDescuentoTrio() {
-        totalPagoParcial = 0;
+
+        //totalPagoParcial = 0;
+        totalPagoParcial = totalPagoParcial * 0.33333;
     }
 
     public void aplicarDescuentoDuo(){
