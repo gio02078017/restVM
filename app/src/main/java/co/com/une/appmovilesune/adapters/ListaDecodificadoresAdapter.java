@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
+import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesDecos;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.Subject;
@@ -42,7 +43,7 @@ public class ListaDecodificadoresAdapter extends BaseAdapter implements Subject 
     private Observer observer;
 
     public ListaDecodificadoresAdapter(Activity activity, ArrayList<ItemDecodificador> items, Context ctx,
-                                       String ciudad, boolean permisoFideliza) {
+                                       String ciudad,String plan, boolean permisoFideliza) {
         super();
         this.activity = activity;
         this.items = items;
@@ -50,6 +51,7 @@ public class ListaDecodificadoresAdapter extends BaseAdapter implements Subject 
 
         this.ctx = ctx;
         this.ciudad = ciudad;
+        this.plan = plan;
         this.permisoFideliza = permisoFideliza;
 
         System.out.println("Numero de decidificadores " + items.size());
@@ -384,9 +386,18 @@ public class ListaDecodificadoresAdapter extends BaseAdapter implements Subject 
 
     private ArrayAdapter<String> llenarSpinner() {
         ArrayAdapter<String> adaptador = null;
+        ArrayList<ArrayList<String>> resultado = null;
 
-        ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasgenerales",
-                new String[]{"lst_item"}, "lst_nombre = ?", new String[]{"tipoDecos"}, null, null, null);
+        if(Utilidades.excluirNacional("tipoTivo",plan)){
+            resultado = MainActivity.basedatos.consultar(true, "listasvalores",
+                    new String[]{"lst_valor"}, "lst_nombre=? and lst_clave=?", new String[]{"tipoDecosTivo", plan}, null,
+                    null, null);
+
+        }else {
+
+            resultado = MainActivity.basedatos.consultar(false, "listasgenerales",
+                    new String[]{"lst_item"}, "lst_nombre = ?", new String[]{"tipoDecos"}, null, null, null);
+        }
 
         System.out.println(resultado);
 
@@ -409,6 +420,8 @@ public class ListaDecodificadoresAdapter extends BaseAdapter implements Subject 
         return adaptador;
 
     }
+
+
 
     public String getPlan() {
         return plan;

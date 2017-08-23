@@ -104,7 +104,7 @@ public class CompDecos extends LinearLayout implements Observer, Subject, Observ
 
         if (decos != null) {
             UtilidadesDecos.imprimirDecos("compDecos", decos);
-            ListaDecodificadoresAdapter adapter = new ListaDecodificadoresAdapter((Activity) getContext(), decos, getContext(), ciudad, permisoFideliza);
+            ListaDecodificadoresAdapter adapter = new ListaDecodificadoresAdapter((Activity) getContext(), decos, getContext(), ciudad,plan, permisoFideliza);
             adapter.addObserver(this);
             adapter.setPlan(plan);
             listaDecodificadores.setAdapter(adapter);

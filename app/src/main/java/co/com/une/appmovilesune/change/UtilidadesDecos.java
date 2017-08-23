@@ -195,6 +195,8 @@ public class UtilidadesDecos {
 
         ArrayList<ItemKeyValue2> arrayDecos = new ArrayList<ItemKeyValue2>();
 
+        System.out.println("NGTV decos "+decos);
+
         String[] datosDecos = decos.split("-");
 
         int sd = 0;
@@ -206,7 +208,6 @@ public class UtilidadesDecos {
             switch (i) {
                 case 0:
                     sd = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
-
                     arrayDecos.add(new ItemKeyValue2("sd", sd));
                     break;
                 case 1:
@@ -224,6 +225,7 @@ public class UtilidadesDecos {
             }
         }
 
+        System.out.println("NGTV arrayDecos "+arrayDecos);
         return arrayDecos;
 
     }
@@ -235,6 +237,8 @@ public class UtilidadesDecos {
         ArrayList<ItemDecodificador> decodificadores = new ArrayList<ItemDecodificador>();
 
         String[] datosDecos = decosIncluidos.split("-");
+
+        System.out.println("NGTV partirStringDecosIncluidos datosDecos "+datosDecos);
 
         int sd = 0;
         int hd = 0;
@@ -292,7 +296,17 @@ public class UtilidadesDecos {
             }
         }
 
+        if (ext > 0) {
+            for (int i = 0; i < ext; i++) {
+                itemDecodificador = new ItemDecodificador("0|SD-0|HD-0|Ext-0|PVR-", tipoAlquiler, fideliza,
+                        tipoFideliza, "LZ", "0", "Nuevo", true, true, fidelizaIncluido);
+                decodificadores.add(itemDecodificador);
+            }
+        }
+
         // imprimirDecos("partir ", decodificadores);
+
+        System.out.println("NGTV partirStringDecosIncluidos decodificadores "+decodificadores);
 
         return decodificadores;
 
