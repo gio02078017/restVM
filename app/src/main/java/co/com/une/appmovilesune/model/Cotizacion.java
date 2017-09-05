@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.adapters.ItemDecodificador;
 import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
+import co.com.une.appmovilesune.model.Decodificadores;
 
 public class Cotizacion implements Serializable {
 
@@ -110,6 +111,7 @@ public class Cotizacion implements Serializable {
     private ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionalesInternet;
 
     private ArrayList<ItemDecodificador> itemDecodificadores;
+    private Decodificadores objectDecodificador;
 
     private boolean controlDescuentosAd = false;
     private double preciosConDescuentoAd = 0.0;
@@ -1339,5 +1341,13 @@ public class Cotizacion implements Serializable {
 
     public void setDescuentoConexion(String descuentoConexion) {
         this.descuentoConexion = descuentoConexion;
+    }
+
+    public Decodificadores getObjectDecodificador() {
+        return objectDecodificador;
+    }
+
+    public void setObjectDecodificador(Decodificadores objectDecodificador) {
+        this.objectDecodificador = objectDecodificador;
     }
 }

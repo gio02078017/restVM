@@ -1,6 +1,8 @@
 package co.com.une.appmovilesune.change;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
@@ -14,8 +16,114 @@ import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.adapters.ItemDecodificador;
 import co.com.une.appmovilesune.adapters.ItemKeyValue;
 import co.com.une.appmovilesune.adapters.ItemKeyValue2;
+import co.com.une.appmovilesune.model.Decodificadores;
 
 public class UtilidadesDecos {
+
+    private static ArrayList<String> listEtiquetas =  new ArrayList<String> ();
+    private static String EtiquetasDecos = null;
+
+    public static Decodificadores consolidado (ArrayList<ItemDecodificador> decosExistentes,
+                                               String planTV){
+        Decodificadores decodificadores =  new Decodificadores ();
+
+        decodificadores.setInfoConfigDecos(infoConfigDecosPorPlan(planTV));
+
+        decodificadores.setItemDecodificadors(logicaDecos(decodificadores.getInfoConfigDecos(),decosExistentes));
+
+        return decodificadores;
+    }
+
+    public static ArrayList<ArrayList<String>> infoConfigDecosPorPlan(String planTV) {
+
+        JSONObject json = new JSONObject();
+
+        try {
+            json.put("filtro", "");
+            json.put("oferta", "N/A");
+            json.put("nodoDigital", "N/A");
+            json.put("planTV", planTV);
+        } catch (JSONException e) {
+            Log.w("error " + e.getMessage());
+        }
+
+        ArrayList<ArrayList<String>> infoConfigDecos = UtilidadesDecos.queryConfigDecos(json.toString());
+
+        System.out.println("infoConfigDecosPorPlan "+infoConfigDecos);
+
+       return infoConfigDecos;
+
+    }
+
+    public static String filtroDecodificador (ArrayList<ArrayList<String>> infoConfigDecos, String filtro){
+
+        String dato = "";
+
+        if (infoConfigDecos != null && infoConfigDecos.size() > 0) {
+            for (int i = 0; i < infoConfigDecos.size(); i++) {
+
+                if (infoConfigDecos.get(i).get(1).equalsIgnoreCase(filtro)) {
+                    dato = infoConfigDecos.get(i).get(2);
+                }
+
+            }
+        }
+
+        return dato;
+
+    }
+
+    public static ArrayList<ItemDecodificador> logicaDecos(ArrayList<ArrayList<String>> infoConfigDecos, ArrayList<ItemDecodificador> decodificadores) {
+
+        JSONObject json = new JSONObject();
+
+        ArrayList<ItemDecodificador> consolidado = null;
+
+        ArrayList<ItemDecodificador> decosExitentes = new ArrayList<ItemDecodificador>();
+
+        if (decodificadores != null) {
+            for (int i = 0; i < decodificadores.size(); i++) {
+                decosExitentes.add(decodificadores.get(i).clone());
+            }
+        }
+
+        String incluidos = filtroDecodificador (infoConfigDecos, "incluidos");
+        String precioDecos = filtroDecodificador (infoConfigDecos, "precio");
+        String incluidos_fideliza = filtroDecodificador (infoConfigDecos, "incluidos_fideliza");
+        String etiquetas = filtroDecodificador (infoConfigDecos, "etiquetas");
+
+        listEtiquetas.clear();
+        setEtiquetasDecos(etiquetas);
+        listEtiquetas = getEtiquetasDecos(etiquetas);
+
+        // System.out.println("Fideliza incluidos "+incluidos);
+        //
+        // System.out.println("Fideliza incluidos_fideliza
+        // "+incluidos_fideliza);
+
+        if (!incluidos.equalsIgnoreCase("")) {
+
+            consolidado = UtilidadesDecos.integrarDecodificadores(decosExitentes,
+                    UtilidadesDecos.partirStringDecosIncluidos(incluidos, "AL"),
+                    UtilidadesDecos.partirStringDecosIncluidos(incluidos_fideliza, "FI"), precioDecos);
+
+            if (consolidado != null && consolidado.size() > 0) {
+                return consolidado;
+            }
+        } else if (!incluidos_fideliza.equalsIgnoreCase("")) {
+
+            consolidado = UtilidadesDecos.integrarDecodificadores(decosExitentes,
+                    UtilidadesDecos.partirStringDecosIncluidos(incluidos, "AL"),
+                    UtilidadesDecos.partirStringDecosIncluidos(incluidos_fideliza, "FI"), precioDecos);
+
+            if (consolidado != null && consolidado.size() > 0) {
+                return consolidado;
+            }
+        }
+
+        return decodificadores;
+
+    }
 
     public static ArrayList<ItemDecodificador> logicaDecos(ArrayList<ItemDecodificador> decodificadores,
                                                            String planTV) {
@@ -34,7 +142,6 @@ public class UtilidadesDecos {
             }
         }
 
-
         // json.put("filtro", "incluidos");
         try {
             json.put("filtro", "");
@@ -48,6 +155,7 @@ public class UtilidadesDecos {
         String incluidos = "";
         String precioDecos = "";
         String incluidos_fideliza = "";
+        String etiquetas = "";
 
         ArrayList<ArrayList<String>> infoConfigDecos = UtilidadesDecos.queryConfigDecos(json.toString());
 
@@ -67,8 +175,16 @@ public class UtilidadesDecos {
                 if (infoConfigDecos.get(i).get(1).equalsIgnoreCase("incluidos_fideliza")) {
                     incluidos_fideliza = infoConfigDecos.get(i).get(2);
                 }
+
+                if (infoConfigDecos.get(i).get(1).equalsIgnoreCase("etiquetas")) {
+                    etiquetas = infoConfigDecos.get(i).get(2);
+                }
             }
         }
+
+        listEtiquetas.clear();
+        setEtiquetasDecos(etiquetas);
+        listEtiquetas = getEtiquetasDecos(etiquetas);
 
         // System.out.println("Fideliza incluidos "+incluidos);
         //
@@ -199,28 +315,28 @@ public class UtilidadesDecos {
 
         String[] datosDecos = decos.split("-");
 
-        int sd = 0;
-        int hd = 0;
-        int dvr = 0;
-        int ext = 0;
+        int decoPosicion1=0;//int sd = 0;
+        int decoPosicion2=0;//int hd = 0;
+        int decoPosicion3=0;//int dvr = 0;
+        int decoPosicion4=0;//int ext = 0;
 
         for (int i = 0; i < datosDecos.length; i++) {
             switch (i) {
                 case 0:
-                    sd = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
-                    arrayDecos.add(new ItemKeyValue2("sd", sd));
+                    decoPosicion1 = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
+                    arrayDecos.add(new ItemKeyValue2(listEtiquetas.get(0), decoPosicion1));
                     break;
                 case 1:
-                    hd = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
-                    arrayDecos.add(new ItemKeyValue2("hd", hd));
+                    decoPosicion2 = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
+                    arrayDecos.add(new ItemKeyValue2(listEtiquetas.get(1), decoPosicion2));
                     break;
                 case 2:
-                    ext = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
-                    arrayDecos.add(new ItemKeyValue2("ext", ext));
+                    decoPosicion3 = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
+                    arrayDecos.add(new ItemKeyValue2(listEtiquetas.get(2), decoPosicion3));
                     break;
                 case 3:
-                    dvr = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
-                    arrayDecos.add(new ItemKeyValue2("dvr", dvr));
+                    decoPosicion4 = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
+                    arrayDecos.add(new ItemKeyValue2(listEtiquetas.get(3), decoPosicion4));
                     break;
             }
         }
@@ -238,12 +354,18 @@ public class UtilidadesDecos {
 
         String[] datosDecos = decosIncluidos.split("-");
 
+        System.out.println("partirStringDecosIncluidos  "+decosIncluidos);
+
+        for (int i = 0; i < datosDecos.length; i++) {
+            System.out.println("partirStringDecosIncluidos datosDecos ["+i+"] = "+datosDecos[i]);
+        }
+
         System.out.println("NGTV partirStringDecosIncluidos datosDecos "+datosDecos);
 
-        int sd = 0;
-        int hd = 0;
-        int dvr = 0;
-        int ext = 0;
+        int decoPosicion1=0;//int sd = 0;
+        int decoPosicion2=0;//int hd = 0;
+        int decoPosicion3=0;//int dvr = 0;
+        int decoPosicion4=0;//int ext = 0;
 
         boolean fideliza = false;
         boolean fidelizaIncluido = false;
@@ -258,53 +380,53 @@ public class UtilidadesDecos {
         for (int i = 0; i < datosDecos.length; i++) {
             switch (i) {
                 case 0:
-                    sd = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
+                    decoPosicion1 = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
                     break;
                 case 1:
-                    hd = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
+                    decoPosicion2 = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
                     break;
                 case 2:
-                    ext = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
+                    decoPosicion3 = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
                     break;
                 case 3:
-                    dvr = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
+                    decoPosicion4 = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
                     break;
             }
         }
 
-        if (sd > 0) {
-            for (int i = 0; i < sd; i++) {
+        if (decoPosicion1 > 0) {
+            for (int i = 0; i < decoPosicion1; i++) {
                 itemDecodificador = new ItemDecodificador("0|SD-0|HD-0|Ext-0|PVR-", tipoAlquiler, fideliza,
-                        tipoFideliza, "SD", "0", "Nuevo", true, true, fidelizaIncluido);
+                        tipoFideliza, listEtiquetas.get(0), "0", "Nuevo", true, true, fidelizaIncluido);
                 decodificadores.add(itemDecodificador);
             }
         }
 
-        if (hd > 0) {
-            for (int i = 0; i < hd; i++) {
+        if (decoPosicion2 > 0) {
+            for (int i = 0; i < decoPosicion2; i++) {
                 itemDecodificador = new ItemDecodificador("0|SD-0|HD-0|Ext-0|PVR-", tipoAlquiler, fideliza,
-                        tipoFideliza, "HD", "0", "Nuevo", true, true, fidelizaIncluido);
+                        tipoFideliza, listEtiquetas.get(1), "0", "Nuevo", true, true, fidelizaIncluido);
                 decodificadores.add(itemDecodificador);
             }
         }
 
-        if (dvr > 0) {
-            for (int i = 0; i < dvr; i++) {
+        if (decoPosicion4 > 0) {
+            for (int i = 0; i < decoPosicion4; i++) {
                 itemDecodificador = new ItemDecodificador("0|SD-0|HD-0|Ext-0|PVR-", tipoAlquiler, fideliza,
-                        tipoFideliza, "DVR", "0", "Nuevo", true, true, fidelizaIncluido);
+                        tipoFideliza, listEtiquetas.get(3), "0", "Nuevo", true, true, fidelizaIncluido);
                 decodificadores.add(itemDecodificador);
             }
         }
 
-        if (ext > 0) {
-            for (int i = 0; i < ext; i++) {
+        if (decoPosicion3 > 0) {
+            for (int i = 0; i < decoPosicion3; i++) {
                 itemDecodificador = new ItemDecodificador("0|SD-0|HD-0|Ext-0|PVR-", tipoAlquiler, fideliza,
-                        tipoFideliza, "LZ", "0", "Nuevo", true, true, fidelizaIncluido);
+                        tipoFideliza, listEtiquetas.get(2), "0", "Nuevo", true, true, fidelizaIncluido);
                 decodificadores.add(itemDecodificador);
             }
         }
 
-        // imprimirDecos("partir ", decodificadores);
+        imprimirDecos("partir ", decodificadores);
 
         System.out.println("NGTV partirStringDecosIncluidos decodificadores "+decodificadores);
 
@@ -592,35 +714,36 @@ public class UtilidadesDecos {
 
         String[] datosDecos = precios.split("-");
 
-        int sd = 0;
-        int hd = 0;
-        int dvr = 0;
-        int ext = 0;
+        int decoPosicion1=0;//int sd = 0;
+        int decoPosicion2=0;//int hd = 0;
+        int decoPosicion3=0;//int dvr = 0;
+        int decoPosicion4=0;//int ext = 0;
 
         for (int i = 0; i < datosDecos.length; i++) {
             switch (i) {
                 case 0:
-                    sd = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
+                    decoPosicion1 = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
                     break;
                 case 1:
-                    hd = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
+                    decoPosicion2 = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
                     break;
                 case 2:
-                    ext = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
+                    decoPosicion3 = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
                     break;
                 case 3:
-                    dvr = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
+                    decoPosicion4 = Utilidades.convertirNumericos(datosDecos[i], datosDecos[i]);
                     break;
             }
         }
 
-        if (deco.equalsIgnoreCase("SD")) {
-            return sd;
-
-        } else if (deco.equalsIgnoreCase("HD")) {
-            return hd;
-        } else if (deco.equalsIgnoreCase("DVR")) {
-            return dvr;
+        if (deco.equalsIgnoreCase(listEtiquetas.get(0))) {
+            return decoPosicion1;
+        } else if (deco.equalsIgnoreCase(listEtiquetas.get(1))) {
+            return decoPosicion2;
+        } else if (deco.equalsIgnoreCase(listEtiquetas.get(2))) {
+            return decoPosicion3;
+        }else if (deco.equalsIgnoreCase(listEtiquetas.get(3))) {
+            return decoPosicion4;
         }
 
         return precioDeco;
@@ -647,6 +770,9 @@ public class UtilidadesDecos {
 
             if (jsonObject.has("planTV")) {
                 planTV = jsonObject.getString("planTV");
+                if(planTV.contains("_")){
+                    planTV = planTV.replaceAll("_","|_");
+                }
             }
 
             if (jsonObject.has("filtro")) {
@@ -667,14 +793,14 @@ public class UtilidadesDecos {
                 + "SELECT DISTINCT(c1.id) FROM condiciones c1 " + "INNER JOIN condiciones c2 ON c1.id=c2.id "
                 + "INNER JOIN condiciones c3 ON c1.id=c3.id " + "WHERE c1.clave='Oferta' AND c1.valor = '" + oferta
                 + "' " + "AND c2.clave='NodoDigital' AND c2.valor = '" + nodoDigital + "' "
-                + "AND c3.Clave='PlanTV' AND c3.valor like '%" + planTV + "%') " + filtro
+                + "AND c3.Clave='PlanTV' AND c3.valor like '%" + planTV + "%' ESCAPE '|') " + filtro
                 + " group by dec.id_confdeco,dec.caracteristica,dec.configuracion";
 
-		// System.out.println("decodificadores query " + query);
+		//System.out.println("decodificadores queryConfigDecos " + query);
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar2(query);
 
-        // System.out.println("decodificadores respuesta " + respuesta);
+        //System.out.println("decodificadores respuesta queryConfigDecos" + respuesta);
 
         String data = "";
 
@@ -688,6 +814,114 @@ public class UtilidadesDecos {
 
         return respuesta;
     }
+
+    public static JSONObject datosValidarDecos(Decodificadores decodificador) {
+
+        int decoPosicion1=0;//int sd = 0;
+        int decoPosicion2=0;//int hd = 0;
+        int decoPosicion3=0;//int ext = 0;
+        int decoPosicion4=0;//int dvr = 0;
+        int fideliza = 0;
+        int decoPosicion1Fi=0;//int sdFi = 0;
+        int decoPosicion2Fi=0;//int hdFi = 0;
+        int decoPosicion3Fi=0;//int dvr = 0;
+        int decoPosicion4Fi=0;//int dvrFi = 0;
+        int totalDecos = 0;
+        int totalTelevisores = 0;
+
+        JSONObject datosValidarDecos = new JSONObject();
+
+        ArrayList<ItemDecodificador> itemDecodificadors = decodificador.getItemDecodificadors();
+        ArrayList<String> listEtiquetas = UtilidadesDecos.getEtiquetasDecos(UtilidadesDecos.filtroDecodificador(decodificador.getInfoConfigDecos(),"etiquetas"));
+
+        System.out.println("datosValidarDecos + listEtiquetas "+listEtiquetas);
+
+        if (itemDecodificadors != null && itemDecodificadors.size() > 0) {
+
+            for (int i = 0; i < itemDecodificadors.size(); i++) {
+
+                if (itemDecodificadors.get(i).getDestino() != null
+                        && !itemDecodificadors.get(i).getDestino().equalsIgnoreCase("-")) {
+                    if (itemDecodificadors.get(i).getDestino().equalsIgnoreCase(listEtiquetas.get(0))
+                            && !itemDecodificadors.get(i).getTipoTransaccion().equalsIgnoreCase("Retiro")) {
+                        decoPosicion1++;
+                        totalDecos++;
+                    } else if (itemDecodificadors.get(i).getDestino().equalsIgnoreCase(listEtiquetas.get(1))
+                            && !itemDecodificadors.get(i).getTipoTransaccion().equalsIgnoreCase("Retiro")) {
+                        decoPosicion2++;
+                        totalDecos++;
+                    } else if (itemDecodificadors.get(i).getDestino().equalsIgnoreCase(listEtiquetas.get(2))
+                            && !itemDecodificadors.get(i).getTipoTransaccion().equalsIgnoreCase("Retiro")) {
+                        decoPosicion3++;
+                        totalDecos++;
+                    }else if (itemDecodificadors.get(i).getDestino().equalsIgnoreCase(listEtiquetas.get(3))
+                            && !itemDecodificadors.get(i).getTipoTransaccion().equalsIgnoreCase("Retiro")) {
+                        decoPosicion4++;
+                        totalDecos++;
+                    }
+                } else if (itemDecodificadors.get(i).getOriginal() != null) {
+                    if (itemDecodificadors.get(i).getOriginal().equalsIgnoreCase(listEtiquetas.get(0))
+                            && !itemDecodificadors.get(i).getTipoTransaccion().equalsIgnoreCase("Retiro")) {
+                        decoPosicion1++;
+                        totalDecos++;
+                    } else if (itemDecodificadors.get(i).getOriginal().equalsIgnoreCase(listEtiquetas.get(1))
+                            && !itemDecodificadors.get(i).getTipoTransaccion().equalsIgnoreCase("Retiro")) {
+                        decoPosicion2++;
+                        totalDecos++;
+                    } else if (itemDecodificadors.get(i).getOriginal().equalsIgnoreCase(listEtiquetas.get(2))
+                            && !itemDecodificadors.get(i).getTipoTransaccion().equalsIgnoreCase("Retiro")) {
+                        decoPosicion3++;
+                        totalDecos++;
+                    }else if (itemDecodificadors.get(i).getOriginal().equalsIgnoreCase(listEtiquetas.get(3))
+                            && !itemDecodificadors.get(i).getTipoTransaccion().equalsIgnoreCase("Retiro")) {
+                        decoPosicion4++;
+                        totalDecos++;
+                    }
+                }
+
+                if (itemDecodificadors.get(i).getOriginal().equalsIgnoreCase(listEtiquetas.get(0))
+                        && itemDecodificadors.get(i).isFideliza()) {
+                    decoPosicion1Fi++;
+                    fideliza++;
+                } else if (itemDecodificadors.get(i).getOriginal().equalsIgnoreCase(listEtiquetas.get(1))
+                        && itemDecodificadors.get(i).isFideliza()) {
+                    decoPosicion2Fi++;
+                    fideliza++;
+                } else if (itemDecodificadors.get(i).getOriginal().equalsIgnoreCase(listEtiquetas.get(2))
+                        && itemDecodificadors.get(i).isFideliza()) {
+                    decoPosicion3Fi++;
+                    fideliza++;
+                }else if (itemDecodificadors.get(i).getOriginal().equalsIgnoreCase(listEtiquetas.get(3))
+                        && itemDecodificadors.get(i).isFideliza()) {
+                    decoPosicion4Fi++;
+                    fideliza++;
+                }
+
+            }
+
+        }
+
+        totalTelevisores = decoPosicion3 + totalDecos;
+
+        try {
+            datosValidarDecos.put("decos", decoPosicion1 + "-" + decoPosicion2 + "-" + decoPosicion3 + "-" + decoPosicion4);
+            datosValidarDecos.put("decosFideliza", decoPosicion1Fi + "-" + decoPosicion2Fi + "-" + decoPosicion3Fi + "-" + decoPosicion4Fi);
+            datosValidarDecos.put("totalFideliza", fideliza);
+            datosValidarDecos.put("totalDecos", totalDecos);
+            datosValidarDecos.put("totalTelevisores", totalTelevisores);
+            datosValidarDecos.put("decos_"+listEtiquetas.get(0)+"_Fi", decoPosicion1Fi);
+            datosValidarDecos.put("decos_"+listEtiquetas.get(1)+"_Fi", decoPosicion2Fi);
+            datosValidarDecos.put("decos_"+listEtiquetas.get(2)+"_Fi", decoPosicion3Fi);
+            datosValidarDecos.put("decos_"+listEtiquetas.get(3)+"_Fi", decoPosicion4Fi);
+        } catch (JSONException e) {
+            Log.w("Error " + e.getMessage());
+        }
+
+        System.out.println("estructura " + datosValidarDecos);
+
+        return datosValidarDecos;
+    }
+
 
     public static JSONObject datosValidarDecos(ArrayList<ItemDecodificador> itemDecodificadors, int ext) {
 
@@ -790,6 +1024,7 @@ public class UtilidadesDecos {
             jsonEnvio.put("general", true);
 
             if (!valiConfigDecos(jsonEnvio.toString())) {
+                System.out.println("validarDecos general no cumple");
                 return false;
             }
 
@@ -797,6 +1032,7 @@ public class UtilidadesDecos {
             jsonEnvio.put("filtro", "prohibidos");
 
             if (!valiConfigDecos(jsonEnvio.toString())) {
+                System.out.println("validarDecos prohibidos no cumple");
                 return false;
             }
 
@@ -804,6 +1040,7 @@ public class UtilidadesDecos {
             jsonEnvio.put("parametro", datosDecos.getString("decosFideliza"));
 
             if (!valiConfigDecos(jsonEnvio.toString())) {
+                System.out.println("validarDecos maximo_fideliza no cumple");
                 return false;
             }
 
@@ -811,6 +1048,7 @@ public class UtilidadesDecos {
             jsonEnvio.put("parametro", datosDecos.getString("totalFideliza"));
 
             if (!valiConfigDecos(jsonEnvio.toString())) {
+                System.out.println("validarDecos total_fideliza no cumple");
                 return false;
             }
 
@@ -909,11 +1147,11 @@ public class UtilidadesDecos {
                     + " group by dec.id_confdeco,dec.caracteristica,dec.configuracion";
         }
 
-        // System.out.println("decodificadores query " + query);
+        System.out.println("decodificadores query + parametro [" +parametro+"] "  + query);
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar2(query);
 
-        // System.out.println("decodificadores respuesta " + respuesta);
+        System.out.println("decodificadores respuesta " + respuesta);
 
         String data = "";
 
@@ -1003,5 +1241,38 @@ public class UtilidadesDecos {
 
         return true;
     }
+
+    public static ArrayList<String> setEtiquetasDecos(String etiquetas){
+
+        System.out.println("decos etiquetas "+etiquetas);
+        ArrayList<String> listEtiquetas = new ArrayList<String>();
+        listEtiquetas.clear();
+
+        String [] vector = etiquetas.split("-");
+
+        for (int i = 0; i < vector.length ; i++) {
+            listEtiquetas.add(vector[i]);
+        }
+
+        return listEtiquetas;
+
+    }
+
+    public static ArrayList<String> getEtiquetasDecos(String etiquetas){
+
+        System.out.println("decos etiquetas "+etiquetas);
+        ArrayList<String> listEtiquetas = new ArrayList<String>();
+        listEtiquetas.clear();
+
+        String [] vector = etiquetas.split("-");
+
+        for (int i = 0; i < vector.length ; i++) {
+            listEtiquetas.add(vector[i]);
+        }
+
+        return listEtiquetas;
+
+    }
+
 
 }

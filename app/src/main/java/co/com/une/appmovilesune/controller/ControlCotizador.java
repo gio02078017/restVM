@@ -1031,22 +1031,14 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     if (controlCotizacion.get(0).equalsIgnoreCase("00")) {
                         if (UtilidadesTarificador.validarDependencias(cotizacion.getTelevision(),
                                 cotizacion.getAdicionales(), this)
-                                && UtilidadesTarificador.validarDecosMinimos(cotizacion.getTelevision(),
-                                cotizacion.getDecodificadores(), this)) {
-
+                                && UtilidadesTarificador.validarDecos(cotizacion.getObjectDecodificador(), this)) {
                             System.out.println("cliente.isControlEstadoCuenta() " + cliente.isControlEstadoCuenta());
-
                             if (cliente.isControlEstadoCuenta()) {
                                 if (validarCarrusel()) {
                                     if(validarCotizacionClienteNuevo(cotizacion)){
                                         if (validarDigital()) {
                                             if (validarTelefonoServicio) {
                                                 if (Utilidades.validarTelefonos(cliente, this)) {
-
-                                                    System.out.println("Estandarizar validarEstandarizacion "+validarEstandarizacion);
-                                                    System.out.println("Estandarizar cliente.isControlCerca() "+cliente.isControlCerca());
-                                                    System.out.println("Estandarizar Utilidades.CoberturaRural(cliente) "+Utilidades.CoberturaRural(cliente));
-
                                                     if (UtilidadesTarificadorNew.validarEstandarizacion(cotizacion,cliente, this) || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
 
                                                         System.out.println("direccion " + cliente.getDireccion());
@@ -1260,6 +1252,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
             cotizacion.setDecodificadores(cdcsDecodificadores.getDecos());
             cotizacion.setTotalDecos(cdcsDecodificadores.obtenerTotalDecos());
+            cotizacion.setObjectDecodificador(cdcsDecodificadores.getDecodificadores());
 
             String descuentoCadena = Utilidades.limpiarDecimales(String.valueOf(productoCotizador.getDescuentoCargobasico()));
 

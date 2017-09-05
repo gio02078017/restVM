@@ -23,6 +23,7 @@ import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
 import co.com.une.appmovilesune.complements.Observador;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
+import co.com.une.appmovilesune.model.Decodificadores;
 import co.com.une.appmovilesune.model.ProductoAMG;
 import co.com.une.appmovilesune.model.Simulador;
 
@@ -1292,6 +1293,108 @@ public class UtilidadesTarificador {
 
         return adicionalDependiente;
     }
+
+    public static boolean validarDecos (Decodificadores decodificador, Context context){
+
+        boolean valido = true;
+
+        System.out.println("validarDecos + plan "+decodificador.getPlan());
+
+
+
+        if (!decodificador.getPlan().equalsIgnoreCase("-")) {
+
+            if(Utilidades.excluirNacional("tipoTivo",decodificador.getPlan())) {
+
+                JSONObject datosDecos = UtilidadesDecos.datosValidarDecos(decodificador);
+
+                System.out.println("validarDecos + datosDecos " + datosDecos);
+
+                String minimos = UtilidadesDecos.filtroDecodificador(decodificador.getInfoConfigDecos(), "minimo");
+
+                valido = validarDecosMinimos(datosDecos, minimos, context);
+
+                valido = UtilidadesDecos.validarDecos(datosDecos, decodificador.getPlan());
+
+                System.out.println("validarDecos General " + valido);
+
+                if (decodificador.getPlan().contains("Existente")) {
+                    valido = true;
+                }
+
+               /* if (valicionDecos) {
+                    reg.add(true);
+                } else {
+                    reg.add(false);
+                    ja.put(Utilidades.jsonMensajes("Config", "La configuracion de los decos es erronea"));
+                }*/
+
+                System.out.println("validarDecos + valido condicional " + valido);
+            }else{
+                valido = validarDecosMinimos(decodificador.getPlan(), decodificador.getItemDecodificadors(),context);
+            }
+
+        }
+
+        System.out.println("validarDecos + valido return "+valido);
+
+        return valido;
+
+    }
+
+    public static boolean validarDecosMinimos(JSONObject datosDecos, String minimo, Context context) {
+        boolean valido = true;
+        ArrayList<ItemKeyValue2> descosMinimo;
+        ArrayList<ItemKeyValue2> descosLogica = null;
+
+        try {
+
+            if (!minimo.equals("")) {
+
+                descosMinimo = UtilidadesDecos.partirStringDecos(minimo);
+
+                if (datosDecos.has("decos")) {
+                    descosLogica = UtilidadesDecos.partirStringDecos(datosDecos.getString("decos"));
+
+                }
+
+                System.out.println("descosMinimo" + descosMinimo);
+
+                System.out.println("descosLogica" + descosLogica);
+
+                if (descosMinimo.size() > 0 && descosLogica.size() > 0) {
+                    for (int i = 0; i < descosLogica.size(); i++) {
+                        for (int j = 0; j < descosMinimo.size(); j++) {
+                            System.out.println("descosLogica.get(i).getKey() " + descosLogica.get(i).getKey());
+                            System.out.println("descosMinimo.get(j).getKey() " + descosMinimo.get(j).getKey());
+                            if (descosLogica.get(i).getKey().equalsIgnoreCase(descosMinimo.get(j).getKey())) {
+                                System.out.println(
+                                        "descosLogica.get(i).getValues()  " + descosLogica.get(i).getValues());
+                                System.out.println(
+                                        "descosMinimo.get(j).getValues()  " + descosMinimo.get(j).getValues());
+                                if (descosLogica.get(i).getValues() < descosMinimo.get(j).getValues()) {
+                                    valido = false;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
+        }catch (JSONException e) {
+            Log.w("error ", e.getMessage());
+            valido = false;
+        }
+
+        if (!valido) {
+            Utilidades.MensajesToast(context.getResources().getString(R.string.minimodecos), context);
+            return false;
+        }
+
+        return valido;
+    }
+
 
     public static boolean validarDecosMinimos(String planTV, ArrayList<ItemDecodificador> itemDecodificadors,
                                               Context context) {

@@ -23,6 +23,7 @@ import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
 import co.com.une.appmovilesune.interfaces.ObserverDecodificadores;
 import co.com.une.appmovilesune.interfaces.Subject;
+import co.com.une.appmovilesune.model.Decodificadores;
 
 public class CompDecos extends LinearLayout implements Observer, Subject, ObserverDecodificadores {
 
@@ -30,6 +31,7 @@ public class CompDecos extends LinearLayout implements Observer, Subject, Observ
     private ImageView imgagregardecodificador;
     private ArrayList<ItemDecodificador> decos;
     private ArrayList<ItemDecodificador> decosExistentes;
+    private Decodificadores decodificadores;
     private String ciudad;
     private boolean permisoFideliza;
     private Observer observer;
@@ -78,7 +80,7 @@ public class CompDecos extends LinearLayout implements Observer, Subject, Observ
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.noseagreganporretiros),
                     Toast.LENGTH_LONG).show();
         }
-
+        decodificadores.setItemDecodificadors(decos);
         actualizarLista();
 
     }
@@ -97,14 +99,17 @@ public class CompDecos extends LinearLayout implements Observer, Subject, Observ
 
     private void borrarDecodificador(int position) {
         decos.remove(position);
+        decodificadores.setItemDecodificadors(decos);
         actualizarLista();
     }
 
     private void actualizarLista() {
 
         if (decos != null) {
-            UtilidadesDecos.imprimirDecos("compDecos", decos);
-            ListaDecodificadoresAdapter adapter = new ListaDecodificadoresAdapter((Activity) getContext(), decos, getContext(), ciudad,plan, permisoFideliza);
+            //UtilidadesDecos.imprimirDecos("compDecos", decos);
+            //System.out.println("decos "+decodificadores);
+            //System.out.println("decos item  "+decodificadores.getItemDecodificadors());
+            ListaDecodificadoresAdapter adapter = new ListaDecodificadoresAdapter((Activity) getContext(), getContext(), decodificadores);
             adapter.addObserver(this);
             adapter.setPlan(plan);
             listaDecodificadores.setAdapter(adapter);
@@ -148,7 +153,14 @@ public class CompDecos extends LinearLayout implements Observer, Subject, Observ
 
                 plan = data.get(1).toString();
 
-                decos = UtilidadesDecos.logicaDecos(decosExistentes, data.get(1).toString());
+                decodificadores = UtilidadesDecos.consolidado(decosExistentes, data.get(1).toString());
+                decodificadores.setPlan(plan);
+                decodificadores.setCiudad(ciudad);
+                decodificadores.setPermisoFideliza(permisoFideliza);
+
+                //decos = UtilidadesDecos.logicaDecos(decosExistentes, data.get(1).toString());
+
+                decos = decodificadores.getItemDecodificadors();
 
                 if (decos != null) {
                     actualizarLista();
@@ -223,6 +235,7 @@ public class CompDecos extends LinearLayout implements Observer, Subject, Observ
 
     public void setDecos(ArrayList<ItemDecodificador> decos) {
         this.decos = decos;
+        decodificadores.setItemDecodificadors(decos);
         actualizarLista();
     }
 
@@ -289,7 +302,9 @@ public class CompDecos extends LinearLayout implements Observer, Subject, Observ
     public void limpiarDecodificadores() {
         if (decos != null) {
             decos.clear();
+            decodificadores.setItemDecodificadors(decos);
         }
+
         actualizarLista();
     }
 
@@ -298,7 +313,20 @@ public class CompDecos extends LinearLayout implements Observer, Subject, Observ
         if (decos != null) {
             decos = new ArrayList<ItemDecodificador>();
         }
-        decos = UtilidadesDecos.logicaDecos(decos, plan);
+        //decos = UtilidadesDecos.logicaDecos(decos, plan);
+        decodificadores = UtilidadesDecos.consolidado(decos, plan);
+        decos = decodificadores.getItemDecodificadors();
+        decodificadores.setPlan(plan);
+        decodificadores.setCiudad(ciudad);
+        decodificadores.setPermisoFideliza(permisoFideliza);
         actualizarLista();
+    }
+
+    public Decodificadores getDecodificadores() {
+        return decodificadores;
+    }
+
+    public void setDecodificadores(Decodificadores decodificadores) {
+        this.decodificadores = decodificadores;
     }
 }

@@ -1,7 +1,9 @@
 package co.com.une.appmovilesune.adapters;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
+import com.itextpdf.text.log.SysoCounter;
 import com.itextpdf.text.pdf.TextField;
 
 import android.app.Activity;
@@ -27,6 +29,7 @@ import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesDecos;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.Subject;
+import co.com.une.appmovilesune.model.Decodificadores;
 
 public class ListaDecodificadoresAdapter extends BaseAdapter implements Subject {
 
@@ -39,20 +42,22 @@ public class ListaDecodificadoresAdapter extends BaseAdapter implements Subject 
     Context ctx;
     private boolean permisoFideliza;
     private String plan;
+    private Decodificadores decodificadores;
 
     private Observer observer;
 
-    public ListaDecodificadoresAdapter(Activity activity, ArrayList<ItemDecodificador> items, Context ctx,
-                                       String ciudad,String plan, boolean permisoFideliza) {
+    public ListaDecodificadoresAdapter(Activity activity, Context ctx, Decodificadores decodificadores) {
         super();
         this.activity = activity;
-        this.items = items;
+        //this.items = items;
+        this.decodificadores = decodificadores;
+        this.items = decodificadores.getItemDecodificadors();
         this.aux = clonarItems(items);
 
         this.ctx = ctx;
-        this.ciudad = ciudad;
-        this.plan = plan;
-        this.permisoFideliza = permisoFideliza;
+        this.ciudad = decodificadores.getCiudad();
+        this.plan = decodificadores.getPlan();
+        this.permisoFideliza = decodificadores.getPermisoFideliza();
 
         System.out.println("Numero de decidificadores " + items.size());
     }
@@ -388,10 +393,15 @@ public class ListaDecodificadoresAdapter extends BaseAdapter implements Subject 
         ArrayAdapter<String> adaptador = null;
         ArrayList<ArrayList<String>> resultado = null;
 
-        if(Utilidades.excluirNacional("tipoTivo",plan)){
-            resultado = MainActivity.basedatos.consultar(true, "listasvalores",
+        System.out.println("etiquetas filtros "+UtilidadesDecos.filtroDecodificador(decodificadores.getInfoConfigDecos(),"etiquetas"));
+
+        /*if(Utilidades.excluirNacional("tipoTivo",plan)){
+            /*resultado = MainActivity.basedatos.consultar(true, "listasvalores",
                     new String[]{"lst_valor"}, "lst_nombre=? and lst_clave=?", new String[]{"tipoDecosTivo", plan}, null,
                     null, null);
+            resultado = new ArrayList<ArrayList<String>>();
+            //resultado.add(resultado.add());
+
 
         }else {
 
@@ -413,6 +423,13 @@ public class ListaDecodificadoresAdapter extends BaseAdapter implements Subject 
                 }
             }
 
+        }*/
+        ArrayList<String> arrayListData = new ArrayList<String>();
+        ArrayList<String> listEtiquetas = UtilidadesDecos.getEtiquetasDecos(UtilidadesDecos.filtroDecodificador(decodificadores.getInfoConfigDecos(),"etiquetas"));
+        for (int i = 0; i < listEtiquetas.size(); i++) {
+            if(!listEtiquetas.get(i).equalsIgnoreCase("EXT")){
+                arrayListData.add(listEtiquetas.get(i));
+            }
         }
 
         adaptador = new ArrayAdapter<String>(ctx, android.R.layout.simple_spinner_item, arrayListData);
