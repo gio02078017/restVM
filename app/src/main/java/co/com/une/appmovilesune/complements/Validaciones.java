@@ -900,53 +900,40 @@ public class Validaciones {
 
 				System.out.println("venta.getTelevision()[2] " + venta.getTelevision()[2]);
 
-				/*
-				 * if (venta.getTelevision()[2].equals("N/A")) { reg.add(true);
-				 * } else if
-				 * (!venta.getTelevision()[2].equals(Utilidades.iniTelevisores))
-				 * { int televisores = 0; try { televisores =
-				 * Integer.parseInt(venta.getTelevision()[2]); } catch
-				 * (NumberFormatException e) { Log.w("Error ", e.getMessage());
-				 * televisores = 0; }
-				 * 
-				 * if (televisores > 0) { reg.add(true); } else {
-				 * reg.add(false); } } else { reg.add(false);
-				 * ja.put(Utilidades.jsonMensajes("Televisores",
-				 * "Debe Seleccionar El # De Televisores")); }
-				 */
+				if(!Utilidades.excluirNacional("tipoTivo",venta.getTelevision()[0])) {
+					System.out.println("decos json" + venta.getTelevision()[12]);
 
-				System.out.println("decos json" + venta.getTelevision()[12]);
+					UtilidadesDecos.imprimirDecos("Validar Decos ", venta.getItemDecodificadors());
 
-				UtilidadesDecos.imprimirDecos("Validar Decos ", venta.getItemDecodificadors());
+					JSONObject decos;
+					int ext = 0;
 
-				JSONObject decos;
-				int ext = 0;
+					try {
 
-				try {
-
-					decos = new JSONObject(venta.getTelevision()[12]);
-					if (decos.has("ext")) {
-						ext = Utilidades.convertirNumericos(decos.getString("ext"), "decos.getString(ext)");
+						decos = new JSONObject(venta.getTelevision()[12]);
+						if (decos.has("ext")) {
+							ext = Utilidades.convertirNumericos(decos.getString("ext"), "decos.getString(ext)");
+						}
+					} catch (Exception e) {
+						Log.w("Error ", e.getMessage());
 					}
-				} catch (Exception e) {
-					Log.w("Error ", e.getMessage());
-				}
 
-				JSONObject datosDecos = UtilidadesDecos.datosValidarDecos(venta.getItemDecodificadors(), ext);
+					JSONObject datosDecos = UtilidadesDecos.datosValidarDecos(venta.getItemDecodificadors(), ext);
 
-				boolean valicionDecos = UtilidadesDecos.validarDecos(datosDecos, venta.getTelevision()[0]);
+					boolean valicionDecos = UtilidadesDecos.validarDecos(datosDecos, venta.getTelevision()[0]);
 
-				System.out.println("valicionDecos " + valicionDecos);
+					System.out.println("valicionDecos " + valicionDecos);
 
-				if(venta.getTelevision()[0].contains("Existente")){
-					valicionDecos = true;
-				}
+					if (venta.getTelevision()[0].contains("Existente")) {
+						valicionDecos = true;
+					}
 
-				if (valicionDecos) {
-					reg.add(true);
-				} else {
-					reg.add(false);
-					ja.put(Utilidades.jsonMensajes("Config", "La configuracion de los decos es erronea"));
+					if (valicionDecos) {
+						reg.add(true);
+					} else {
+						reg.add(false);
+						ja.put(Utilidades.jsonMensajes("Config", "La configuracion de los decos es erronea"));
+					}
 				}
 
 			} else {
