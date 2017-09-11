@@ -41,6 +41,7 @@ import co.com.une.appmovilesune.complements.Calendario;
 import co.com.une.appmovilesune.complements.Dialogo;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
+import co.com.une.appmovilesune.model.Decodificadores;
 import co.com.une.appmovilesune.model.Localizacion;
 import co.com.une.appmovilesune.model.Producto;
 import co.com.une.appmovilesune.model.Venta;
@@ -349,7 +350,7 @@ public class Utilidades {
                                                 String precio, String descuento, String duracion, String extensiones, String wifi, String linea,
                                                 String marca, String referencia, String capacidad, String adicionales, String planFacturacion,
                                                 String tecnologia, String decos, String tipoCotizacion, String identificador, String tecnologiacr,
-                                                ArrayList<ItemDecodificador> itemDecodificadors, String ipDinamica, String pagoAntCargoFijo, String pagoParcialConexion) {
+                                                Decodificadores decodificador, String ipDinamica, String pagoAntCargoFijo, String pagoParcialConexion) {
 
         System.out.println("jsonProductosVenta->tecnologiacr " + tecnologiacr);
         JSONArray arrayAdicionales = null;
@@ -416,16 +417,27 @@ public class Utilidades {
             productos.put("tecnologiacr", tecnologiacr);
 
             System.out.println("decos " + decos);
+
             if (!decos.equalsIgnoreCase("") && !decos.equalsIgnoreCase("N/A")) {
 
                 productos.put("decos", new JSONObject(decos));
 
-                mejorasDecos.put("decos_sd", new JSONObject(decos).get("decos_sd"));
-                mejorasDecos.put("decos_hd", new JSONObject(decos).get("decos_hd"));
-                mejorasDecos.put("ext", new JSONObject(decos).get("ext"));
-                mejorasDecos.put("decos_pvr", new JSONObject(decos).get("decos_pvr"));
+                mejorasDecos.put("decoPosicion1", new JSONObject(decos).get("decoPosicion1"));
+                mejorasDecos.put("decoPosicion2", new JSONObject(decos).get("decoPosicion2"));
+                mejorasDecos.put("decoPosicion3", new JSONObject(decos).get("decoPosicion3"));
+                mejorasDecos.put("decoPosicion4", new JSONObject(decos).get("decoPosicion4"));
 
             }
+
+            ArrayList<ItemDecodificador> itemDecodificadors = null;
+
+            System.out.println("decodificador tipo ["+tipo+"] "+decodificador);
+
+            if(decodificador != null){
+                itemDecodificadors = decodificador.getItemDecodificadors();
+            }
+
+            UtilidadesDecos.imprimirDecos("itemDecodificadors jsonProductosVenta tipo ["+tipo+"] ",itemDecodificadors);
 
             if (itemDecodificadors != null && itemDecodificadors.size() > 0) {
                 UtilidadesDecos.imprimirDecos("Consolidar ", itemDecodificadors);
@@ -477,7 +489,7 @@ public class Utilidades {
 
                 mejorasDecos.put("mejoraDecos", "SI");
                 mejorasDecos.put("equipos", arrayEquipos);
-                mejorasDecos.put("decos_sd", new JSONObject(decos).get("decos_sd"));
+                //mejorasDecos.put("decos_sd", new JSONObject(decos).get("decos_sd"));
 
             }
 
@@ -493,6 +505,7 @@ public class Utilidades {
             Log.w("error " + e.getMessage());
         }
 
+        System.out.println("productos tipo ["+tipo+"] "+productos);
         return productos;
     }
 

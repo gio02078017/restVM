@@ -20,6 +20,7 @@ import co.com.une.appmovilesune.change.ControlSimulador;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesDecos;
 import co.com.une.appmovilesune.model.Cotizacion;
+import co.com.une.appmovilesune.model.Decodificadores;
 
 import android.app.Activity;
 import android.content.Context;
@@ -55,6 +56,8 @@ public class ResumenTelevision extends LinearLayout {
     ListaPreciosAdapter adaptador;
     ListaResumenDecodificadoresAdapter adaptadorDecos;
     ArrayList<ItemDecodificador> decodificadores;
+    Decodificadores decodificador;
+
 
     private ListView lstAdicionales;
     private ListView lstDecodificadores;
@@ -241,14 +244,15 @@ public class ResumenTelevision extends LinearLayout {
                            String descuento, String Duracion, String precioDescuento, String[][] adicionales, String precioAdicionales,
                            String planFacturacion, String estrato, String ciudad, String planAnt, String tecnologiacr,
                            boolean aplicarDescuentos, String tipoTecnologia, ArrayList<ItemPromocionesAdicionales> promoAdicionales,
-                           ArrayList<ItemDecodificador> decodificadores, Cotizacion cotizacion) {
+                           Decodificadores decodificador, Cotizacion cotizacion) {
 
         this.activity = activity;
         this.context = context;
         this.descuento = descuento;
         this.television = television;
         this.ciudad = ciudad;
-        this.decodificadores = decodificadores;
+        this.decodificador = decodificador;
+        this.decodificadores = decodificador.getItemDecodificadors();
         this.cotizacion = cotizacion;
         tecnologia = tipoTecnologia;
 
@@ -299,7 +303,10 @@ public class ResumenTelevision extends LinearLayout {
             precioDescuento = "N/A";
         }
 
-        llenarExtensiones(tipoTecnologia);
+        //if(!Utilidades.excluirNacional("tipoTivo",television)) {
+            llenarExtensiones(tipoTecnologia);
+        //}
+
         llenarDecodificadores(decodificadores);
         llenarAdicionales();
 
@@ -455,7 +462,13 @@ public class ResumenTelevision extends LinearLayout {
 
         System.out.println("ext " + ext);
 
-        JSONObject datosDecos = UtilidadesDecos.datosValidarDecos(decodificadores, datoExt);
+        JSONObject datosDecos = null;
+
+        if(Utilidades.excluirNacional("tipoTivo",television)) {
+            datosDecos = UtilidadesDecos.datosValidarDecos(decodificador);
+        }else{
+            datosDecos = UtilidadesDecos.datosValidarDecos(decodificadores, datoExt);
+        }
 
         try {
             totalTelevisores = datosDecos.getInt("totalTelevisores");
@@ -582,7 +595,7 @@ public class ResumenTelevision extends LinearLayout {
 
         if (decodificadores != null) {
 
-            // UtilidadesDecos.imprimirDecos("Resument TV", decodificadores);
+            UtilidadesDecos.imprimirDecos("Resument TV", decodificadores);
 
             adaptadorDecos = new ListaResumenDecodificadoresAdapter(activity, decodificadores, context);
             lstDecodificadores.setAdapter(adaptadorDecos);

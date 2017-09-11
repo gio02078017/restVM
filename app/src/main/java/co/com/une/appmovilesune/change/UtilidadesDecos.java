@@ -704,6 +704,8 @@ public class UtilidadesDecos {
 
                     System.out.println(preFijo + " (" + i + ") " + " Fin ");
                 }
+            }else{
+                System.out.println(preFijo + "lista null");
             }
         }
     }
@@ -901,7 +903,7 @@ public class UtilidadesDecos {
 
         }
 
-        totalTelevisores = decoPosicion3 + totalDecos;
+        totalTelevisores = totalDecos;
 
         try {
             datosValidarDecos.put("decos", decoPosicion1 + "-" + decoPosicion2 + "-" + decoPosicion3 + "-" + decoPosicion4);
@@ -909,10 +911,11 @@ public class UtilidadesDecos {
             datosValidarDecos.put("totalFideliza", fideliza);
             datosValidarDecos.put("totalDecos", totalDecos);
             datosValidarDecos.put("totalTelevisores", totalTelevisores);
-            datosValidarDecos.put("decos_"+listEtiquetas.get(0)+"_Fi", decoPosicion1Fi);
-            datosValidarDecos.put("decos_"+listEtiquetas.get(1)+"_Fi", decoPosicion2Fi);
-            datosValidarDecos.put("decos_"+listEtiquetas.get(2)+"_Fi", decoPosicion3Fi);
-            datosValidarDecos.put("decos_"+listEtiquetas.get(3)+"_Fi", decoPosicion4Fi);
+            datosValidarDecos.put("decoPosicion1", decoPosicion1);
+            datosValidarDecos.put("decoPosicion2", decoPosicion2);
+            datosValidarDecos.put("decoPosicion3", decoPosicion3);
+            datosValidarDecos.put("decoPosicion4", decoPosicion4);
+            datosValidarDecos.put("etiquetas", UtilidadesDecos.filtroDecodificador(decodificador.getInfoConfigDecos(),"etiquetas"));
         } catch (JSONException e) {
             Log.w("Error " + e.getMessage());
         }
@@ -998,10 +1001,15 @@ public class UtilidadesDecos {
             datosValidarDecos.put("totalFideliza", fideliza);
             datosValidarDecos.put("totalDecos", totalDecos);
             datosValidarDecos.put("totalTelevisores", totalTelevisores);
-            datosValidarDecos.put("decos_sd", sd);
+            datosValidarDecos.put("decoPosicion1", sd);
+            datosValidarDecos.put("decoPosicion2", hd);
+            datosValidarDecos.put("decoPosicion3", ext);
+            datosValidarDecos.put("decoPosicion4", dvr);
+            datosValidarDecos.put("etiquetas", "SD-HD-EXT-DVR");
+            /*datosValidarDecos.put("decos_sd", sd);
             datosValidarDecos.put("decos_hd", hd);
             datosValidarDecos.put("decos_pvr", dvr);
-            datosValidarDecos.put("ext", ext);
+            datosValidarDecos.put("ext", ext);*/
         } catch (JSONException e) {
             Log.w("Error " + e.getMessage());
         }
@@ -1106,6 +1114,9 @@ public class UtilidadesDecos {
 
             if (jsonObject.has("planTV")) {
                 planTV = jsonObject.getString("planTV");
+                if(planTV.contains("_")){
+                    planTV = planTV.replaceAll("_","|_");
+                }
             }
 
             if (jsonObject.has("filtro")) {
@@ -1143,7 +1154,7 @@ public class UtilidadesDecos {
                     + "SELECT DISTINCT(c1.id) FROM condiciones c1 " + "INNER JOIN condiciones c2 ON c1.id=c2.id "
                     + "INNER JOIN condiciones c3 ON c1.id=c3.id " + "WHERE c1.clave='Oferta' AND c1.valor = '" + oferta
                     + "' " + "AND c2.clave='NodoDigital' AND c2.valor = '" + nodoDigital + "' "
-                    + "AND c3.Clave='PlanTV' AND c3.valor like '%" + planTV + "%') " + filtro + parametro
+                    + "AND c3.Clave='PlanTV' AND c3.valor like '%" + planTV + "%' ESCAPE '|') " + filtro + parametro
                     + " group by dec.id_confdeco,dec.caracteristica,dec.configuracion";
         }
 
@@ -1186,6 +1197,9 @@ public class UtilidadesDecos {
 
             if (jsonObject.has("planTV")) {
                 planTV = jsonObject.getString("planTV");
+                if(planTV.contains("_")){
+                    planTV = planTV.replaceAll("_","|_");
+                }
             }
 
             if (jsonObject.has("filtro")) {
@@ -1223,7 +1237,7 @@ public class UtilidadesDecos {
                     + "SELECT DISTINCT(c1.id) FROM condiciones c1 " + "INNER JOIN condiciones c2 ON c1.id=c2.id "
                     + "INNER JOIN condiciones c3 ON c1.id=c3.id " + "WHERE c1.clave='Oferta' AND c1.valor = '" + oferta
                     + "' " + "AND c2.clave='NodoDigital' AND c2.valor = '" + nodoDigital + "' "
-                    + "AND c3.Clave='PlanTV' AND c3.valor like '%" + planTV + "%') " + filtro + parametro
+                    + "AND c3.Clave='PlanTV' AND c3.valor like '%" + planTV + "%' ESCAPE '|') " + filtro + parametro
                     + " group by dec.id_confdeco,dec.caracteristica,dec.configuracion";
         }
 

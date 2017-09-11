@@ -1413,7 +1413,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         "Sin Promocion", "N/A", "0", cotizacion.getAdicionales(), cotizacion.getTotalAdicionales(),
                         cotizacion.getPlanFacturacionTv_I(), cotizacion.getEstrato(), Municipio, cotizacion.tvPlanAnt,
                         cotizacion.tvTecnologiacr, aplicarDescuentos, cliente.getTecnologia(),
-                        cotizacion.getItemPromocionesAdicionales(), cotizacion.getDecodificadores(), cotizacion);
+                        cotizacion.getItemPromocionesAdicionales(), cotizacion.getObjectDecodificador(), cotizacion);
             } else {
                 System.out.println("cotizacion.getContadorProductos() 1 producto");
                 rtv.Television(this, this, cotizacion.getTipoTv(), cotizacion.getTelevision(), cotizacion.getTvInd(),
@@ -1421,7 +1421,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         cotizacion.getAdicionales(), cotizacion.getTotalAdicionales(),
                         cotizacion.getPlanFacturacionTv_I(), cotizacion.getEstrato(), Municipio, cotizacion.tvPlanAnt,
                         cotizacion.tvTecnologiacr, aplicarDescuentos, cliente.getTecnologia(),
-                        cotizacion.getItemPromocionesAdicionales(), cotizacion.getDecodificadores(), cotizacion);
+                        cotizacion.getItemPromocionesAdicionales(), cotizacion.getObjectDecodificador(), cotizacion);
             }
         } else {
             if (Utilidades.excluir("cambiarPlan", Municipio)) {
@@ -1429,13 +1429,13 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         "Sin Promocion", "N/A", "0", cotizacion.getAdicionales(), cotizacion.getTotalAdicionales(),
                         cotizacion.getPlanFacturacionTv_I(), cotizacion.getEstrato(), Municipio, cotizacion.tvPlanAnt,
                         cotizacion.tvTecnologiacr, aplicarDescuentos, cliente.getTecnologia(),
-                        cotizacion.getItemPromocionesAdicionales(), cotizacion.getDecodificadores(), cotizacion);
+                        cotizacion.getItemPromocionesAdicionales(), cotizacion.getObjectDecodificador(), cotizacion);
             } else {
                 rtv.Television(this, this, cotizacion.getTipoTv(), cotizacion.getTelevision(), cotizacion.getTvInd(),
                         "Sin Promocion", "N/A", "0", cotizacion.getAdicionales(), cotizacion.getTotalAdicionales(),
                         cotizacion.getPlanFacturacionTv_I(), cotizacion.getEstrato(), Municipio, cotizacion.tvPlanAnt,
                         cotizacion.tvTecnologiacr, aplicarDescuentos, cliente.getTecnologia(),
-                        cotizacion.getItemPromocionesAdicionales(), cotizacion.getDecodificadores(), cotizacion);
+                        cotizacion.getItemPromocionesAdicionales(), cotizacion.getObjectDecodificador(), cotizacion);
             }
         }
 
@@ -1574,7 +1574,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 cotizacion.getPromoTv(), cotizacion.getTiempoPromoTv(), cotizacion.getTvDEmp(),
                 cotizacion.getAdicionales(), cotizacion.getTotalAdicionales(), cotizacion.getPlanFacturacionTv_P(),
                 cotizacion.getEstrato(), Municipio, cotizacion.tvPlanAnt, cotizacion.tvTecnologiacr, aplicarDescuentos,
-                cliente.getTecnologia(), cotizacion.getItemPromocionesAdicionales(), cotizacion.getDecodificadores(), cotizacion);
+                cliente.getTecnologia(), cotizacion.getItemPromocionesAdicionales(), cotizacion.getObjectDecodificador(), cotizacion);
 
         if (venta != null) {
             llenarTelevision();
@@ -1742,12 +1742,15 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 rto.getPlanFactura(), rto.getTecnologia(), cotizacion.getTipoCotizacionTo(), cotizacion.toIdent,
                 rto.getAdicionalesCadena(), rto.getPreciosAdicionalesCadena(), rto.getPrecioAdicionales(),
                 rto.getTecnologiacr(), cotizacion.getToPagoAntCargoFijo(), cotizacion.getToPagoParcialConexion());
+
         venta.setTelevision(rtv.getPlan(), rtv.getValor(), rtv.getExtensiones(), rtv.getDescuento(), rtv.getDuracion(),
                 rtv.getValorDescuento(), rtv.getAdicionalesCadena(), rtv.getPreciosAdicionalesCadena(),
                 rtv.getPrecioAdicionales(), rtv.getMigracion(), rtv.getTipoMigracion(), rtv.getPlanFacturacion(), decos,
                 rtv.getTecnologia(), cotizacion.getTipoCotizacionTv(), cotizacion.tvIdent, rtv.getTecnologiacr(), cotizacion.getTvPagoAntCargoFijo(), cotizacion.getTvPagoParcialConexion());
 
-        venta.setItemDecodificadors(cotizacion.getDecodificadores());
+        venta.setItemDecodificadors(cotizacion.getObjectDecodificador().getItemDecodificadors());
+        venta.setDecodificador(cotizacion.getObjectDecodificador());
+
         venta.setInternet(rba.getPlan(), rba.getValor(), rba.getWifi(), rba.getMigracion(), rba.getTipoMigracion(),
                 rba.getDescuento(), rba.getDuracion(), rba.getValorDescuento(), rba.getPlanFacturacion(),
                 cotizacion.getTipoCotizacionBa(), cotizacion.baIdent, rba.getTecnologiacr(),
@@ -2250,6 +2253,10 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                             }
                         }
 
+
+                        UtilidadesDecos.imprimirDecos("venta.getItemDecodificadors() ",venta.getItemDecodificadors());
+                        UtilidadesDecos.imprimirDecos("venta.getDecodificador().getItemDecodificadors() ",venta.getDecodificador().getItemDecodificadors());
+
                         if (venta.getItemDecodificadors() != null && venta.getItemDecodificadors().size() > 0) {
                             for (int i = 0; i < venta.getItemDecodificadors().size(); i++) {
 
@@ -2362,6 +2369,9 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                             cotizacion.put(listObjectAdicionalesBa.get(i));
                         }
                     }
+
+                    //UtilidadesDecos.imprimirDecos("venta.getItemDecodificadors() ",venta.getItemDecodificadors());
+                    //UtilidadesDecos.imprimirDecos("venta.getDecodificador().getItemDecodificadors() ",venta.getDecodificador().getItemDecodificadors());
 
                     if (venta.getItemDecodificadors() != null && venta.getItemDecodificadors().size() > 0) {
                         for (int i = 0; i < venta.getItemDecodificadors().size(); i++) {

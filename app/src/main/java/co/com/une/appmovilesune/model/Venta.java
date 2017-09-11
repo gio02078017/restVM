@@ -14,6 +14,7 @@ import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.adapters.ItemDecodificador;
 import co.com.une.appmovilesune.adapters.ListaDefault;
 import co.com.une.appmovilesune.change.Utilidades;
+import co.com.une.appmovilesune.change.UtilidadesDecos;
 import co.com.une.appmovilesune.complements.Calendario;
 
 public class Venta implements Serializable {
@@ -37,6 +38,7 @@ public class Venta implements Serializable {
 
     ArrayList<ListaDefault> listDocumentacion = new ArrayList<ListaDefault>();
     ArrayList<ItemDecodificador> itemDecodificadors;
+    Decodificadores decodificador;
 
     String listAdicionalesTo;
     String listAdicionalesTV;
@@ -523,10 +525,14 @@ public class Venta implements Serializable {
 
             if (!television[0].equalsIgnoreCase(Utilidades.inicial_guion) && !television[0].equalsIgnoreCase("")) {
                 System.out.println("television[16] " + television[16]);
+
+                //UtilidadesDecos.imprimirDecos("itemDecodificadors jsonProductosVenta",itemDecodificadors);
+                //UtilidadesDecos.imprimirDecos("decodificador.getItemDecodificadors() jsonProductosVenta",decodificador.getItemDecodificadors());
+
                 objectProductos.add(new Utilidades().jsonProductosVenta(television[0], "TV", television[9],
                         television[10], television[1], television[3], television[4], television[2], "null", "null",
                         "null", "", "null", listAdicionalesTV, television[11], television[13], television[12],
-                        television[14], television[15], television[16], itemDecodificadors, null, television[17], television[18]));
+                        television[14], television[15], television[16], decodificador, null, television[17], television[18]));
             }
 
             if (!internet[0].equalsIgnoreCase(Utilidades.inicial_guion) && !internet[0].equalsIgnoreCase("")) {
@@ -728,6 +734,14 @@ public class Venta implements Serializable {
 
     public void setItemDecodificadors(ArrayList<ItemDecodificador> itemDecodificadors) {
         this.itemDecodificadors = itemDecodificadors;
+    }
+
+    public Decodificadores getDecodificador() {
+        return decodificador;
+    }
+
+    public void setDecodificador(Decodificadores decodificador) {
+        this.decodificador = decodificador;
     }
 
     public String getTotalPagoAntCargoFijo() {
