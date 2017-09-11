@@ -1460,6 +1460,24 @@ public class Utilidades {
 
     }
 
+    public static boolean excluirNacionalCompleto(String nombre, String clave , String valor) {
+
+        boolean excluir = false;
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "listasvalores",
+                new String[]{"lst_valor"}, "lst_nombre=? and lst_clave=? and lst_valor=?", new String[]{nombre, clave, valor}, null,
+                null, null);
+
+        System.out.println("respuesta excluirNacionalCompleto" + respuesta);
+
+        if (respuesta != null) {
+            excluir = true;
+        }
+
+
+        return excluir;
+
+    }
+
     public static boolean excluirMunicipal(String nombre, String clave, String ciudad) {
 
         System.out.println("excluirMunicipal nombre " + nombre);

@@ -2208,13 +2208,16 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
                         if (!rtv.getPlan().equalsIgnoreCase(Utilidades.inicial_guion)
                                 && !rtv.getPlan().equalsIgnoreCase("")) {
-                            tv = Utilidades.jsonProductos("TV", rtv.getPlan(), rtv.getValor(), rtv.getDescuento(),
+
+
+                            tv = Utilidades.jsonProductos("TV", UtilidadesTarificadorNew.cambiarPlan(rtv.getPlan()), rtv.getValor(), rtv.getDescuento(),
                                     rtv.getDuracion(), "0");
                             cotizacion.put(tv);
                         }
 
                         if (!rba.getPlan().equalsIgnoreCase(Utilidades.inicial_guion)
                                 && !rba.getPlan().equalsIgnoreCase("")) {
+
                             ba = Utilidades.jsonProductos("BA", rba.getPlan(), rba.getValor(), rba.getDescuento(),
                                     rba.getDuracion(), "0");
                             cotizacion.put(ba);
@@ -2321,7 +2324,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
                     if (!rtv.getPlan().equalsIgnoreCase(Utilidades.inicial_guion)
                             && !rtv.getPlan().equalsIgnoreCase("")) {
-                        tv = Utilidades.jsonProductos("TV", rtv.getPlan(), rtv.getValor(), rtv.getDescuento(),
+                        tv = Utilidades.jsonProductos("TV", UtilidadesTarificadorNew.cambiarPlan(rtv.getPlan()), rtv.getValor(), rtv.getDescuento(),
                                 rtv.getDuracion(), "0");
                         cotizacion.put(tv);
                     }

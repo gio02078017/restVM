@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
+import co.com.une.appmovilesune.adapters.ItemKeyValue;
+import co.com.une.appmovilesune.adapters.ItemKeyValue2;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
 import co.com.une.appmovilesune.model.ProductoCotizador;
@@ -413,5 +415,41 @@ public class UtilidadesTarificadorNew {
 
         return hboGoExistente;
 
+    }
+
+    public static String cambiarPlan(String plan){
+        String cambio = plan;
+
+        ArrayList<ItemKeyValue> verificarPlanes = homologarPlan();
+        if(verificarPlanes.size() > 0) {
+            for (int i = 0; i < verificarPlanes.size(); i++) {
+                if (plan.contains(verificarPlanes.get(i).getKey())) {
+                    cambio = cambio.replace(verificarPlanes.get(i).getKey(), verificarPlanes.get(i).getValues());
+                }
+            }
+
+        }
+
+        return cambio;
+    }
+
+    public static ArrayList<ItemKeyValue> homologarPlan(){
+        ArrayList<ItemKeyValue> planes = new ArrayList<ItemKeyValue>();
+
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "listasvalores",
+                new String[]{"lst_clave,lst_valor"}, "lst_nombre=?", new String[]{"homologarPlan"},
+                null, null, null);
+
+        System.out.println("respuesta " + respuesta);
+
+        if (respuesta != null) {
+            for (int i = 0; i < respuesta.size(); i++) {
+                    planes.add(new ItemKeyValue(respuesta.get(i).get(0), respuesta.get(i).get(1)));
+
+            }
+
+        }
+
+        return planes;
     }
 }

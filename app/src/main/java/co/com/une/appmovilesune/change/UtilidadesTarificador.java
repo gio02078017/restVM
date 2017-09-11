@@ -1314,6 +1314,10 @@ public class UtilidadesTarificador {
 
                 valido = validarDecosMinimos(datosDecos, minimos, context);
 
+                if(!valido){
+                    return false;
+                }
+
                 valido = UtilidadesDecos.validarDecos(datosDecos, decodificador.getPlan());
 
                 System.out.println("validarDecos General " + valido);
@@ -1322,12 +1326,10 @@ public class UtilidadesTarificador {
                     valido = true;
                 }
 
-               /* if (valicionDecos) {
-                    reg.add(true);
-                } else {
-                    reg.add(false);
-                    ja.put(Utilidades.jsonMensajes("Config", "La configuracion de los decos es erronea"));
-                }*/
+                if (!valido) {
+                    Utilidades.MensajesToast(context.getResources().getString(R.string.configDecos), context);
+                    return false;
+                }
 
                 System.out.println("validarDecos + valido condicional " + valido);
             }else{

@@ -129,11 +129,18 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
             for (ArrayList<String> arrayList : respuesta) {
                 // adaptador.add(arrayList.get(0));
                 System.out.println("adicional name " + arrayList.get(0));
-                adaptador.add(arrayList.get(0));
-
+                    adaptador.add(arrayList.get(0));
             }
         }
         spnSelectorAdicionales.setAdapter(adaptador);
+
+        String adicionalGratis = Utilidades.adicionalesGratis("adicionalesGratis",plan);
+
+        if(adicionalGratis != null && !adicionalGratis.equalsIgnoreCase("")) {
+            ListaAdicionales adicionalItem = new ListaAdicionales(adicionalGratis, "0", "", "");
+            adicionales.add(adicionalItem);
+            actualizarLista();
+        }
     }
 
     private void cargarAdicionalesBa(String plan, boolean limpiar) {

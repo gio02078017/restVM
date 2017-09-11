@@ -395,6 +395,7 @@
     <string name="eliminar">Elim</string>
     <string name="configuraciondecos">Configuración Decos</string>
     <string name="minimodecos">Debe seleccionar los decos mínimos requeridos del plan</string>
+    <string name="configDecos">La configuracion de los decos es erronea</string>
     <string name="fideliza">Fideliza</string>
     <string name="dvr">DVR</string>
     <string name="decodificadores">Decodificadores</string>
