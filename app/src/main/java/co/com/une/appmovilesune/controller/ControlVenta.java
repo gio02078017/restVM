@@ -2262,7 +2262,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
                                 String precio = venta.getItemDecodificadors().get(i).getPrecio();
                                 String tipoAlquiler = venta.getItemDecodificadors().get(i).getTipoAlquiler();
-                                String tipoDeco = venta.getItemDecodificadors().get(i).getOriginal();
+                                String tipoDeco = UtilidadesTarificadorNew.cambiarPlan(venta.getItemDecodificadors().get(i).getOriginal());
 
                                 if (tipoAlquiler.equalsIgnoreCase("AL") && !precio.equals("0") && !precio.equals("0.0")) {
                                     System.out.println("itemDecodificadors.get(i) entro ");
@@ -2378,7 +2378,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
                             String precio = venta.getItemDecodificadors().get(i).getPrecio();
                             String tipoAlquiler = venta.getItemDecodificadors().get(i).getTipoAlquiler();
-                            String tipoDeco = venta.getItemDecodificadors().get(i).getOriginal();
+                            String tipoDeco = UtilidadesTarificadorNew.cambiarPlan(venta.getItemDecodificadors().get(i).getOriginal());
 
                             if (tipoAlquiler.equalsIgnoreCase("AL") && !precio.equals("0") && !precio.equals("0.0")) {
                                 System.out.println("itemDecodificadors.get(i) entro ");
