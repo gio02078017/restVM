@@ -633,6 +633,9 @@ public class UtilidadesDecos {
 
             if (jsonObject.has("planTV")) {
                 planTV = jsonObject.getString("planTV");
+                if(planTV.contains("_")){
+                    planTV = planTV.replaceAll("_","|_");
+                }
             }
 
             if (jsonObject.has("filtro")) {
@@ -653,7 +656,7 @@ public class UtilidadesDecos {
                 + "SELECT DISTINCT(c1.id) FROM condiciones c1 " + "INNER JOIN condiciones c2 ON c1.id=c2.id "
                 + "INNER JOIN condiciones c3 ON c1.id=c3.id " + "WHERE c1.clave='Oferta' AND c1.valor = '" + oferta
                 + "' " + "AND c2.clave='NodoDigital' AND c2.valor = '" + nodoDigital + "' "
-                + "AND c3.Clave='PlanTV' AND c3.valor like '%" + planTV + "%') " + filtro
+                + "AND c3.Clave='PlanTV' AND c3.valor like '%" + planTV + "%' ESCAPE '|') " + filtro
                 + " group by dec.id_confdeco,dec.caracteristica,dec.configuracion";
 
 		// System.out.println("decodificadores query " + query);
@@ -854,6 +857,9 @@ public class UtilidadesDecos {
 
             if (jsonObject.has("planTV")) {
                 planTV = jsonObject.getString("planTV");
+                if(planTV.contains("_")){
+                    planTV = planTV.replaceAll("_","|_");
+                }
             }
 
             if (jsonObject.has("filtro")) {
@@ -891,7 +897,7 @@ public class UtilidadesDecos {
                     + "SELECT DISTINCT(c1.id) FROM condiciones c1 " + "INNER JOIN condiciones c2 ON c1.id=c2.id "
                     + "INNER JOIN condiciones c3 ON c1.id=c3.id " + "WHERE c1.clave='Oferta' AND c1.valor = '" + oferta
                     + "' " + "AND c2.clave='NodoDigital' AND c2.valor = '" + nodoDigital + "' "
-                    + "AND c3.Clave='PlanTV' AND c3.valor like '%" + planTV + "%') " + filtro + parametro
+                    + "AND c3.Clave='PlanTV' AND c3.valor like '%" + planTV + "%' ESCAPE '|') " + filtro + parametro
                     + " group by dec.id_confdeco,dec.caracteristica,dec.configuracion";
         }
 
@@ -934,6 +940,9 @@ public class UtilidadesDecos {
 
             if (jsonObject.has("planTV")) {
                 planTV = jsonObject.getString("planTV");
+                if(planTV.contains("_")){
+                    planTV = planTV.replaceAll("_","|_");
+                }
             }
 
             if (jsonObject.has("filtro")) {
@@ -971,7 +980,7 @@ public class UtilidadesDecos {
                     + "SELECT DISTINCT(c1.id) FROM condiciones c1 " + "INNER JOIN condiciones c2 ON c1.id=c2.id "
                     + "INNER JOIN condiciones c3 ON c1.id=c3.id " + "WHERE c1.clave='Oferta' AND c1.valor = '" + oferta
                     + "' " + "AND c2.clave='NodoDigital' AND c2.valor = '" + nodoDigital + "' "
-                    + "AND c3.Clave='PlanTV' AND c3.valor like '%" + planTV + "%') " + filtro + parametro
+                    + "AND c3.Clave='PlanTV' AND c3.valor like '%" + planTV + "%' ESCAPE '|') " + filtro + parametro
                     + " group by dec.id_confdeco,dec.caracteristica,dec.configuracion";
         }
 
