@@ -252,7 +252,9 @@ public class ResumenTelevision extends LinearLayout {
         this.television = television;
         this.ciudad = ciudad;
         this.decodificador = decodificador;
-        this.decodificadores = decodificador.getItemDecodificadors();
+        if(decodificador != null) {
+            this.decodificadores = decodificador.getItemDecodificadors();
+        }
         this.cotizacion = cotizacion;
         tecnologia = tipoTecnologia;
 

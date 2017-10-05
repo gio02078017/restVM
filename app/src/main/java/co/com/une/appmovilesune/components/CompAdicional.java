@@ -137,7 +137,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         String adicionalGratis = Utilidades.adicionalesGratis("adicionalesGratis",plan);
 
         if(adicionalGratis != null && !adicionalGratis.equalsIgnoreCase("")) {
-            ListaAdicionales adicionalItem = new ListaAdicionales(adicionalGratis, "0", "", "");
+            ListaAdicionales adicionalItem = new ListaAdicionales(adicionalGratis, "0", "", "",false);
             adicionales.add(adicionalItem);
             actualizarLista();
         }
@@ -263,9 +263,9 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
             ListaAdicionales adicionalItem = null;
             if (result != null) {
                 adicionalItem = new ListaAdicionales(adicional, respuesta.get(0).get(2), result.get(0).get(1),
-                        result.get(0).get(2));
+                        result.get(0).get(2),true);
             } else {
-                adicionalItem = new ListaAdicionales(adicional, respuesta.get(0).get(2), "", "");
+                adicionalItem = new ListaAdicionales(adicional, respuesta.get(0).get(2), "", "",true);
             }
 
             ArrayList<Boolean> agregar = new ArrayList<Boolean>();

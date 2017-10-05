@@ -241,12 +241,12 @@ public class CompADDigital extends RelativeLayout implements Observer, Subject {
             ListaAdicionales adicionalItem = null;
             if (result != null) {
                 adicionalItem = new ListaAdicionales(adicional, respuesta.get(0).get(2), result.get(0).get(1),
-                        result.get(0).get(2));
+                        result.get(0).get(2),true);
                 if (tipo.equals(BALIN)) {
                     adicionalItem.setBalin(true);
                 }
             } else {
-                adicionalItem = new ListaAdicionales(adicional, respuesta.get(0).get(2), "", "");
+                adicionalItem = new ListaAdicionales(adicional, respuesta.get(0).get(2), "", "",true);
             }
 
             ArrayList<Boolean> agregar = new ArrayList<Boolean>();

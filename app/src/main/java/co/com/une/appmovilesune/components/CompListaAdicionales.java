@@ -83,7 +83,7 @@ public class CompListaAdicionales extends RelativeLayout {
         for (int i = 0; i < adicionales.size(); i++) {
             for (int j = 0; j < adicionales.get(i).size(); j++) {
                 adic.add(new ListaAdicionales(adicionales.get(i).get(j).nombre,
-                        String.valueOf(adicionales.get(i).get(j).total), "0", "0"));
+                        String.valueOf(adicionales.get(i).get(j).total), "0", "0",true));
             }
         }
 

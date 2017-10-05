@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import co.com.une.appmovilesune.adapters.ItemDecodificador;
+import co.com.une.appmovilesune.adapters.ListaDecosIncluido;
 
 public class Decodificadores implements Serializable {
 
@@ -19,6 +20,7 @@ public class Decodificadores implements Serializable {
     Boolean permisoFideliza = null;
 
     ArrayList<ItemDecodificador> itemDecodificadors = null;
+    ArrayList<ListaDecosIncluido> listaDecosIncluido = null;
 
 
     public ArrayList<ArrayList<String>> getInfoConfigDecos() {
@@ -67,5 +69,13 @@ public class Decodificadores implements Serializable {
 
     public void setPermisoFideliza(Boolean permisoFideliza) {
         this.permisoFideliza = permisoFideliza;
+    }
+
+    public ArrayList<ListaDecosIncluido> getListaDecosIncluido() {
+        return listaDecosIncluido;
+    }
+
+    public void setListaDecosIncluido(ArrayList<ListaDecosIncluido> listaDecosIncluido) {
+        this.listaDecosIncluido = listaDecosIncluido;
     }
 }

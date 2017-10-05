@@ -58,6 +58,10 @@ public class ListaAdicionalesAdapter extends BaseAdapter implements Subject {
             }
         });
 
+        if(!item.isVisibleEliminar()){
+            txtEliminarAdicional.setVisibility(View.INVISIBLE);
+        }
+
         txtNombreAdicional.setText(item.getAdicional());
         txtValorAdicional.setText(item.getPrecio());
         if (type.equals("portafolio")) {

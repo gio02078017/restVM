@@ -1,16 +1,20 @@
 package co.com.une.appmovilesune.adapters;
 
+import java.io.Serializable;
+
 public class ListaAdicionales {
     private String adicional, precio, descuento, duracion, valorDescuento = "0";
     private boolean balin = false;
     protected long id;
+    private boolean visibleEliminar;
 
-    public ListaAdicionales(String adicional, String precio, String descuento, String duracion) {
+    public ListaAdicionales(String adicional, String precio, String descuento, String duracion, boolean visibleEliminar) {
         super();
         this.adicional = adicional;
         this.precio = precio;
         this.descuento = descuento;
         this.duracion = duracion;
+        this.visibleEliminar = visibleEliminar;
     }
 
     public String getAdicional() {
@@ -69,4 +73,11 @@ public class ListaAdicionales {
         this.valorDescuento = valorDescuento;
     }
 
+    public boolean isVisibleEliminar() {
+        return visibleEliminar;
+    }
+
+    public void setVisibleEliminar(boolean visibleEliminar) {
+        this.visibleEliminar = visibleEliminar;
+    }
 }

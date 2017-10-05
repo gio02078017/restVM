@@ -337,7 +337,7 @@ public class ResumenInternet extends LinearLayout {
         adicionalesBa.clear();
         if (adicionales != null) {
             for (int i = 0; i < adicionales.length; i++) {
-                adicionalesBa.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "", ""));
+                adicionalesBa.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "", "",true));
             }
         }
     }

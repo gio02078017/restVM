@@ -310,7 +310,7 @@ public class ResumenTelefonia extends LinearLayout {
 		adicionalesTo.clear();
 		if (adicionales != null) {
 			for (int i = 0; i < adicionales.length; i++) {
-				adicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "", ""));
+				adicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "", "",true));
 			}
 		}
 	}
@@ -348,7 +348,7 @@ public class ResumenTelefonia extends LinearLayout {
 		double valor = UtilidadesTarificador.ImpuestoTelefonico(municipio, departamento, estrato);
 		if (valor >= 0) {
 
-			adicionalesTo.add(new ListaAdicionales("Impuesto Telefonico", String.valueOf(valor), "", ""));
+			adicionalesTo.add(new ListaAdicionales("Impuesto Telefonico", String.valueOf(valor), "", "",true));
 
 			llenarAdicionales();
 		}

@@ -527,12 +527,12 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         if(adicionales != null) {
             for (int i = 0; i < adicionales.length; i++) {
-                listaAdicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses"));
+                listaAdicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses",true));
             }
         }
 
         listaAdicionalesTo.add(new ListaAdicionales("Impuesto Telefonico", String.valueOf(UtilidadesTarificador.ImpuestoTelefonico(cliente.getCiudad(),
-                cliente.getDepartamento(), cliente.getEstrato())), "-", "0 Meses"));
+                cliente.getDepartamento(), cliente.getEstrato())), "-", "0 Meses",true));
 
         for (int i = 0; i < listaAdicionalesTo.size(); i++) {
 
@@ -608,10 +608,10 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 System.out.println("descuento " + descuento);
                 System.out.println("duracion " + duracion);
 
-                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], descuento, duracion));
+                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], descuento, duracion,true));
 
             } else {
-                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses"));
+                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses",true));
             }
 
             promoAdIndividual = promocionesAdIndividuales(cotizacion.getTelevision(),
@@ -622,7 +622,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                     if (listaAdicionales.get(j).getAdicional().equalsIgnoreCase(adicionales[i][0])) {
                         listaAdicionales.remove(j);
                         listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1],
-                                promoAdIndividual.get(0)[0], promoAdIndividual.get(0)[1]));
+                                promoAdIndividual.get(0)[0], promoAdIndividual.get(0)[1],true));
                     }
                 }
                 // System.out.println("posicion
@@ -725,10 +725,10 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 System.out.println("descuento " + descuento);
                 System.out.println("duracion " + duracion);
 
-                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], descuento, duracion));
+                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], descuento, duracion,true));
 
             } else {
-                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses"));
+                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses",true));
             }
         }
 
@@ -1748,7 +1748,10 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 rtv.getPrecioAdicionales(), rtv.getMigracion(), rtv.getTipoMigracion(), rtv.getPlanFacturacion(), decos,
                 rtv.getTecnologia(), cotizacion.getTipoCotizacionTv(), cotizacion.tvIdent, rtv.getTecnologiacr(), cotizacion.getTvPagoAntCargoFijo(), cotizacion.getTvPagoParcialConexion());
 
-        venta.setItemDecodificadors(cotizacion.getObjectDecodificador().getItemDecodificadors());
+        if(cotizacion.getObjectDecodificador() != null) {
+            venta.setItemDecodificadors(cotizacion.getObjectDecodificador().getItemDecodificadors());
+        }
+
         venta.setDecodificador(cotizacion.getObjectDecodificador());
 
         venta.setInternet(rba.getPlan(), rba.getValor(), rba.getWifi(), rba.getMigracion(), rba.getTipoMigracion(),
@@ -2204,7 +2207,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                     try {
                         if (!rto.getPlan().equalsIgnoreCase(Utilidades.inicial_guion)
                                 && !rto.getPlan().equalsIgnoreCase("")) {
-                            to = Utilidades.jsonProductos("TO", rto.getPlan(), rto.getValor(), rto.getDescuento(),
+                            to = Utilidades.jsonProductos("TO", UtilidadesTarificadorNew.cambiarPlan(rto.getPlan()), rto.getValor(), rto.getDescuento(),
                                     rto.getDuracion(), "0");
                             cotizacion.put(to);
                         }
@@ -2221,7 +2224,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         if (!rba.getPlan().equalsIgnoreCase(Utilidades.inicial_guion)
                                 && !rba.getPlan().equalsIgnoreCase("")) {
 
-                            ba = Utilidades.jsonProductos("BA", rba.getPlan(), rba.getValor(), rba.getDescuento(),
+                            ba = Utilidades.jsonProductos("BA", UtilidadesTarificadorNew.cambiarPlan(rba.getPlan()), rba.getValor(), rba.getDescuento(),
                                     rba.getDuracion(), "0");
                             cotizacion.put(ba);
                         }
@@ -2324,7 +2327,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 try {
                     if (!rto.getPlan().equalsIgnoreCase(Utilidades.inicial_guion)
                             && !rto.getPlan().equalsIgnoreCase("")) {
-                        to = Utilidades.jsonProductos("TO", rto.getPlan(), rto.getValor(), rto.getDescuento(),
+                        to = Utilidades.jsonProductos("TO", UtilidadesTarificadorNew.cambiarPlan(rto.getPlan()), rto.getValor(), rto.getDescuento(),
                                 rto.getDuracion(), "0");
                         cotizacion.put(to);
                     }
@@ -2338,7 +2341,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
                     if (!rba.getPlan().equalsIgnoreCase(Utilidades.inicial_guion)
                             && !rba.getPlan().equalsIgnoreCase("")) {
-                        ba = Utilidades.jsonProductos("BA", rba.getPlan(), rba.getValor(), rba.getDescuento(),
+                        ba = Utilidades.jsonProductos("BA", UtilidadesTarificadorNew.cambiarPlan(rba.getPlan()), rba.getValor(), rba.getDescuento(),
                                 rba.getDuracion(), "0");
                         cotizacion.put(ba);
                     }

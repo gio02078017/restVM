@@ -16,6 +16,7 @@ import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.adapters.ItemDecodificador;
 import co.com.une.appmovilesune.adapters.ItemKeyValue;
 import co.com.une.appmovilesune.adapters.ItemKeyValue2;
+import co.com.une.appmovilesune.adapters.ListaDecosIncluido;
 import co.com.une.appmovilesune.model.Decodificadores;
 
 public class UtilidadesDecos {
@@ -30,6 +31,8 @@ public class UtilidadesDecos {
         decodificadores.setInfoConfigDecos(infoConfigDecosPorPlan(planTV));
 
         decodificadores.setItemDecodificadors(logicaDecos(decodificadores.getInfoConfigDecos(),decosExistentes));
+
+        decodificadores.setListaDecosIncluido(listaDecosIncluidos(filtroDecodificador(decodificadores.getInfoConfigDecos(),"incluidos"),filtroDecodificador(decodificadores.getInfoConfigDecos(),"etiquetas")));
 
         return decodificadores;
     }
@@ -344,6 +347,34 @@ public class UtilidadesDecos {
         System.out.println("NGTV arrayDecos "+arrayDecos);
         return arrayDecos;
 
+    }
+
+    public static ArrayList<ListaDecosIncluido> listaDecosIncluidos(String decosIncluidos,String etiquetas) {
+        ArrayList<ListaDecosIncluido> listaDecosIncluidos = new ArrayList<ListaDecosIncluido>();
+
+        String[] datosDecos = decosIncluidos.split("-");
+
+        String[] datosEtiquetas = etiquetas.split("-");
+
+        for (int i = 0; i < datosDecos.length; i++) {
+            for (int j = 0; j < datosEtiquetas.length; j++) {
+                /*System.out.println("listaDecosIncluidos fusion i "+i);
+                System.out.println("listaDecosIncluidos fusion j "+j);
+                System.out.println("listaDecosIncluidos fusion datosDecos[i] "+datosDecos[i]);
+                System.out.println("listaDecosIncluidos fusion datosEtiquetas[j] "+datosEtiquetas[j]);*/
+                if(i==j && !datosDecos[i].equalsIgnoreCase("0")){
+                    System.out.println("listaDecosIncluidos fusion entro ");
+                    listaDecosIncluidos.add(new ListaDecosIncluido(datosEtiquetas[j],Utilidades.convertirNumericos(datosDecos[i],datosDecos[i])));
+                }
+            }
+        }
+
+        /*for (int i = 0; i < listaDecosIncluidos.size(); i++) {
+            System.out.println("listaDecosIncluidos etiqueta "+listaDecosIncluidos.get(i).getTipoDeco());
+            System.out.println("listaDecosIncluidos cantidad "+listaDecosIncluidos.get(i).getCantidad());
+        }*/
+
+        return listaDecosIncluidos;
     }
 
     public static ArrayList<ItemDecodificador> partirStringDecosIncluidos(String decosIncluidos, String tipoAlquiler) {
@@ -689,6 +720,8 @@ public class UtilidadesDecos {
                             + decodificadores.get(i).getDecosActuales());
                     System.out.println(preFijo + " (" + i + ") " + " decodificadores infoDecosActuales "
                             + decodificadores.get(i).getInfoActualesDecos());
+                    System.out.println(preFijo + " (" + i + ") " + " decodificadores incluidos "
+                            + decodificadores.get(i).isIncluido());
 
                     System.out.println(
                             preFijo + " (" + i + ") " + " decodificadores nuevo " + decodificadores.get(i).isNuevo());

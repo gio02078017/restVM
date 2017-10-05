@@ -130,6 +130,12 @@ public class ListaDecodificadoresAdapter extends BaseAdapter implements Subject 
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 cambiarValorDeco(position, lblValorDeco, arg0.getSelectedItem().toString());
+                System.out.println("updateDecoNuevo arg0.getSelectedItem() "+arg0.getSelectedItem());
+                System.out.println("updateDecoNuevo item.getDestino() "+item.getDestino());
+                System.out.println("updateDecoNuevo item.getOriginal() "+item.getOriginal());
+                if(!item.getOriginal().equalsIgnoreCase(arg0.getSelectedItem().toString()) && item.getDestino() != null){
+                    updateDecoNuevo(position);
+                }
             }
 
             @Override
@@ -355,6 +361,13 @@ public class ListaDecodificadoresAdapter extends BaseAdapter implements Subject 
     private void eliminarDecoNuevo(int position) {
         ArrayList<Object> data = new ArrayList<Object>();
         data.add("eliminar");
+        data.add(position);
+        observer.update(data);
+    }
+
+    private void updateDecoNuevo(int position) {
+        ArrayList<Object> data = new ArrayList<Object>();
+        data.add("update");
         data.add(position);
         observer.update(data);
     }

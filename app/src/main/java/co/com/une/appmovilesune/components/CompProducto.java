@@ -51,6 +51,7 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
     private CheckBox chkHabilitarProducto;
     private TextView lblTipoProducto;
 
+
     /*Contenedor de los componentes de producto*/
     private LinearLayout llyProducto;
 

@@ -1,5 +1,6 @@
 package co.com.une.appmovilesune.components;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -18,6 +19,7 @@ import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.adapters.ItemDecodificador;
 import co.com.une.appmovilesune.adapters.ListaDecodificadoresAdapter;
 import co.com.une.appmovilesune.change.ControlSimulador;
+import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesDecos;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
@@ -37,6 +39,7 @@ public class CompDecos extends LinearLayout implements Observer, Subject, Observ
     private Observer observer;
     private String oferta;
     private String plan;
+    private boolean controlUpdate = false;
 
     public CompDecos(Context context) {
         super(context);
@@ -105,8 +108,10 @@ public class CompDecos extends LinearLayout implements Observer, Subject, Observ
 
     private void actualizarLista() {
 
+
+
         if (decos != null) {
-            //UtilidadesDecos.imprimirDecos("compDecos", decos);
+            UtilidadesDecos.imprimirDecos("compDecos", decos);
             //System.out.println("decos "+decodificadores);
             //System.out.println("decos item  "+decodificadores.getItemDecodificadors());
             ListaDecodificadoresAdapter adapter = new ListaDecodificadoresAdapter((Activity) getContext(), getContext(), decodificadores);
@@ -146,6 +151,13 @@ public class CompDecos extends LinearLayout implements Observer, Subject, Observ
             borrarDecodificador(position);
         } else if (lugar.equalsIgnoreCase("cambio")) {
             notifyObserver();
+        } else if (lugar.equalsIgnoreCase("update")) {
+            //notifyObserver();
+            System.out.println("updateDecoNuevo update deco ");
+            UtilidadesDecos.imprimirDecos("updateDecoNuevo getDecos() ",decos);
+            //decvcontar
+            comprobarDecosGratis();
+
         } else if (lugar.equalsIgnoreCase("plan")) {
             decos = null;
             System.out.println("data " + data);
@@ -328,5 +340,56 @@ public class CompDecos extends LinearLayout implements Observer, Subject, Observ
 
     public void setDecodificadores(Decodificadores decodificadores) {
         this.decodificadores = decodificadores;
+    }
+
+    public void comprobarDecosGratis(){
+        int contadorIncluidos = 0;
+        int contadorIncluidosListDecos = 0;
+        int resta = 0;
+
+        if(decodificadores !=  null && decodificadores.getListaDecosIncluido() != null) {
+            for (int i = 0; i < decodificadores.getListaDecosIncluido().size(); i++) {
+                contadorIncluidos += decodificadores.getListaDecosIncluido().get(i).getCantidad();
+            }
+        }
+
+        for (int i = 0; i < decos.size(); i++) {
+            if(decos.get(i).isIncluido()){
+                contadorIncluidosListDecos += 1;
+            }
+        }
+
+        System.out.println("updateDecoNuevo contadorIncluidos "+contadorIncluidos);
+        System.out.println("updateDecoNuevo contadorIncluidosListDecos "+contadorIncluidosListDecos);
+
+        if(contadorIncluidos > 0){
+            resta = contadorIncluidos - contadorIncluidosListDecos;
+            int contador = 0;
+            if(resta > 0){
+                for (int i = 0; i < decos.size(); i++) {
+                    if(contador == resta){
+                        break;
+                    }
+                    if(!decos.get(i).isIncluido()){
+                        for (int j = 0; j < decodificadores.getListaDecosIncluido().size(); j++) {
+                            if(decodificadores.getListaDecosIncluido().get(j).getTipoDeco().equalsIgnoreCase(decos.get(i).getDestino())){
+                                contador ++;
+                                /*decos.get(i).setIncluido(true);
+                                decos.get(i).setPrecio("0");*/
+                                String tipoDeco = decos.get(i).getDestino();
+                                decos.remove(i);
+                                decos.add(new ItemDecodificador("0|SD-0|HD-0|Ext-0|PVR-", "AL", false,
+                                        "NA", tipoDeco, "0", "Nuevo", true, true, false));
+                                break;
+                            }
+                        }
+                    }
+                }
+                if(contador > 0){
+                    actualizarLista();
+                }
+            }
+        }
+
     }
 }

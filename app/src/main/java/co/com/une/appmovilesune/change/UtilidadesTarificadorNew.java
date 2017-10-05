@@ -419,16 +419,24 @@ public class UtilidadesTarificadorNew {
 
     public static String cambiarPlan(String plan){
         String cambio = plan;
+        boolean control = false;
 
         ArrayList<ItemKeyValue> verificarPlanes = homologarPlan();
         if(verificarPlanes.size() > 0) {
             for (int i = 0; i < verificarPlanes.size(); i++) {
                 if (plan.contains(verificarPlanes.get(i).getKey())) {
                     cambio = cambio.replace(verificarPlanes.get(i).getKey(), verificarPlanes.get(i).getValues());
+                    control = true;
                 }
             }
 
         }
+
+
+            if(!control && plan.contains("_")){
+                cambio = plan.replaceAll("_"," ");
+            }
+
 
         return cambio;
     }

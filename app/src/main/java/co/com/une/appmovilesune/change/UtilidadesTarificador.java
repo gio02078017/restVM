@@ -1298,11 +1298,7 @@ public class UtilidadesTarificador {
 
         boolean valido = true;
 
-        System.out.println("validarDecos + plan "+decodificador.getPlan());
-
-
-
-        if (!decodificador.getPlan().equalsIgnoreCase("-")) {
+        if (decodificador != null && !decodificador.getPlan().equalsIgnoreCase("-")) {
 
             if(Utilidades.excluirNacional("tipoTivo",decodificador.getPlan())) {
 
