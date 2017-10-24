@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import co.com.une.appmovilesune.MainActivity;
@@ -299,9 +300,12 @@ public class UtilidadesTarificadorNew {
         return existentes;
     }
 
-    public static boolean validarVelocidadInternet(String plan, Cliente cliente) {
+    public static boolean validarVelocidadInternet(String plan, String adicional, Cliente cliente) {
 
         boolean result = false;
+
+        System.out.println("adicional_ba adicional "+ adicional);
+        System.out.println("adicional_ba plan "+ plan);
 
         String parametros = "departamento like ? and tipo_producto = ? and estrato like ? and Producto = ?";
         String[] datos = new String[]{"%" + cliente.getDepartamento() + "%",  "ba", "%" + cliente.getEstrato() + "%", plan};
@@ -310,6 +314,8 @@ public class UtilidadesTarificadorNew {
                 new String[]{"ProductoHomologado", "velocidadGota"},
                 parametros, datos,
                 null, null, null);
+
+        System.out.println("adicional_ba validarVelocidadInternet "+ respuesta);
 
 
         if(respuesta != null){
@@ -321,7 +327,7 @@ public class UtilidadesTarificadorNew {
                 velocidadGota = Integer.parseInt(respuesta.get(0).get(1).replace("MB",""));
             }
 
-            if(velocidadPlan >= obtenerVelocidadMinimaInternet() || velocidadGota >= obtenerVelocidadMinimaInternet()){
+            if(velocidadPlan >= obtenerVelocidadMinimaInternet(adicional) || velocidadGota >= obtenerVelocidadMinimaInternet(adicional)){
                 result = true;
             } else {
                 result = false;
@@ -333,13 +339,17 @@ public class UtilidadesTarificadorNew {
 
     }
 
-    public static int obtenerVelocidadMinimaInternet(){
+    public static int obtenerVelocidadMinimaInternet(String adicional){
 
         int velocidad = -1;
 
+        System.out.println("adicional_ba obtenerVelocidadMinimaInternet adicional "+ adicional);
+
         ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
-                new String[]{"lst_valor"}, "lst_nombre = ? and lst_clave = ?", new String[]{"velocidadMinimaInternet", "velocidadMinimaInternet"}, null,
+                new String[]{"lst_valor"}, "lst_nombre = ? and lst_clave = ?", new String[]{"velocidadMinimaInternet", adicional}, null,
                 null, null);
+
+        System.out.println("adicional_ba obtenerVelocidadMinimaInternet resultado "+resultado);
 
         if(resultado != null){
             velocidad = Integer.parseInt(resultado.get(0).get(0));
@@ -349,10 +359,10 @@ public class UtilidadesTarificadorNew {
 
     }
 
-    public static String validarHomologadoHBOGO(String adicional){
+    public static String validarHomologadoAdicionalBa(String adicional){
 
         ArrayList<ArrayList<String>> resultado = MainActivity.basedatos.consultar(false, "listasvalores",
-                new String[]{"lst_valor"}, "lst_nombre = ? and lst_clave = ?", new String[]{"HomologadosHBOGO", adicional}, null,
+                new String[]{"lst_valor"}, "lst_nombre = ? and lst_clave = ?", new String[]{"HomologadoAdicionalBa", adicional}, null,
                 null, null);
 
         if(resultado != null){

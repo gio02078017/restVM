@@ -161,12 +161,17 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
             if (respuesta != null) {
                 for (ArrayList<String> arrayList : respuesta) {
                     // adaptador.add(arrayList.get(0));
-                    System.out.println("adicional name " + arrayList.get(0));
-                    if(UtilidadesTarificadorNew.validarHomologadoHBOGO(arrayList.get(0)).equalsIgnoreCase("HBO GO")){
+                    System.out.println("adicional_ba name " + arrayList.get(0));
+                    String homologadoAdicionalBa =  UtilidadesTarificadorNew.validarHomologadoAdicionalBa(arrayList.get(0));
+                    System.out.println("adicional_ba name homologado" + homologadoAdicionalBa);
+                    ArrayList<String> filtroAdicionales =  new ArrayList<String>();
+                    filtroAdicionales.add("HBO GO");
+                    filtroAdicionales.add("Crackle");
+                    if(filtroAdicionales.contains(homologadoAdicionalBa)){
                         if(!UtilidadesTarificadorNew.televisionExistentePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula()) &&
                                 !UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(),cliente.getCedula(),tipoOferta)){
                             HBOGOExistente = false;
-                            if(UtilidadesTarificadorNew.validarVelocidadInternet(planBA,cliente) && !limpiar){
+                            if(UtilidadesTarificadorNew.validarVelocidadInternet(planBA,homologadoAdicionalBa,cliente) && !limpiar){
                                 adaptador.add(arrayList.get(0));
                             }
                         } else {
@@ -445,10 +450,14 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
     }
 
     @Override
-    public void limpiarAdicionalHBOGO(boolean limpiar) {
+    public void limpiarAdicionalInternet(boolean limpiar) {
         for(ListaAdicionales adicional: adicionales){
             Log.d("HBOGO",adicional.getAdicional());
-            if(UtilidadesTarificadorNew.validarHomologadoHBOGO(adicional.getAdicional()).equalsIgnoreCase("HBO GO")){
+            String homologadoAdicionalBa =  UtilidadesTarificadorNew.validarHomologadoAdicionalBa(adicional.getAdicional());
+            ArrayList<String> filtroAdicionales =  new ArrayList<String>();
+            filtroAdicionales.add("HBO GO");
+            filtroAdicionales.add("Crackle");
+            if(filtroAdicionales.contains(homologadoAdicionalBa)){
                 adicionales.remove(adicional);
             }
         }

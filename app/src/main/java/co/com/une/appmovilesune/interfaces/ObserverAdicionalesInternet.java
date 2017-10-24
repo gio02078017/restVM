@@ -14,6 +14,6 @@ public interface ObserverAdicionalesInternet {
 
     void limpiarAdicionales();
 
-    void limpiarAdicionalHBOGO(boolean limpiar);
+    void limpiarAdicionalInternet(boolean limpiar);
 
 }
