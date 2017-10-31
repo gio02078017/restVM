@@ -61,46 +61,51 @@ public class ProductoCotizador {
         if (respuesta != null) {
             if (tipoPeticion.equals("N")) {
                 if(clienteNuevo){
-                    totalPagoParcial = calcularDescuento(respuesta.get(0));
+                    //totalPagoParcial = calcularDescuento(respuesta.get(0));
                     if (aplicaPA) {
                         pagoAnticipado = Double.parseDouble(respuesta.get(0).get(2));
                     } else {
                         pagoAnticipado = 0;
                     }
                 }else {
-                    totalPagoParcial = 0;
+                   // totalPagoParcial = 0;
                     pagoAnticipado = 0;
                 }
 
 
             } else {
-                totalPagoParcial = 0;
+                //totalPagoParcial = 0;
                 pagoAnticipado = 0;
             }
 
         } else {
-            totalPagoParcial = 0;
+            //totalPagoParcial = 0;
             pagoAnticipado = 0;
         }
     }
 
-    private double calcularDescuento(ArrayList<String> valores) {
-        pagoParcial = Double.parseDouble(valores.get(0));
-        pagoParcialDescuento = Double.parseDouble(valores.get(1));
+    public double calcularDescuento() {
+        /*pagoParcial = Double.parseDouble(valores.get(0));
+        pagoParcialDescuento = Double.parseDouble(valores.get(1));*/
+        System.out.println("calcularDescuento Inicio");
 
         double total = pagoParcial - (pagoParcial * pagoParcialDescuento) / 100;
+
+        System.out.println("calcularDescuento total "+total);
 
         return total;
 
     }
 
-    public void aplciarDescuentoTrio() {
+
+
+    /*public void aplciarDescuentoTrio() {
         totalPagoParcial = 0;
     }
 
     public void aplicarDescuentoDuo(){
         totalPagoParcial = totalPagoParcial * 0.5;
-    }
+    }*/
 
     public static int getTELEFONIA() {
         return TELEFONIA;

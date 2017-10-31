@@ -14,8 +14,10 @@ import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.adapters.ItemKeyValue;
 import co.com.une.appmovilesune.adapters.ItemKeyValue2;
+import co.com.une.appmovilesune.adapters.ListaCotizacion;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
+import co.com.une.appmovilesune.model.CotizacionCliente;
 import co.com.une.appmovilesune.model.ProductoCotizador;
 
 /**
@@ -104,6 +106,9 @@ public class UtilidadesTarificadorNew {
             System.out.println("************descuentoCargobasico**********"+productos.get(i).getDescuentoCargobasico()+"********");
             System.out.println("************duracionDescuento**********"+productos.get(i).getDuracionDescuento()+"********");
             System.out.println("************velocidad**********"+productos.get(i).getVelocidad()+"********");
+            System.out.println("************pagoParcial**********"+productos.get(i).getPagoParcial()+"********");
+            System.out.println("************pagoParcialDescuento**********"+productos.get(i).getPagoParcialDescuento()+"********");
+            System.out.println("************totalPagoParcial()**********"+productos.get(i).getTotalPagoParcial()+"********");
         }
 
         System.out.println("************imprimirProductosCotizacion**********Fin********");
@@ -459,5 +464,121 @@ public class UtilidadesTarificadorNew {
         }
 
         return planes;
+    }
+
+    public static int homologarTipoTransacion (String tipoTransacion){
+        int tipo = -1;
+        if(tipoTransacion.equalsIgnoreCase("N")){
+            tipo = 1;
+        }else if(tipoTransacion.equalsIgnoreCase("C") || tipoTransacion.equalsIgnoreCase("E")){
+            tipo = 0;
+        }
+
+        return tipo;
+    }
+
+    private ArrayList<ProductoCotizador> obtenerPagoParcial(CotizacionCliente cotizacionCliente) {
+
+        ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
+
+        if(cotizacionCliente.getContadorProductos() > 0){
+            ArrayList<ArrayList<String>> resultQueryExterno =  resultQueryExternoPagoParcial(cotizacionCliente);
+            if(resultQueryExterno.size() >0){
+                ArrayList<ArrayList<String>> resultQueryInterno =  resultQueryInternoPagoParcial(resultQueryExterno);
+
+            }
+        }
+
+        return productos;
+    }
+
+    public ArrayList<ArrayList<String>> resultQueryExternoPagoParcial(CotizacionCliente cotizacionCliente){
+        ArrayList<ArrayList<String>> respuesta = null;
+
+        if(cotizacionCliente.getContadorProductos() > 0){
+            ArrayList<ListaCotizacion> listaCotizacion = listaCotizacion (cotizacionCliente.getProductoCotizador());
+
+            if(listaCotizacion.size() > 0) {
+                listaCotizacion =  listaCotizacionUnion(listaCotizacion);
+                String datos = "";
+                String uniones = "";
+                String clausulas = "";
+
+                for (int i = 0; i < listaCotizacion.size(); i++) {
+                    System.out.println("pintar listaCotizacion tipoTransacion " + listaCotizacion.get(i).getTipoTransacion());
+                    System.out.println("pintar listaCotizacion tipoProducto " + listaCotizacion.get(i).getTipoProducto());
+                    System.out.println("pintar listaCotizacion Clausula " + listaCotizacion.get(i).getClausula());
+                    System.out.println("pintar listaCotizacion Datos " + listaCotizacion.get(i).getDatos());
+                    System.out.println("pintar listaCotizacion Union " + listaCotizacion.get(i).getUnion());
+                    if (i == 0) {
+                        datos = datos + listaCotizacion.get(i).getDatos();
+                        uniones = uniones + listaCotizacion.get(i).getUnion();
+                        clausulas = clausulas + listaCotizacion.get(i).getClausula();
+                    } else {
+                        datos = datos + "||','||" + listaCotizacion.get(i).getDatos();
+                        uniones = uniones + " \n " + listaCotizacion.get(i).getUnion();
+                        clausulas = clausulas + " \n " + listaCotizacion.get(i).getClausula();
+                    }
+
+                }
+
+                System.out.println("pintar datos " + datos);
+                System.out.println("pintar uniones " + uniones);
+                System.out.println("pintar clausulas " + clausulas);
+                String query = "select " + datos + " " + uniones + "\n where " + clausulas + "\n and p1.tipoPaquete = " + cotizacionCliente.getContadorProductos();
+
+                System.out.println("pintar query " + query);
+
+                respuesta = MainActivity.basedatos.consultar2(query);
+            }
+        }
+
+        return respuesta;
+    }
+
+    public ArrayList<ListaCotizacion> listaCotizacion (ArrayList<ProductoCotizador> productos ){
+        ArrayList<ListaCotizacion> listaCotizacion = new ArrayList<ListaCotizacion>();
+        for (int i = 0; i < productos.size(); i++) {
+            if(!productos.get(i).getTipoPeticion().equalsIgnoreCase("-") && !productos.get(i).getPlan().equalsIgnoreCase("-")){
+                listaCotizacion.add(new ListaCotizacion(productos.get(i).getTipoPeticion(),productos.get(i).traducirProducto().toUpperCase()));
+            }
+        }
+        return listaCotizacion;
+    }
+
+    public ArrayList<ListaCotizacion> listaCotizacionUnion (ArrayList<ListaCotizacion> listaCotizacion){
+        for (int i = 0; i < listaCotizacion.size(); i++) {
+            System.out.println("pintar listaCotizacion tipoTransacion "+listaCotizacion.get(i).getTipoTransacion());
+            System.out.println("pintar listaCotizacion tipoProducto "+listaCotizacion.get(i).getTipoProducto());
+            if(i == 0){
+                listaCotizacion.get(i).setClausula("p1.producto='"+listaCotizacion.get(i).getTipoProducto()+"' AND p1.tipoTransacion= '"+UtilidadesTarificadorNew.homologarTipoTransacion(listaCotizacion.get(i).getTipoTransacion())+"'");
+                listaCotizacion.get(i).setDatos("p1.id");
+                listaCotizacion.get(i).setUnion("from pagoParcial p1");
+            }else if(i == 1){
+                listaCotizacion.get(i).setClausula("and p2.producto='"+listaCotizacion.get(i).getTipoProducto()+"' AND p2.tipoTransacion= '"+UtilidadesTarificadorNew.homologarTipoTransacion(listaCotizacion.get(i).getTipoTransacion())+"'");
+                listaCotizacion.get(i).setDatos("p2.id");
+                listaCotizacion.get(i).setUnion("INNER JOIN pagoParcial p2 ON p1.idPaquete=p2.idPaquete");
+            }else if(i == 2){
+                listaCotizacion.get(i).setClausula("and p3.producto='"+listaCotizacion.get(i).getTipoProducto()+"' AND p3.tipoTransacion= '"+UtilidadesTarificadorNew.homologarTipoTransacion(listaCotizacion.get(i).getTipoTransacion())+"'");
+                listaCotizacion.get(i).setDatos("p3.id");
+                listaCotizacion.get(i).setUnion("INNER JOIN pagoParcial p3 ON p1.idPaquete=p3.idPaquete");
+            }
+        }
+        return listaCotizacion;
+
+    }
+
+    public ArrayList<ArrayList<String>> resultQueryInternoPagoParcial (ArrayList<ArrayList<String>> resultQueryExterno){
+
+        String clausula2 = "id IN (?)";
+        String[] valores = new String[]{resultQueryExterno.get(0).get(0)};
+
+        String query = "select producto,valor,descuento from  pagoParcial where id in ("+resultQueryExterno.get(0).get(0)+")";
+
+        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar2(query);
+
+        System.out.println("pintar respuesta 2 " + respuesta);
+
+        return respuesta;
     }
 }

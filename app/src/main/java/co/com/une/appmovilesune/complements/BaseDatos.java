@@ -19,7 +19,7 @@ public class BaseDatos extends SQLiteOpenHelper {
     public static final String NOMBRE = "ventamovil";
     public static final int VERSION = 1;
 
-	private String estructura[] = new String[39];
+	private String estructura[] = new String[40];
 
     public BaseDatos(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -83,8 +83,9 @@ public class BaseDatos extends SQLiteOpenHelper {
 		estructura[34] = "CREATE TABLE IF NOT EXISTS condicionesxdecos(id_condicion INTEGER, id_decos INTEGER)";
 		estructura[35] = "CREATE TABLE IF NOT EXISTS permisos(rol TEXT, accion TEXT)";
 		estructura[36] = "CREATE TABLE IF NOT EXISTS pagoparcialanticipado(producto TEXT, servicio TEXT, pagoparcial DOUBLE, descuento TEXT, pagoanticipado DOUBLE)";
-		estructura[37] = "CREATE TABLE IF NOT EXISTS valorconexion(productos TEXT, valor DOUBLE)";
-		estructura[38] = "CREATE TABLE IF NOT EXISTS condicionesxtarifas(id_tarifa INTEGER,id_condicion INTEGER,activo INTEGER )";
+		estructura[37] = "CREATE TABLE IF NOT EXISTS pagoParcial(id INTEGER PRIMARY KEY AUTOINCREMENT, producto TEXT, valor DOUBLE,descuento DOUBLE, tipoPaquete INTEGER, idPaquete INTEGER, idPagoParcialPaquete INTEGER, tipoTransacion INTEGER, tipoHogar TEXT)";
+        estructura[38] = "CREATE TABLE IF NOT EXISTS valorconexion(id INTEGER PRIMARY KEY AUTOINCREMENT, productos TEXT, valor DOUBLE)";
+		estructura[39] = "CREATE TABLE IF NOT EXISTS condicionesxtarifas(id_tarifa INTEGER,id_condicion INTEGER,activo INTEGER )";
 
     }
 
