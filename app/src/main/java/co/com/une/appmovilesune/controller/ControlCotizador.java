@@ -2117,6 +2117,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             data.put("Ciudad", cliente.getCiudad());
             data.put("Departamento", cliente.getDepartamento());
             data.put("Productos", new JSONArray());
+            data.put("Origen", "VM");
 
         } catch (JSONException e) {
             Log.w("Error", e.getMessage());
@@ -2187,7 +2188,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 cv.put("producto", producto.getString("nombre"));
                 cv.put("servicio", producto.getString("servicio"));
                 cv.put("pagoparcial", producto.getString("pagoParcial"));
-                cv.put("descuento", producto.getJSONObject("descuentoPagoParcial").getString("porcentje"));
+                cv.put("descuento", producto.getString("descuentoPagoParcial"));
                 cv.put("pagoanticipado", producto.getString("pagoAnticipado"));
 
                 MainActivity.basedatos.insertar("pagoparcialanticipado", cv);

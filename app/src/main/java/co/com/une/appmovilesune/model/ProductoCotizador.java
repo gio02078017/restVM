@@ -85,27 +85,13 @@ public class ProductoCotizador {
     }
 
     public double calcularDescuento() {
-        /*pagoParcial = Double.parseDouble(valores.get(0));
-        pagoParcialDescuento = Double.parseDouble(valores.get(1));*/
-        System.out.println("calcularDescuento Inicio");
 
         double total = pagoParcial - (pagoParcial * pagoParcialDescuento) / 100;
-
-        System.out.println("calcularDescuento total "+total);
+        total = (double)Math.round(total * 100d) / 100d;
 
         return total;
 
     }
-
-
-
-    /*public void aplciarDescuentoTrio() {
-        totalPagoParcial = 0;
-    }
-
-    public void aplicarDescuentoDuo(){
-        totalPagoParcial = totalPagoParcial * 0.5;
-    }*/
 
     public static int getTELEFONIA() {
         return TELEFONIA;

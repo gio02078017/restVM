@@ -2257,8 +2257,8 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         }
 
 
-                        UtilidadesDecos.imprimirDecos("venta.getItemDecodificadors() ",venta.getItemDecodificadors());
-                        UtilidadesDecos.imprimirDecos("venta.getDecodificador().getItemDecodificadors() ",venta.getDecodificador().getItemDecodificadors());
+                        //UtilidadesDecos.imprimirDecos("venta.getItemDecodificadors() ",venta.getItemDecodificadors());
+                        //UtilidadesDecos.imprimirDecos("venta.getDecodificador().getItemDecodificadors() ",venta.getDecodificador().getItemDecodificadors());
 
                         if (venta.getItemDecodificadors() != null && venta.getItemDecodificadors().size() > 0) {
                             for (int i = 0; i < venta.getItemDecodificadors().size(); i++) {

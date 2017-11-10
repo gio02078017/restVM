@@ -54,12 +54,7 @@ public class UtilidadesPagoParcial {
                 String clausulas = "";
 
                 for (int i = 0; i < listaCotizacion.size(); i++) {
-                    System.out.println("pintar listaCotizacion tipoTransacion " + listaCotizacion.get(i).getTipoTransacion());
-                    System.out.println("pintar listaCotizacion tipoProducto " + listaCotizacion.get(i).getTipoProducto());
-                    System.out.println("pintar listaCotizacion Clausula " + listaCotizacion.get(i).getClausula());
-                    System.out.println("pintar listaCotizacion Datos " + listaCotizacion.get(i).getDatos());
-                    System.out.println("pintar listaCotizacion Union " + listaCotizacion.get(i).getUnion());
-                    if (i == 0) {
+                     if (i == 0) {
                         datos = datos + listaCotizacion.get(i).getDatos();
                         uniones = uniones + listaCotizacion.get(i).getUnion();
                         clausulas = clausulas + listaCotizacion.get(i).getClausula();
@@ -71,14 +66,9 @@ public class UtilidadesPagoParcial {
 
                 }
 
-                System.out.println("pintar datos " + datos);
-                System.out.println("pintar uniones " + uniones);
-                System.out.println("pintar clausulas " + clausulas);
                 String query = "select " + datos + " " + uniones + "\n where " + clausulas + "\n and p1.tipoPaquete = " + cotizacionCliente.getContadorProductos();
 
-                System.out.println("pintar query " + query);
-
-                respuesta = MainActivity.basedatos.consultar2(query);
+                 respuesta = MainActivity.basedatos.consultar2(query);
             }
         }
 
@@ -97,8 +87,6 @@ public class UtilidadesPagoParcial {
 
     public static ArrayList<ListaCotizacion> listaCotizacionUnion (ArrayList<ListaCotizacion> listaCotizacion){
         for (int i = 0; i < listaCotizacion.size(); i++) {
-            System.out.println("pintar listaCotizacion tipoTransacion "+listaCotizacion.get(i).getTipoTransacion());
-            System.out.println("pintar listaCotizacion tipoProducto "+listaCotizacion.get(i).getTipoProducto());
             if(i == 0){
                 listaCotizacion.get(i).setClausula("p1.producto='"+listaCotizacion.get(i).getTipoProducto()+"' AND p1.tipoTransacion= '"+ UtilidadesTarificadorNew.homologarTipoTransacion(listaCotizacion.get(i).getTipoTransacion())+"'");
                 listaCotizacion.get(i).setDatos("p1.id");
@@ -126,21 +114,14 @@ public class UtilidadesPagoParcial {
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar2(query);
 
-        System.out.println("pintar respuesta 2 " + respuesta);
-
         return respuesta;
     }
 
     public static ArrayList<ProductoCotizador> consolidarProductosConPagoParcial (ArrayList<ArrayList<String>> resultQueryInterno, ArrayList<ProductoCotizador> productos){
         for (int i = 0; i < resultQueryInterno.size(); i++) {
             for (int j = 0; j < productos.size(); j++) {
-                System.out.println("consolidar productos for 2");
                 if (!productos.get(j).getTipoPeticion().equalsIgnoreCase("-") && !productos.get(j).getPlan().equalsIgnoreCase("-")) {
-                    System.out.println("consolidar productos if 1");
-                    System.out.println("consolidar productos productos.get(j).traducirProducto().toUpperCase() " + productos.get(j).traducirProducto().toUpperCase());
-                    System.out.println("consolidar productos respuesta2.get(i).get(0) " + resultQueryInterno.get(i).get(0));
                     if (productos.get(j).traducirProducto().toUpperCase().equalsIgnoreCase(resultQueryInterno.get(i).get(0))) {
-                        System.out.println("consolidar productos if 2");
                         productos.get(j).setPagoParcial(Utilidades.convertirDouble(resultQueryInterno.get(i).get(1), "respuesta2.get(i).get(1)"));
                         productos.get(j).setPagoParcialDescuento(Utilidades.convertirDouble(resultQueryInterno.get(i).get(2), "respuesta2.get(i).get(2)"));
                         if (productos.get(j).getPagoParcialDescuento() > 0.0 && productos.get(j).getPagoParcial() > 0.0) {
@@ -189,9 +170,7 @@ public class UtilidadesPagoParcial {
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(false, "valorconexion", new String[]{"valor"}, clausula,
                 valores, null, null, null);
 
-        System.out.println("valorConexion " + respuesta);
-
-        if (respuesta != null) {
+          if (respuesta != null) {
             valorConexion = Double.parseDouble(respuesta.get(0).get(0));
         }
 
@@ -200,8 +179,6 @@ public class UtilidadesPagoParcial {
     }
 
     public static void guardarPagoParcial(JSONArray arrayPagoParcial) {
-
-        System.out.println("Json arrayPagoParcial "+arrayPagoParcial);
 
         MainActivity.basedatos.eliminar("pagoParcial", null, null);
         try {
@@ -225,8 +202,6 @@ public class UtilidadesPagoParcial {
     }
 
     public static void guardarValorConexion(JSONArray valoresConexion) {
-
-        System.out.println("Json valoresConexion "+valoresConexion);
 
         MainActivity.basedatos.eliminar("valorconexion", null, null);
         try {
