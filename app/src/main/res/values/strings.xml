@@ -490,4 +490,5 @@
     <string name="mensajehbogotvexistente">Cliente con TV Existente. Si el cliente desea el paquete HBO y tiene el servicio de televisión no puede vender el HBO GO, debe adicionar el paquete de canales HBO Max sobre la televisión.</string>
     <!--<string name="mensajehbogoexistente">Cliente con adicional de HBO GO en su portafolio</string>-->
     <string name="mensajehbogoexistente">Cliente con adicional de HBO GO en su portafolio.  Recuerde que si adiciona el servicio de Televisión se retirará el HBO GO.</string>
+    <string name="mensajecrackleexistente">Cliente con adicional de Crackle en su portafolio.  Recuerde que si adiciona el servicio de Televisión se retirará el Crackle.</string>
 </resources>

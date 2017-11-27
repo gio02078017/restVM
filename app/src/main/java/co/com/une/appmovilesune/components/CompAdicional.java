@@ -67,6 +67,8 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     private boolean HBOGOExistente = false;
 
+    private boolean CrackleExistente = false;
+
     private boolean limpiar = false;
 
     public CompAdicional(Context context, AttributeSet attrs) {
@@ -129,7 +131,18 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
             for (ArrayList<String> arrayList : respuesta) {
                 // adaptador.add(arrayList.get(0));
                 System.out.println("adicional name " + arrayList.get(0));
+                String homologadoAdicionalBa =  UtilidadesTarificadorNew.validarHomologadoAdicionalBa(arrayList.get(0));
+                if(homologadoAdicionalBa.equals("Crackle")){
+                    if(UtilidadesTarificadorNew.validarCracklePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula(),tipoOferta)){
+                        Toast.makeText(getContext(),getResources().getString(R.string.mensajecrackleexistente),Toast.LENGTH_LONG).show();
+                        CrackleExistente = true;
+                        System.out.println("CrackleExistente");
+                    }else{
+                            adaptador.add(arrayList.get(0));
+                    }
+                }else {
                     adaptador.add(arrayList.get(0));
+                }
             }
         }
         spnSelectorAdicionales.setAdapter(adaptador);
@@ -161,22 +174,42 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
             if (respuesta != null) {
                 for (ArrayList<String> arrayList : respuesta) {
                     // adaptador.add(arrayList.get(0));
-                    System.out.println("adicional name " + arrayList.get(0));
-                    if(UtilidadesTarificadorNew.validarHomologadoHBOGO(arrayList.get(0)).equalsIgnoreCase("HBO GO")){
-                        if(!UtilidadesTarificadorNew.televisionExistentePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula()) &&
-                                !UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(),cliente.getCedula(),tipoOferta)){
-                            HBOGOExistente = false;
-                            if(UtilidadesTarificadorNew.validarVelocidadInternet(planBA,cliente) && !limpiar){
-                                adaptador.add(arrayList.get(0));
-                            }
-                        } else {
-                            if(UtilidadesTarificadorNew.televisionExistentePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula())){
-                                Toast.makeText(getContext(),getResources().getString(R.string.mensajehbogotvexistente),Toast.LENGTH_LONG).show();
-                            } else if(UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(),cliente.getCedula(),tipoOferta)){
+                    System.out.println("adicional_ba name " + arrayList.get(0));
+                    String homologadoAdicionalBa =  UtilidadesTarificadorNew.validarHomologadoAdicionalBa(arrayList.get(0));
+                    System.out.println("adicional_ba name homologado" + homologadoAdicionalBa);
+                    ArrayList<String> filtroAdicionales =  new ArrayList<String>();
+                    filtroAdicionales.add("HBO GO");
+                    filtroAdicionales.add("Crackle");
+                    System.out.println("Validar Crackle Sony y hbo go homologadoAdicionalBa "+homologadoAdicionalBa);
+                    System.out.println("Validar Crackle Sony y hbo go limpiar "+limpiar);
+                    if(filtroAdicionales.contains(homologadoAdicionalBa)){
+                        if(!UtilidadesTarificadorNew.televisionExistentePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula())){
+                            System.out.println("Validar Crackle homologadoAdicionalBa interno "+homologadoAdicionalBa);
+                            if(homologadoAdicionalBa.equals("HBO GO")){
+                            if(UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(),cliente.getCedula(),tipoOferta)){
                                 Toast.makeText(getContext(),getResources().getString(R.string.mensajehbogoexistente),Toast.LENGTH_LONG).show();
                                 HBOGOExistente = true;
+                                System.out.println("HBOGOExistente");
+                            }else{
+                                if(UtilidadesTarificadorNew.validarVelocidadInternet(planBA,homologadoAdicionalBa,cliente) && !limpiar){
+                                    adaptador.add(arrayList.get(0));
+                                }
+                            }
+                        }else if(homologadoAdicionalBa.equals("Crackle")){
+                            if(UtilidadesTarificadorNew.validarCracklePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula(),tipoOferta)){
+                                Toast.makeText(getContext(),getResources().getString(R.string.mensajecrackleexistente),Toast.LENGTH_LONG).show();
+                                CrackleExistente = true;
+                                System.out.println("CrackleExistente");
+                            }else{
+                                if(UtilidadesTarificadorNew.validarVelocidadInternet(planBA,homologadoAdicionalBa,cliente) && !limpiar){
+                                    adaptador.add(arrayList.get(0));
+                                }
                             }
                         }
+                        }else{
+                            Toast.makeText(getContext(),getResources().getString(R.string.mensajehbogotvexistente),Toast.LENGTH_LONG).show();
+                        }
+
                     } else {
                         adaptador.add(arrayList.get(0));
                     }
@@ -396,6 +429,14 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         this.HBOGOExistente = HBOGOExistente;
     }
 
+    public boolean isCrackleExistente() {
+        return CrackleExistente;
+    }
+
+    public void setCrackleExistente(boolean crackleExistente) {
+        CrackleExistente = crackleExistente;
+    }
+
     public String getTipoOferta() {
         return tipoOferta;
     }
@@ -445,10 +486,14 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
     }
 
     @Override
-    public void limpiarAdicionalHBOGO(boolean limpiar) {
+    public void limpiarAdicionalInternet(boolean limpiar) {
         for(ListaAdicionales adicional: adicionales){
             Log.d("HBOGO",adicional.getAdicional());
-            if(UtilidadesTarificadorNew.validarHomologadoHBOGO(adicional.getAdicional()).equalsIgnoreCase("HBO GO")){
+            String homologadoAdicionalBa =  UtilidadesTarificadorNew.validarHomologadoAdicionalBa(adicional.getAdicional());
+            ArrayList<String> filtroAdicionales =  new ArrayList<String>();
+            filtroAdicionales.add("HBO GO");
+            filtroAdicionales.add("Crackle");
+            if(filtroAdicionales.contains(homologadoAdicionalBa)){
                 adicionales.remove(adicional);
             }
         }

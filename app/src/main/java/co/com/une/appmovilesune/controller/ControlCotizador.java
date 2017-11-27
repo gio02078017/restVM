@@ -241,8 +241,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         MainActivity.basedatos.eliminar("valorconexion", null, null);
         MainActivity.basedatos.eliminar("pagoParcial", null, null);
 
-        System.out.println("excluirppca " + Utilidades.excluir("excluirppca", cliente.getCiudad()));
-
         if (!Utilidades.excluir("excluirppca", cliente.getCiudad())) {
             obtenerPagoParcialAnticipado();
         }
@@ -367,15 +365,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             tipoPaquete = "Ind";
         }
 
-        /*String clausula = "estrato like ? and tipo_paquete like ? and Tecnologia like ?";
-        String[] valores = new String[]{"%" + estrato + "%", "%" + tipoPaquete + "%", "%" + cliente.getTecnologia() + "%"};*/
-
         String queryOferta = "select distinct Oferta from Precios p " +
                 UtilidadesTarificadorNew.innerJoinTarifas+
                 " where cxt.id_condicion in ("+ UtilidadesTarificadorNew.queryInternoTarifas(UtilidadesTarificadorNew.homologarDepartamentoCotizacion(cliente.getDepartamento(),cliente.getCiudad()),cliente.getCiudad())+")" +
                 " and estrato like '%" + estrato + "%' and tipo_paquete like '%"+tipoPaquete+"%' and Tecnologia like '%"+cliente.getTecnologia()+"%'";
 
-        System.out.println("queryOferta "+queryOferta);
+        //System.out.println("queryOferta "+queryOferta);
 
         ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar2(queryOferta);
 
@@ -409,8 +404,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     }
 
     public void rellenarCotizacion() {
-        System.out.println("cotizacion.getTelevision() " + cotizacion.getTelevision());
-        System.out.println("cotizacion.getTipoTv() " + cotizacion.getTipoTv());
 
         ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spntipooferta.getAdapter();
         spntipooferta.setSelection(adaptador.getPosition(cotizacion.getTipoOferta()));
@@ -646,24 +639,24 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         if(cotizacionCliente.getControl().equalsIgnoreCase("00")) {
 
             //productos = obtenerValorConexionCotizacion(cotizacionCliente);
-            productos = UtilidadesPagoParcial.obtenerPagoParcial(cotizacionCliente);
+            productos = UtilidadesPagoParcial.obtenerPagoParcial(cotizacionCliente);if (productos != null) {
+            for (int i = 0; i < productos.size(); i++) {
 
-            if (productos != null) {
-                for (int i = 0; i < productos.size(); i++) {
 
-                    if (!codigoClienteNuevo.equalsIgnoreCase("00")) {
-                        if (clienteNuevo && !comportamientoExistentes) {
-                            productos.get(i).setClienteNuevo(true);
-                        } else {
-                            productos.get(i).setClienteNuevo(false);
-                        }
+
+                if(!codigoClienteNuevo.equalsIgnoreCase("00")){
+                    if(clienteNuevo && !comportamientoExistentes){
+                        productos.get(i).setClienteNuevo(true);
                     } else {
-                        if (clienteNuevo) {
-                            productos.get(i).setClienteNuevo(true);
-                        } else {
-                            productos.get(i).setClienteNuevo(false);
-                        }
+                        productos.get(i).setClienteNuevo(false);
                     }
+                }else {
+                    if(clienteNuevo){
+                        productos.get(i).setClienteNuevo(true);
+                    } else {
+                        productos.get(i).setClienteNuevo(false);
+                    }
+                }
 
 
                     if (codigoPA.equalsIgnoreCase("00")) {
@@ -727,13 +720,14 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 totalPagoParcial = Math.ceil(totalPagoParcial);
             }
 
-            System.out.println("totalPagoAnticipado " + totalPagoAnticipado);
 
-            String cadenaConexion = UtilidadesPagoParcial.obtenerCadenaValorConexion(productos);
-            double valorConexion = UtilidadesPagoParcial.obtenerValorConexion(cadenaConexion);
-            double valorDescuentoComercial = valorConexion - totalPagoParcial;
-            cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal(), cadcInternet.calcularTotal(), valorConexion, totalPagoParcial, valorDescuentoComercial, totalPagoAnticipado);
-        }
+
+        String cadenaConexion = UtilidadesPagoParcial.obtenerCadenaValorConexion(productos);
+        double valorConexion = UtilidadesPagoParcial.obtenerValorConexion(cadenaConexion);
+        double valorDescuentoComercial = valorConexion - totalPagoParcial;
+        cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal(), cadcInternet.calcularTotal(), valorConexion, totalPagoParcial, valorDescuentoComercial, totalPagoAnticipado);
+
+    }
     }
 
     public void procesarCotizacion(View v) {
@@ -1213,7 +1207,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 if(!cprdTelevision.getPlan().equalsIgnoreCase(Utilidades.inicial)){
                     cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO());
                 }else {
-                    if(!UtilidadesTarificadorNew.validarVelocidadInternet(productoCotizador.getPlan(),cliente)){
+                    String adicional =  cadcInternet.arrayAdicionalesHBOGO()[0][0];
+                    if(!UtilidadesTarificadorNew.validarVelocidadInternet(productoCotizador.getPlan(),adicional,cliente)){
                         cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO());
                     } else {
                         if(cotizacion.getTipoOferta().equalsIgnoreCase("DUO") || cotizacion.getTipoOferta().equalsIgnoreCase("TRIO")){

@@ -804,53 +804,6 @@ public class Cliente implements Serializable, Observer, Subject {
 
             }
 
-
-            /*if (jo.has("CodigoMensaje")) {
-                if (jo.getString("CodigoMensaje").equalsIgnoreCase("00")) {
-                    setConsolidado(consolidado);
-                }
-                System.out.println("Control Cliente jo siebel" + jo);
-                if (jo.has("ListaDatosClienteVent")) {
-                    JSONArray arrayJson = jo.getJSONArray("ListaDatosClienteVent");
-                    System.out.println("Control Cliente arrayJson siebel " + arrayJson);
-                    if (arrayJson.length() > 0) {
-                        JSONObject cliente = arrayJson.getJSONObject(0);
-                        System.out.println("cliente " + cliente);
-                        Direccion = cliente.getString("Direccion");
-
-                        Estrato = cliente.getString("Estrato");
-                        Cedula = cliente.getString("Cliente_id");
-                        Nombre = cliente.getString("Nombres");
-                        Apellido = cliente.getString("Apellidos");
-                        IdDireccionGis = cliente.getString("IdDireccionGis");
-                        TipoDocumento = cliente.getString("TipoDocumento");
-                        CodigoHogar = cliente.getString("Codigo_Hogar");
-                        System.out.println("Telefono " + Telefono);
-                        if (Telefono != null && !Telefono.equalsIgnoreCase("")) {
-                            Telefono = Telefono;
-                        }
-
-                        if (!ciudad.equalsIgnoreCase(cliente.getString("Municipio"))) {
-
-                            System.out.println(
-                                    "Control Cliente cliente.getString(Municipio) " + cliente.getString("Municipio"));
-
-                            if (!cliente.getString("Municipio").equalsIgnoreCase("Bogota")) {
-                                ciudad = cliente.getString("Municipio");
-                            }
-                        }
-
-                        System.out.println("Control Cliente ciudad cliente " + ciudad);
-
-                        controlClienteSiebel = true;
-                        estandarizarSiebel = 1;
-                    }
-                } else {
-                    estandarizarSiebel = 0;
-                }
-            } else {
-                estandarizarSiebel = 0;
-            }*/
         } catch (JSONException e) {
             e.printStackTrace();
         }

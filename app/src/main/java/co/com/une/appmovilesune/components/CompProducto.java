@@ -315,9 +315,9 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
                 if(tipo == TELEVISION) {
                     observerAdicionales.seleccionarPlan(Utilidades.traducirPlanOfertaDigital((String) parent.getSelectedItem()));
                     if(!((String) parent.getSelectedItem()).equalsIgnoreCase(Utilidades.inicial)){
-                        observerAdicionalesInternet.limpiarAdicionalHBOGO(true);
+                        observerAdicionalesInternet.limpiarAdicionalInternet(true);
                     } else {
-                        observerAdicionalesInternet.limpiarAdicionalHBOGO(false);
+                        observerAdicionalesInternet.limpiarAdicionalInternet(false);
                     }
 
                 }else if (tipo == TELEFONIA){
