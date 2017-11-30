@@ -416,6 +416,10 @@ public class UtilidadesTarificadorNew {
 
         boolean hboGoExistente = false;
 
+        System.out.println("Validar Crackle Sony CrackleExistente portafolio "+portafolio);
+        System.out.println("Validar Crackle Sony CrackleExistente documento "+documento);
+        System.out.println("Validar Crackle Sony CrackleExistente tipoOferta "+tipoOferta);
+
         try {
 
             if(portafolio != null){

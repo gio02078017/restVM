@@ -752,8 +752,8 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
                 if(listaAdicionales.get(i).getAdicional().equalsIgnoreCase("HBO GO")){
                     Log.d("cotizacion TV ",cotizacion.getTelevision());
-
-                    if(!cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial) && cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial_guion)){
+                    System.out.println("if hbo go ");
+                    if(!cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial) && !cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial_guion)){
                         if(UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(), cliente.getCedula(), cotizacion.getTipoOferta())){
                             adicional.put("tiposolicitud","Eliminar");
                         }else {
@@ -765,6 +765,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
                 } else {
                     adicional.put("tiposolicitud","Nuevo");
+                    System.out.println("else hbo go ");
                 }
 
                 System.out.println("jsonAdicionalesBa adicional "+adicional);
