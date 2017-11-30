@@ -786,6 +786,7 @@ public class Cliente implements Serializable, Observer, Subject {
 
                             Direccion = datos.getString("cDireccion");
                             estandarizarElite =1;
+                            controlNormalizada = true;
                         }
                     }
 
@@ -807,6 +808,8 @@ public class Cliente implements Serializable, Observer, Subject {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        System.out.println("estandarizarDireccion  controlNormalizada "+controlNormalizada);
     }
 
     public String traducirDepartamento(String departamento) {

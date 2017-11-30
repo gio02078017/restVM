@@ -1349,7 +1349,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
             cliente.setControlCerca(true);
         } else {
             cliente.setControlCerca(false);
-            if (Utilidades.visible("estandarizarDireccion", cliente.getCiudad())) {
+            if (Utilidades.visible("estandarizarDireccion", cliente.getCiudad()) && !Utilidades.excluir("eliteMunicipios", cliente.getCiudad())) {
                 estandarizarDireccion();
             } else if (Utilidades.excluir("siebelMunicipios", cliente.getCiudad())) {
                 estandarizarDireccionSiebel();
