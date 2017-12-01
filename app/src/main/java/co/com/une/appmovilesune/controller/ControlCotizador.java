@@ -801,7 +801,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                 llenarcotizacionTelevision(cotizacionCliente.getProductoCotizador().get(i), tv, cotizacionCliente.getContadorProductos(), trioNuevo);
                                 break;
                             case 2:
-                                llenarcotizacionInternet(cotizacionCliente.getProductoCotizador().get(i), cotizacionCliente, ba, cotizacionCliente.getContadorProductos(), trioNuevo, cadcInternet.isHBOGOExistente());
+                                llenarcotizacionInternet(cotizacionCliente.getProductoCotizador().get(i), cotizacionCliente, ba, cotizacionCliente.getContadorProductos(), trioNuevo, cadcInternet.isHBOGOExistente(),cadcInternet.getObjectCrackleExistente());
                                 break;
                         }
                     }
@@ -1183,7 +1183,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     }
 
-    public void llenarcotizacionInternet(ProductoCotizador productoCotizador, CotizacionCliente cotizacionCliente, String ba, int contadorProd, boolean trioNuevo, boolean HBOGOExistente) {
+    public void llenarcotizacionInternet(ProductoCotizador productoCotizador, CotizacionCliente cotizacionCliente, String ba, int contadorProd, boolean trioNuevo, boolean HBOGOExistente, CrackleExistente crackleExistente) {
 
         String descuentoCadena = Utilidades.limpiarDecimales(String.valueOf(productoCotizador.getDescuentoCargobasico()));
 
@@ -1221,6 +1221,22 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 }
 
+            } else {
+                cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+            }
+
+            System.out.println("cracckle existente clase "+crackleExistente);
+            cotizacion.setRetiroCrackleBa(false);
+
+            if(crackleExistente !=null  && crackleExistente.isExistente() && crackleExistente.getTipoProducto().equalsIgnoreCase("INTER")){
+                System.out.println("cracckle existente");
+                System.out.println("cracckle existente tipoProducto "+crackleExistente.getTipoProducto());
+                System.out.println("cracckle existente productoCotizador.getTipoPeticion() "+productoCotizador.getTipoPeticion());
+                //String adicional =  cadcInternet.arrayAdicionalesCrackle()[0][0];
+                if(!UtilidadesTarificadorNew.validarVelocidadInternet(productoCotizador.getPlan(),"Crackle",cliente) && productoCotizador.getTipoPeticion().equalsIgnoreCase("C")){
+                    cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesCrackle());
+                    cotizacion.setRetiroCrackleBa(true);
+                }
             } else {
                 cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
             }

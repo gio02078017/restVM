@@ -125,6 +125,8 @@ public class Cotizacion implements Serializable {
     private String tipoOferta;
     private String ofertaCotizacion;
 
+    private boolean retiroCrackleBa = false;
+
     public Cotizacion() {
         this.telefonia = "";
         this.toInd = "";
@@ -1349,5 +1351,13 @@ public class Cotizacion implements Serializable {
 
     public void setObjectDecodificador(Decodificadores objectDecodificador) {
         this.objectDecodificador = objectDecodificador;
+    }
+
+    public boolean isRetiroCrackleBa() {
+        return retiroCrackleBa;
+    }
+
+    public void setRetiroCrackleBa(boolean retiroCrackleBa) {
+        this.retiroCrackleBa = retiroCrackleBa;
     }
 }

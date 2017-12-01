@@ -30,11 +30,10 @@ import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
 import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionalesInternet;
-import co.com.une.appmovilesune.interfaces.ObserverTotales;
 import co.com.une.appmovilesune.interfaces.Subject;
-import co.com.une.appmovilesune.interfaces.SubjectTotales;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Tarificador;
+import co.com.une.appmovilesune.adapters.CrackleExistente;
 
 /**
  * Created by davids on 25/10/16.
@@ -68,6 +67,8 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
     private boolean HBOGOExistente = false;
 
     private boolean CrackleExistente = false;
+
+    CrackleExistente crackleExistente;
 
     private boolean limpiar = false;
 
@@ -133,7 +134,8 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
                 System.out.println("adicional name " + arrayList.get(0));
                 String homologadoAdicionalBa =  UtilidadesTarificadorNew.validarHomologadoAdicionalBa(arrayList.get(0));
                 if(homologadoAdicionalBa.equals("Crackle")){
-                    if(UtilidadesTarificadorNew.validarCracklePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula(),tipoOferta)){
+                    //crackleExistente = UtilidadesTarificadorNew.validarCracklePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula(),tipoOferta);
+                    if(UtilidadesTarificadorNew.validarCracklePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula(),tipoOferta).isExistente()){
                         Toast.makeText(getContext(),getResources().getString(R.string.mensajecrackleexistente),Toast.LENGTH_LONG).show();
                         CrackleExistente = true;
                         System.out.println("CrackleExistente");
@@ -196,7 +198,13 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
                                 }
                             }
                         }else if(homologadoAdicionalBa.equals("Crackle")){
-                            if(UtilidadesTarificadorNew.validarCracklePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula(),tipoOferta)){
+                                crackleExistente = UtilidadesTarificadorNew.validarCracklePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula(),tipoOferta);
+                                System.out.println("**** crackleExistente "+crackleExistente);
+                                if(crackleExistente!=null){
+                                    System.out.println("**** crackleExistente crackleExistente.isExistente() "+crackleExistente.isExistente());
+                                    System.out.println("**** crackleExistente crackleExistente.getTipoProducto() "+crackleExistente.getTipoProducto());
+                                }
+                                if(crackleExistente.isExistente()){
                                 Toast.makeText(getContext(),getResources().getString(R.string.mensajecrackleexistente),Toast.LENGTH_LONG).show();
                                 CrackleExistente = true;
                                 System.out.println("CrackleExistente");
@@ -208,6 +216,23 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
                         }
                         }else{
                             Toast.makeText(getContext(),getResources().getString(R.string.mensajehbogotvexistente),Toast.LENGTH_LONG).show();
+                            if(homologadoAdicionalBa.equals("Crackle")){
+                                crackleExistente = UtilidadesTarificadorNew.validarCracklePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula(),tipoOferta);
+                                System.out.println("**** crackleExistente "+crackleExistente);
+                                if(crackleExistente!=null){
+                                    System.out.println("**** crackleExistente crackleExistente.isExistente() "+crackleExistente.isExistente());
+                                    System.out.println("**** crackleExistente crackleExistente.getTipoProducto() "+crackleExistente.getTipoProducto());
+                                }
+                                if(crackleExistente.isExistente()){
+                                    Toast.makeText(getContext(),getResources().getString(R.string.mensajecrackleexistente),Toast.LENGTH_LONG).show();
+                                    CrackleExistente = true;
+                                    System.out.println("CrackleExistente");
+                                }else{
+                                    if(UtilidadesTarificadorNew.validarVelocidadInternet(planBA,homologadoAdicionalBa,cliente) && !limpiar){
+                                        adaptador.add(arrayList.get(0));
+                                    }
+                                }
+                            }
                         }
 
                     } else {
@@ -378,6 +403,23 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     }
 
+    public String[][] arrayAdicionalesCrackle() {
+        int contAdicionales = adicionales.size();
+
+        String[][] arrayAd = new String[contAdicionales+1][2];
+
+        for (int i = 0; i < adicionales.size(); i++) {
+            arrayAd[i][0] = adicionales.get(i).getAdicional();
+            arrayAd[i][1] = adicionales.get(i).getPrecio();
+        }
+
+        arrayAd[contAdicionales][0] = "Crackle Sony Ba";
+        arrayAd[contAdicionales][1] = "0";
+
+        return arrayAd;
+
+    }
+
     public ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionales() {
 
         ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionales = new ArrayList<ItemPromocionesAdicionales>();
@@ -435,6 +477,14 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     public void setCrackleExistente(boolean crackleExistente) {
         CrackleExistente = crackleExistente;
+    }
+
+    public CrackleExistente getObjectCrackleExistente() {
+        return crackleExistente;
+    }
+
+    public void setObjectCrackleExistente(CrackleExistente crackleExistente) {
+        this.crackleExistente = crackleExistente;
     }
 
     public String getTipoOferta() {
