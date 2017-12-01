@@ -41,6 +41,7 @@ import android.widget.Toast;
 
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
+import co.com.une.appmovilesune.adapters.CrackleExistente;
 import co.com.une.appmovilesune.adapters.ItemDecodificador;
 import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
 import co.com.une.appmovilesune.adapters.ListaAdicionales;
@@ -763,6 +764,21 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         adicional.put("tiposolicitud","Nuevo");
                     }
 
+                } else {
+                    adicional.put("tiposolicitud","Nuevo");
+                    System.out.println("else hbo go ");
+                }
+
+                if(listaAdicionales.get(i).getAdicional().equalsIgnoreCase("Crackle Sony Ba")){
+                    Log.d("cotizacion TV ",cotizacion.getTelevision());
+                    System.out.println("if hbo go ");
+                    //CrackleExistente crackleExistente = UtilidadesTarificadorNew.validarCracklePortafolioElite(cliente.getPortafolioElite(), cliente.getCedula(), cotizacion.getTipoOferta());
+                        if(cotizacion.isRetiroCrackleBa()){
+                            adicional.put("tiposolicitud","Eliminar");
+                        }else {
+                            adicional.put("tiposolicitud","Nuevo");
+                        }
+                        adicional.put("producto","Crackle Sony");
                 } else {
                     adicional.put("tiposolicitud","Nuevo");
                     System.out.println("else hbo go ");
