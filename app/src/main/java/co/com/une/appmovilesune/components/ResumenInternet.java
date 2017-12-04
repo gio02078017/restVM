@@ -350,7 +350,11 @@ public class ResumenInternet extends LinearLayout {
         // System.out.println("adicionales resumen tv => " + adicionales);
         if (adicionalesBa.size() > 0) {
             for (int i = 0; i < adicionalesBa.size(); i++) {
-                adicional.add(new ListaPrecios(adicionalesBa.get(i).getAdicional(), adicionalesBa.get(i).getPrecio()));
+                if(adicionalesBa.get(i).getAdicional().equalsIgnoreCase("Crackle Sony Ba")){
+                    adicional.add(new ListaPrecios("Crackle Sony", adicionalesBa.get(i).getPrecio()));
+                }else {
+                    adicional.add(new ListaPrecios(adicionalesBa.get(i).getAdicional(), adicionalesBa.get(i).getPrecio()));
+                }
             }
         }
 
