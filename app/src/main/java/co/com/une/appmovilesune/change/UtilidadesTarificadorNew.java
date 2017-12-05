@@ -425,16 +425,28 @@ public class UtilidadesTarificadorNew {
 
             if(portafolio != null){
                 JSONObject datosPortafolio = new JSONObject(portafolio);
-                JSONArray productosInstalados = datosPortafolio.getJSONArray("ListaDatosIdentificador");
 
-                if(productosInstalados != null){
-                    for (int i = 0; i < productosInstalados.length(); i++){
-                        JSONObject producto = productosInstalados.getJSONObject(i);
-                        System.out.println("Validar Crackle Sony  HBO GO producto "+producto);
-                        System.out.println("Validar Crackle Sony  HBO GO  Adicionales "+producto.getString("Adicionales"));
-                        if(producto.getString("Adicionales").contains("HBO GO") && (producto.getString("clienteId").equalsIgnoreCase(documento) || (tipoOferta.equalsIgnoreCase("DUO") || tipoOferta.equalsIgnoreCase("TRIO")))){
-                            hboGoExistente = true;
+                if (datosPortafolio.get("ListaDatosIdentificador").getClass().getSimpleName().equals("JSONArray")) {
+                    JSONArray productosInstalados = datosPortafolio.getJSONArray("ListaDatosIdentificador");
+                    System.out.println("Validar Crackle Sony  HBO GO producto array");
+                    System.out.println("Validar Crackle Sony  HBO GO producto arrayinfo "+productosInstalados);
+                    if (productosInstalados != null) {
+                        for (int i = 0; i < productosInstalados.length(); i++) {
+                            JSONObject producto = productosInstalados.getJSONObject(i);
+                            System.out.println("Validar Crackle Sony  HBO GO producto " + producto);
+                            System.out.println("Validar Crackle Sony  HBO GO  Adicionales " + producto.getString("Adicionales"));
+                            if (producto.getString("Adicionales").contains("HBO GO") && (producto.getString("clienteId").equalsIgnoreCase(documento) || (tipoOferta.equalsIgnoreCase("DUO") || tipoOferta.equalsIgnoreCase("TRIO")))) {
+                                hboGoExistente = true;
+                            }
                         }
+                    }
+                }else if (datosPortafolio.get("ListaDatosIdentificador").getClass().getSimpleName().equals("JSONObject")) {
+                    //JSONObject productosInstalados = datosPortafolio.JSONObject("ListaDatosIdentificador");
+                    JSONObject producto = datosPortafolio.getJSONObject("ListaDatosIdentificador");
+                    System.out.println("Validar Crackle Sony  HBO GO producto object");
+                    System.out.println("Validar Crackle Sony  HBO GO producto object "+producto);
+                    if (producto.getString("Adicionales").contains("HBO GO") && (producto.getString("clienteId").equalsIgnoreCase(documento) || (tipoOferta.equalsIgnoreCase("DUO") || tipoOferta.equalsIgnoreCase("TRIO")))) {
+                        hboGoExistente = true;
                     }
                 }
             }
@@ -460,19 +472,29 @@ public class UtilidadesTarificadorNew {
 
             if(portafolio != null){
                 JSONObject datosPortafolio = new JSONObject(portafolio);
-                JSONArray productosInstalados = datosPortafolio.getJSONArray("ListaDatosIdentificador");
+                if (datosPortafolio.get("ListaDatosIdentificador").getClass().getSimpleName().equals("JSONArray")) {
+                    JSONArray productosInstalados = datosPortafolio.getJSONArray("ListaDatosIdentificador");
 
-                System.out.println("Validar Crackle Sony productosInstalados"+productosInstalados);
+                    System.out.println("Validar Crackle Sony productosInstalados" + productosInstalados);
 
-                if(productosInstalados != null){
-                    for (int i = 0; i < productosInstalados.length(); i++){
-                        JSONObject producto = productosInstalados.getJSONObject(i);
-                        System.out.println("Validar Crackle Sony producto "+producto);
-                        System.out.println("Validar Crackle Adicionales "+producto.getString("Adicionales"));
-                        if(producto.getString("Adicionales").contains("CRACKLE SONY") && (producto.getString("clienteId").equalsIgnoreCase(documento))){
-                            CrackleExistente = true;
-                            tipoProducto = producto.getString("Producto");
+                    if (productosInstalados != null) {
+                        for (int i = 0; i < productosInstalados.length(); i++) {
+                            JSONObject producto = productosInstalados.getJSONObject(i);
+                            System.out.println("Validar Crackle Sony producto " + producto);
+                            System.out.println("Validar Crackle Adicionales " + producto.getString("Adicionales"));
+                            if (producto.getString("Adicionales").contains("CRACKLE SONY") && (producto.getString("clienteId").equalsIgnoreCase(documento))) {
+                                CrackleExistente = true;
+                                tipoProducto = producto.getString("Producto");
+                            }
                         }
+                    }
+                }else if (datosPortafolio.get("ListaDatosIdentificador").getClass().getSimpleName().equals("JSONObject")) {
+                    JSONObject producto = datosPortafolio.getJSONObject("ListaDatosIdentificador");
+                    System.out.println("Validar Crackle Sony  HBO GO producto object");
+                    System.out.println("Validar Crackle Sony  HBO GO producto object "+producto);
+                    if (producto.getString("Adicionales").contains("CRACKLE SONY") && (producto.getString("clienteId").equalsIgnoreCase(documento))) {
+                        CrackleExistente = true;
+                        tipoProducto = producto.getString("Producto");
                     }
                 }
             }
