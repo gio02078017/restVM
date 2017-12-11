@@ -429,6 +429,12 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
                 }
             }
 
+            if (cliente.getPortafolioElite() != null) {
+                if (Utilidades.excluir("eliteMunicipios", cliente.getCiudad())) {
+                    Resultado_ConsolidadoElite(cliente.getPortafolioElite());
+                }
+            }
+
             if (cliente.getCobertura() != null) {
                 Resultado_Cobertura(cliente.getCobertura());
             }
@@ -974,6 +980,17 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
         cobertura = Interprete.CoberturaNuevo(Resultado);
         System.out.println("cobertura " + cobertura);
         PintarCoberturaNuevo();
+    }
+
+    public void Resultado_ConsolidadoElite(String Resultado) {
+        System.out.println("Consolidado Elite 5-12-2017 " + Resultado);
+        Borrar("Portafolio");
+        if(Resultado != null && !Resultado.equalsIgnoreCase("")) {
+            System.out.println("tamano portafolio " + portafolio.size());
+            portafolio = InterpreteElite.PortafolioNuevo(Resultado);
+            System.out.println("portafolio " + portafolio);
+            PintarPortafolioNuevo();
+        }
     }
 
     public void reorganizarClienteSiebel(String consolidado) {
