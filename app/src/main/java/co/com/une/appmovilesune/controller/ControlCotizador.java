@@ -1189,6 +1189,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         ArrayList<String> descuento = UtilidadesTarificadorNew.aplicarDescuentos(descuentoCadena, String.valueOf(productoCotizador.getDuracionDescuento()));
 
+        cotizacion.setRetiroHBOGO(false);
         if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
             // System.out.println("descuentoTo " + descuentoTo);
             cotizacion.Internet(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), "" + productoCotizador.getCargoBasicoInd(),
@@ -1202,19 +1203,26 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
             String tipoCotizacion = Utilidades.planNumerico(productoCotizador.getTipoPeticion());
             cotizacion.setTipoCotizacionBa(tipoCotizacion);
+            cotizacion.setRetiroHBOGO(false);
 
+
+            UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(),"Cotizacion.getAdicionalesBa() Ante HBO GO Existente ");
+            cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
             if(HBOGOExistente){
                 if(!cprdTelevision.getPlan().equalsIgnoreCase(Utilidades.inicial)){
-                    cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO());
+                    cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa()));
+                    cotizacion.setRetiroHBOGO(true);
                 }else {
-                    String adicional =  cadcInternet.arrayAdicionalesHBOGO()[0][0];
+                    String adicional =  cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa())[0][0];
                     if(!UtilidadesTarificadorNew.validarVelocidadInternet(productoCotizador.getPlan(),adicional,cliente)){
-                        cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO());
+                        cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa()));
+                        cotizacion.setRetiroHBOGO(true);
                     } else {
                         if(cotizacion.getTipoOferta().equalsIgnoreCase("DUO") || cotizacion.getTipoOferta().equalsIgnoreCase("TRIO")){
-                            cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO());
+                            cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa()));
+                            cotizacion.setRetiroHBOGO(true);
                         } else {
-                            cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+                            //cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
                         }
 
                     }
@@ -1222,24 +1230,24 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 }
 
             } else {
-                cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+                //cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
             }
 
-            System.out.println("cracckle existente clase "+crackleExistente);
+            UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(),"Cotizacion.getAdicionalesBa() Despues HBO GO Existente ");
             cotizacion.setRetiroCrackleBa(false);
-
+            UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(),"Cotizacion.getAdicionalesBa() Antes Crackle Existente ");
             if(crackleExistente !=null  && crackleExistente.isExistente() && crackleExistente.getTipoProducto().equalsIgnoreCase("INTER")){
-                System.out.println("cracckle existente");
-                System.out.println("cracckle existente tipoProducto "+crackleExistente.getTipoProducto());
-                System.out.println("cracckle existente productoCotizador.getTipoPeticion() "+productoCotizador.getTipoPeticion());
                 //String adicional =  cadcInternet.arrayAdicionalesCrackle()[0][0];
                 if(!UtilidadesTarificadorNew.validarVelocidadInternet(productoCotizador.getPlan(),"Crackle",cliente) && productoCotizador.getTipoPeticion().equalsIgnoreCase("C")){
-                    cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesCrackle());
+                    cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesCrackle(cotizacion.getAdicionalesBa()));
                     cotizacion.setRetiroCrackleBa(true);
                 }
             } else {
-                cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+                //cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
             }
+
+            UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(),"Cotizacion.getAdicionalesBa() Despues Crackle Existente ");
+
             cotizacion.setTotalAdicionalesBa(String.valueOf(cadcInternet.calcularTotal()));
 
             if (cotizacionCliente.getGotaba().isControlGota()) {
@@ -1265,7 +1273,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 cotizacion.Internet("E", "Internet Existente", "0",
                         "0");
 
-                cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO());
+                cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa()));
+                cotizacion.setRetiroHBOGO(true);
             } else {
                 cotizacion.Internet(productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), String.valueOf(productoCotizador.getCargoBasicoInd()),
                         String.valueOf(productoCotizador.getCargoBasicoEmp()));

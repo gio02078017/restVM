@@ -784,14 +784,16 @@ public class Cliente implements Serializable, Observer, Subject {
                         if(jsonResultado.getJSONObject("estandarizar").has("datos")){
                             JSONObject datos = jsonResultado.getJSONObject("estandarizar").getJSONObject("datos");
 
+                            //DireccionConsulta = Direccion;
                             Direccion = datos.getString("cDireccion");
+                            DireccionNormalizada = Direccion;
                             estandarizarElite =1;
                             controlNormalizada = true;
                         }
                     }
 
                 }
-
+                portafolioElite = "";
                 if (jsonResultado.has("portafolio")) {
                     if(jsonResultado.getJSONObject("portafolio").getString("codigoRespuesta").equals("00")){
                         if(jsonResultado.getJSONObject("portafolio").has("datos")){

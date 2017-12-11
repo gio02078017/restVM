@@ -375,6 +375,7 @@
     <string name="telefonoingresadoinvalido">El Teléfono Ingresado No Es Valido</string>
     <string name="tipoconstruccion">Tipo Construcción</string>
     <string name="normailizardireccion">Debe Normalizar la Dirección</string>
+    <string name="normalizardireccionnuevamente">Debe Normalizar la Dirección Ya Que Cambio De Direccion</string>
     <string name="datoscontactosindiligenciar">Algunos Datos Del Contacto Están Sin Diligenciar</string>
     <string name="domiciliaciondebeserdiligenciada">Deb. Automático no ha sido diligenciado</string>
     <string name="georeferenciacionnoprecisa">Georeferenciación No Precisa</string>

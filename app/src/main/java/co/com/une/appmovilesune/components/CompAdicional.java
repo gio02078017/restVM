@@ -216,7 +216,17 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
                         }
                         }else{
                             Toast.makeText(getContext(),getResources().getString(R.string.mensajehbogotvexistente),Toast.LENGTH_LONG).show();
-                            if(homologadoAdicionalBa.equals("Crackle")){
+                            if(homologadoAdicionalBa.equals("HBO GO")){
+                                if(UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(),cliente.getCedula(),tipoOferta)){
+                                    Toast.makeText(getContext(),getResources().getString(R.string.mensajehbogoexistente),Toast.LENGTH_LONG).show();
+                                    HBOGOExistente = true;
+                                    System.out.println("HBOGOExistente");
+                                }else{
+                                    if(UtilidadesTarificadorNew.validarVelocidadInternet(planBA,homologadoAdicionalBa,cliente) && !limpiar){
+                                        adaptador.add(arrayList.get(0));
+                                    }
+                                }
+                            }else if(homologadoAdicionalBa.equals("Crackle")){
                                 crackleExistente = UtilidadesTarificadorNew.validarCracklePortafolioElite(cliente.getPortafolioElite(),cliente.getCedula(),tipoOferta);
                                 System.out.println("**** crackleExistente "+crackleExistente);
                                 if(crackleExistente!=null){
@@ -384,33 +394,33 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     }
 
-    public String[][] arrayAdicionalesHBOGO() {
-        int contAdicionales = adicionales.size();
+    public String[][] arrayAdicionalesHBOGO(String[][] adicionalesBa) {
+
+        int contAdicionales = adicionalesBa.length;
 
         String[][] arrayAd = new String[contAdicionales+1][2];
 
-        for (int i = 0; i < adicionales.size(); i++) {
-            arrayAd[i][0] = adicionales.get(i).getAdicional();
-            arrayAd[i][1] = adicionales.get(i).getPrecio();
+        for (int i = 0; i < adicionalesBa.length; i++) {
+            arrayAd[i][0] = adicionalesBa[i][0];
+            arrayAd[i][1] = adicionalesBa[i][1];
         }
 
         arrayAd[contAdicionales][0] = "HBO GO";
         arrayAd[contAdicionales][1] = "0";
 
-
-
         return arrayAd;
 
     }
 
-    public String[][] arrayAdicionalesCrackle() {
-        int contAdicionales = adicionales.size();
+    public String[][] arrayAdicionalesCrackle(String[][] adicionalesBa) {
+
+        int contAdicionales = adicionalesBa.length;
 
         String[][] arrayAd = new String[contAdicionales+1][2];
 
-        for (int i = 0; i < adicionales.size(); i++) {
-            arrayAd[i][0] = adicionales.get(i).getAdicional();
-            arrayAd[i][1] = adicionales.get(i).getPrecio();
+        for (int i = 0; i < adicionalesBa.length; i++) {
+            arrayAd[i][0] = adicionalesBa[i][0];
+            arrayAd[i][1] = adicionalesBa[i][1];
         }
 
         arrayAd[contAdicionales][0] = "Crackle Sony Ba";

@@ -187,7 +187,9 @@ public class UtilidadesTarificadorNew {
         boolean validarEstandarizacion = true;
         boolean validarTelefonoServicio = true;
 
-
+        System.out.println("clinte direccion cliente.getDireccionNormalizada() "+cliente.getDireccionNormalizada() );
+        System.out.println("clinte direccion cliente.getDireccion() "+cliente.getDireccion() );
+        //cliente.getDireccionNormalizada().equalsIgnoreCase(cliente.getDireccionNormalizada()
         if (cotizacion.getTipoTo().equalsIgnoreCase("N") && !cotizacion.getTelefonia().equalsIgnoreCase(Utilidades.inicial_guion)) {
             if (Utilidades.visible("portafolioATC", cliente.getCiudad())
 			/* && cliente.getPortafolio() == null */) {
@@ -229,18 +231,33 @@ public class UtilidadesTarificadorNew {
             }else if (Utilidades.visible("estandarizarDireccion", cliente.getCiudad())) {
                 System.out.println("estandarizarDireccion cliente.isControlNormalizada()  interna else "+cliente.isControlNormalizada());
                 System.out.println("estandarizarDireccion Utilidades.CoberturaRural(cliente) interna else"+Utilidades.CoberturaRural(cliente));
+                System.out.println("estandarizarDireccion cliente.getDireccionNormalizada() "+cliente.getDireccionNormalizada() );
+                System.out.println("estandarizarDireccion cliente.getDireccion() "+cliente.getDireccion() );
                 if (!cliente.isControlNormalizada() && !Utilidades.CoberturaRural(cliente)) {
                     validarEstandarizacion = false;
                     Toast.makeText(contex, contex.getResources().getString(R.string.normailizardireccion), Toast.LENGTH_SHORT)
+                            .show();
+                }else if(!cliente.getDireccionNormalizada().equalsIgnoreCase(cliente.getDireccion())){
+                    validarEstandarizacion = false;
+                    Toast.makeText(contex, contex.getResources().getString(R.string.normalizardireccionnuevamente
+                    ), Toast.LENGTH_SHORT)
                             .show();
                 }
             }
         } else if (Utilidades.visible("estandarizarDireccion", cliente.getCiudad())) {
             System.out.println("estandarizarDireccion cliente.isControlNormalizada() externa else "+cliente.isControlNormalizada());
             System.out.println("estandarizarDireccion Utilidades.CoberturaRural(cliente) externa else "+Utilidades.CoberturaRural(cliente));
+            System.out.println("estandarizarDireccion cliente.getDireccionNormalizada() "+cliente.getDireccionNormalizada() );
+            System.out.println("estandarizarDireccion cliente.getDireccion() "+cliente.getDireccion() );
             if (!cliente.isControlNormalizada() && !Utilidades.CoberturaRural(cliente)) {
+
                 validarEstandarizacion = false;
                 Toast.makeText(contex, contex.getResources().getString(R.string.normailizardireccion), Toast.LENGTH_SHORT)
+                        .show();
+            }else if(!cliente.getDireccionNormalizada().equalsIgnoreCase(cliente.getDireccion())){
+                validarEstandarizacion = false;
+                Toast.makeText(contex, contex.getResources().getString(R.string.normalizardireccionnuevamente
+                ), Toast.LENGTH_SHORT)
                         .show();
             }
         }
@@ -670,5 +687,17 @@ public class UtilidadesTarificadorNew {
         System.out.println("pintar respuesta 2 " + respuesta);
 
         return respuesta;
+    }
+
+    public static void imprimirAdicionales (String [][] adicionales, String ubicacion){
+
+        System.out.println(ubicacion +adicionales);
+
+        if(adicionales!= null && adicionales.length >0 ){
+            for (int i = 0; i < adicionales.length ; i++) {
+                System.out.println(ubicacion+" adicionales["+i+"][0] "+adicionales[i][0]);
+                System.out.println(ubicacion+" adicionales["+i+"][1] "+adicionales[i][1]);
+            }
+        }
     }
 }

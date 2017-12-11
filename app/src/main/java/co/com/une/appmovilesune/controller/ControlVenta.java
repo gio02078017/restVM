@@ -747,48 +747,48 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 System.out.println("listaAdicionales.get(i).getDuracion() " + listaAdicionales.get(i).getDescuento());
                 System.out.println("listaAdicionales.get(i).getDuracion() " + listaAdicionales.get(i).getDuracion());
 
-                adicional.put("demo", demosAd(listaAdicionalesTo.get(i).getAdicional()));
+                adicional.put("demo", demosAd(listaAdicionales.get(i).getAdicional()));
 
-                System.out.println("jsonAdicionalesBa listaAdicionales.get(i).getAdicional() "+listaAdicionales.get(i).getAdicional());
+                System.out.println("retirar HBO GO no cumple jsonAdicionalesBa listaAdicionales.get(i).getAdicional() "+listaAdicionales.get(i).getAdicional());
 
-                if(listaAdicionales.get(i).getAdicional().equalsIgnoreCase("HBO GO")){
-                    Log.d("cotizacion TV ",cotizacion.getTelevision());
-                    System.out.println("if hbo go ");
-                    if(!cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial) && !cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial_guion)){
-                        if(UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(), cliente.getCedula(), cotizacion.getTipoOferta())){
-                            adicional.put("tiposolicitud","Eliminar");
-                        }else {
-                            adicional.put("tiposolicitud","Nuevo");
+                if (listaAdicionales.get(i).getAdicional().equalsIgnoreCase("HBO GO")) {
+                        Log.d("cotizacion TV ", cotizacion.getTelevision());
+                        System.out.println("retirar HBO GO no cumple if hbo go ");
+                        System.out.println("retirar HBO GO no cumple cotizacion.isRetiroHBOGO() 1 " + cotizacion.isRetiroHBOGO());
+                        if (!cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial) && !cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial_guion)) {
+                            //if(UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(), cliente.getCedula(), cotizacion.getTipoOferta())){
+                            System.out.println("retirar HBO GO no cumple cotizacion.isRetiroHBOGO() 2 " + cotizacion.isRetiroHBOGO());
+                            if (cotizacion.isRetiroHBOGO()) {
+                                adicional.put("tiposolicitud", "Eliminar");
+                                System.out.println("retirar HBO GO no tiposolicitud Eliminar " + cotizacion.isRetiroHBOGO());
+                            } else {
+                                adicional.put("tiposolicitud", "Nuevo");
+                                System.out.println("retirar HBO GO no cumple tiposolicitud nuevo  " + cotizacion.isRetiroHBOGO());
+                            }
+                        } else {
+                            adicional.put("tiposolicitud", "Nuevo");
+                            System.out.println("retirar HBO GO no cumple tiposolicitud nuevo  " + cotizacion.isRetiroHBOGO());
                         }
-                    } else {
-                        adicional.put("tiposolicitud","Nuevo");
-                    }
-
-                } else {
-                    adicional.put("tiposolicitud","Nuevo");
+                    }else if (listaAdicionales.get(i).getAdicional().equalsIgnoreCase("Crackle Sony Ba")) {
+                        Log.d("cotizacion TV ", cotizacion.getTelevision());
+                        System.out.println("if hbo go ");
+                        //CrackleExistente crackleExistente = UtilidadesTarificadorNew.validarCracklePortafolioElite(cliente.getPortafolioElite(), cliente.getCedula(), cotizacion.getTipoOferta());
+                        if (cotizacion.isRetiroCrackleBa()) {
+                            adicional.put("tiposolicitud", "Eliminar");
+                        } else {
+                            adicional.put("tiposolicitud", "Nuevo");
+                        }
+                        adicional.put("producto", "Crackle Sony");
+                    }else{
+                    adicional.put("tiposolicitud", "Nuevo");
                     System.out.println("else hbo go ");
                 }
 
-                if(listaAdicionales.get(i).getAdicional().equalsIgnoreCase("Crackle Sony Ba")){
-                    Log.d("cotizacion TV ",cotizacion.getTelevision());
-                    System.out.println("if hbo go ");
-                    //CrackleExistente crackleExistente = UtilidadesTarificadorNew.validarCracklePortafolioElite(cliente.getPortafolioElite(), cliente.getCedula(), cotizacion.getTipoOferta());
-                        if(cotizacion.isRetiroCrackleBa()){
-                            adicional.put("tiposolicitud","Eliminar");
-                        }else {
-                            adicional.put("tiposolicitud","Nuevo");
-                        }
-                        adicional.put("producto","Crackle Sony");
-                } else {
-                    adicional.put("tiposolicitud","Nuevo");
-                    System.out.println("else hbo go ");
-                }
-
-                System.out.println("jsonAdicionalesBa adicional "+adicional);
+                System.out.println("jretirar HBO GO no cumple sonAdicionalesBa adicional "+adicional);
 
                 arraylistAdicionales.add(adicional);
 
-                System.out.println("jsonAdicionalesBa arraylistAdicionales"+arraylistAdicionales);
+                System.out.println("retirar HBO GO no cumple jsonAdicionalesBa arraylistAdicionales"+arraylistAdicionales);
 
             } catch (JSONException e) {
                 e.printStackTrace();

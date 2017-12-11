@@ -2922,6 +2922,8 @@ public class Utilidades {
             prueba = "{'Medio':'Scooring','Respuesta':{'codigoMensaje':'00','descripcionMensaje':'Exitoso','idScooring':'0011','dupli':'1','dataDupli':{'codigoMensaje':'00','descripcionMensaje':'Exitoso','estado':'EN PROCESO','estadoFinal':'ANULADO','razonEstadoFinal':'INCUMPLIMIENTO DE POLITICAS'}},'Documento':'111124115'}";
         }else if (documento.equalsIgnoreCase("4317614")) {
             prueba = "{'Medio':'Scooring','Respuesta':{'codigoMensaje':'00','descripcionMensaje':'Exitoso','idScooring':'0011','dupli':'1','dataDupli':{'codigoMensaje':'00','descripcionMensaje':'Exitoso','estado':'EN PROCESO','estadoFinal':'APROBADO','razonEstadoFinal':'SCORING','maximaCotizacion':'400000'}},'Documento':'4317614'}";
+        }else if (documento.equalsIgnoreCase("7549110")) {
+            prueba = "{'Medio':'Scooring','Respuesta':{'codigoMensaje':'00','descripcionMensaje':'Exitoso','idScooring':'0011','dupli':'1','dataDupli':{'codigoMensaje':'00','descripcionMensaje':'Exitoso','estado':'EN PROCESO','estadoFinal':'APROBADO','razonEstadoFinal':'SCORING','maximaCotizacion':'400000'}},'Documento':'7549110'}";
         }
 
         if (!prueba.equalsIgnoreCase("")) {
