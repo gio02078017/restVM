@@ -204,7 +204,7 @@ public class UtilidadesTarificadorNew {
                             validarEstandarizacion = false;
                             // ja.put(Utilidades.jsonMensajes("Direccion",
                             // "Debe Normalizar la Direcci�n"));
-                            Toast.makeText(contex, "Debe Normalizar la Dirección", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(contex,contex.getResources().getString(R.string.estandarizardireccion2), Toast.LENGTH_SHORT).show();
                         } else {
                             if (cliente.getPortafolio() == null/*
 																 * cliente.
@@ -235,7 +235,7 @@ public class UtilidadesTarificadorNew {
                 System.out.println("estandarizarDireccion cliente.getDireccion() "+cliente.getDireccion() );
                 if (!cliente.isControlNormalizada() && !Utilidades.CoberturaRural(cliente)) {
                     validarEstandarizacion = false;
-                    Toast.makeText(contex, contex.getResources().getString(R.string.normailizardireccion), Toast.LENGTH_SHORT)
+                    Toast.makeText(contex, contex.getResources().getString(R.string.estandarizardireccion2), Toast.LENGTH_SHORT)
                             .show();
                 }else if(!cliente.getDireccionNormalizada().equalsIgnoreCase(cliente.getDireccion())){
                     validarEstandarizacion = false;
@@ -252,7 +252,7 @@ public class UtilidadesTarificadorNew {
             if (!cliente.isControlNormalizada() && !Utilidades.CoberturaRural(cliente)) {
 
                 validarEstandarizacion = false;
-                Toast.makeText(contex, contex.getResources().getString(R.string.normailizardireccion), Toast.LENGTH_SHORT)
+                Toast.makeText(contex, contex.getResources().getString(R.string.estandarizardireccion2), Toast.LENGTH_SHORT)
                         .show();
             }else if(!cliente.getDireccionNormalizada().equalsIgnoreCase(cliente.getDireccion())){
                 validarEstandarizacion = false;

@@ -1217,20 +1217,17 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     if(!UtilidadesTarificadorNew.validarVelocidadInternet(productoCotizador.getPlan(),adicional,cliente)){
                         cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa()));
                         cotizacion.setRetiroHBOGO(true);
-                    } else {
+                    } /*else {
                         if(cotizacion.getTipoOferta().equalsIgnoreCase("DUO") || cotizacion.getTipoOferta().equalsIgnoreCase("TRIO")){
                             cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa()));
                             cotizacion.setRetiroHBOGO(true);
                         } else {
                             //cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
                         }
-
-                    }
+                    }*/
 
                 }
 
-            } else {
-                //cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
             }
 
             UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(),"Cotizacion.getAdicionalesBa() Despues HBO GO Existente ");
@@ -1242,8 +1239,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesCrackle(cotizacion.getAdicionalesBa()));
                     cotizacion.setRetiroCrackleBa(true);
                 }
-            } else {
-                //cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
             }
 
             UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(),"Cotizacion.getAdicionalesBa() Despues Crackle Existente ");

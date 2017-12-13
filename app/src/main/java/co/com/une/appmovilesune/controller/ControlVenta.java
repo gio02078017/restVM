@@ -755,7 +755,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         Log.d("cotizacion TV ", cotizacion.getTelevision());
                         System.out.println("retirar HBO GO no cumple if hbo go ");
                         System.out.println("retirar HBO GO no cumple cotizacion.isRetiroHBOGO() 1 " + cotizacion.isRetiroHBOGO());
-                        if (!cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial) && !cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial_guion)) {
+                        /*if (!cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial) && !cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial_guion)) {
                             //if(UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(), cliente.getCedula(), cotizacion.getTipoOferta())){
                             System.out.println("retirar HBO GO no cumple cotizacion.isRetiroHBOGO() 2 " + cotizacion.isRetiroHBOGO());
                             if (cotizacion.isRetiroHBOGO()) {
@@ -768,7 +768,14 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         } else {
                             adicional.put("tiposolicitud", "Nuevo");
                             System.out.println("retirar HBO GO no cumple tiposolicitud nuevo  " + cotizacion.isRetiroHBOGO());
-                        }
+                        }*/
+                    if (cotizacion.isRetiroHBOGO()) {
+                        adicional.put("tiposolicitud", "Eliminar");
+                        System.out.println("retirar HBO GO no tiposolicitud Eliminar " + cotizacion.isRetiroHBOGO());
+                    } else {
+                        adicional.put("tiposolicitud", "Nuevo");
+                        System.out.println("retirar HBO GO no cumple tiposolicitud nuevo  " + cotizacion.isRetiroHBOGO());
+                    }
                     }else if (listaAdicionales.get(i).getAdicional().equalsIgnoreCase("Crackle Sony Ba")) {
                         Log.d("cotizacion TV ", cotizacion.getTelevision());
                         System.out.println("if hbo go ");
