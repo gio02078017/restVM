@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/texture"
+    android:orientation="vertical"
+    android:padding="7dp">
+
+
+    <co.com.une.appmovilesune.components.TituloPrincipal
+        android:id="@+id/tlpPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TableLayout
+            android:id="@+id/tlytTablaAsesorias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:id="@+id/tlytTablaPeticionesTransaccion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/productos"
+                    android:textColor="#FF000000"
+                    android:layout_gravity="center_vertical"
+                    android:textStyle="bold" />
+
+                <co.com.une.appmovilesune.components.SelectorProductos
+                    android:id="@+id/slpPeticion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="4" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tlytTablaPeticionesTransaccion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/transaccion"
+                    android:textColor="#FF000000"
+                    android:layout_gravity="center_vertical"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/sltTransaccion"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="4"
+                    android:background="@drawable/spin"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="45dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tlytTablaPeticionesOtraTransaccion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/otra_transaccion"
+                    android:textColor="#FF000000"
+                    android:layout_gravity="center_vertical"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/txtOtraTransaccion"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textNoSuggestions"
+                    android:layout_span="4"
+                    android:background="@drawable/edittextbg"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tlytTablaPeticionesEvento"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/evento"
+                    android:textColor="#FF000000"
+                    android:layout_gravity="center_vertical"
+
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/txtEvento"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textNoSuggestions"
+                    android:layout_span="4"
+                    android:background="@drawable/edittextbg"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tlytTablaPeticionesPedido"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pedido"
+                    android:textColor="#FF000000"
+                    android:layout_gravity="center_vertical"
+
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/txtPedido"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textNoSuggestions"
+                    android:layout_span="4"
+                    android:background="@drawable/edittextbg"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tlytTablaPeticionesCun"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cun"
+                    android:textColor="#FF000000"
+                    android:layout_gravity="center_vertical"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/txtCun"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:layout_span="4"
+                    android:background="@drawable/edittextbg"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/trTablaCompetenciaObservaciones"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <ImageButton
+                    android:id="@+id/btnSiguiente"
+                    android:contentDescription="@string/desc_finalizar"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/buttons"
+                    android:src="@drawable/buttons_src"
+                    android:layout_span="5"
+                    android:onClick="procesarPeticion" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
+
+</LinearLayout>

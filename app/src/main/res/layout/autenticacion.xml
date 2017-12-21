@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/texture"
+    android:orientation="vertical">
+
+    <co.com.une.appmovilesune.components.TituloPrincipal
+        android:id="@+id/tlpPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="50dp">
+
+        <LinearLayout
+            android:id="@+id/llytTextos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/txtCodigo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffffff"
+                android:ems="10"
+                android:gravity="center_vertical"
+                android:hint="@string/codigo"
+                android:text="@string/cod_prueba"
+                android:inputType="number"
+                android:password="true"
+                android:padding="5dp" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/llytLinea"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#33000000"></LinearLayout>
+
+            <EditText
+                android:id="@+id/txtCedula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="#ffffffff"
+                android:ems="10"
+                android:gravity="center_vertical"
+                android:hint="@string/cedula"
+                android:text="@string/ced_prueba"
+                android:inputType="number"
+                android:password="true"
+                android:padding="5dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/Enviar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button"
+            android:padding="10dp"
+            android:text="@string/ingresar"
+            android:textColor="#666565"
+            android:textStyle="bold"
+            android:onClick="autenticar" />
+
+        <TextView
+            android:id="@+id/txtVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:textSize="10sp"
+            android:text="Version" />
+
+    </LinearLayout>
+
+</LinearLayout>

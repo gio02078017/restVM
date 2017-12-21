@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="7dp"
+        android:shrinkColumns="*"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/lblTelefonia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="6"
+                android:text="@string/telefonia"
+                android:textColor="@color/black" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableImpuesto"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/mensajeTelefonia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="6"
+                android:text="@string/mensaje_impuesto"
+                android:textColor="@color/red"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/planTelefonia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="5"
+                android:text="@string/guiontwo"
+                android:textColor="@color/purple" />
+
+            <TextView
+                android:id="@+id/dtoTelefonia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="1"
+                android:text="@string/descuento_planes"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/lblAdicionalesTO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="6"
+                android:text="@string/adicionales"
+                android:textColor="@color/black" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/strAdicionalesTO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="6"
+                android:text="@string/guiontwo"
+                android:textColor="@color/purple" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/lblTelevision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="6"
+                android:text="@string/television"
+                android:textColor="@color/black" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/planTelevision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="5"
+                android:text="@string/guiontwo"
+                android:textColor="@color/purple" />
+
+            <TextView
+                android:id="@+id/dtoTelevision"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="1"
+                android:text="@string/descuento_planes"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/lblAdicionales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="6"
+                android:text="@string/adicionales"
+                android:textColor="@color/black" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/strAdicionales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="6"
+                android:text="@string/guiontwo"
+                android:textColor="@color/purple" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/lblInternet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="6"
+                android:text="@string/internet"
+                android:textColor="@color/black" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/planInternet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="5"
+                android:text="@string/guiontwo"
+                android:textColor="@color/purple" />
+
+            <TextView
+                android:id="@+id/dtoInternet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="1"
+                android:text="@string/descuento_planes"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/lblTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="6"
+                android:text="@string/total_venta"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/totalVenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="5"
+                android:text="@string/guiontwo"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/btnAceptarVenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="3"
+                android:onClick="aceptarResumen"
+                android:text="@string/aceptar" />
+
+            <Button
+                android:id="@+id/btnCancelarVenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_span="3"
+                android:onClick="cancelarResumen"
+                android:text="@string/cancelar" />
+        </TableRow>
+    </TableLayout>
+
+</ScrollView>

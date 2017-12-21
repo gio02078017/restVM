@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_repeatCode"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_repeatCode" />
+
+    <item
+        android:id="@+id/menu_repeatCall"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_repeatCall" />
+
+    <item
+        android:id="@+id/menu_listenRecord"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_listenRecord" />
+
+    <item
+        android:id="@+id/menu_retypeCode"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_retypeCode" />
+
+</menu>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="text" format="string" />
+    <attr name="icono" format="reference" />
+    <attr name="tipo" format="enum">
+        <enum name="Telefonia" value="0" />
+        <enum name="Television" value="1" />
+        <enum name="Internet" value="2" />
+        <enum name="AdicHD" value="3" />
+    </attr>
+    <attr name="tipoAdicional" format="enum">
+        <enum name="AdicionalesTelefonia" value="0" />
+        <enum name="AdicionalesTelevision" value="1" />
+        <enum name="AdicionalesInternet" value="2" />
+    </attr>
+
+    <attr name="ubicacion" format="enum">
+        <enum name="Oferta" value="0" />
+        <enum name="Promo" value="1" />
+        <enum name="Config" value="2" />
+    </attr>
+
+    <declare-styleable name="BotonPrincipal">
+        <attr name="android:background" />
+        <attr name="android:onClick" />
+        <attr name="text" />
+        <attr name="icono" />
+    </declare-styleable>
+
+    <declare-styleable name="ItemConfiguracion">
+        <attr name="android:background" />
+        <attr name="android:onClick" />
+        <attr name="text" />
+    </declare-styleable>
+
+    <declare-styleable name="compconfigurable">
+        <attr name="tipo" />
+    </declare-styleable>
+
+    <declare-styleable name="compdecos">
+        <attr name="tipo" />
+    </declare-styleable>
+
+    <declare-styleable name="compproducto">
+        <attr name="tipo" />
+    </declare-styleable>
+
+    <declare-styleable name="compadicional">
+        <attr name="tipoAdicional" />
+    </declare-styleable>
+
+
+</resources> 

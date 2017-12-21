@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/texture"
+    android:orientation="vertical">
+
+    <co.com.une.appmovilesune.components.TituloPrincipal
+        android:id="@+id/tlpPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupConsutaCodigoHogar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_span="8"
+                    android:orientation="horizontal"
+                    android:layout_margin="5dp">
+
+                    <RadioButton
+                        android:id="@+id/radio_telefono_CodigoHogar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:button="@drawable/style_radiobtn"
+                        android:drawableRight="@drawable/telefono_pequeno"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <RadioButton
+                        android:id="@+id/radio_direccion_CodigoHogar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:button="@drawable/style_radiobtn"
+                        android:drawableRight="@drawable/direccion_pequeno"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <RadioButton
+                        android:id="@+id/radio_Cedula_CodigoHogar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:button="@drawable/style_radiobtn"
+                        android:drawableRight="@drawable/documento_pequeno"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </RadioGroup>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_span="3"
+                    android:text="@string/busqueda_points"
+                    android:textColor="@color/purple"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/llyDocumento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="5"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/txtBusqueda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/campo_01"
+                        android:inputType="textNoSuggestions"
+                        android:paddingLeft="25dp"
+                        android:editable="false" />
+
+                    <ImageButton
+                        android:id="@+id/btnBuscarCodigoHogar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/buscar"
+                        android:contentDescription="@string/buscar_desc"
+                        android:onClick="buscar_CodHogarxBusqueda" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tlytDireccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_span="3"
+                    android:text="@string/direccion_points"
+                    android:textColor="@color/purple"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/sltDireccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_span="5"
+                    android:background="@drawable/spin"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="45dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/codigo_hogar"
+                    android:textColor="@color/purple"
+                    android:textStyle="bold"
+                    android:layout_span="3" />
+
+                <LinearLayout
+                    android:id="@+id/llytCodHogar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="5"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/txtCodHogar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/campo_01"
+                        android:inputType="textNoSuggestions"
+                        android:paddingLeft="25dp" />
+
+                    <ImageButton
+                        android:id="@+id/btnBuscar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/buscar"
+                        android:contentDescription="@string/buscar_desc"
+                        android:onClick="buscar_CodHogar" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/hobbies"
+                    android:textColor="@color/purple"
+                    android:textStyle="bold"
+                    android:layout_span="3" />
+
+                <co.com.une.appmovilesune.components.SelectorProductos
+                    android:id="@+id/slpHobbies"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="5" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/contrasenia"
+                    android:textColor="@color/purple"
+                    android:textStyle="bold"
+                    android:layout_span="3" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="5"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/txtContrasenia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittextbg"
+                        android:inputType="textPassword"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_info">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="8"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/chkSms"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:button="@drawable/style_checkboxes"
+                            android:text="@string/sms"
+                            android:layout_span="4" />
+
+                        <CheckBox
+                            android:id="@+id/chkEmail"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:button="@drawable/style_checkboxes"
+                            android:text="@string/email"
+                            android:layout_span="4" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:orientation="horizontal">
+
+                        <CheckBox
+                            android:id="@+id/chkFisico"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:button="@drawable/style_checkboxes"
+                            android:text="@string/fisico"
+                            android:layout_span="4" />
+
+                        <CheckBox
+                            android:id="@+id/chkTelemercadeo"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:button="@drawable/style_checkboxes"
+                            android:text="@string/telemercadeo"
+                            android:layout_span="4" />
+                    </LinearLayout>
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"></TableRow>
+
+            <TableRow
+                android:id="@+id/campoRespuestas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_info"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/campoMensajes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/observaciones"
+                    android:textStyle="bold"
+                    android:layout_span="8" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <ImageButton
+                    android:id="@+id/btnSiguiente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_span="8"
+                    android:background="@drawable/buttons"
+                    android:contentDescription="@string/desc_finalizar"
+                    android:onClick="guardarUneMas"
+                    android:src="@drawable/buttons_src" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+</LinearLayout>

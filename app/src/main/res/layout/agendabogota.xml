@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/texture"
+    android:orientation="vertical">
+
+    <co.com.une.appmovilesune.components.TituloPrincipal
+        android:id="@+id/tlpPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_shape_file">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:id="@+id/trTablaAgendaFranja"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupFranjas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:layout_span="8"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/radio_am"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:button="@drawable/style_radiobtn"
+                        android:text="@string/am"
+                        android:textColor="@color/black"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <RadioButton
+                        android:id="@+id/radio_pm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:button="@drawable/style_radiobtn"
+                        android:text="@string/pm"
+                        android:textColor="@color/black"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </RadioGroup>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/trTablaAgendaFecha"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/fecha_agenda"
+                    android:textColor="#6F6F6F"
+                    android:textStyle="bold" />
+
+                <co.com.une.appmovilesune.components.SelectorFecha
+                    android:id="@+id/sltFechaAgenda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-4dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_span="8" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/trTablaClienteBoton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <ImageButton
+                    android:id="@+id/btnSiguiente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_span="9"
+                    android:background="@drawable/buttons"
+                    android:contentDescription="@string/desc_finalizar"
+                    android:onClick="guardarAgenda"
+                    android:src="@drawable/buttons_src" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+</LinearLayout>

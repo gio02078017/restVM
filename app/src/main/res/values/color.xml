@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="separador">#33000000</color>
+    <color name="purple">#9B2E9B</color>
+
+    <color name="yellow">#FF9E00</color>
+    <color name="darkTab">#292829</color>
+    <color name="lightTab">#7B7D7B</color>
+
+    <color name="nivel1">#FFF</color>
+    <color name="nivel2">#E0E0E0</color>
+
+    <color name="red">#FFFF0000</color>
+    <color name="blue">#FF0000FF</color>
+    <color name="dkgray">#FF444444</color>
+    <color name="gray_background">#CCCCCC</color>
+    <color name="gray_text">#666565</color>
+    <color name="default_text">#FF000000</color>
+    <color name="red_text">#BB2020</color>
+    <color name="orange">#ff6400</color>
+    <color name="dark">#6F6F6F</color>
+    <color name="transparencia">#000000FF</color>
+    <color name="transparent">#00000000</color>
+    <color name="requerido">#FFFF0000</color>
+    <color name="opcional">#FFFF6400</color>
+    <color name="titulo">#aa000000</color>
+    <color name="datos">#aaf1f1f1</color>
+    <color name="datos2">#aac1c1c1</color>
+    <color name="datos3">#aa8E876A</color>
+    <color name="datos4">#aa775d3d</color>
+    <color name="datos5">#aa474747</color>
+    <color name="gray_2">#6A6A6A</color>
+
+</resources>

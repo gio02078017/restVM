@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/co.com.une.appmovilesune"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/texture"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <co.com.une.appmovilesune.components.TituloPrincipal
+        android:id="@+id/tlpPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpCliente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_buttons_main"
+                    android:onClick="mostrarCliente"
+                    app:icono="@drawable/cliente"
+                    app:text="@string/info_cliente" />
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpTarificador"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_buttons_main"
+                    android:onClick="mostrarTarificador"
+                    app:icono="@drawable/tarificador"
+                    app:text="@string/tarificador" />
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpEstadoPedido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_buttons_main"
+                    android:onClick="mostrarPedido"
+                    app:icono="@drawable/estadopedido"
+                    app:text="@string/estado_pedido" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpCuentasUne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_buttons_main"
+                    android:onClick="mostrarCuentasUNE"
+                    app:icono="@drawable/cuentasune"
+                    app:text="@string/estado_cuentas" />
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpCobertura"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_buttons_main"
+                    android:onClick="mostrarCobertura"
+                    app:icono="@drawable/cobertura"
+                    app:text="@string/cobertura" />
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpPortafolio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_buttons_main"
+                    android:onClick="mostrarPortafolio"
+                    app:icono="@drawable/portafolio"
+                    app:text="@string/portafolio" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpCompetencia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_buttons_main"
+                    android:onClick="mostrarCompetencia"
+                    app:icono="@drawable/asesoria"
+                    app:text="@string/gestorVisitas" />
+
+                <!-- <co.com.une.appmovilesune.components.BotonPrincipal -->
+                <!-- android:id="@+id/btpPeticion" -->
+                <!-- android:layout_width="wrap_content" -->
+                <!-- android:layout_height="wrap_content" -->
+                <!-- android:layout_gravity="center" -->
+                <!-- android:background="@drawable/bg_buttons_main" -->
+                <!-- android:onClick="mostrarPeticion" -->
+                <!-- android:visibility="gone" -->
+                <!-- app:icono="@drawable/peticion" -->
+                <!-- app:text="@string/peticion" /> -->
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpCifin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_buttons_main"
+                    android:onClick="mostrarValidador"
+                    app:icono="@drawable/validador"
+                    app:text="@string/validador" />
+
+                <!-- <co.com.une.appmovilesune.components.BotonPrincipal -->
+                <!-- android:id="@+id/btpComentario" -->
+                <!-- android:layout_width="wrap_content" -->
+                <!-- android:layout_height="wrap_content" -->
+                <!-- android:layout_gravity="center" -->
+                <!-- app:text="Comentario" -->
+
+
+                <!-- app:icono="@drawable/comentario" -->
+                <!-- android:visibility="gone" /> -->
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpCarrusel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_buttons_main"
+                    android:onClick="mostrarCarrusel"
+                    app:icono="@drawable/validar_retiro"
+                    app:text="@string/carrusel" />
+
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpAmigoCuentas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_buttons_main"
+                    android:onClick="mostrarAmigoCuentas"
+                    app:icono="@drawable/amigocuentas"
+                    app:text="@string/amigocuentas"
+                    android:visibility="gone" />
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpUneMas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_buttons_main"
+                    android:onClick="mostrarUneMas"
+                    app:icono="@drawable/unemas"
+                    app:text="@string/cuenta_une"
+                    android:visibility="visible" />
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpLearning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_buttons_main"
+                    android:onClick="mostrarElearning"
+                    app:icono="@drawable/icon_elearning"
+                    app:text="@string/e_learning" />
+
+                <!-- <co.com.une.appmovilesune.components.BotonPrincipal
+                   android:id="@+id/btpTablet"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:background="@drawable/bg_buttons_main"
+                   android:onClick="mostrarTablet"
+                   android:visibility="gone"
+                   app:icono="@drawable/icon_tablet"
+                   app:text="@string/tablet" /> -->
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpBlindaje"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_buttons_main"
+                    android:onClick="mostrarBlindaje"
+                    app:icono="@drawable/blindaje"
+                    app:text="@string/blindaje"
+                    android:visibility="gone" />
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpProspecto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:onClick="mostrarProspecto"
+                    android:background="@drawable/bg_buttons_main"
+                    app:icono="@drawable/icon_prospecto"
+                    app:text="@string/prospecto"
+                    android:visibility="gone" />
+
+                <co.com.une.appmovilesune.components.BotonPrincipal
+                    android:id="@+id/btpPrecision"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_buttons_main"
+                    android:onClick="mostrarPrecision"
+                    app:icono="@drawable/icon_criesgos"
+                    app:text="@string/precision"
+                    android:visibility="gone" />
+
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
+
+</LinearLayout>

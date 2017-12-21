@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_info"
+    android:orientation="vertical"
+    android:padding="7dp">
+
+    <ListView
+        android:id="@+id/listasDefault"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="8"></ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/btnAceptarLista"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="aceptarLista"
+            android:text="@string/aceptar" />
+    </LinearLayout>
+
+</LinearLayout>

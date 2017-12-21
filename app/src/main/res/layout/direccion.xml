@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/texture"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="fill_parent"
+                android:layout_height="34dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="5dp"
+                    android:text="@string/digilenciar_campos"
+                    android:textColor="@color/gray_text"
+                    android:textSize="13sp"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/my_shape_file"
+                android:orientation="vertical">
+
+                <TableLayout
+                    android:id="@+id/tableLayout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <!-- 2 columns -->
+
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <TextView
+                            android:id="@+id/Elemento_1"
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/elemento_1"
+                            android:textColor="@color/default_text" />
+
+                        <TextView
+                            android:id="@+id/Elemento_2"
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/elemento_2"
+                            android:textColor="@color/default_text" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <Spinner
+                            android:id="@+id/Elemento_A"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/spin"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="45dp"></Spinner>
+
+                        <TextView
+                            android:text="@string/asterisco"
+                            android:textColor="@color/red" />
+
+                        <EditText
+                            android:id="@+id/Elemento_B"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/edittextbg"
+                            android:inputType="number"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="10dp"></EditText>
+
+                        <TextView
+                            android:text="@string/asterisco"
+                            android:textColor="@color/red" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <TextView
+                            android:id="@+id/Elemento_3"
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/ejemplo_1_calle"
+                            android:textColor="@color/purple" />
+
+                        <TextView
+                            android:id="@+id/Elemento_4"
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/ejemplo_2"
+                            android:textColor="@color/purple" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/elemento_3"
+                            android:textColor="@color/default_text" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/elemento_4"
+                            android:textColor="@color/default_text" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <Spinner
+                            android:id="@+id/Elemento_C"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_span="2"
+                            android:background="@drawable/spin"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="45dp"></Spinner>
+
+                        <Spinner
+                            android:id="@+id/Elemento_D"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_span="2"
+                            android:background="@drawable/spin"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="45dp"></Spinner>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/ejemplo_3"
+                            android:textColor="@color/purple" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/ejemplo_4"
+                            android:textColor="@color/purple" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/elemento_5"
+                            android:textColor="@color/default_text" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/elemento_6"
+                            android:textColor="@color/default_text" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <Spinner
+                            android:id="@+id/Elemento_E"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/spin"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="45dp"></Spinner>
+
+                        <TextView
+                            android:text="@string/asterisco"
+                            android:textColor="@color/red" />
+
+                        <EditText
+                            android:id="@+id/Elemento_F"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/edittextbg"
+                            android:inputType="number"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="10dp"></EditText>
+
+                        <TextView
+                            android:text="@string/asterisco"
+                            android:textColor="@color/red" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/ejemplo_1_carrera"
+                            android:textColor="@color/purple" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/ejemplo_2"
+                            android:textColor="@color/purple" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/elemento_7"
+                            android:textColor="@color/default_text" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/elemento_8"
+                            android:textColor="@color/default_text" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <Spinner
+                            android:id="@+id/Elemento_G"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_span="2"
+                            android:background="@drawable/spin"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="45dp"></Spinner>
+
+                        <Spinner
+                            android:id="@+id/Elemento_H"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_span="2"
+                            android:background="@drawable/spin"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="45dp"></Spinner>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/ejemplo_3"
+                            android:textColor="@color/purple" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/ejemplo_4"
+                            android:textColor="@color/purple" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/elemento_9"
+                            android:textColor="@color/default_text" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/elemento_10"
+                            android:textColor="@color/default_text" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <EditText
+                            android:id="@+id/Elemento_I"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/edittextbg"
+                            android:inputType="number"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"></EditText>
+
+                        <TextView
+                            android:text="@string/asterisco"
+                            android:textColor="@color/red" />
+
+                        <EditText
+                            android:id="@+id/Elemento_J"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_span="2"
+                            android:background="@drawable/edittextbg"
+                            android:hint="@string/Interior"
+                            android:inputType="number"
+                            android:maxLength="4"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="45dp"></EditText>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/ejemplo_8"
+                            android:textColor="@color/purple" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/ejemplo_9"
+                            android:textColor="@color/purple" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/elemento_11"
+                            android:textColor="@color/default_text" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/elemento_12"
+                            android:textColor="@color/default_text" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <EditText
+                            android:id="@+id/Elemento_K"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_span="2"
+                            android:background="@drawable/edittextbg"
+                            android:hint="@string/Torre"
+                            android:inputType="number"
+                            android:maxLength="2"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="45dp"></EditText>
+
+                        <Spinner
+                            android:id="@+id/Elemento_L"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_span="2"
+                            android:background="@drawable/spin"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="45dp"></Spinner>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/ejemplo_10"
+                            android:textColor="@color/purple" />
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="2"
+                            android:text="@string/ejemplo_11"
+                            android:textColor="@color/purple" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="4"
+                            android:text="@string/elemento_13"
+                            android:textColor="@color/default_text" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <EditText
+                            android:id="@+id/Elemento_M"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_span="4"
+                            android:background="@drawable/edittextbg"
+                            android:inputType=""
+                            android:paddingLeft="30dp"
+                            android:paddingRight="20dp"></EditText>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_span="4"
+                            android:text="@string/ejemplo_12"
+                            android:textColor="@color/purple" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="1dp">
+
+                        <Button
+                            android:id="@+id/Enviar"
+                            android:layout_span="2"
+                            android:background="@drawable/button"
+                            android:text="@string/guardar"
+                            android:textColor="@color/gray_text"
+                            android:textStyle="bold"></Button>
+
+                        <Button
+                            android:id="@+id/Cancelar"
+                            android:layout_span="2"
+                            android:background="@drawable/button"
+                            android:text="@string/cancelar"
+                            android:textColor="@color/gray_text"
+                            android:textStyle="bold"></Button>
+                    </TableRow>
+
+                    <!-- edittext span 2 column -->
+                </TableLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

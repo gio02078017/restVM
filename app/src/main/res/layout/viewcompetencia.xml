@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/texture"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/Competencias"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <co.com.une.appmovilesune.components.TituloPrincipal
+            android:id="@+id/tlpPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TableLayout
+                android:id="@+id/tlytTablaCompetencia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:id="@+id/trTablaCompetenciaAtencion"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/atencion"
+                        android:textColor="#6F6F6F"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spnAtencion"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:background="@drawable/spin"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="45dp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/trTablaCompetenciaNombre"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/nombre"
+                        android:textColor="#6F6F6F"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/txtNombreCompetencia"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:background="@drawable/edittextbg"
+                        android:inputType="textNoSuggestions"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/trTablaCompetenciaApellido"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/apellido"
+                        android:textColor="#6F6F6F"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/txtApellidoCompetencia"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:background="@drawable/edittextbg"
+                        android:inputType="textNoSuggestions"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/trTablaCompetenciaTipoDocumento"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/tipoDocumento"
+                        android:textColor="#6F6F6F"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spnTipoDocumento"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:background="@drawable/spin"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="45dp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/trTablaCompetenciaDocumento"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/documento"
+                        android:textColor="#6F6F6F"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/txtDocumentoCompetencia"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:background="@drawable/edittextbg"
+                        android:inputType="number"
+                        android:maxLength="12"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/trTablaCompetenciaVigenciaContrato"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/fecha_exped"
+                        android:textColor="#6F6F6F"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/llytSelectorFecha"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/txtFechaExpCompetencia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:background="@drawable/campo_01"
+                            android:inputType="textNoSuggestions"
+                            android:paddingLeft="20dp" />
+
+                        <ImageButton
+                            android:id="@+id/btnPickDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/selectorfecha"
+                            android:contentDescription="@string/selector_fecha"
+                            android:onClick="mostrarSelectorFecha2" />
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/trTablaCompetenciaContacto"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/telefono_contacto"
+                        android:textColor="#6F6F6F"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/txtTelefonoCompetencia"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:background="@drawable/edittextbg"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/trTablaCompetenciaDireccion"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/direccion"
+                        android:textColor="#6F6F6F"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/llytTelefono"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/txtDireccionCompetencia"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_span="8"
+                            android:layout_weight="1"
+                            android:background="@drawable/campo_01"
+                            android:inputType="textNoSuggestions"
+                            android:paddingLeft="25dp" />
+
+                        <ImageButton
+                            android:id="@+id/btnBuscarDirecciones"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/buscar"
+                            android:contentDescription="@string/buscar_desc"
+                            android:onClick="buscarDir" />
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/trTablaCompetenciaBarrio"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/barrio"
+                        android:textColor="#6F6F6F"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/txtBarrioCompetencia"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:background="@drawable/edittextbg"
+                        android:completionThreshold="3"
+                        android:inputType="textNoSuggestions"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/trTablaCompetenciaCorreo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="visible" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/correo_electronico"
+                        android:textColor="#6F6F6F"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/txtCorreoCompetencia"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:background="@drawable/edittextbg"
+                        android:completionThreshold="3"
+                        android:inputType="textNoSuggestions"
+                        android:paddingLeft="25dp"
+                        android:paddingRight="25dp"
+                        android:enabled="false"/>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/trTablaCompetenciaInfo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="9"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_title_resumen_sim">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_margin="5dp"
+                                android:text="@string/competencia"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/imgAgregarCompetencia"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginTop="5dp"
+                                android:onClick="agregarCompetencia"
+                                android:src="@drawable/plus_active" />
+                        </RelativeLayout>
+
+                        <ListView
+                            android:id="@+id/lstCompetencias"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/trTablaCompetenciaNoCompra"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/motivo_no_compra"
+                        android:textColor="#6F6F6F"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spnMotivoNoUne"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:background="@drawable/spin"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="45dp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/trTablaCompetenciaSubMotivo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/submotivo"
+                        android:textColor="#6F6F6F"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/spnSubMotivo"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:background="@drawable/spin"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="45dp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/trTablaCompetenciaObservaciones"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/observaciones"
+                        android:textColor="#6F6F6F"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/txtObservaciones"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="8"
+                        android:background="@drawable/textarea"
+                        android:inputType="text|textMultiLine"
+                        android:minLines="3"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageButton
+                        android:id="@+id/btnSiguiente"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_span="9"
+                        android:background="@drawable/buttons"
+                        android:contentDescription="@string/desc_finalizar"
+                        android:onClick="procesarCompetencia"
+                        android:src="@drawable/buttons_src" />
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>

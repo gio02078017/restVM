@@ -1,0 +1,1831 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/texture"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <co.com.une.appmovilesune.components.TituloPrincipal
+            android:id="@+id/tlpPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TabHost
+            android:id="@android:id/tabhost"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <LinearLayout
+                        android:id="@+id/infoCliente"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="vertical"
+                        android:weightSum="1">
+
+                        <ScrollView
+                            android:id="@+id/scrollView1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <TableLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="#FFF"
+                                android:padding="5dp"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*">
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteNombre"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/nombre"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtNombre"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteApellido"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/apellido"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtApellido"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaCTD"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/tipoDocumento"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltTipoDocumento"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaCD"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/documento"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtDocumento"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="number"
+                                        android:maxLength="12"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTabClienteFExp"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_weight="1"
+                                        android:text="@string/fecha_exped"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <co.com.une.appmovilesune.components.SelectorFecha
+                                        android:id="@+id/slfCliente"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="-8dp"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_span="8" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaCL"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/lugar_exped"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <AutoCompleteTextView
+                                        android:id="@+id/txtLugarExpedicion"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:completionThreshold="3"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+
+
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaGenero"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/sec_genero_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltGenero"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaFechaNacimiento"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/sec_fechanacimiento_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <co.com.une.appmovilesune.components.SelectorFecha
+                                        android:id="@+id/sltFechaNacimiento"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="-4dp"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_span="8" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaCodigoHogar"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/codigo_hogar"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <LinearLayout
+                                        android:id="@+id/llytCodigoHogar"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:orientation="horizontal">
+
+                                        <EditText
+                                            android:id="@+id/txtCodigoHogar"
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_span="8"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/campo_01"
+                                            android:inputType="textNoSuggestions"
+                                            android:paddingLeft="25dp" />
+
+                                        <ImageButton
+                                            android:id="@+id/btnBuscarCliente"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/buscar"
+                                            android:contentDescription="@string/buscar_desc"
+                                            android:onClick="buscar_cliente" />
+                                    </LinearLayout>
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteEstrato"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/estrato"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltEstrato"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteBarrio"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/barrio"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <AutoCompleteTextView
+                                        android:id="@+id/txtBarrio"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:completionThreshold="3"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteDireccion"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/direccion"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <LinearLayout
+                                        android:id="@+id/llyDireccion"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:orientation="horizontal">
+
+                                        <EditText
+                                            android:id="@+id/txtDireccion"
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_span="8"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/campo_01"
+                                            android:inputType="textNoSuggestions"
+                                            android:paddingLeft="25dp" />
+
+                                        <ImageButton
+                                            android:id="@+id/btnBuscarDirecciones"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/buscar"
+                                            android:contentDescription="@string/buscar_desc"
+                                            android:onClick="buscarDir" />
+                                    </LinearLayout>
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteDireccionNormalizada"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/direccionNormalizada"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtDireccionNormalizada"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:enabled="false"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClientePaginacion"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/paginacion"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtPaginacion"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="number"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaProyectos"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/proyectos_rurales"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <AutoCompleteTextView
+                                        android:id="@+id/txtProyectosRurales"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:completionThreshold="3"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteContrato"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/contrato"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtContrato"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="number"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClientePuntoReferencia"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/punto_referencia"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtPuntoReferencial"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteTipoServico"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/tipo_servicio"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/spnTipoServicio"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteTelefonoServicio"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/telefono_servicio"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <LinearLayout
+                                        android:id="@+id/llytTelefono"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:orientation="horizontal">
+
+                                        <EditText
+                                            android:id="@+id/txtTelefonoServicio"
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_span="8"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/campo_01"
+                                            android:inputType="number"
+                                            android:maxLength="7"
+                                            android:paddingLeft="25dp" />
+
+                                        <ImageButton
+                                            android:id="@+id/btnBuscar"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/buscar"
+                                            android:contentDescription="@string/buscar_desc"
+                                            android:onClick="buscar_datos" />
+                                    </LinearLayout>
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteTelefonoDestino"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/telefono_destino"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtTelefonoDestino"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="number"
+                                        android:maxLength="10"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteTelefonoSecundario"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/telefono_second"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtTelefonoSecundario"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="number"
+                                        android:maxLength="10"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteCelular"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/celular"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtCelular"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="number"
+                                        android:maxLength="10"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteMail"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/correo_electronico"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <LinearLayout
+                                        android:id="@+id/llytNombreContacto"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:orientation="horizontal">
+
+                                        <EditText
+                                            android:id="@+id/txtMail"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="9"
+                                            android:background="@drawable/edittextbg"
+                                            android:inputType="textNoSuggestions"
+                                            android:paddingLeft="25dp"
+                                            android:paddingRight="25dp" />
+
+                                        <CheckBox
+                                            android:id="@+id/chkValidar"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:layout_weight="1"
+                                            android:button="@drawable/style_checkboxes"
+                                            android:text="" />
+                                    </LinearLayout>
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteMailDominio"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text=""
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/spnDominio"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+
+
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteLogin"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/login"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <LinearLayout
+                                        android:id="@+id/llytLogin"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:orientation="horizontal">
+
+                                        <EditText
+                                            android:id="@+id/txtLogin"
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_span="8"
+                                            android:layout_weight="1"
+                                            android:background="@drawable/campo_01"
+                                            android:inputType="textNoSuggestions"
+                                            android:paddingLeft="25dp" />
+
+                                        <ImageButton
+                                            android:id="@+id/btnBuscarLogin"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/buscar"
+                                            android:contentDescription="@string/buscar_desc"
+                                            android:onClick="buscar_login" />
+                                    </LinearLayout>
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClientePinHotPack"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/pinhp"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtPinHotPack"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="number"
+                                        android:maxLength="10"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteObservaciones"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/observaciones"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtObservaciones"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/textarea"
+                                        android:inputType="text|textMultiLine|textNoSuggestions"
+                                        android:minLines="3"
+                                        android:paddingBottom="10dp"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp"
+                                        android:paddingTop="10dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteBoton"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp">
+
+                                    <ImageButton
+                                        android:id="@+id/btnSiguiente"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_span="9"
+                                        android:background="@drawable/buttons"
+                                        android:contentDescription="@string/desc_finalizar"
+                                        android:onClick="guardarCliente"
+                                        android:src="@drawable/buttons_src" />
+                                </TableRow>
+                            </TableLayout>
+                        </ScrollView>
+                    </LinearLayout>
+
+                    <!-- ************* CONTACTOS ************************** -->
+
+                    <LinearLayout
+                        android:id="@+id/infoContacto"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="vertical"
+                        android:weightSum="1"
+                        android:visibility="gone">
+
+                        <ScrollView
+                            android:id="@+id/svInfoContacto"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <TableLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*">
+
+                                <TableRow
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="1dp"
+                                    android:background="@drawable/bg_title_resumen_sim">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_span="6"
+                                        android:gravity="center_horizontal"
+                                        android:text="@string/referencia_personal"
+                                        android:textColor="#9B2E9B"
+                                        android:textStyle="bold" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTCNContacto1"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="#FFF"
+                                    android:padding="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/nombre_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtNombreContacto1"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTCAContacto1"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="#FFF"
+                                    android:padding="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/apellido_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtApellidoContacto1"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTCTContacto1"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="#FFF"
+                                    android:padding="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/telefono_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtTelefonoContacto1"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="phone"
+                                        android:maxLength="10"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTCCContacto1"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="#FFF"
+                                    android:padding="10dp"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/celular_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtCelContacto1"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="phone"
+                                        android:maxLength="10"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTCPContacto1"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:background="#FFF"
+                                    android:padding="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/parentesco_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtParentescoContacto1"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTituloContacto2"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="1dp"
+                                    android:background="@drawable/bg_title_resumen_sim"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_span="6"
+                                        android:gravity="center_horizontal"
+                                        android:text="@string/referencia_familiar"
+                                        android:textColor="#9B2E9B"
+                                        android:textStyle="bold" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTCNContacto2Nombre"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="#FFF"
+                                    android:padding="10dp"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/nombre_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtNombreContacto2"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTCNContacto2Apellido"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="#FFF"
+                                    android:padding="10dp"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/apellido_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtApellidoContacto2"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTCTContacto2Telefono"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="#FFF"
+                                    android:padding="10dp"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/telefono_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtTelefonoContacto2"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="phone"
+                                        android:maxLength="10"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTCCContacto2"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="#FFF"
+                                    android:padding="10dp"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/celular_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtCelContacto2"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="phone"
+                                        android:maxLength="10"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTCPContacto2Parentesco"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="#FFF"
+                                    android:padding="10dp"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/parentesco_contacto"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/spnParentescoContacto2"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginRight="15dp"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+                            </TableLayout>
+                        </ScrollView>
+                    </LinearLayout>
+
+                    <!-- ************** SOCIOECONOMICO ******************** -->
+
+                    <LinearLayout
+                        android:id="@+id/infoSocioeco"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:background="#FFF"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:weightSum="1">
+
+                        <ScrollView
+                            android:id="@+id/svSocioEconomico"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <TableLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*">
+
+                                <TableRow
+                                    android:id="@+id/trTablaTecnologia"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/tipo_tecnologia"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/spnTecnologia"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTipoZona"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/tipo_zona"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/spnTipoZona"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaDomiciliacion"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/domiciliacion"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/spnDomiciliacion"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaHoraDomiciliacion"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="gone" >
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_weight="1"
+                                        android:text="@string/franja"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <co.com.une.appmovilesune.components.SelectorHora
+                                        android:id="@+id/slhdomiciliacion"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="-8dp"
+                                        android:layout_marginRight="5dp"
+                                        android:layout_span="8" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaNivelEstudio"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/sec_nivelestudio_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltNivelEstudio"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaProfesion"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/sec_profesion_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltProfession"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaOcupacion"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/sec_ocupacion_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltOcupacion"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaCargo"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/sec_cargo_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltCargo"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaNivelIngresos"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/sec_nivelingresos_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltNivelIngresos"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaEstadoCivil"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/sec_estado_civil_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltEstadoCivil"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaPersonasCargo"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/sec_personasacargo_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltPersonasCargo"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaTipoVivienda"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/sec_tipovivienda_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltTipoVivienda"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaTipoPredio"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/sec_tipopredio_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltTipoPredio"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaTipoPropiedad"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/sec_tipopropiedad_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltTipoPropiedad"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaNombrePredio"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/sec_nombrepredio_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/txtNombrePredio"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaTipoConstruccion"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/constructores_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltTipoConstruccion"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaMigrar4G"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/migrar_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltMigrar4G"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaMunicipioSSC"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/sec_municipiossc_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/sltMunicipioSSC"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteBotonPrueba"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="gone">
+
+                                    <ImageButton
+                                        android:id="@+id/btnPrueba"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_span="9"
+                                        android:background="@drawable/buttons"
+                                        android:contentDescription="@string/desc_finalizar"
+                                        android:onClick="preLLenar"
+                                        android:src="@drawable/buttons_src" />
+                                </TableRow>
+
+                            </TableLayout>
+                        </ScrollView>
+                    </LinearLayout>
+
+                    <!-- ************* FACTURACION ********************* -->
+
+                    <LinearLayout
+                        android:id="@+id/infoFacturacion"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:background="#FFF"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:weightSum="1">
+
+                        <ScrollView
+                            android:id="@+id/svFacturacion"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <TableLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:shrinkColumns="*"
+                                android:stretchColumns="*">
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteFacturacion1"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/fac_departamento_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/fac_departamento"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteFacturacion2"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/fac_municipio_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <Spinner
+                                        android:id="@+id/fac_municipio"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/spin"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="45dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteFacturacion3"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/fac_direccion_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/fac_direccion"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+                                </TableRow>
+
+                                <TableRow
+                                    android:id="@+id/trTablaClienteFacturacion4"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:visibility="visible">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:text="@string/fac_barrio_string"
+                                        android:textColor="#6F6F6F"
+                                        android:textStyle="bold" />
+
+                                    <EditText
+                                        android:id="@+id/fac_barrio"
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_span="8"
+                                        android:background="@drawable/edittextbg"
+                                        android:inputType="textNoSuggestions"
+                                        android:paddingLeft="25dp"
+                                        android:paddingRight="25dp" />
+
+                                </TableRow>
+                            </TableLayout>
+                        </ScrollView>
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- ************** INFO CLIENTE GNRAL **************** -->
+
+        </TabHost>
+    </LinearLayout>
+
+</LinearLayout>

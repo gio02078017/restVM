@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Venta Móvil</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Configuración</string>
+    <string name="menu_edit">Editar</string>
+    <string name="menu_update">Actualizar</string>
+    <string name="menu_finish">Terminar</string>
+    <string name="menu_send">Enviar</string>
+    <string name="menu_clean">Limpiar</string>
+    <string name="menu_load">Cargar</string>
+    <string name="menu_logout">Cerrar</string>
+    <string name="menu_repeatCode">Repetir Codigo</string>
+    <string name="menu_repeatCall">Repetir Llamada</string>
+    <string name="menu_listenRecord">Grabacion</string>
+    <string name="menu_retypeCode">Ingresar Codigo</string>
+    <string name="guiontwo">--</string>
+    <string name="impuesto">Impuesto</string>
+    <string name="descuento_planes">(%)</string>
+    <string name="mensaje_impuesto">Recuérda indicarle al cliente el cobro por el impuesto telefónico</string>
+    <string name="mensaje_extensiones">Esta Dirección no soporta extensiones HFC</string>
+    <string name="total_venta">Total de Venta</string>
+    <string name="resumen_venta">Resumen de Venta</string>
+    <!-- Titulos -->
+    <string name="ventamovil">Venta Móvil</string>
+    <!-- Textos especificos -->
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
+    <string name="fecha_agenda">Fecha\nAgenda</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="aplicar">Aplicar</string>
+    <string name="observaciones">Observaciones</string>
+    <string name="motivo_no_compra">Motivo</string>
+    <string name="pago_mensual">Pago Mensual\nCompetencia</string>
+    <string name="vigencia_contrato">Vigencia del\nContrato\nCompetencia</string>
+    <string name="empaquetado">Empaquetado</string>
+    <string name="otra_competencia">Otra\nCompetencia</string>
+    <string name="productos">Productos\nCompetencia</string>
+    <string name="competencia">Datos Competencia</string>
+    <string name="gestorVisitas">G. De Ruta</string>
+    <string name="confirmacion">Confirmación</string>
+    <string name="telefono">Teléfono</string>
+    <string name="direccion">Dirección</string>
+    <string name="direccionNormalizada">Dirección\nNormalizada</string>
+    <string name="tipoDocumento">Tipo Documento</string>
+    <string name="atencion">Atención</string>
+    <string name="documento">Documento</string>
+    <string name="codigo">Código</string>
+    <string name="cod_prueba"/>
+    <string name="ced_prueba"/>
+    <!--  <string name="cod_prueba">1234</string>
+    <string name="ced_prueba">4321</string>-->
+    <!-- <string name="cod_prueba">460137</string>
+    <string name="ced_prueba">460137</string> -->
+    <string name="referencia_personal">Contacto Personal</string>
+    <string name="referencia_familiar">Contacto Familiar</string>
+    <!--     <string name="cod_prueba">26840026</string> -->
+    <!--     <string name="ced_prueba">1000408036</string> -->
+    <string name="codigo_hogar">Código Hogar</string>
+    <string name="codigo_hogar_points">Código Hogar:</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="cedula">Cédula</string>
+    <string name="tipo">Tipo</string>
+    <string name="transaccion">Transacción</string>
+    <string name="otra_transaccion">Otra Transacción</string>
+    <string name="evento">Evento</string>
+    <string name="pedido">Pedido</string>
+    <string name="cun">Cun</string>
+    <string name="digilenciar_campos">Debe diligenciar todos los campos que tienen *</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="guardar">Guardar</string>
+    <string name="asterisco">*</string>
+    <string name="nombre">Nombres</string>
+    <string name="apellido">Apellidos</string>
+    <string name="fecha_exped">Fecha Expedición</string>
+    <string name="lugar_exped">Lugar Expedición</string>
+    <string name="proyectos_rurales">Proyectos Rurales</string>
+    <string name="contrato">Contrato</string>
+    <string name="unidad_residencial">Unidad Residencial</string>
+    <string name="punto_referencia">Punto Referencia</string>
+    <string name="barrio">Barrio</string>
+    <string name="estrato">Estrato</string>
+    <string name="tvanaloga">TV Analoga</string>
+    <string name="tvanaloga1">Tv An</string>
+    <string name="tipo_servicio">Tipo Servicio</string>
+    <string name="telefono_servicio">Teléfono Servicio</string>
+    <string name="telefono_destino">Teléfono IVR</string>
+    <string name="telefono_second">Teléfono Secundario</string>
+    <string name="celular">Celular</string>
+    <string name="correo_electronico">Correo Electrónico</string>
+    <string name="login">Login</string>
+    <string name="pinhp">Pin Hot Pack</string>
+    <string name="unemas">UneMas</string>
+    <string name="nombre_contacto">Nombres Contacto</string>
+    <string name="apellido_contacto">Apellidos Contacto</string>
+    <string name="telefono_contacto">Teléfono Contacto</string>
+    <string name="paginacion">Paginación</string>
+    <string name="telefonia">Telefonía</string>
+    <string name="television">Televisión</string>
+    <string name="internet">Internet</string>
+    <string name="adichd">Television HD</string>
+    <string name="menu_crear">Crear</string>
+    <string name="tresg">3G</string>
+    <string name="cuatrog">4G</string>
+    <string name="localizacion">Localizacion: </string>
+    <string name="estrato_points">Estrato: </string>
+    <string name="adicionales">Adicionales:</string>
+    <string name="factura">Factura</string>
+    <string name="resultado">Resultado</string>
+    <string name="nombre_points">Nombre: </string>
+    <string name="estado_points">Estado: </string>
+    <string name="estado">Estado</string>
+    <string name="accion_points">Acción: </string>
+    <string name="accion">Acción</string>
+    <string name="origen_points">Origen: </string>
+    <string name="origen">Origen </string>
+    <string name="cedula_points">Cedula:</string>
+    <string name="direcciones_points">Direcciones:</string>
+    <string name="telefono_points">Teléfono:</string>
+    <string name="direccion_points">Dirección:</string>
+    <string name="ciudad_points">Ciudad:</string>
+    <string name="ciudad">Ciudad</string>
+    <string name="tipo_mayus">TIPO</string>
+    <string name="producto_mayus">PRODUCTO</string>
+    <string name="producto">Producto</string>
+    <string name="ind_iva">IND IVA</string>
+    <string name="epm_iva">EMP IVA</string>
+    <string name="descuento_mayus">DESCUENTO</string>
+    <string name="to_mayus">TO</string>
+    <string name="tv_mayus">TV</string>
+    <string name="ba_mayus">BA</string>
+    <string name="tresg_mayus">3G</string>
+    <string name="cuatrog_mayus">4G</string>
+    <string name="total_mayus">TOTAL</string>
+    <string name="less">-</string>
+    <string name="text11_example">trio superplay to ilimitada + ldn</string>
+    <string name="text61_example">trio superplay 4g 6gb 36 meses</string>
+    <string name="text41_example">trio superplay 50mb</string>
+    <string name="text21_example">trio superplay mixto platino</string>
+    <string name="text51_example">modem planes demanda y pospago 8 dias</string>
+    <string name="adicionales_nopoint">adicionales</string>
+    <string name="ceros">0</string>
+    <string name="date">2013-07-31</string>
+    <string name="small_text">Small Text</string>
+    <string name="medium_text">Medium Text</string>
+    <string name="twenty">20</string>
+    <string name="disp">Disp</string>
+    <string name="titulo_configuracion">Titulo Configuración</string>
+    <string name="valor_points">Valor:</string>
+    <string name="gota_points">Nombre Gota:</string>
+    <string name="valor_gota_points">Valor Gota:</string>
+    <string name="valor_descuento_points">Valor Descuento: </string>
+    <string name="sinPromocion">Quitar Promo:</string>
+    <string name="entrega">Entrega</string>
+    <string name="precio_modem">Precio Modem</string>
+    <string name="precio">Precio</string>
+    <string name="porcentaje">Porcentaje</string>
+    <string name="pago_modem">Pago Modem</string>
+    <string name="tipo_migracion">Plan Existente</string>
+    <string name="tipo_tecnologia">Tecnología</string>
+    <string name="tipo_zona">Tipo Zona</string>
+    <string name="modem">Modem</string>
+    <string name="migracion">Cambio de Plan</string>
+    <string name="fifty_percent">50%</string>
+    <string name="descuento_points">Descuento:</string>
+    <string name="plan_points">Plan:</string>
+    <string name="plan">Plan</string>
+    <string name="cincomil">5000</string>
+    <string name="wifi">Wifi</string>
+    <string name="pago_linea">Pago Linea</string>
+    <string name="linea_adicional">Linea Adicional</string>
+    <string name="Empaquetado">Empaquetado</string>
+    <string name="cambio_plan">Cambio de Plan</string>
+    <string name="numero_tv">Numero Televisores</string>
+    <string name="numero_ex"># EXT</string>
+    <string name="numero_pvr"># DVR </string>
+    <string name="numero_hd"># HD </string>
+    <string name="numero_sd"># SD </string>
+    <string name="xx">xxxxx</string>
+    <string name="seleccionar_todos">Seleccionar Todos</string>
+    <string name="alerta_ced_incorrecta">Verificar dirección seleccionada</string>
+    <string name="e_learning">E-Learning</string>
+    <string name="validador">Validador</string>
+    <string name="peticion">Petición</string>
+    <string name="portafolio">Portafolio</string>
+    <string name="cobertura">Cobertura</string>
+    <string name="estado_cuentas">Estado Cuentas</string>
+    <string name="estado_pedido">Estado Pedido</string>
+    <string name="tarificador">Tarificador</string>
+    <string name="info_cliente">Info Cliente</string>
+    <string name="checking">Comprobando</string>
+    <string name="prospecto">Prospecto</string>
+    <string name="precision">Precisión</string>
+    <string name="tablet">Validar Tablet</string>
+    <string name="amigocuentas">Amigo Cuentas</string>
+    <string name="cuenta_une">Cuenta Une</string>
+    <string name="blindaje">Blindaje</string>
+    <string name="motivo">Motivo</string>
+    <string name="submotivo">Sub Motivo</string>
+    <string name="distancia">Distancia</string>
+    <string name="nodos">Nodo</string>
+    <string name="goback">←</string>
+    <string name="gonext">→</string>
+    <string name="sec_nivelestudio_string">Nivel de Estudios</string>
+    <string name="sec_profesion_string">Profesión</string>
+    <string name="sec_ocupacion_string">Ocupación</string>
+    <string name="sec_cargo_string">Cargo</string>
+    <string name="sec_nivelingresos_string">Nivel de Ingresos</string>
+    <string name="sec_estado_civil_string">Estado Civil</string>
+    <string name="sec_genero_string">Genero</string>
+    <string name="sec_fechanacimiento_string">Fecha de Nacimiento</string>
+    <string name="sec_personasacargo_string">Personas a Cargo</string>
+    <string name="sec_tipovivienda_string">Tipo de Vivienda</string>
+    <string name="sec_tipopredio_string">Tipo Predio</string>
+    <string name="sec_tipopropiedad_string">Tipo Propiedad</string>
+    <string name="sec_nombrepredio_string">Nombre de Predio</string>
+    <string name="sec_municipiossc_string">Municipio SSC</string>
+    <string name="fac_departamento_string">Departamento Facturación</string>
+    <string name="fac_municipio_string">Municipio de Facturación</string>
+    <string name="constructores_string">Constructor</string>
+    <string name="migrar_string">Anotación</string>
+    <string name="fac_direccion_string">Dirección de Facturación</string>
+    <string name="celular_contacto">Celular de Contacto</string>
+    <string name="parentesco_contacto">Parentesco de Contacto</string>
+    <string name="fac_barrio_string">Barrio de Facturación</string>
+    <string name="ejemplo_1_calle">Ejemplo: Calle</string>
+    <string name="ejemplo_1_carrera">Ejemplo: Carrera</string>
+    <string name="ejemplo_2">Ejemplo: 65</string>
+    <string name="ejemplo_3">Ejemplo: AA</string>
+    <string name="ejemplo_4">Ejemplo: Sur</string>
+    <string name="ejemplo_5">Ejemplo: 43</string>
+    <string name="ejemplo_6">Ejemplo: B</string>
+    <string name="ejemplo_7">Ejemplo: Este</string>
+    <string name="ejemplo_8">Ejemplo: 40</string>
+    <string name="ejemplo_9">Ejemplo: APTO 102</string>
+    <string name="ejemplo_10">Ejemplo: BLOQUE 4</string>
+    <string name="ejemplo_11">Ejemplo: A</string>
+    <string name="ejemplo_12">Ejemplo: Urbanización Manzanares</string>
+    <string name="elemento_1">Elemento 1</string>
+    <string name="elemento_2">Elemento 2</string>
+    <string name="elemento_3">Elemento 3</string>
+    <string name="elemento_4">Elemento 4</string>
+    <string name="elemento_5">Elemento 5</string>
+    <string name="elemento_6">Elemento 6</string>
+    <string name="elemento_7">Elemento 7</string>
+    <string name="elemento_8">Elemento 8</string>
+    <string name="elemento_9">Elemento 9</string>
+    <string name="elemento_10">Elemento 10</string>
+    <string name="elemento_11">Elemento 11</string>
+    <string name="elemento_12">Elemento 12</string>
+    <string name="elemento_13">Elemento 13 (Urb, etc)</string>
+    <string name="Interior">APTO</string>
+    <string name="Torre">BLOQUE</string>
+    <!-- ContentDescriptions -->
+    <string name="desc_tel">Icono de telefonía</string>
+    <string name="desc_finalizar">Botón de finalizar o Guardar</string>
+    <string name="selector_fecha">Botón de selector Fechas</string>
+    <string name="desc_dir">Botón de selector direcciones</string>
+    <string name="desc_telefono">Botón de descripcion de imagen de telefono</string>
+    <string name="documento_desc">Imagen documento</string>
+    <string name="responsebad_desc">Respuesta de datos no tomados</string>
+    <string name="iconppal_desc">Iconos del sistema inicial</string>
+    <string name="buscar_desc">Icono de buscar</string>
+    <string name="desc_cuatrog">Icono de 4G</string>
+    <string name="desc_ba">Icono de Banda Ancha o Intenet</string>
+    <string name="desc_tv">Icono de Television</string>
+    <string name="a">a</string>
+    <!-- Blindaje -->
+    <string name="regalo">Regalo</string>
+    <string name="regaloinicial">Regalo Inicial</string>
+    <string name="oferta1">Oferta 1</string>
+    <string name="oferta2">Oferta 2</string>
+    <string name="regalofinal">Regalo Final</string>
+    <string name="comuna">Comuna</string>
+    <string name="urbanizacion">Urbanizacion</string>
+    <string name="valorto">Valor TO</string>
+    <string name="plancerrado">Plan Cerrado</string>
+    <string name="valortv">Valor TV</string>
+    <string name="valorba">Valor BA</string>
+    <string name="gotica">Gotica</string>
+    <string name="valor">Valor</string>
+    <string name="email">E-mail</string>
+    <string name="hobbies">Aficiones</string>
+    <string name="contrasenia">Contraseña</string>
+    <string name="sms">SMS</string>
+    <string name="fisico">Correo Fisico</string>
+    <string name="telemercadeo">Telemercadeo</string>
+    <string name="busqueda_points">Busqueda: </string>
+    <string name="gpon">Gpon</string>
+    <string name="direccionInicial">Dirección Inicial</string>
+    <string name="direccionFinal">Dirección Final</string>
+    <!-- Amigo Cuentas -->
+    <string name="identificador">Id:</string>
+    <string name="idValor">Id</string>
+    <string name="velocidad">Velocidad:</string>
+    <string name="velocidadvalor">4000</string>
+    <string name="cliente">Cliente:</string>
+    <string name="clienteValor">clienteValor</string>
+    <string name="planfacturacion">Plan Facturación</string>
+    <string name="cargobasico">CB:</string>
+    <string name="cargobasicotarificadorind">Cargo Básico Individual</string>
+    <string name="cargobasicotarificadoremp">Cargo Básico Empaquetado</string>
+    <string name="totalcargobasicotarificador">Total Cargo Básico</string>
+    <string name="descuentocargobasicotarificador">Descuento Cargo Básico</string>
+    <string name="duraciondescuentocargobasicotarificador">Duración Descuento</string>
+    <string name="cargofinanciero">CF:</string>
+    <string name="cargoadicionales">CA:</string>
+    <string name="desc_img">producto img</string>
+    <string name="sel_oferta">Seleccionar Oferta</string>
+    <string name="seleccionar">Seleccionar</string>
+    <string name="mensaje">Mensaje</string>
+    <string name="buscar">Buscar</string>
+    <string name="img_suspen">Servicio suspendido</string>
+    <!-- Detalle de factura  -->
+    <string name="detalleFactura">Detalle Factura</string>
+    <string name="cerrar">X</string>
+    <string name="cargobasicocomp">Cargo Básico</string>
+    <string name="ivacargobasico">Iva Cargo Básico</string>
+    <string name="subsidio">Subsidio</string>
+    <string name="largadistancia">Larga Distancia</string>
+    <string name="minutosadicionales">Minutos Adicionales</string>
+    <string name="historicoconsumo">Historico de Consumo</string>
+    <string name="actualizar_base_datos">Actualizar Base de datos</string>
+    <string name="enviar_info_antes_cerrar">Debe enviar la información antes de salir de la aplicación</string>
+    <string name="complete_formulario_cliente">Complete el formulario de cliente para continuar</string>
+    <string name="complete_formulario_prospecto">Complete el formulario de prospecto para continuar y los datos en cliente para continuar</string>
+    <string name="error_pasar_resumen">No se puede pasar al resumen</string>
+    <string name="diligenciar_informacion">Debes diligenciar la información de competencia, prospecto o venta antes de continuar.</string>
+    <string name="no_asesoria">No Existe Asesoria</string>
+    <string name="desea_limpiar_asesoria">¿Desea Limpiar la Asesoria?</string>
+    <string name="introducir_parametros_busqueda">Introdusca Parametro de busqueda</string>
+    <string name="obteniendo_datos">Obteniendo datos</string>
+    <string name="consultando">Consultado</string>
+    <!-- arreglo para el menu desplegable de la lsita de gestor de visitas -->
+    <string-array name="menu">
+        <item>Eliminar</item>
+    </string-array>
+    <!-- textos para el view de amigo cuentas digital -->
+    <string name="tvdigitalelitepvr">TV DIGITAL + HD PREMIUM + PVR</string>
+    <string name="tvdigitalelite">TV DIGITAL + HD PREMIUM</string>
+    <string name="tvdigitalfull">TV DIGITAL + HD BASICO</string>
+    <string name="tvdigitalsuperior">TV DIGITAL 2</string>
+    <string name="tvdigitalesencial">Esencial</string>
+    <string name="iva">IVA</string>
+    <string name="nuevo">Cliente Nuevo</string>
+    <string name="adicionalesComp">Adicionales</string>
+    <string name="cotizacionInvalida">Cotización Inválida</string>
+    <string name="tamanoDocumento">El Documento No Cumple, El Numero Dígitos De La Cedula Debe Contener 4,5,6,7,8 o 10 Dígitos y Las Cedulas De Extranjería 4,5 o 6 Dígitos</string>
+    <string name="listaNegraDocumento">El Documento No Cumple, No Debe Contener Todos Los Dígitos Iguales</string>
+    <string name="sinresultados">Sin Resultados</string>
+    <string name="fecha">Fecha</string>
+    <string name="hora">Hora</string>
+    <string name="venta">Venta</string>
+    <!-- Domiciliacion -->
+    <string name="domiciliacion">Deb. Automático</string>
+    <!-- Reemplazo de cadenas dentro del codigo -->
+    <string name="cerraraplicacion">Desea cerrar la aplicación?</string>
+    <string name="verificarestadocliente">Debe verificar el estado del cliente en Estado Cuenta. El cliente no fue consultado exitosamente.</string>
+    <string name="seleccionartecnologia">Debe seleccionar la tecnología del cliente.</string>
+    <string name="enviarantesdesalir">Debe enviar la información antes de salir de la aplicación</string>
+    <string name="ingresetelefono">Ingrese el teléfono de destino para poder hacer la consulta</string>
+    <string name="opcionnohabilitada">Opción No habilitada</string>
+    <string name="confirmacioncodigo">"Confirmación de Código"</string>
+    <string name="tamanocodigoincorrecto">El tamaño del codigo es incorrecto</string>
+    <string name="recomendacion">Recomendación</string>
+    <string name="cotizaciontvdigitaltoinvalida">Cotización Invalida No Se Puede Cotizar Trío, Conteniendo Televisión Digital Con Telefonía </string>
+    <string name="existeplanespecialtoparatvdigital">Existe Plan Especial Para Este Tipo De Cotización</string>
+    <string name="errorautenticacion">Error En la Autenticación</string>
+    <string name="autenticacion">Autenticación</string>
+    <string name="obteniendoinformacion">Obteniendo Información...</string>
+    <string name="seleccion">Selección</string>
+    <string name="seleccioneopcion">Seleccione Opción</string>
+    <string name="documentosuperamaximocaracteres">"El Documento Supera El Máximo De Caracteres</string>
+    <string name="lugarexpediciondebeseleccionarselista">El Lugar De Expedición Debe Ser Seleccionado De La Lista</string>
+    <string name="telefonoingresadoinvalido">El Teléfono Ingresado No Es Valido</string>
+    <string name="tipoconstruccion">Tipo Construcción</string>
+    <string name="normailizardireccion">Debe Normalizar la Dirección</string>
+    <string name="datoscontactosindiligenciar">Algunos Datos Del Contacto Están Sin Diligenciar</string>
+    <string name="domiciliaciondebeserdiligenciada">Deb. Automático no ha sido diligenciado</string>
+    <string name="georeferenciacionnoprecisa">Georeferenciación No Precisa</string>
+    <string name="ustedestaversion">Usted está en la version </string>
+    <string name="documentacion">Documentación</string>
+    <string name="cotizacion">Cotización</string>
+    <string name="campostipodocumentodireccionsiemprediligenciados">Los Campos Tipo Documento, Documento Y Dirección Siempre Debe Estar Diligenciados Antes De Consolidar La Venta</string>
+    <string name="telefonoservicioinvalido">El Teléfono De Servicio Debe Ser Valido</string>
+    <string name="cotizacioninvalidanocontinua">No puede continuar cotización Invalida</string>
+    <string name="sincoberturaprospecte">No hay Cobertura Prospecte por el modulo de Gestión de Ruta</string>
+    <string name="cambiomedioinstalaciontviptv">Se cambia el medio de instalación de la televisión por IPTV, cotize nuevamente la TV</string>
+    <string name="cambiomedioinstalaciontvhfc">Se cambia el medio de instalación de la televisión por HFC, cotize nuevamente la TV</string>
+    <string name="clientenoduenoba">El cliente no es el dueño de la ba</string>
+    <string name="nobaendireccion">No tiene ba instalada en la dirección</string>
+    <string name="estandarizardireccion">Debe Estandarizar La dirección</string>
+    <string name="georeferenciacionnopresisanoagendable">Georeferenciación No Precisa, Transacción No agendable</string>
+    <string name="verificaragendaporcambioconfiguracionventa">Como cambiaste la configuración de la venta, debes verificar de nuevo la agenda para que tome el nuevo cambio.</string>
+    <string name="eliminar">Elim</string>
+    <string name="configuraciondecos">Configuración Decos</string>
+    <string name="minimodecos">Debe seleccionar los decos mínimos requeridos del plan</string>
+    <string name="configDecos">La configuracion de los decos es erronea</string>
+    <string name="fideliza">Fideliza</string>
+    <string name="dvr">DVR</string>
+    <string name="decodificadores">Decodificadores</string>
+    <string name="fidelizado">Fidelizado</string>
+    <string name="transaccionnuevo">Nuevo</string>
+    <string name="transaccionpermanece">Permanece</string>
+    <string name="transaccioncambio">Cambio</string>
+    <string name="transaccioneliminar">Eliminar</string>
+    <string name="noseagreganporretiros">No se pueden agregar decodificadores nuevos por que existen transacciones de retiro</string>
+    <string name="consultardecodificadores">Se debe consultar los decodificadores antes de proceder con la venta</string>
+    <string name="carrusel">Validar Retiro</string>
+    <string name="paquete">Paquete</string>
+    <string name="fecharetiro">Fecha Retiro</string>
+    <string name="mensajeCarrusel">Productos con carrusel: </string>
+    <string name="mensajeCarrusel2">. Puede reconfigurar oferta con los productos restantes o prospectar.</string>
+    <string name="mensajeRetiros">Para continuar debe validar primero el módulo de retiros.</string>
+    <string name="direccioncercaa">Esta dirección contiene cerca a, la cual cobertura es asignada manualmente desde el campo tecnológia en la pestaña de Socioeconómico</string>
+    <string name="valdiacionconfronta">Validación confronta</string>
+    <string name="exitoso">Exitoso</string>
+    <string name="rechazado">Rechazado</string>
+    <string name="mensajeconfrontanoaprobado">El proceso de confronta no fue exitoso, no es posible continuar con el ingreso de la venta.</string>
+    <string name="mensajeconfrontanorealizado">No se ha realizado el proceso de confronta</string>
+
+    <string name="pagonaticipado">Pago Anticipo Cargo Fijo</string>
+    <string name="pagoparcial">Pago Parcial Conexión</string>
+    <string name="descuentopagoparcial">Descuento Pago Parcial</string>
+    <string name="valordescuentopagoparcial">Valor Pago Parcial con Descuento</string>
+
+    <string-array name="tipoPeticion">
+        <item>-</item>
+        <item>N</item>
+        <item>C</item>
+        <item>E</item>
+    </string-array>
+
+    <string name="hogarnuevo">Hogar Nuevo</string>
+    <string name="analoga">Análoga</string>
+    <string name="tipooferta">Tipo Oferta</string>
+
+    <string-array name="tipoofertaarray">
+        <item>-</item>
+        <item>Individual</item>
+        <item>Duo</item>
+        <item>Trio</item>
+    </string-array>
+
+    <string-array name="estratos">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+    <string name="oferta">Oferta</string>
+    <string name="adicionalestelevision">Adicionales Televisión</string>
+    <string name="adiconalestelefonia">Adicionales Telefonía</string>
+    <string name="adicionalesinternet">Adicionales Internet</string>
+
+    <string name="cotizador">Cotizador</string>
+
+    <string name="totalindividualcotizador">Total Individual</string>
+    <string name="totalempaquetadocotizador">Total Empaquetado</string>
+    <string name="titulocargobasicototales">Cargo Básico</string>
+    <string name="titulocargobasicoadicionalestotales">Cargo Básico + Adicionales</string>
+    <string name="dinero">$ 0.oo</string>
+
+    <string name="mensajevalidacionpagoparcial">Hubo algún problema consultando la información</string>
+
+    <string name="totalpagoanticipado">Total Pago Anticipado Cargo Fijo</string>
+    <string name="totalpagoconexion">Total Pago por Conexión</string>
+    <string name="totalpagoparcial">Total Pago Parcial por Conexión</string>
+    <string name="valordescuentoconexion">Valor Descuento por Conexión</string>
+
+    <string name="validacionBarrio">El Barrio Deben Estar Diligenciados, Para seleccionar esta opción</string>
+
+    <string name="logautomaticocarrusel">Hubo algún problema guardando el log automático</string>
+
+    <string name="mensajeCotizacioninvalidaClienteNuevo">Cotización invalida, solo se pueden cotizar productos nuevos</string>
+
+    <string name="franja">Franja</string>
+    <string name="seleccionarfranja">Seleccione Franja</string>
+
+    <string name="mensajefranjainvalidaa">Para programar lanzamiento de llamada debe ser minimo </string>
+    <string name="mensajefranjainvalidab"> minutos de diferencia a la hora actual</string>
+
+    <string name="mensajedebitoautomaticoexistente">No se pudo obtener la información de débito automático existente</string>
+    <string name="mensajedebitoautomaticodebito">Ya posee débito automático</string>
+    <string name="mensajedebitoautomaticredito">Ya posee Domiciliación</string>
+
+    <string name="mensajehbogotvexistente">Cliente con TV Existente. Si el cliente desea el paquete HBO y tiene el servicio de televisión no puede vender el HBO GO, debe adicionar el paquete de canales HBO Max sobre la televisión.</string>
+    <!--<string name="mensajehbogoexistente">Cliente con adicional de HBO GO en su portafolio</string>-->
+    <string name="mensajehbogoexistente">Cliente con adicional de HBO GO en su portafolio.  Recuerde que si adiciona el servicio de Televisión se retirará el HBO GO.</string>
+</resources>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxWidth="70dp"
+                android:text="" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                style="@style/textcompproductobackgroundorange"
+                android:text="Total Individual" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                style="@style/textcompproductobackgroundorange"
+                android:text="Total Empaquetado" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxWidth="70dp"
+                style="@style/textcompproductobackgroundpurpple"
+                android:text="@string/titulocargobasicototales" />
+
+            <TextView
+                android:id="@+id/txtvalortotalindividual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                style="@style/textovalortotales" />
+
+            <TextView
+                android:id="@+id/txtvalortotalempaquetado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                style="@style/textovalortotales" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxWidth="70dp"
+                style="@style/textcompproductobackgroundpurpple"
+                android:text="@string/titulocargobasicoadicionalestotales" />
+
+            <TextView
+                android:id="@+id/txtvalortotalindividualadicionales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                style="@style/textovalortotales" />
+
+            <TextView
+                android:id="@+id/txtvalortotalempaquetadoadicionales"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                style="@style/textovalortotales" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxWidth="70dp"
+                style="@style/textcompproductobackgroundpurpple"
+                android:text="@string/totalpagoanticipado" />
+
+            <TextView
+                android:id="@+id/txtvalortotalpagoanticipado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                style="@style/textovalortotales" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxWidth="70dp"
+                style="@style/textcompproductobackgroundpurpple"
+                android:text="@string/totalpagoconexion" />
+
+            <TextView
+                android:id="@+id/txtvalortotalpagoconexion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                style="@style/textovalortotales" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxWidth="70dp"
+                style="@style/textcompproductobackgroundpurpple"
+                android:text="@string/totalpagoparcial" />
+
+            <TextView
+                android:id="@+id/txtvalortotalpagoparcial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                style="@style/textovalortotales" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxWidth="70dp"
+                style="@style/textcompproductobackgroundpurpple"
+                android:text="@string/valordescuentoconexion" />
+
+            <TextView
+                android:id="@+id/txtvalordescuentoconexion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                style="@style/textovalortotales" />
+
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>
