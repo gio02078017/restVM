@@ -425,6 +425,39 @@
     <string name="descuentopagoparcial">Descuento Pago Parcial</string>
     <string name="valordescuentopagoparcial">Valor Pago Parcial con Descuento</string>
 
+    <string name="estadocuenta">Estado Cuenta</string>
+    <string name="mensajeestadocuenta">Recuerda consultar el estado de cuenta del cliente para continuar con la venta</string>
+
+    <string name="dependencias">Dependencias de TV</string>
+    <string name="mensajedependencias">No cumple Con Las Dependencias de TV</string>
+
+    <string name="decos">Decodificadores</string>
+    <string name="mensajedecos">La configuracion de Decos es no cumple para el plan de TV</string>
+
+    <string name="clientenuevo">Cliente Nuevo</string>
+
+    <string name="telefonosinvalidos">Telefonos</string>
+    <string name="mensajetelefonosinvalidos">Todos o algunos de los telefonos no cumple con el estandar</string>
+
+    <string name="confronta">Confronta</string>
+
+    <string name="tipopropiedad">Tipo Propiedad</string>
+    <string name="mensajetipopropiedad">No ha Ingresado TipoPropiedad</string>
+
+    <string name="telefonodestino">Telefono de destino</string>
+    <string name="mensajetelefonodestino">No ha Ingresado Telefono de destino</string>
+
+    <string name="campossensibles">Campos Sensibles</string>
+    <string name="mensajecampossensibles">Los Campos Tipo Documento, Documento Y Dirección Siempre Debe Estar Diligenciados Antes De Consolidar La Venta</string>
+
+    <string name="cuentasune">Cuentas UNE</string>
+    <string name="mensajecuentasune">Cliente con calificacion negativa, prospectar por el modulo Gestor de Visitas</string>
+
+    <string name="scoring">Cuentas UNE</string>
+    <string name="mensajescoring">No se puede vender ya que el cliente no cumple con el scoring</string>
+
+    <string name="documentoinvalidocuentasune">Documento del cliente vs Documento de Consulta en Estado Cuenta no coincide</string>
+
     <string-array name="tipoPeticion">
         <item>-</item>
         <item>N</item>
@@ -493,4 +526,5 @@
     <string name="mensajehbogoexistente">Cliente con adicional de HBO GO en su portafolio.  Recuerde que si adiciona el servicio de Televisión se retirará el HBO GO.</string>
     <string name="mensajecrackleexistente">Este usuario cuenta con adicional de Crackel Sony en el portafolio</string>
     <string name="estandarizardireccion2">Recuerda normalizar la dirección en el módulo infocliente</string>
+
 </resources>

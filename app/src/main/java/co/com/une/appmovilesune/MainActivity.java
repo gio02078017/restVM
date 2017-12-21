@@ -29,6 +29,7 @@ import co.com.une.appmovilesune.model.Competencia;
 import co.com.une.appmovilesune.model.Configuracion;
 import co.com.une.appmovilesune.model.Contacto;
 import co.com.une.appmovilesune.model.Cotizacion;
+import co.com.une.appmovilesune.model.CotizacionCliente;
 import co.com.une.appmovilesune.model.Facturacion;
 import co.com.une.appmovilesune.model.Localizacion;
 import co.com.une.appmovilesune.model.Peticion;
@@ -625,6 +626,7 @@ public class MainActivity extends Activity implements Observer {
                         intent.putExtra("tipoPropiedad", asesoria.cliente.getTipoPropiedad());
                         intent.putExtra("consultaNormalizada", asesoria.cliente.isConsultaNormalizada());
                         intent.putExtra("cotizacion", asesoria.cotizacion);
+                        intent.putExtra("cotizacionCliente", asesoria.cotizacionCliente);
                         intent.putExtra("venta", asesoria.venta);
                         intent.putExtra("cliente", asesoria.cliente);
                     } else if (modulo.equals(MODULO_TARIFICADOR)) {
@@ -799,6 +801,7 @@ public class MainActivity extends Activity implements Observer {
 					 */
                 } else if (modulo.equals(MODULO_TARIFICADOR) || modulo.equals(MODULO_COTIZADOR)) {
                     asesoria.cotizacion = (Cotizacion) data.getSerializableExtra("cotizacion");
+                    asesoria.cotizacionCliente = (CotizacionCliente) data.getSerializableExtra("cotizacionCliente");
                     asesoria.cliente = (Cliente) data.getSerializableExtra("cliente");
 
                     String tipoIngreso = data.getStringExtra("tipoIngreso");

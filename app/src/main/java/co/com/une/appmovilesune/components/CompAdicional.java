@@ -31,6 +31,7 @@ import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionales;
 import co.com.une.appmovilesune.interfaces.ObserverAdicionalesInternet;
 import co.com.une.appmovilesune.interfaces.Subject;
+import co.com.une.appmovilesune.model.AdicionalCotizador;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Tarificador;
 import co.com.une.appmovilesune.adapters.CrackleExistente;
@@ -394,6 +395,15 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
     }
 
+    public ArrayList<AdicionalCotizador> listaAdicionales(){
+        ArrayList<AdicionalCotizador> listaAdicional = new ArrayList<AdicionalCotizador>();
+        int contAdicionales = adicionales.size();
+        for (int i = 0; i < adicionales.size(); i++) {
+            listaAdicional.add(new AdicionalCotizador(adicionales.get(i).getAdicional(),Utilidades.convertirDouble(adicionales.get(i).getPrecio(),"adicionales.get(i).getPrecio()"),lblTipoAdicional.getText().toString(),Utilidades.paqueteNuevo));
+        }
+        return listaAdicional;
+    }
+
     public String[][] arrayAdicionalesHBOGO(String[][] adicionalesBa) {
 
         int contAdicionales = adicionalesBa.length;
@@ -409,6 +419,14 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         arrayAd[contAdicionales][1] = "0";
 
         return arrayAd;
+
+    }
+
+    public ArrayList<AdicionalCotizador> listaAdicionalesHBOGO(ArrayList<AdicionalCotizador> listaAdicional) {
+
+        listaAdicional.add(new AdicionalCotizador(Utilidades.nombreHBOGO,Utilidades.precioCero,Utilidades.tipoAdicionalBa,Utilidades.paqueteNuevo));
+
+        return listaAdicional;
 
     }
 
@@ -428,6 +446,50 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
 
         return arrayAd;
 
+    }
+
+    public ArrayList<AdicionalCotizador> listaAdicionalesCrackle(ArrayList<AdicionalCotizador> listaAdicional) {
+
+        listaAdicional.add(new AdicionalCotizador(Utilidades.nombreCrackleBa,Utilidades.precioCero,Utilidades.tipoAdicionalBa,Utilidades.paqueteNuevo));
+
+        return listaAdicional;
+
+    }
+
+    public ArrayList<AdicionalCotizador> listaAdicionalesConPromocion(ArrayList<AdicionalCotizador> listaAdicional){
+
+        for (int i = 0; i < adicionales.size(); i++) {
+            System.out.println("listaAdicionalesConPromocion A adicionales.get(i).getAdicional() " + adicionales.get(i).getAdicional());
+            System.out.println("listaAdicionalesConPromocion A adicionales.get(i).getDescuento() " + adicionales.get(i).getDescuento());
+            System.out.println("listaAdicionalesConPromocion A adicionales.get(i).getDuracion() " + adicionales.get(i).getDuracion());
+            if (!Utilidades.validarVacioProducto(adicionales.get(i).getDescuento())) {
+                for (int j = 0; j < listaAdicional.size(); j++) {
+                    System.out.println("listaAdicionalesConPromocion B adicionales.get(i).getAdicional() " + adicionales.get(i).getAdicional());
+                    System.out.println("listaAdicionalesConPromocion B listaAdicional.get(j).getNombreAdicional() " + listaAdicional.get(j).getNombreAdicional());
+                    if(Utilidades.validarIgualdad(adicionales.get(i).getAdicional(),listaAdicional.get(j).getNombreAdicional())){
+                        System.out.println("listaAdicionalesConPromocion C entra ");
+                        listaAdicional.get(j).setDescuento(adicionales.get(i).getDescuento());
+                        listaAdicional.get(j).setDuracionDescuento(convertirMeses(adicionales.get(i).getDuracion()));
+                        }
+                }
+
+                //itemPromocionesAdicionales.add(new ItemPromocionesAdicionales(adicionales.get(i).getAdicional(), adicionales.get(i).getDescuento(), "TV", meses));
+            }
+        }
+
+        return listaAdicional;
+    }
+
+    public String convertirMeses(String duracion){
+        String meses;
+
+        if (duracion.equalsIgnoreCase("1")) {
+            meses = duracion + " Mes";
+        } else {
+            meses = duracion + " Meses";
+        }
+
+        return meses;
     }
 
     public ArrayList<ItemPromocionesAdicionales> itemPromocionesAdicionales() {

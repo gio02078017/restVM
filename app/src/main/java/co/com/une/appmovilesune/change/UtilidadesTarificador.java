@@ -25,6 +25,7 @@ import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
 import co.com.une.appmovilesune.model.Decodificadores;
 import co.com.une.appmovilesune.model.ProductoAMG;
+import co.com.une.appmovilesune.model.ProductoCotizador;
 import co.com.une.appmovilesune.model.Simulador;
 
 public class UtilidadesTarificador {
@@ -615,36 +616,6 @@ public class UtilidadesTarificador {
             duracion = duracionTv;
         }
 
-        // for (int i = 0; i < adicionales.length; i++) {
-        // // System.out.println("adicionales " + adicionales[i][0]
-        // // + " - precio " + adicionales[i][1]);
-        //
-        // if (adicionales[i][0].equalsIgnoreCase("Mini HD Estratos 1-2-3-4")
-        // && Utilidades.excluirNacional(
-        // "Mini HD Estratos 1-2-3-4 - A", planFacturaEmp)
-        // && nProductos == 3) {
-        // if (trioNuevo) {
-        // itemPromocionesAdicionales
-        // .add(new ItemPromocionesAdicionales(
-        // adicionales[i][0], "100", "AD", "12 Meses"));
-        // }
-        //
-        // miniHD = true;
-        // }
-        //
-        // System.out.println("adicionales[i][0] " + adicionales[i][0]);
-        // System.out.println("planFacturaEmp " + planFacturaEmp);
-        // System.out.println("nProductos " + nProductos);
-        //
-        // if (adicionales[i][0].equalsIgnoreCase("HD Edicion Especial")
-        // && Utilidades.excluirNacional("HD Edicion Especial - A",
-        // planFacturaEmp) && nProductos == 1) {
-        // itemPromocionesAdicionales.add(new ItemPromocionesAdicionales(
-        // adicionales[i][0], "100", "AD", "12 Meses"));
-        // expecialHD = true;
-        // }
-        // }
-
         if (adicional != null) {
             precioAdicional = UtilidadesTarificador.precioAdicional(adicional, departamento, estrato);
         }
@@ -761,31 +732,6 @@ public class UtilidadesTarificador {
 
             System.out.println("adicionales[" + i + "] " + adicionales[i]);
 
-            // if (adicionales[i][0].equalsIgnoreCase("Mini HD Estratos
-            // 1-2-3-4")
-            // && Utilidades.excluirNacional(
-            // "Mini HD Estratos 1-2-3-4 - A", planFacturaEmp)
-            // && nProductos == 3) {
-            // if (trioNuevo) {
-            // itemPromocionesAdicionales
-            // .add(new ItemPromocionesAdicionales(
-            // adicionales[i][0], "100", "AD", "12 Meses"));
-            // }
-            //
-            // miniHD = true;
-            // }
-            //
-            // System.out.println("adicionales[i][0] " + adicionales[i][0]);
-            // System.out.println("planFacturaEmp " + planFacturaEmp);
-            // System.out.println("nProductos " + nProductos);
-            //
-            // if (adicionales[i][0].equalsIgnoreCase("HD Edicion Especial")
-            // && Utilidades.excluirNacional("HD Edicion Especial - A",
-            // planFacturaEmp) && nProductos == 1) {
-            // itemPromocionesAdicionales.add(new ItemPromocionesAdicionales(
-            // adicionales[i][0], "100", "AD", "12 Meses"));
-            // expecialHD = true;
-            // }
         }
 
         System.out.println("miniHD " + miniHD);
@@ -1502,6 +1448,56 @@ public class UtilidadesTarificador {
                     boolean localizar = false;
                     for (int j = 0; j < adicionales.length; j++) {
                         String adicional = adicionales[j][0];
+
+                        System.out.println("adicional " + adicional);
+
+                        if (adicional.equalsIgnoreCase(adicionalDepen)) {
+                            localizar = true;
+                        }
+                    }
+
+                    if (localizar) {
+                        localizado.add(true);
+                    } else if (tipoDependencia.equalsIgnoreCase("and")) {
+                        localizado.add(false);
+                    }
+                }
+            }
+
+            if (localizado.size() == 0 && tipoDependencia.equalsIgnoreCase("or")) {
+                localizado.add(false);
+            }
+
+            if (localizado.contains(false)) {
+                Utilidades.MensajesToast("Debe seleccionar los Adicionales requeridos del plan", context);
+                return false;
+            }
+
+            System.out.println("localizado " + localizado);
+        }
+
+        return true;
+    }
+
+    public static boolean validarDependencias(ProductoCotizador producto, Context context) {
+        // return true;
+
+        String[][] adicionalesDependientes = UtilidadesTarificador.adicionalDependiente(producto.getPlan());
+        ArrayList<Boolean> localizado = new ArrayList<Boolean>();
+
+        String tipoDependencia = Utilidades.claveValor("tipoDependencia", producto.getPlan());
+
+        if (adicionalesDependientes != null) {
+            for (int i = 0; i < adicionalesDependientes.length; i++) {
+
+                String adicionalDepen = adicionalesDependientes[i][0];
+
+                System.out.println("adicionalDepen " + adicionalDepen);
+
+                if (producto.getAdicionalesCotizador() != null) {
+                    boolean localizar = false;
+                    for (int j = 0; j < producto.getAdicionalesCotizador().size(); j++) {
+                        String adicional = producto.getAdicionalesCotizador().get(j).getNombreAdicional();
 
                         System.out.println("adicional " + adicional);
 

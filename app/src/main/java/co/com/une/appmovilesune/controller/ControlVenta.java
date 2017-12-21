@@ -65,6 +65,7 @@ import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.interfaces.Subject;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
+import co.com.une.appmovilesune.model.CotizacionCliente;
 import co.com.une.appmovilesune.model.Simulador;
 import co.com.une.appmovilesune.model.Venta;
 
@@ -92,6 +93,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
     private ListView lstAgendamineto;
 
     private Cotizacion cotizacion;
+    private CotizacionCliente cotizacionCliente;
     private Venta venta;
     private Cliente cliente;
     private Simulador simulador;
@@ -330,6 +332,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             System.out.println("consultaNormalizada " + consultaNormalizada);
 
             cotizacion = (Cotizacion) reicieveParams.getSerializable("cotizacion");
+            cotizacionCliente = (CotizacionCliente) reicieveParams.getSerializable("cotizacionCliente");
             venta = (Venta) reicieveParams.getSerializable("venta");
 
             cliente = (Cliente) reicieveParams.getSerializable("cliente");
@@ -356,7 +359,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             System.out.println("cliente.getEstandarizarSiebel() " + cliente.getEstandarizarSiebel());
             System.out.println("cliente.getCobertura() " + cliente.getCobertura());
 
-            if (cotizacion != null) {
+            /*if (cotizacion != null) {
 
                 if (Utilidades.excluir(cotizacion.getOferta(), cliente.getCiudad())) {
                     aplicarDescuentos = true;
@@ -388,7 +391,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                     // llenarAgendamiento();
                 }
 
-            }
+            }*/
 
         }
 
@@ -948,53 +951,6 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         simulador.addObserver(this);
         simulador.execute(params);
 
-        // ArrayList<Object> params = new ArrayList<Object>();
-        // params.add("ConsultarAgenda");
-        // params.add(parametros);
-        //
-        // MainActivity.crearConexion();
-        // MainActivity.conexion.setManual(this);
-        // MainActivity.conexion.addObserver(this);
-        // MainActivity.conexion.execute(params);
-        //
-        // try {
-        // final ArrayList<ListaAgendamiento> agenda = new
-        // ArrayList<ListaAgendamiento>();
-        //
-        // JSONArray ja = new JSONArray(MainActivity.conexion.ejecutarSoap(
-        // "ConsultarAgenda", parametros));
-        // for (int i = 0; i < ja.length(); i++) {
-        // JSONObject jo = ja.getJSONObject(i);
-        // if (!jo.getString("cuposam").equals("0")
-        // || !jo.getString("cupospm").equals("0")) {
-        // agenda.add(new ListaAgendamiento(jo.getString("fecha"), jo
-        // .getString("cuposam"), jo
-        // .getString("porcentageocuam"), jo
-        // .getString("cupospm"), jo
-        // .getString("porcentageocupm")));
-        // }
-        //
-        // }
-        //
-        // ListaAgendamientoAdapter adaptador = new ListaAgendamientoAdapter(
-        // this, agenda, this);
-        // lstAgendamineto.setAdapter(adaptador);
-        // lstAgendamineto.setOnItemClickListener(new OnItemClickListener() {
-        // public void onItemClick(AdapterView<?> arg0, View arg1,
-        // int arg2, long arg3) {
-        // // ListaAgendamiento item = agenda.get(arg2);
-        // fecha = agenda.get(arg2).getFecha();
-        // cuposAM = agenda.get(arg2).getDisManana();
-        // cuposPM = agenda.get(arg2).getDisTarde();
-        // dialogo.dialogo.show();
-        // }
-        // });
-        //
-        // } catch (JSONException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
-
     }
 
     private void llenarAgendamientoFenix() {
@@ -1143,11 +1099,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         System.out.println("agenda json " + agenda.toString());
 
-        // if(cliente.)
 
-        // ArrayList<String> parametros = new ArrayList<String>();
-        // parametros.add(IVR.toString());
-        // parametros.add(MainActivity.config.getCodigo());
         ArrayList<Object> params = new ArrayList<Object>();
         params.add(MainActivity.config.getCodigo());
         params.add("ConsultarAgendaFenix");
@@ -1156,53 +1108,6 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         simulador.setManual(this);
         simulador.addObserver(this);
         simulador.execute(params);
-
-        // ArrayList<Object> params = new ArrayList<Object>();
-        // params.add("ConsultarAgenda");
-        // params.add(parametros);
-        //
-        // MainActivity.crearConexion();
-        // MainActivity.conexion.setManual(this);
-        // MainActivity.conexion.addObserver(this);
-        // MainActivity.conexion.execute(params);
-        //
-        // try {
-        // final ArrayList<ListaAgendamiento> agenda = new
-        // ArrayList<ListaAgendamiento>();
-        //
-        // JSONArray ja = new JSONArray(MainActivity.conexion.ejecutarSoap(
-        // "ConsultarAgenda", parametros));
-        // for (int i = 0; i < ja.length(); i++) {
-        // JSONObject jo = ja.getJSONObject(i);
-        // if (!jo.getString("cuposam").equals("0")
-        // || !jo.getString("cupospm").equals("0")) {
-        // agenda.add(new ListaAgendamiento(jo.getString("fecha"), jo
-        // .getString("cuposam"), jo
-        // .getString("porcentageocuam"), jo
-        // .getString("cupospm"), jo
-        // .getString("porcentageocupm")));
-        // }
-        //
-        // }
-        //
-        // ListaAgendamientoAdapter adaptador = new ListaAgendamientoAdapter(
-        // this, agenda, this);
-        // lstAgendamineto.setAdapter(adaptador);
-        // lstAgendamineto.setOnItemClickListener(new OnItemClickListener() {
-        // public void onItemClick(AdapterView<?> arg0, View arg1,
-        // int arg2, long arg3) {
-        // // ListaAgendamiento item = agenda.get(arg2);
-        // fecha = agenda.get(arg2).getFecha();
-        // cuposAM = agenda.get(arg2).getDisManana();
-        // cuposPM = agenda.get(arg2).getDisTarde();
-        // dialogo.dialogo.show();
-        // }
-        // });
-        //
-        // } catch (JSONException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
 
     }
 

@@ -50,6 +50,59 @@ import android.widget.Toast;
 
 public class Utilidades {
 
+    public static String Bogota = "Distrito Capital De Bogota";
+    public static String inicial = "--Seleccione Producto--";
+    public static String inicial_guion = "-";
+    public static String inicial_vacio = "";
+    public static String inicial_des = "--Seleccione Descuento--";
+    public static String inicial_sindes = "--Sin Descuentos--";
+    public static String inicial_estrato = "--Seleccione Estrato--";
+    public static String inicial_plan = "--Seleccione Tipo--";
+
+    public static String inicial_opcion = "-- Seleccione Opción --";
+    public static String inicial_dominio = "-- Seleccione Dominio --";
+    public static String inicial_sub_motivo = "-- Seleccione SubMotivo --";
+
+    public static String seleccioneDepartamento = "--Seleccione Departamento--";
+    public static String seleccioneEstrato = "--Seleccione Estrato--";
+    public static String seleccioneMunicipio = "--Seleccione Municipio--";
+    public static String iniDepartamento = "--Sin Departamento--";
+    public static String iniMunicipio = "--Sin Municipio--";
+
+    public static String[] inicialMunicipio = {iniMunicipio};
+
+    public static String tipo_producto_to = "to", tipo_producto_ba = "ba", tipo_producto_tv = "tv",
+            tipo_producto_3g = "im", tipo_producto_4g = "4G";
+    public static String tipo_producto_to_d = "TO", tipo_producto_ba_d = "BA", tipo_producto_tv_d = "TV",
+            tipo_producto_3g_d = "3G", tipo_producto_4g_d = "4G", tipo_producto_otros = "OTROS",
+            tipo_producto_ad = "AD", tipo_producto_gota = "gota", tipo_planes = "PlanesFacturacion";
+    public static String[] estrato = {"--Seleccione Estrato--", "1", "2", "3", "4", "5", "6"};
+    public static String[] SI_NO = {"SI", "NO"};
+    public static String[] tipoUsuario = {"Asesor", "Supervisor"};
+    public static String[] plan = {"-", "N", "C", "E"};
+
+    private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+    // private static final String PATTERN_EMAIL_2 =
+    // "^[a-zA-Z0-9_-.]{2,15}@[a-zA-Z0-9_-]{2,15}.[a-zA-Z]{2,4}(.[a-zA-Z]{2,4})?$";
+
+    // Pattern p = Pattern.compile("");
+
+    private static final String PATTERN_LOGIN = "^[_A-Za-z0-9-\\.]";
+
+    public static String iniDireccion = "--Sin Direccion--";
+    public static String seleccioneDireccion = "--Seleccione Direccion--";
+    public static String[] inicialDireccion = {iniDireccion};
+    public static String iniTelevisores = "-- Seleccione Televisores --";
+
+    public static String paqueteNuevo = "Nuevo";
+    public static String paqueteEliminar = "Eliminar";
+    public static String nombreHBOGO = "HBO GO";
+    public static String nombreCrackleBa = "Crackle Sony Ba";
+    public static double precioCero = 0;
+    public static String tipoAdicionalBa = "AD_BA";
+
     public Utilidades() {
 
     }
@@ -1520,51 +1573,6 @@ public class Utilidades {
         return visible;
 
     }
-
-    public static String Bogota = "Distrito Capital De Bogota";
-    public static String inicial = "--Seleccione Producto--";
-    public static String inicial_guion = "-";
-    public static String inicial_des = "--Seleccione Descuento--";
-    public static String inicial_sindes = "--Sin Descuentos--";
-    public static String inicial_estrato = "--Seleccione Estrato--";
-    public static String inicial_plan = "--Seleccione Tipo--";
-
-    public static String inicial_opcion = "-- Seleccione Opción --";
-    public static String inicial_dominio = "-- Seleccione Dominio --";
-    public static String inicial_sub_motivo = "-- Seleccione SubMotivo --";
-
-    public static String seleccioneDepartamento = "--Seleccione Departamento--";
-    public static String seleccioneEstrato = "--Seleccione Estrato--";
-    public static String seleccioneMunicipio = "--Seleccione Municipio--";
-    public static String iniDepartamento = "--Sin Departamento--";
-    public static String iniMunicipio = "--Sin Municipio--";
-
-    public static String[] inicialMunicipio = {iniMunicipio};
-
-    public static String tipo_producto_to = "to", tipo_producto_ba = "ba", tipo_producto_tv = "tv",
-            tipo_producto_3g = "im", tipo_producto_4g = "4G";
-    public static String tipo_producto_to_d = "TO", tipo_producto_ba_d = "BA", tipo_producto_tv_d = "TV",
-            tipo_producto_3g_d = "3G", tipo_producto_4g_d = "4G", tipo_producto_otros = "OTROS",
-            tipo_producto_ad = "AD", tipo_producto_gota = "gota", tipo_planes = "PlanesFacturacion";
-    public static String[] estrato = {"--Seleccione Estrato--", "1", "2", "3", "4", "5", "6"};
-    public static String[] SI_NO = {"SI", "NO"};
-    public static String[] tipoUsuario = {"Asesor", "Supervisor"};
-    public static String[] plan = {"-", "N", "C", "E"};
-
-    private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-    // private static final String PATTERN_EMAIL_2 =
-    // "^[a-zA-Z0-9_-.]{2,15}@[a-zA-Z0-9_-]{2,15}.[a-zA-Z]{2,4}(.[a-zA-Z]{2,4})?$";
-
-    // Pattern p = Pattern.compile("");
-
-    private static final String PATTERN_LOGIN = "^[_A-Za-z0-9-\\.]";
-
-    public static String iniDireccion = "--Sin Direccion--";
-    public static String seleccioneDireccion = "--Seleccione Direccion--";
-    public static String[] inicialDireccion = {iniDireccion};
-    public static String iniTelevisores = "-- Seleccione Televisores --";
 
     // public String []
     // titulosTo={"plan","precio","linea","pagoLinea","migracion","tipoMigracion,"promocion,"duracion,"precioDescuento"};
@@ -3830,6 +3838,27 @@ public class Utilidades {
         }
 
         return ciudad;
+    }
+
+    public static boolean validarVacioProducto(String producto){
+        boolean vacio = false;
+
+        if(producto.equalsIgnoreCase(inicial_vacio) || producto.equalsIgnoreCase(inicial_guion)){
+            vacio = true;
+        }
+
+        return vacio;
+
+    }
+
+    public static boolean validarIgualdad(String campo1, String campo2){
+        boolean igualdad = false;
+
+        if(campo1.equalsIgnoreCase(campo2)){
+            igualdad = true;
+        }
+
+        return igualdad;
     }
 
 }

@@ -350,17 +350,7 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
                 || MainActivity.config.getDepartamento().equals("Bolivar")) {
             // Encuentro la vista del boton
             busnod = (Busqueda) findViewById(R.id.busquedaNodosCobertura);
-            // solamente por nodos
-            // Entonces se esconden la cdedula y el identificador.
-            /*
-			 * radio_direccion_Cobertura.setVisibility(View.GONE);
-			 * radio_cedula_Cobertura.setVisibility(View.GONE);
-			 * radio_telefono_Cobertura.setVisibility(View.GONE);
-			 * 
-			 * TableCedulaCobertura.setVisibility(View.GONE);
-			 * TableTelefonoCobertura.setVisibility(View.GONE); //Aplico metodo
-			 * para cuando se haga click en buscar
-			 */
+
             busnod.boton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View arg0) {
                     ConsultaNodos(busnod.getBusqueda());
@@ -406,12 +396,6 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
         }
 
         LayoutFactura.setVisibility(View.GONE);
-
-		/*
-		 * 
-		 * spec = tabs.newTabSpec("Factura"); spec.setContent(R.id.Factura);
-		 * spec.setIndicator("Factura"); tabs.addTab(spec);
-		 */
 
         tabs.setCurrentTab(0);
 
@@ -759,47 +743,6 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
         simulador.addObserver(this);
         simulador.execute(params);
     }
-
-    // public void IngresarDatosScooring() {
-    //
-    // boolean validarConsulta = true;
-    //
-    // JSONObject jo = new JSONObject();
-    //
-    // try {
-    //
-    // if (!cliente.getTipoDocumento().equalsIgnoreCase("")
-    // && !cliente.getTipoDocumento().equalsIgnoreCase(
-    // Utilidades.inicial_opcion)
-    // && !cliente.getEstrato().equalsIgnoreCase(
-    // Utilidades.inicial_estrato)
-    // && !cliente.getEstrato().equalsIgnoreCase("")
-    // && !cliente.getCedula().equalsIgnoreCase("")) {
-    // jo.put("strCodigoAsesor",
-    // MainActivity.config.getCodigo_asesor());
-    // jo.put("strCedula", buscar.getBusqueda());
-    // jo.put("strTipoDocumento", cliente.getTipoDocumento());
-    // jo.put("strDepartamento", cliente.getDepartamento());
-    // jo.put("strCiudad", cliente.getCiudad());
-    // jo.put("strEstrato", cliente.getEstrato());
-    // jo.put("strDireccion", cliente.getDireccion());
-    // jo.put("strMedioIngreso", "VM");
-    //
-    // Scooring(jo.toString());
-    //
-    // } else {
-    // Utilidades
-    // .MensajesToast(
-    // "Los Campos Tipo Documento, Documento Y Estrato Siempre Deben Estar
-    // Diligenciados Para Realizar La Consulta.",
-    // context);
-    // }
-    //
-    // } catch (JSONException e) {
-    //
-    // e.printStackTrace();
-    // }
-    // }
 
     public void scooringPrueba(String documento) {
         ClasificarEstadoCuenta(Utilidades.pruebasScooring(documento));

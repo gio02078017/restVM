@@ -26,6 +26,12 @@ import co.com.une.appmovilesune.adapters.ListaPreciosAdapter;
 import co.com.une.appmovilesune.adapters.ListaAdicionales;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificador;
+import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
+import co.com.une.appmovilesune.model.AdicionalCotizador;
+import co.com.une.appmovilesune.model.CotizacionCliente;
+import co.com.une.appmovilesune.model.Cliente;
+import co.com.une.appmovilesune.model.Producto;
+import co.com.une.appmovilesune.model.ProductoCotizador;
 
 public class ResumenTelefonia extends LinearLayout {
 
@@ -42,23 +48,26 @@ public class ResumenTelefonia extends LinearLayout {
 
     private boolean migracion, lineaAdicional;
 
-    private String descuento, estrato, telefonia, tecnologia, planFacturaActual;
+    private String descuento, estrato, telefonia, precio, tecnologia, planFacturaActual;
 
     private String Duracion, precioDescuento;
 
     private String planFactura = "";
     private String tecnologiacr;
 
+    private ArrayList<AdicionalCotizador> adicionalesCotizador;
     String[][] adicionales;
     String precioAdicionales;
 
-	private ArrayList<ListaAdicionales> adicionalesTo = new ArrayList<ListaAdicionales>();
+    private ArrayList<ListaAdicionales> adicionalesTo = new ArrayList<ListaAdicionales>();
 
-	ListaPreciosAdapter adaptador;
+    ListaPreciosAdapter adaptador;
 
     private Activity activity;
 
     boolean quitarPromo = false;
+
+    private ProductoCotizador productoCotizador;
 
     public ResumenTelefonia(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -117,17 +126,6 @@ public class ResumenTelefonia extends LinearLayout {
                 for (int i = 0; i < resultado.size(); i++) {
                     pagolinea.add(resultado.get(i).get(0));
                 }
-
-                // System.out.println("pagolinea " + pagolinea);
-
-                // if (pagolinea.size() > 3) {
-                // int Meses = Integer.parseInt(pagolinea.get(3));
-                // pagolinea.remove(3);
-                // pagolinea.add("1 Mes");
-                // for (int i = 2; i <= Meses; i++) {
-                // pagolinea.add(i + " Meses");
-                // }
-                // }
 
             } else {
                 pagolinea.add("N/A");
@@ -216,6 +214,64 @@ public class ResumenTelefonia extends LinearLayout {
         lblDuracion.setText(Duracion);
     }
 
+    public void Telefonia(Activity activity, Context context, CotizacionCliente cotizacionCliente, Cliente cliente) {
+
+        this.activity = activity;
+        this.context = context;
+        this.productoCotizador = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEFONIA());
+        this.descuento = descuento;
+        this.Duracion = String.valueOf(productoCotizador.getDuracionDescuento());
+        this.precioDescuento = String.valueOf(productoCotizador.getDescuentoCargobasico());
+        this.estrato = cliente.getEstrato();
+
+        this.telefonia = productoCotizador.getPlan();
+        this.precio = String.valueOf(productoCotizador.getCargoBasicoEmp());
+
+        this.planFacturaActual = productoCotizador.getPlanFacturacionActual();
+
+        this.adicionales = adicionales;
+        this.adicionalesCotizador = productoCotizador.getAdicionalesCotizador();
+        this.precioAdicionales = String.valueOf(productoCotizador.getTotalAdicionales());
+        this.tecnologiacr = tecnologiacr;
+
+        asignarPlan(telefonia);
+        asignarValor(precio);
+
+        llenarPagoLinea(telefonia, estrato, false);
+        llenarTipoMigracion();
+        /*if (!planAnt.equals("")) {
+            setTipoMigracion(planAnt);
+            // sltTipoMigracion.setEnabled(false);
+        }*/
+
+        llenarTecnologia();
+
+        /*System.out.println("tipo " + tipo);
+
+        if (tipo != null) {
+            if (tipo.equalsIgnoreCase("C")) {
+                chkMigracion.setChecked(true);
+            } else {
+                chkMigracion.setEnabled(false);
+            }
+        }
+
+        if (segundaTelefonia) {
+            chkLineaAdicional.setChecked(true);
+            if (Utilidades.excluirNacional("deshabilitarSegundaLinea", "deshabilitarSegundaLinea")) {
+                chkLineaAdicional.setEnabled(false);
+            }
+        } else {
+            chkLineaAdicional.setChecked(false);
+        }*/
+
+        ArrayAdicionales();
+
+        llenarAdicionales();
+
+
+    }
+
     public void Telefonia(Activity activity, Context context, String tipo, String telefonia, String precio,
                           String descuento, String Duracion, String precioDescuento, String estrato, String planFacturaActual,
                           boolean segundaTelefonia, String planAnt, String[][] adicionales, String precioAdicionales,
@@ -300,58 +356,63 @@ public class ResumenTelefonia extends LinearLayout {
             chkLineaAdicional.setChecked(false);
         }
 
-		ArrayAdicionales();
+        ArrayAdicionales();
 
-		llenarAdicionales();
+        llenarAdicionales();
 
-	}
+    }
 
-	public void ArrayAdicionales() {
-		adicionalesTo.clear();
-		if (adicionales != null) {
-			for (int i = 0; i < adicionales.length; i++) {
-				adicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "", "",true));
-			}
-		}
-	}
+    public void ArrayAdicionales() {
+        adicionalesTo.clear();
+        if (adicionales != null) {
+            for (int i = 0; i < adicionales.length; i++) {
+                adicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "", "", true));
+            }
+        }
+    }
 
 
-	public void llenarAdicionales() {
+    public void llenarAdicionales() {
 
-		imprimirAdicionales();
+        imprimirAdicionales();
 
-		ArrayList<ListaPrecios> adicional = new ArrayList<ListaPrecios>();
-		// System.out.println("adicionales resumen tv => " + adicionales);
-		if (adicionalesTo.size() > 0) {
-			for (int i = 0; i < adicionalesTo.size(); i++) {
-				adicional.add(new ListaPrecios(adicionalesTo.get(i).getAdicional(), adicionalesTo.get(i).getPrecio()));
-			}
-		}
+        ArrayList<ListaPrecios> adicional = new ArrayList<ListaPrecios>();
+        // System.out.println("adicionales resumen tv => " + adicionales);
+        if (adicionalesTo.size() > 0) {
+            for (int i = 0; i < adicionalesTo.size(); i++) {
+                adicional.add(new ListaPrecios(adicionalesTo.get(i).getAdicional(), adicionalesTo.get(i).getPrecio()));
+            }
+        }else if (adicionalesCotizador != null && adicionalesCotizador.size() > 0) {
+            for (int i = 0; i < adicionalesCotizador.size(); i++) {
+                adicional.add(new ListaPrecios(adicionalesCotizador.get(i).getNombreAdicional(), String.valueOf(adicionalesCotizador.get(i).getPrecioAdicional())));
+            }
+        }
 
-		adaptador = new ListaPreciosAdapter(activity, adicional, context);
-		lstAdicionales.setAdapter(adaptador);
-		setListViewHeightBasedOnChildren(lstAdicionales);
 
-		lblValorAdicionales.setText(precioAdicionales);
-	}
+        adaptador = new ListaPreciosAdapter(activity, adicional, context);
+        lstAdicionales.setAdapter(adaptador);
+        setListViewHeightBasedOnChildren(lstAdicionales);
 
-	public void imprimirAdicionales() {
+        lblValorAdicionales.setText(precioAdicionales);
+    }
 
-		for (int i = 0; i < adicionalesTo.size(); i++) {
-			System.out.println("adicionales to impresion adicional " + adicionalesTo.get(i).getAdicional());
-			System.out.println("adicionales to impresion precio " + adicionalesTo.get(i).getPrecio());
-		}
-	}
+    public void imprimirAdicionales() {
 
-	public void agregarImpuestoTelefonico(String municipio, String departamento, String estrato) {
+        for (int i = 0; i < adicionalesTo.size(); i++) {
+            System.out.println("adicionales to impresion adicional " + adicionalesTo.get(i).getAdicional());
+            System.out.println("adicionales to impresion precio " + adicionalesTo.get(i).getPrecio());
+        }
+    }
 
-		double valor = UtilidadesTarificador.ImpuestoTelefonico(municipio, departamento, estrato);
-		if (valor >= 0) {
+    public void agregarImpuestoTelefonico(String municipio, String departamento, String estrato) {
 
-			adicionalesTo.add(new ListaAdicionales("Impuesto Telefonico", String.valueOf(valor), "", "",true));
+        double valor = UtilidadesTarificador.ImpuestoTelefonico(municipio, departamento, estrato);
+        if (valor >= 0) {
 
-			llenarAdicionales();
-		}
+            adicionalesTo.add(new ListaAdicionales("Impuesto Telefonico", String.valueOf(valor), "", "", true));
+
+            llenarAdicionales();
+        }
 
     }
 

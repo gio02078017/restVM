@@ -6,6 +6,10 @@ import java.util.ArrayList;
 
 import co.com.une.appmovilesune.MainActivity;
 
+import co.com.une.appmovilesune.adapters.ItemDecodificador;
+import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
+import co.com.une.appmovilesune.model.AdicionalCotizador;
+
 /**
  * Created by davids on 18/10/16.
  */
@@ -33,6 +37,20 @@ public class ProductoCotizador {
 
     private boolean aplicaPA;
     private boolean clienteNuevo;
+
+    private String planFacturacionAnterior;
+    private String planFacturacionActual;
+
+    private String tipoFacturacion;
+    private String smartPromo;
+
+    private ArrayList<AdicionalCotizador> adicionalesCotizador;
+    private double totalAdicionales;
+
+    private ArrayList<ItemDecodificador> itemDecodificadores;
+    private Decodificadores objectDecodificador;
+    private ArrayList<ItemDecodificador> decodificadores;
+    private double totalDecos = 0.0;
 
     public ProductoCotizador(String tipoPeticion, int tipo, String plan, double cargoBasicoInd, double cargoBasicoEmp, double descuentoCargobasico, int duracionDescuento, String planFacturacionInd, String planFacturacionEmp, String velocidad) {
         this.tipoPeticion = tipoPeticion;
@@ -246,5 +264,123 @@ public class ProductoCotizador {
     public void setClienteNuevo(boolean clienteNuevo){
         this.clienteNuevo = clienteNuevo;
         obtenerValorPagoParcialAnticipado();
+    }
+
+    public String getPlanFacturacionAnterior() {
+        return planFacturacionAnterior;
+    }
+
+    public void setPlanFacturacionAnterior(String planFacturacionAnterior) {
+        this.planFacturacionAnterior = planFacturacionAnterior;
+    }
+
+    public String getPlanFacturacionActual() {
+        return planFacturacionActual;
+    }
+
+    public void setPlanFacturacionActual(String planFacturacionActual) {
+        this.planFacturacionActual = planFacturacionActual;
+    }
+
+    public String getTipoFacturacion() {
+        return tipoFacturacion;
+    }
+
+    public void setTipoFacturacion(String tipoFacturacion) {
+        this.tipoFacturacion = tipoFacturacion;
+    }
+
+    public String getSmartPromo() {
+        return smartPromo;
+    }
+
+    public void setSmartPromo(String smartPromo) {
+        this.smartPromo = smartPromo;
+    }
+
+    public ArrayList<AdicionalCotizador> getAdicionalesCotizador() {
+        return adicionalesCotizador;
+    }
+
+    public void setAdicionalesCotizador(ArrayList<AdicionalCotizador> adicionalesCotizador) {
+        this.adicionalesCotizador = adicionalesCotizador;
+    }
+
+    public void llenarAdicional(AdicionalCotizador adicionalCotizador){
+       adicionalesCotizador.add(adicionalCotizador);
+    }
+
+    public double getTotalAdicionales() {
+        return totalAdicionales;
+    }
+
+    public void setTotalAdicionales(double totalAdicionales) {
+        this.totalAdicionales = totalAdicionales;
+    }
+
+    public ArrayList<ItemDecodificador> getItemDecodificadores() {
+        return itemDecodificadores;
+    }
+
+    public void setItemDecodificadores(ArrayList<ItemDecodificador> itemDecodificadores) {
+        this.itemDecodificadores = itemDecodificadores;
+    }
+
+    public Decodificadores getObjectDecodificador() {
+        return objectDecodificador;
+    }
+
+    public void setObjectDecodificador(Decodificadores objectDecodificador) {
+        this.objectDecodificador = objectDecodificador;
+    }
+
+    public ArrayList<ItemDecodificador> getDecodificadores() {
+        return decodificadores;
+    }
+
+    public void setDecodificadores(ArrayList<ItemDecodificador> decodificadores) {
+        this.decodificadores = decodificadores;
+    }
+
+    public double getTotalDecos() {
+        return totalDecos;
+    }
+
+    public void setTotalDecos(double totalDecos) {
+        this.totalDecos = totalDecos;
+    }
+
+    public String getTipoPeticionNumerico() {
+        String Respuesta = "";
+
+        if (tipoPeticion.equalsIgnoreCase("N")) {
+            Respuesta = "1";
+        } else if (tipoPeticion.equalsIgnoreCase("C")) {
+            Respuesta = "0";
+        } else if (tipoPeticion.equalsIgnoreCase("E")) {
+            Respuesta = "3";
+        }
+
+        return Respuesta;
+    }
+
+    public void imprimir (){
+                System.out.println("************tipo**********"+tipo+"********");
+                System.out.println("************tipoPeticion**********"+tipoPeticion+"********");
+                System.out.println("************plan**********"+plan+"********");
+                System.out.println("************planFacturacionInd**********"+planFacturacionInd+"********");
+                System.out.println("************planFacturacionEmp**********"+planFacturacionEmp+"********");
+                System.out.println("************cargoBasicoInd**********"+cargoBasicoInd+"********");
+                System.out.println("************cargoBasicoEmp**********"+cargoBasicoEmp+"********");
+                System.out.println("************cargoBasicoInd**********"+cargoBasicoInd+"********");
+                System.out.println("************descuentoCargobasico**********"+descuentoCargobasico+"********");
+                System.out.println("************duracionDescuento**********"+duracionDescuento+"********");
+                System.out.println("************velocidad**********"+velocidad+"********");
+                System.out.println("************pagoParcial**********"+pagoParcial+"********");
+                System.out.println("************pagoParcialDescuento**********"+pagoParcialDescuento+"********");
+                System.out.println("************totalPagoParcial**********"+totalPagoParcial+"********");
+                if(adicionalesCotizador != null){
+                    UtilidadesTarificadorNew.imprimirAdicionalesCotizacion(adicionalesCotizador);
+                }
     }
 }

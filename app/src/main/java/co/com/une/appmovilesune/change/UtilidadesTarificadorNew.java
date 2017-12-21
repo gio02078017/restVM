@@ -17,10 +17,12 @@ import co.com.une.appmovilesune.adapters.CrackleExistente;
 import co.com.une.appmovilesune.adapters.ItemKeyValue;
 import co.com.une.appmovilesune.adapters.ItemKeyValue2;
 import co.com.une.appmovilesune.adapters.ListaCotizacion;
+import co.com.une.appmovilesune.model.AdicionalCotizador;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
 import co.com.une.appmovilesune.model.CotizacionCliente;
 import co.com.une.appmovilesune.model.ProductoCotizador;
+import co.com.une.appmovilesune.model.Scooring;
 
 /**
  * Created by Gospina on 28/10/2016.
@@ -116,6 +118,22 @@ public class UtilidadesTarificadorNew {
         System.out.println("************imprimirProductosCotizacion**********Fin********");
     }
 
+    public static void imprimirAdicionalesCotizacion(ArrayList<AdicionalCotizador> adicionales){
+
+        System.out.println("************imprimirAdicionalesCotizacion**********Inicio********");
+        for (int i = 0; i < adicionales.size(); i++) {
+            System.out.println("************Adicional**********Posicion("+i+")********");
+            System.out.println("************tipo**********"+adicionales.get(i).getTipoAdicional()+"********");
+            System.out.println("************tipoPeticion**********"+adicionales.get(i).getTiposolicitud()+"********");
+            System.out.println("************nombrePlan**********"+adicionales.get(i).getNombreAdicional()+"********");
+            System.out.println("************precio**********"+adicionales.get(i).getPrecioAdicional()+"********");
+            System.out.println("************descuento**********"+adicionales.get(i).getDescuento()+"********");
+            System.out.println("************duracionDescuento**********"+adicionales.get(i).getDuracionDescuento()+"********");
+        }
+
+        System.out.println("************imprimirAdicionalesCotizacion**********Fin********");
+    }
+
     public static void imprimirDescuentos(ArrayList<ArrayList<String>> descuentos){
          if(descuentos != null){
              for (int i = 0; i <descuentos.size() ; i++) {
@@ -180,6 +198,37 @@ public class UtilidadesTarificadorNew {
         }
 
         return nuevos.contains(false);
+    }
+
+    public static boolean validarEstandarizacion(Cliente cliente,CotizacionCliente cotizacionCliente, Context contex) {
+
+        boolean validarEstandarizacion = true;
+
+        System.out.println("clinte direccion cliente.getDireccionNormalizada() "+cliente.getDireccionNormalizada() );
+        System.out.println("clinte direccion cliente.getDireccion() "+cliente.getDireccion() );
+
+        if (Utilidades.visible("estandarizarDireccion", cliente.getCiudad())) {
+            System.out.println("estandarizarDireccion cliente.isControlNormalizada() externa else "+cliente.isControlNormalizada());
+            System.out.println("estandarizarDireccion Utilidades.CoberturaRural(cliente) externa else "+Utilidades.CoberturaRural(cliente));
+            System.out.println("estandarizarDireccion cliente.getDireccionNormalizada() "+cliente.getDireccionNormalizada() );
+            System.out.println("estandarizarDireccion cliente.getDireccion() "+cliente.getDireccion() );
+            if (!cliente.isControlNormalizada() && !Utilidades.CoberturaRural(cliente)) {
+
+                validarEstandarizacion = false;
+                Toast.makeText(contex, contex.getResources().getString(R.string.estandarizardireccion2), Toast.LENGTH_SHORT)
+                        .show();
+            }else if(!cliente.getDireccionNormalizada().equalsIgnoreCase(cliente.getDireccion())){
+                validarEstandarizacion = false;
+                Toast.makeText(contex, contex.getResources().getString(R.string.normalizardireccionnuevamente
+                ), Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+
+        System.out.println("validarEstandarizacion "+validarEstandarizacion);
+
+        return validarEstandarizacion;
+
     }
 
     public static boolean validarEstandarizacion(Cotizacion cotizacion, Cliente cliente, Context contex) {
@@ -290,6 +339,27 @@ public class UtilidadesTarificadorNew {
         }
 
         return departamento;
+    }
+
+    public static boolean ventaConExistente(CotizacionCliente cotizacionCliente){
+        boolean existentes = false;
+
+        System.out.println("nuevos " + existentes);
+
+        for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
+            System.out.println("ventaConExistente cotizacion.getTipoCotizacion() " + cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNumerico());
+            if(!Utilidades.validarVacioProducto(cotizacionCliente.getProductoCotizador().get(i).getPlan())){
+                System.out.println("ventaConExistente cotizacion.getTipoCotizacion() " + cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNumerico());
+
+                if (!cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNumerico().equalsIgnoreCase("1")) {
+                    existentes = true;
+                }
+            }
+        }
+
+        System.out.println("nuevos " + existentes);
+
+        return existentes;
     }
 
     public static boolean ventaConExistente(Cotizacion cotizacion){
@@ -700,4 +770,143 @@ public class UtilidadesTarificadorNew {
             }
         }
     }
+
+    public static ProductoCotizador traducirProducto(ArrayList<ProductoCotizador> productos, int tipo ){
+        ProductoCotizador producto = null;
+
+        for (int i = 0; i < productos.size(); i++) {
+            if(productos.get(i).getTipo() == tipo){
+                producto = productos.get(i);
+            }
+        }
+
+        return producto;
+
+    }
+
+    public static boolean validarCotizacionClienteNuevo(Cliente cliente,CotizacionCliente cotizacionCliente){
+
+        boolean cotizacionValida = false;
+
+        if (!Utilidades.excluir("excluirppca", cliente.getCiudad())) {
+            if(cotizacionCliente.isClienteNuevo() && cotizacionCliente.getCodigoClienteNuevo().equalsIgnoreCase("00")) {
+                if(!UtilidadesTarificadorNew.ventaConExistente(cotizacionCliente)){
+                    cotizacionValida = true;
+                }
+            } else if (cotizacionCliente.isClienteNuevo() && cotizacionCliente.getCodigoClienteNuevo().equalsIgnoreCase("00")) {
+                cotizacionValida = true;
+            } else {
+                cotizacionValida = true;
+            }
+        } else {
+            cotizacionValida = true;
+        }
+
+
+        return cotizacionValida;
+
+    }
+
+    public static boolean validarCarteraUNE(Cliente cliente, Scooring scooring) {
+
+        boolean valid = true;
+
+        if (scooring.isValidarCartera()) {
+
+            if (scooring.getIdCliente().equalsIgnoreCase(cliente.getCedula())) {
+
+                if (Utilidades.excluir("habilitarBloqueoScooring", cliente.getCiudad())) {
+                    if (scooring.getAccion().equalsIgnoreCase("No Vender")) {
+
+                        valid = false;
+
+                    }
+                }
+
+            } else {
+                /*Toast.makeText(this, "Documento del cliente vs Documento de Consulta en Estado Cuenta no coincide",
+                        Toast.LENGTH_SHORT).show();*/
+                //resultCotizador("estado cuenta");
+                valid = false;
+            }
+
+        }
+
+        return valid;
+    }
+
+    public static boolean validarScooring(Cliente cliente,CotizacionCliente cotizacionCliente,Scooring scooring,Context context) {
+        boolean valid = true;
+        String codigoPA = "00";
+        if (!scooring.isValidarCartera()) {
+            if (cliente.getScooringune() != null) {
+                if (cliente.getScooringune().getDocumentoScooring().equalsIgnoreCase(cliente.getCedula())) {
+                    if (cliente.getScooringune().isValidarScooring()) {
+                        if (!cliente.getScooringune().isPasaScooring()) {
+                            if (productosNuevos(cotizacionCliente)) {
+                                if (codigoPA.equalsIgnoreCase("00")) {
+                                    if (Utilidades.excluirEstadosPagoAnticipado()
+                                            .contains(cliente.getScooringune().getRazonScooring())) {
+                                        valid = true;
+                                        cliente.setPagoAnticipado("SI");
+                                    } else {
+                                        valid = false;
+                                        cliente.setPagoAnticipado("NO");
+                                    }
+                                } else {
+                                    valid = false;
+
+                                }
+
+                            } else {
+                                cliente.setDomiciliacion("NO");
+                                cliente.getScooringune().setNoAplicaScooring(true);
+                            }
+                        } else {
+                            if (!productosNuevos(cotizacionCliente)) {
+                                cliente.setDomiciliacion("NO");
+                                cliente.getScooringune().setNoAplicaScooring(true);
+                            }
+                        }
+                    } else {
+                        if (cliente.getScooringune().isPendienteRespuesta()) {
+                            if (!productosNuevos(cotizacionCliente)) {
+                                cliente.setDomiciliacion("NO");
+                                cliente.getScooringune().setNoAplicaScooring(true);
+                            }
+                        }
+                    }
+                } else {
+                    Utilidades.MensajesToast(
+                            context.getResources().getString(R.string.documentoinvalidocuentasune), context);
+                    //resultCotizador("estado cuenta");*/
+                    valid = false;
+                }
+            }
+        }
+
+        return valid;
+    }
+
+    public static boolean productosNuevos(CotizacionCliente cotizacionCliente) {
+
+        boolean nuevos = false;
+
+        System.out.println("nuevos " + nuevos);
+
+        for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
+            if(Utilidades.validarVacioProducto(cotizacionCliente.getProductoCotizador().get(i).getPlan())){
+                System.out.println("cotizacion.getTipoCotizacion " + cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNumerico());
+                if (cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNumerico().equalsIgnoreCase("1")) {
+                    nuevos = true;
+                }
+            }
+
+        }
+
+        System.out.println("nuevos " + nuevos);
+
+        return nuevos;
+    }
+
 }

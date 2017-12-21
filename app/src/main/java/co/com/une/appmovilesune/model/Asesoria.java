@@ -34,6 +34,7 @@ public class Asesoria implements Serializable {
     public Obsequio obsequio;
     public Venta venta;
     public Cotizacion cotizacion;
+    public CotizacionCliente cotizacionCliente;
     public Scooring scooring;
     public Prospecto prospecto;
     public Blindaje blindaje;
