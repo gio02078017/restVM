@@ -1,10 +1,12 @@
 package co.com.une.appmovilesune.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Gospina on 27/10/2016.
  */
 
-public class GotaBa {
+public class GotaBa implements Serializable{
 
     private boolean controlGota;
     private double valorGota;

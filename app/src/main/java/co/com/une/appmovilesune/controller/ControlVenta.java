@@ -66,6 +66,7 @@ import co.com.une.appmovilesune.interfaces.Subject;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
 import co.com.une.appmovilesune.model.CotizacionCliente;
+import co.com.une.appmovilesune.model.ProductoCotizador;
 import co.com.une.appmovilesune.model.Simulador;
 import co.com.une.appmovilesune.model.Venta;
 
@@ -359,7 +360,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             System.out.println("cliente.getEstandarizarSiebel() " + cliente.getEstandarizarSiebel());
             System.out.println("cliente.getCobertura() " + cliente.getCobertura());
 
-            /*if (cotizacion != null) {
+            if (cotizacion != null) {
 
                 if (Utilidades.excluir(cotizacion.getOferta(), cliente.getCiudad())) {
                     aplicarDescuentos = true;
@@ -391,7 +392,13 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                     // llenarAgendamiento();
                 }
 
-            }*/
+            }else if (cotizacionCliente != null) {
+                if (Utilidades.excluir(cotizacionCliente.getOferta(), cliente.getCiudad())) {
+                    cotizacionCliente.setAplicarDescuentos(true);
+                }
+                Empaquetamiento();
+
+            }
 
         }
 
@@ -1228,10 +1235,10 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 Utilidades.SI_NO);
         sltEmpaquetado.setAdapter(adaptador);
 
-        System.out.println("Empaquetamiento oferta "+cotizacion.getOferta());
+        System.out.println("Empaquetamiento oferta "+cotizacionCliente.getOferta());
 
-        if (cotizacion.getOferta() != null) {
-            if (!cotizacion.getOferta().equalsIgnoreCase("")) {
+        if (cotizacionCliente.getOferta() != null) {
+            if (!cotizacionCliente.getOferta().equalsIgnoreCase("")) {
                 sltEmpaquetado.setEnabled(false);
             }
         } else {
@@ -1239,12 +1246,12 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         }
 
         try {
-            int contador = Integer.parseInt(cotizacion.getContadorProductos());
+            int contador = cotizacionCliente.getContadorProductos();
             if (contador > 1) {
 
                 System.out.println("Empaquetamiento contador "+contador);
 
-                if(Utilidades.validarNacionalValor("ofertaIndividual",cotizacion.getOferta())){
+                if(Utilidades.validarNacionalValor("ofertaIndividual",cotizacionCliente.getOferta())){
                     System.out.println("Empaquetamiento ofertaIndividual ");
                     sltEmpaquetado.setSelection(1);
                     Venta_Individual();
@@ -1284,6 +1291,8 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
     }
 
     public void Venta_Individual() {
+
+        cotizacionCliente.setVentaEmpaquetada(false);
 
         if (venta != null) {
             lblAgendamiento.setText(venta.getHorarioAtencion());
@@ -1450,7 +1459,24 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
     public void Venta_Empaquetada() {
 
-        System.out.println("Venta_Empaquetada->cotizacion.toTecnologiacr " + cotizacion.toTecnologiacr);
+        cotizacionCliente.setVentaEmpaquetada(true);
+
+        System.out.println("llenadoVenta Venta_Empaquetada");
+
+        if(!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEFONIA()).getPlan())){
+            rto.Telefonia(this, this, cotizacionCliente, cliente);
+        }else{
+            rto.setVisibility(View.GONE);
+        }
+
+        if(!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEVISION()).getPlan())){
+            rtv.Television(this, this, cotizacionCliente, cliente);
+        }else{
+            rtv.setVisibility(View.GONE);
+        }
+
+
+        /*System.out.println("Venta_Empaquetada->cotizacion.toTecnologiacr " + cotizacion.toTecnologiacr);
         System.out.println("Venta_Empaquetada->cotizacion.tvTecnologiacr " + cotizacion.tvTecnologiacr);
         System.out.println("Venta_Empaquetada->cotizacion.baTecnologiacr " + cotizacion.baTecnologiacr);
 
@@ -1569,7 +1595,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         cliente.getEstrato())));
                 //llyTotalDescuento.setVisibility(View.VISIBLE);
             }
-        }
+        }*/
 
         if (venta != null) {
             txtObservaciones.setText(venta.getObservaciones());

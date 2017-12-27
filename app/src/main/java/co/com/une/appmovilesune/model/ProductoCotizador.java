@@ -2,6 +2,7 @@ package co.com.une.appmovilesune.model;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import co.com.une.appmovilesune.MainActivity;
@@ -14,7 +15,7 @@ import co.com.une.appmovilesune.model.AdicionalCotizador;
  * Created by davids on 18/10/16.
  */
 
-public class ProductoCotizador {
+public class ProductoCotizador implements Serializable {
 
     public static final int TELEFONIA = 0;
     public static final int TELEVISION = 1;

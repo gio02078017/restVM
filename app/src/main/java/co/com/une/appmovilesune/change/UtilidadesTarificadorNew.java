@@ -811,7 +811,7 @@ public class UtilidadesTarificadorNew {
 
         boolean valid = true;
 
-        if (scooring.isValidarCartera()) {
+        if (scooring != null && scooring.isValidarCartera()) {
 
             if (scooring.getIdCliente().equalsIgnoreCase(cliente.getCedula())) {
 

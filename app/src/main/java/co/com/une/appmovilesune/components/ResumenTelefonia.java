@@ -50,7 +50,7 @@ public class ResumenTelefonia extends LinearLayout {
 
     private String descuento, estrato, telefonia, precio, tecnologia, planFacturaActual;
 
-    private String Duracion, precioDescuento;
+    private String duracion, precioDescuento;
 
     private String planFactura = "";
     private String tecnologiacr;
@@ -68,6 +68,7 @@ public class ResumenTelefonia extends LinearLayout {
     boolean quitarPromo = false;
 
     private ProductoCotizador productoCotizador;
+
 
     public ResumenTelefonia(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -106,6 +107,160 @@ public class ResumenTelefonia extends LinearLayout {
         chkLineaAdicional.setOnCheckedChangeListener(cambioLineaAdicional);
         chkMigracion.setOnCheckedChangeListener(cambioMigracion);
         chkquitarPromo.setOnCheckedChangeListener(eventoQuitarPromo);
+
+    }
+
+    public void Telefonia(Activity activity, Context context, CotizacionCliente cotizacionCliente, Cliente cliente) {
+
+        this.activity = activity;
+        this.context = context;
+        this.productoCotizador = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEFONIA());
+        productoCotizador.imprimir();
+        this.descuento = descuento;
+        this.duracion = String.valueOf(productoCotizador.getDuracionDescuento());
+        this.precioDescuento = String.valueOf(productoCotizador.getDescuentoCargobasico());
+        this.estrato = cliente.getEstrato();
+
+        this.telefonia = productoCotizador.getPlan();
+
+        if(cotizacionCliente.isVentaEmpaquetada()){
+            this.precio = String.valueOf(productoCotizador.getCargoBasicoEmp());
+        }else {
+            this.precio = String.valueOf(productoCotizador.getCargoBasicoInd());
+        }
+
+        this.planFacturaActual = productoCotizador.getPlanFacturacionActual();
+
+        this.adicionales = adicionales;
+        this.adicionalesCotizador = productoCotizador.getAdicionalesCotizador();
+        this.precioAdicionales = String.valueOf(productoCotizador.getTotalAdicionales());
+        this.tecnologiacr = tecnologiacr;
+
+        asignarPlan(telefonia);
+        asignarValor(precio);
+
+        llenarPagoLinea(telefonia, estrato, false);
+        llenarTipoMigracion();
+        /*if (!planAnt.equals("")) {
+            setTipoMigracion(planAnt);
+            // sltTipoMigracion.setEnabled(false);
+        }*/
+
+        llenarTecnologia();
+
+        /*System.out.println("tipo " + tipo);
+
+        if (tipo != null) {
+            if (tipo.equalsIgnoreCase("C")) {
+                chkMigracion.setChecked(true);
+            } else {
+                chkMigracion.setEnabled(false);
+            }
+        }
+
+        if (segundaTelefonia) {
+            chkLineaAdicional.setChecked(true);
+            if (Utilidades.excluirNacional("deshabilitarSegundaLinea", "deshabilitarSegundaLinea")) {
+                chkLineaAdicional.setEnabled(false);
+            }
+        } else {
+            chkLineaAdicional.setChecked(false);
+        }*/
+
+        ArrayAdicionales();
+
+        llenarAdicionales();
+
+
+    }
+
+    public void Telefonia(Activity activity, Context context, String tipo, String telefonia, String precio,
+                          String descuento, String Duracion, String precioDescuento, String estrato, String planFacturaActual,
+                          boolean segundaTelefonia, String planAnt, String[][] adicionales, String precioAdicionales,
+                          String tecnologiacr, boolean aplicarDescuentos) {
+
+        this.activity = activity;
+        this.context = context;
+        this.descuento = descuento;
+        this.duracion = Duracion;
+        this.precioDescuento = precioDescuento;
+        this.estrato = estrato;
+        this.telefonia = telefonia;
+
+        this.planFacturaActual = planFacturaActual;
+
+        this.adicionales = adicionales;
+        this.precioAdicionales = precioAdicionales;
+        this.tecnologiacr = tecnologiacr;
+
+        System.out.println("rtoTelefonia->tecnologiacr " + this.tecnologiacr);
+
+        asignarPlan(telefonia);
+        asignarValor(precio);
+
+        if (aplicarDescuentos && descuento.contains("%")) {
+
+            ArrayList<Object> listDescuentos = Utilidades.precioDescuento(descuento, precio);
+
+            if ((Boolean) listDescuentos.get(0)) {
+
+                if (!listDescuentos.get(2).equals(0.0) && !listDescuentos.get(2).equals(0)) {
+                    tituloValorDescuento.setVisibility(View.GONE);
+                    precioDescuento = "(" + listDescuentos.get(2) + ")";
+                } else {
+                    tituloValorDescuento.setVisibility(View.VISIBLE);
+                }
+            }
+
+        }
+
+        if (descuento != null) {
+            if (descuento.equalsIgnoreCase("-")) {
+                precioDescuento = "N/A";
+            }
+
+            if (descuento.equalsIgnoreCase("Sin Promocion")) {
+                limpiarDuracion();
+            } else if (telefonia.contains("Existente")) {
+                limpiarDuracion();
+            } else {
+                asignarDuracion(Duracion);
+                asignarValorDescuento(precioDescuento);
+                asignarDescuento(descuento);
+            }
+        }
+
+        llenarPagoLinea(telefonia, estrato, false);
+        llenarTipoMigracion();
+        if (!planAnt.equals("")) {
+            setTipoMigracion(planAnt);
+            // sltTipoMigracion.setEnabled(false);
+        }
+
+        llenarTecnologia();
+
+        System.out.println("tipo " + tipo);
+
+        if (tipo != null) {
+            if (tipo.equalsIgnoreCase("C")) {
+                chkMigracion.setChecked(true);
+            } else {
+                chkMigracion.setEnabled(false);
+            }
+        }
+
+        if (segundaTelefonia) {
+            chkLineaAdicional.setChecked(true);
+            if (Utilidades.excluirNacional("deshabilitarSegundaLinea", "deshabilitarSegundaLinea")) {
+                chkLineaAdicional.setEnabled(false);
+            }
+        } else {
+            chkLineaAdicional.setChecked(false);
+        }
+
+        ArrayAdicionales();
+
+        llenarAdicionales();
 
     }
 
@@ -214,154 +369,6 @@ public class ResumenTelefonia extends LinearLayout {
         lblDuracion.setText(Duracion);
     }
 
-    public void Telefonia(Activity activity, Context context, CotizacionCliente cotizacionCliente, Cliente cliente) {
-
-        this.activity = activity;
-        this.context = context;
-        this.productoCotizador = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEFONIA());
-        this.descuento = descuento;
-        this.Duracion = String.valueOf(productoCotizador.getDuracionDescuento());
-        this.precioDescuento = String.valueOf(productoCotizador.getDescuentoCargobasico());
-        this.estrato = cliente.getEstrato();
-
-        this.telefonia = productoCotizador.getPlan();
-        this.precio = String.valueOf(productoCotizador.getCargoBasicoEmp());
-
-        this.planFacturaActual = productoCotizador.getPlanFacturacionActual();
-
-        this.adicionales = adicionales;
-        this.adicionalesCotizador = productoCotizador.getAdicionalesCotizador();
-        this.precioAdicionales = String.valueOf(productoCotizador.getTotalAdicionales());
-        this.tecnologiacr = tecnologiacr;
-
-        asignarPlan(telefonia);
-        asignarValor(precio);
-
-        llenarPagoLinea(telefonia, estrato, false);
-        llenarTipoMigracion();
-        /*if (!planAnt.equals("")) {
-            setTipoMigracion(planAnt);
-            // sltTipoMigracion.setEnabled(false);
-        }*/
-
-        llenarTecnologia();
-
-        /*System.out.println("tipo " + tipo);
-
-        if (tipo != null) {
-            if (tipo.equalsIgnoreCase("C")) {
-                chkMigracion.setChecked(true);
-            } else {
-                chkMigracion.setEnabled(false);
-            }
-        }
-
-        if (segundaTelefonia) {
-            chkLineaAdicional.setChecked(true);
-            if (Utilidades.excluirNacional("deshabilitarSegundaLinea", "deshabilitarSegundaLinea")) {
-                chkLineaAdicional.setEnabled(false);
-            }
-        } else {
-            chkLineaAdicional.setChecked(false);
-        }*/
-
-        ArrayAdicionales();
-
-        llenarAdicionales();
-
-
-    }
-
-    public void Telefonia(Activity activity, Context context, String tipo, String telefonia, String precio,
-                          String descuento, String Duracion, String precioDescuento, String estrato, String planFacturaActual,
-                          boolean segundaTelefonia, String planAnt, String[][] adicionales, String precioAdicionales,
-                          String tecnologiacr, boolean aplicarDescuentos) {
-
-        this.activity = activity;
-        this.context = context;
-        this.descuento = descuento;
-        this.Duracion = Duracion;
-        this.precioDescuento = precioDescuento;
-        this.estrato = estrato;
-        this.telefonia = telefonia;
-
-        this.planFacturaActual = planFacturaActual;
-
-        this.adicionales = adicionales;
-        this.precioAdicionales = precioAdicionales;
-        this.tecnologiacr = tecnologiacr;
-
-        System.out.println("rtoTelefonia->tecnologiacr " + this.tecnologiacr);
-
-        asignarPlan(telefonia);
-        asignarValor(precio);
-
-        if (aplicarDescuentos && descuento.contains("%")) {
-
-            ArrayList<Object> listDescuentos = Utilidades.precioDescuento(descuento, precio);
-
-            if ((Boolean) listDescuentos.get(0)) {
-
-                if (!listDescuentos.get(2).equals(0.0) && !listDescuentos.get(2).equals(0)) {
-                    tituloValorDescuento.setVisibility(View.GONE);
-                    precioDescuento = "(" + listDescuentos.get(2) + ")";
-                } else {
-                    tituloValorDescuento.setVisibility(View.VISIBLE);
-                }
-            }
-
-        }
-
-        if (descuento != null) {
-            if (descuento.equalsIgnoreCase("-")) {
-                precioDescuento = "N/A";
-            }
-
-            if (descuento.equalsIgnoreCase("Sin Promocion")) {
-                limpiarDuracion();
-            } else if (telefonia.contains("Existente")) {
-                limpiarDuracion();
-            } else {
-                asignarDuracion(Duracion);
-                asignarValorDescuento(precioDescuento);
-                asignarDescuento(descuento);
-            }
-        }
-
-        llenarPagoLinea(telefonia, estrato, false);
-        llenarTipoMigracion();
-        if (!planAnt.equals("")) {
-            setTipoMigracion(planAnt);
-            // sltTipoMigracion.setEnabled(false);
-        }
-
-        llenarTecnologia();
-
-        System.out.println("tipo " + tipo);
-
-        if (tipo != null) {
-            if (tipo.equalsIgnoreCase("C")) {
-                chkMigracion.setChecked(true);
-            } else {
-                chkMigracion.setEnabled(false);
-            }
-        }
-
-        if (segundaTelefonia) {
-            chkLineaAdicional.setChecked(true);
-            if (Utilidades.excluirNacional("deshabilitarSegundaLinea", "deshabilitarSegundaLinea")) {
-                chkLineaAdicional.setEnabled(false);
-            }
-        } else {
-            chkLineaAdicional.setChecked(false);
-        }
-
-        ArrayAdicionales();
-
-        llenarAdicionales();
-
-    }
-
     public void ArrayAdicionales() {
         adicionalesTo.clear();
         if (adicionales != null) {
@@ -454,7 +461,7 @@ public class ResumenTelefonia extends LinearLayout {
                 limpiarDuracion();
             } else {
                 quitarPromo = false;
-                asignarDuracion(Duracion);
+                asignarDuracion(duracion);
                 asignarValorDescuento(precioDescuento);
                 asignarDescuento(descuento);
             }

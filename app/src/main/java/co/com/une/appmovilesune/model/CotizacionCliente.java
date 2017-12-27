@@ -31,6 +31,10 @@ public class CotizacionCliente implements Serializable {
 
     private String codigoPagoAnticipado;
 
+    private boolean ventaEmpaquetada;
+
+    private boolean aplicarDescuentos;
+
     public String getOferta() {
         return oferta;
     }
@@ -181,5 +185,21 @@ public class CotizacionCliente implements Serializable {
 
     public void setCodigoPagoAnticipado(String codigoPagoAnticipado) {
         this.codigoPagoAnticipado = codigoPagoAnticipado;
+    }
+
+    public boolean isVentaEmpaquetada() {
+        return ventaEmpaquetada;
+    }
+
+    public void setVentaEmpaquetada(boolean ventaEmpaquetada) {
+        this.ventaEmpaquetada = ventaEmpaquetada;
+    }
+
+    public boolean isAplicarDescuentos() {
+        return aplicarDescuentos;
+    }
+
+    public void setAplicarDescuentos(boolean aplicarDescuentos) {
+        this.aplicarDescuentos = aplicarDescuentos;
     }
 }

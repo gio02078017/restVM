@@ -19,8 +19,13 @@ import co.com.une.appmovilesune.adapters.ListaResumenDecodificadoresAdapter;
 import co.com.une.appmovilesune.change.ControlSimulador;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesDecos;
+import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
+import co.com.une.appmovilesune.model.AdicionalCotizador;
+import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
+import co.com.une.appmovilesune.model.CotizacionCliente;
 import co.com.une.appmovilesune.model.Decodificadores;
+import co.com.une.appmovilesune.model.ProductoCotizador;
 
 import android.app.Activity;
 import android.content.Context;
@@ -62,7 +67,7 @@ public class ResumenTelevision extends LinearLayout {
     private ListView lstAdicionales;
     private ListView lstDecodificadores;
     private String descuento;
-    private String television;
+    private String television, tipoCotizacion;
     private String planFacturacion;
     private String tecnologia;
     private String ciudad;
@@ -88,6 +93,15 @@ public class ResumenTelevision extends LinearLayout {
     Context context;
 
     private Cotizacion cotizacion;
+
+    private ProductoCotizador productoCotizador;
+    private ArrayList<AdicionalCotizador> adicionalesCotizador;
+
+    //private String descuento, estrato, telefonia, precio, tecnologia, planFacturaActual;
+
+    private String duracion, precioDescuento,precio, estrato,planFacturaActual;
+
+    boolean aplicarDescuentos;
 
     public ResumenTelevision(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -122,6 +136,194 @@ public class ResumenTelevision extends LinearLayout {
         chkMigracion = (CheckBox) findViewById(R.id.chkMigracion);
 
         chkMigracion.setOnCheckedChangeListener(cambioMigracion);
+
+    }
+
+    public void Television(Activity activity, Context context, CotizacionCliente cotizacionCliente, Cliente cliente) {
+
+        this.activity = activity;
+        this.context = context;
+        this.productoCotizador = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEFONIA());
+        productoCotizador.imprimir();
+        this.descuento = descuento;
+        this.duracion = String.valueOf(productoCotizador.getDuracionDescuento());
+        this.precioDescuento = String.valueOf(productoCotizador.getDescuentoCargobasico());
+        this.estrato = cliente.getEstrato();
+        this.ciudad = cliente.getCiudad();
+
+        this.television = productoCotizador.getPlan();
+
+        if(cotizacionCliente.isVentaEmpaquetada()){
+            this.precio = String.valueOf(productoCotizador.getCargoBasicoEmp());
+        }else {
+            this.precio = String.valueOf(productoCotizador.getCargoBasicoInd());
+        }
+
+        this.planFacturaActual = productoCotizador.getPlanFacturacionActual();
+
+        this.adicionales = adicionales;
+        this.adicionalesCotizador = productoCotizador.getAdicionalesCotizador();
+        this.precioAdicionales = String.valueOf(productoCotizador.getTotalAdicionales());
+        this.tecnologiacr = tecnologiacr;
+        this.aplicarDescuentos = cotizacionCliente.isAplicarDescuentos();
+        this.tipoCotizacion = cotizacionCliente.getTipoOferta();
+
+        asignarPlan(television);
+        asignarValor(precio);
+        setPlanFacturacion(planFacturaActual);
+
+        setAdicionales(adicionales);
+        setPrecioAdicionales(precioAdicionales);
+
+        if (aplicarDescuentos && descuento.contains("%")) {
+
+            ArrayList<Object> listDescuentos = Utilidades.precioDescuento(descuento, precio);
+
+            if ((Boolean) listDescuentos.get(0)) {
+
+                if (!listDescuentos.get(2).equals(0.0) && !listDescuentos.get(2).equals(0)) {
+                    tituloValorDescuento.setVisibility(View.GONE);
+                    precioDescuento = "(" + listDescuentos.get(2) + ")";
+                } else {
+                    tituloValorDescuento.setVisibility(View.VISIBLE);
+                }
+            }
+
+        }
+
+        if (descuento != null) {
+            if (descuento.equalsIgnoreCase("-")) {
+                precioDescuento = "N/A";
+            }
+
+            if (descuento.equalsIgnoreCase("Sin Promocion")) {
+                limpiarDuracion();
+            } else if (television.contains("Existente")) {
+                limpiarDuracion();
+            } else {
+                asignarDuracion(duracion);
+                asignarDescuento(descuento);
+                asignarValorDescuento(precioDescuento);
+            }
+        } else {
+            precioDescuento = "N/A";
+        }
+
+        //if(!Utilidades.excluirNacional("tipoTivo",television)) {
+        //llenarExtensiones(tipoTecnologia);
+        //}
+
+        llenarDecodificadores(decodificadores);
+        llenarAdicionales();
+
+        if (tipoCotizacion != null) {
+            if (tipoCotizacion.equalsIgnoreCase("C")) {
+                chkMigracion.setChecked(true);
+            } else {
+                chkMigracion.setEnabled(false);
+            }
+        }
+
+        llenarTipoMigracion();
+        /*if (!planAnt.equals("")) {
+            setTipoMigracion(planAnt);
+            sltTipoMigracion.setEnabled(false);
+        }*/
+        llenarTecnologia(television, ciudad);
+
+        //setTecnologia(tipoTecnologia);
+
+
+    }
+
+    public void Television(Activity activity, Context context, String tipo, String television, String precio,
+                           String descuento, String Duracion, String precioDescuento, String[][] adicionales, String precioAdicionales,
+                           String planFacturacion, String estrato, String ciudad, String planAnt, String tecnologiacr,
+                           boolean aplicarDescuentos, String tipoTecnologia, ArrayList<ItemPromocionesAdicionales> promoAdicionales,
+                           Decodificadores decodificador, Cotizacion cotizacion) {
+
+        this.activity = activity;
+        this.context = context;
+        this.descuento = descuento;
+        this.television = television;
+        this.ciudad = ciudad;
+        this.decodificador = decodificador;
+        if(decodificador != null) {
+            this.decodificadores = decodificador.getItemDecodificadors();
+        }
+        this.cotizacion = cotizacion;
+        tecnologia = tipoTecnologia;
+
+        this.tecnologiacr = tecnologiacr;
+
+        System.out.println("rtvTelevision->tecnologiacr " + this.tecnologiacr);
+
+        sltTipoTecnologia.setEnabled(false);
+
+        asignarPlan(television);
+        asignarValor(precio);
+        setPlanFacturacion(planFacturacion);
+
+        setAdicionales(adicionales);
+        setPrecioAdicionales(precioAdicionales);
+
+        if (aplicarDescuentos && descuento.contains("%")) {
+
+            ArrayList<Object> listDescuentos = Utilidades.precioDescuento(descuento, precio);
+
+            if ((Boolean) listDescuentos.get(0)) {
+
+                if (!listDescuentos.get(2).equals(0.0) && !listDescuentos.get(2).equals(0)) {
+                    tituloValorDescuento.setVisibility(View.GONE);
+                    precioDescuento = "(" + listDescuentos.get(2) + ")";
+                } else {
+                    tituloValorDescuento.setVisibility(View.VISIBLE);
+                }
+            }
+
+        }
+
+        if (descuento != null) {
+            if (descuento.equalsIgnoreCase("-")) {
+                precioDescuento = "N/A";
+            }
+
+            if (descuento.equalsIgnoreCase("Sin Promocion")) {
+                limpiarDuracion();
+            } else if (television.contains("Existente")) {
+                limpiarDuracion();
+            } else {
+                asignarDuracion(Duracion);
+                asignarDescuento(descuento);
+                asignarValorDescuento(precioDescuento);
+            }
+        } else {
+            precioDescuento = "N/A";
+        }
+
+        //if(!Utilidades.excluirNacional("tipoTivo",television)) {
+        llenarExtensiones(tipoTecnologia);
+        //}
+
+        llenarDecodificadores(decodificadores);
+        llenarAdicionales();
+
+        if (tipo != null) {
+            if (tipo.equalsIgnoreCase("C")) {
+                chkMigracion.setChecked(true);
+            } else {
+                chkMigracion.setEnabled(false);
+            }
+        }
+
+        llenarTipoMigracion();
+        if (!planAnt.equals("")) {
+            setTipoMigracion(planAnt);
+            sltTipoMigracion.setEnabled(false);
+        }
+        llenarTecnologia(television, ciudad);
+
+        setTecnologia(tipoTecnologia);
 
     }
 
@@ -238,97 +440,6 @@ public class ResumenTelevision extends LinearLayout {
                 // lblMensaje.setText("");
             }
         });
-    }
-
-    public void Television(Activity activity, Context context, String tipo, String television, String precio,
-                           String descuento, String Duracion, String precioDescuento, String[][] adicionales, String precioAdicionales,
-                           String planFacturacion, String estrato, String ciudad, String planAnt, String tecnologiacr,
-                           boolean aplicarDescuentos, String tipoTecnologia, ArrayList<ItemPromocionesAdicionales> promoAdicionales,
-                           Decodificadores decodificador, Cotizacion cotizacion) {
-
-        this.activity = activity;
-        this.context = context;
-        this.descuento = descuento;
-        this.television = television;
-        this.ciudad = ciudad;
-        this.decodificador = decodificador;
-        if(decodificador != null) {
-            this.decodificadores = decodificador.getItemDecodificadors();
-        }
-        this.cotizacion = cotizacion;
-        tecnologia = tipoTecnologia;
-
-        this.tecnologiacr = tecnologiacr;
-
-        System.out.println("rtvTelevision->tecnologiacr " + this.tecnologiacr);
-
-        sltTipoTecnologia.setEnabled(false);
-
-        asignarPlan(television);
-        asignarValor(precio);
-        setPlanFacturacion(planFacturacion);
-
-        setAdicionales(adicionales);
-        setPrecioAdicionales(precioAdicionales);
-
-        if (aplicarDescuentos && descuento.contains("%")) {
-
-            ArrayList<Object> listDescuentos = Utilidades.precioDescuento(descuento, precio);
-
-            if ((Boolean) listDescuentos.get(0)) {
-
-                if (!listDescuentos.get(2).equals(0.0) && !listDescuentos.get(2).equals(0)) {
-                    tituloValorDescuento.setVisibility(View.GONE);
-                    precioDescuento = "(" + listDescuentos.get(2) + ")";
-                } else {
-                    tituloValorDescuento.setVisibility(View.VISIBLE);
-                }
-            }
-
-        }
-
-        if (descuento != null) {
-            if (descuento.equalsIgnoreCase("-")) {
-                precioDescuento = "N/A";
-            }
-
-            if (descuento.equalsIgnoreCase("Sin Promocion")) {
-                limpiarDuracion();
-            } else if (television.contains("Existente")) {
-                limpiarDuracion();
-            } else {
-                asignarDuracion(Duracion);
-                asignarDescuento(descuento);
-                asignarValorDescuento(precioDescuento);
-            }
-        } else {
-            precioDescuento = "N/A";
-        }
-
-        //if(!Utilidades.excluirNacional("tipoTivo",television)) {
-            llenarExtensiones(tipoTecnologia);
-        //}
-
-        llenarDecodificadores(decodificadores);
-        llenarAdicionales();
-
-        if (tipo != null) {
-            if (tipo.equalsIgnoreCase("C")) {
-                chkMigracion.setChecked(true);
-            } else {
-                chkMigracion.setEnabled(false);
-            }
-        }
-
-        llenarTipoMigracion();
-        if (!planAnt.equals("")) {
-            setTipoMigracion(planAnt);
-            sltTipoMigracion.setEnabled(false);
-        }
-        llenarTecnologia(television, ciudad);
-
-        setTecnologia(tipoTecnologia);
-
     }
 
     public void validarDecosPago(String tecnologia, boolean decosPagoSD, boolean decosPagoHD, boolean decosPagoPVR) {
