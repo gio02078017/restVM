@@ -1475,6 +1475,12 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             rtv.setVisibility(View.GONE);
         }
 
+        if(!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getINTERNET()).getPlan())){
+            rba.Internet(this, this, cotizacionCliente, cliente);
+        }else{
+            rba.setVisibility(View.GONE);
+        }
+
 
         /*System.out.println("Venta_Empaquetada->cotizacion.toTecnologiacr " + cotizacion.toTecnologiacr);
         System.out.println("Venta_Empaquetada->cotizacion.tvTecnologiacr " + cotizacion.tvTecnologiacr);

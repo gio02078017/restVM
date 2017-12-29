@@ -12,6 +12,7 @@ import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.adapters.ItemDecodificador;
 import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
+import co.com.une.appmovilesune.adapters.ListaAdicionales;
 import co.com.une.appmovilesune.adapters.ListaDecodificadoresAdapter;
 import co.com.une.appmovilesune.adapters.ListaPrecios;
 import co.com.une.appmovilesune.adapters.ListaPreciosAdapter;
@@ -143,11 +144,10 @@ public class ResumenTelevision extends LinearLayout {
 
         this.activity = activity;
         this.context = context;
-        this.productoCotizador = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEFONIA());
+        this.productoCotizador = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEVISION());
         productoCotizador.imprimir();
-        this.descuento = descuento;
+        this.descuento = String.valueOf(productoCotizador.getDescuentoCargobasico());
         this.duracion = String.valueOf(productoCotizador.getDuracionDescuento());
-        this.precioDescuento = String.valueOf(productoCotizador.getDescuentoCargobasico());
         this.estrato = cliente.getEstrato();
         this.ciudad = cliente.getCiudad();
 
@@ -174,47 +174,18 @@ public class ResumenTelevision extends LinearLayout {
 
         setAdicionales(adicionales);
         setPrecioAdicionales(precioAdicionales);
+        //llenarExtensiones(tipoTecnologia);
+        //}
 
-        if (aplicarDescuentos && descuento.contains("%")) {
-
-            ArrayList<Object> listDescuentos = Utilidades.precioDescuento(descuento, precio);
-
-            if ((Boolean) listDescuentos.get(0)) {
-
-                if (!listDescuentos.get(2).equals(0.0) && !listDescuentos.get(2).equals(0)) {
-                    tituloValorDescuento.setVisibility(View.GONE);
-                    precioDescuento = "(" + listDescuentos.get(2) + ")";
-                } else {
-                    tituloValorDescuento.setVisibility(View.VISIBLE);
-                }
-            }
-
-        }
-
-        if (descuento != null) {
-            if (descuento.equalsIgnoreCase("-")) {
-                precioDescuento = "N/A";
-            }
-
-            if (descuento.equalsIgnoreCase("Sin Promocion")) {
-                limpiarDuracion();
-            } else if (television.contains("Existente")) {
-                limpiarDuracion();
-            } else {
-                asignarDuracion(duracion);
-                asignarDescuento(descuento);
-                asignarValorDescuento(precioDescuento);
-            }
-        } else {
-            precioDescuento = "N/A";
-        }
+        aplicarDescuento();
 
         //if(!Utilidades.excluirNacional("tipoTivo",television)) {
         //llenarExtensiones(tipoTecnologia);
         //}
 
-        llenarDecodificadores(decodificadores);
+        llenarDecodificadores(productoCotizador.getObjectDecodificador().getItemDecodificadors());
         llenarAdicionales();
+        limpiarExtenciones();
 
         if (tipoCotizacion != null) {
             if (tipoCotizacion.equalsIgnoreCase("C")) {
@@ -234,6 +205,22 @@ public class ResumenTelevision extends LinearLayout {
         //setTecnologia(tipoTecnologia);
 
 
+    }
+
+    public void aplicarDescuento(){
+        if (descuento != null) {
+            if (descuento.equalsIgnoreCase("-") || descuento.equalsIgnoreCase("Sin Promocion") || descuento.equalsIgnoreCase("0.0")) {
+                limpiarDuracion();
+            }else if (television.contains("Existente")) {
+                limpiarDuracion();
+            } else {
+                asignarDuracion(UtilidadesTarificadorNew.traducirMeses(duracion));
+                asignarDescuento(UtilidadesTarificadorNew.traducirPorcentaje(descuento));
+                asignarValorDescuento(UtilidadesTarificadorNew.calcularDescuento(Utilidades.convertirDouble(descuento,"precioDescuento"),Utilidades.convertirDouble(precio,"precio")));
+            }
+        } else {
+            limpiarDuracion();
+        }
     }
 
     public void Television(Activity activity, Context context, String tipo, String television, String precio,
@@ -372,6 +359,16 @@ public class ResumenTelevision extends LinearLayout {
 
     }
 
+    public void limpiarExtenciones()
+    {
+        ArrayAdapter<Integer> adaptador = null;
+        ArrayList<Integer> extensiones = new ArrayList<Integer>();
+        extensiones.clear();
+        extensiones.add(0);
+        adaptador = new ArrayAdapter<Integer>(context, android.R.layout.simple_spinner_item, extensiones);
+        sltExtensiones.setAdapter(adaptador);
+
+    }
     private void llenarTipoMigracion() {
 
         ArrayAdapter<String> adaptador = null;
@@ -677,6 +674,11 @@ public class ResumenTelevision extends LinearLayout {
         if (adicionales != null) {
             for (int i = 0; i < adicionales.length; i++) {
                 adicional.add(new ListaPrecios(adicionales[i][0], adicionales[i][1]));
+            }
+        }else if(adicionalesCotizador!=null){
+            for (int i = 0; i < adicionalesCotizador.size(); i++) {
+                adicional.add(new ListaPrecios(adicionalesCotizador.get(i).getNombreAdicional(), String.valueOf(adicionalesCotizador.get(i).getPrecioAdicional())));
+               // adicionalesBa.add(new ListaAdicionales(adicionalesCotizador.get(i).getNombreAdicional(), String.valueOf(adicionalesCotizador.get(i).getPrecioAdicional()), "", "",true));
             }
         }
 

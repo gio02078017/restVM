@@ -116,9 +116,8 @@ public class ResumenTelefonia extends LinearLayout {
         this.context = context;
         this.productoCotizador = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEFONIA());
         productoCotizador.imprimir();
-        this.descuento = descuento;
+        this.descuento = String.valueOf(productoCotizador.getDescuentoCargobasico());
         this.duracion = String.valueOf(productoCotizador.getDuracionDescuento());
-        this.precioDescuento = String.valueOf(productoCotizador.getDescuentoCargobasico());
         this.estrato = cliente.getEstrato();
 
         this.telefonia = productoCotizador.getPlan();
@@ -148,6 +147,8 @@ public class ResumenTelefonia extends LinearLayout {
 
         llenarTecnologia();
 
+        aplicarDescuento();
+
         /*System.out.println("tipo " + tipo);
 
         if (tipo != null) {
@@ -172,6 +173,22 @@ public class ResumenTelefonia extends LinearLayout {
         llenarAdicionales();
 
 
+    }
+
+    public void aplicarDescuento(){
+        if (descuento != null) {
+            if (descuento.equalsIgnoreCase("-") || descuento.equalsIgnoreCase("Sin Promocion") || descuento.equalsIgnoreCase("0.0")) {
+                limpiarDuracion();
+            }else if (telefonia.contains("Existente")) {
+                limpiarDuracion();
+            } else {
+                asignarDuracion(UtilidadesTarificadorNew.traducirMeses(duracion));
+                asignarDescuento(UtilidadesTarificadorNew.traducirPorcentaje(descuento));
+                asignarValorDescuento(UtilidadesTarificadorNew.calcularDescuento(Utilidades.convertirDouble(descuento,"precioDescuento"),Utilidades.convertirDouble(precio,"precio")));
+            }
+        } else {
+            limpiarDuracion();
+        }
     }
 
     public void Telefonia(Activity activity, Context context, String tipo, String telefonia, String precio,

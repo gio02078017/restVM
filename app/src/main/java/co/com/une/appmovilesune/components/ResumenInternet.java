@@ -8,6 +8,12 @@ import co.com.une.appmovilesune.adapters.ListaAdicionales;
 import co.com.une.appmovilesune.adapters.ListaPrecios;
 import co.com.une.appmovilesune.adapters.ListaPreciosAdapter;
 import co.com.une.appmovilesune.change.Utilidades;
+import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
+import co.com.une.appmovilesune.model.AdicionalCotizador;
+import co.com.une.appmovilesune.model.Cliente;
+import co.com.une.appmovilesune.model.Cotizacion;
+import co.com.une.appmovilesune.model.CotizacionCliente;
+import co.com.une.appmovilesune.model.ProductoCotizador;
 
 import android.app.Activity;
 import android.content.Context;
@@ -55,6 +61,17 @@ public class ResumenInternet extends LinearLayout {
 
     TextView lblGota, lblValorGota, tituloValorDescuento;
 
+    private Cotizacion cotizacion;
+
+    private ProductoCotizador productoCotizador;
+    private ArrayList<AdicionalCotizador> adicionalesCotizador;
+
+    //private String descuento, estrato, telefonia, precio, tecnologia, planFacturaActual;
+
+    private String internet, duracion, descuento,precioDescuento,precio, estrato,planFacturaActual;
+
+    boolean aplicarDescuentos;
+
     public ResumenInternet(Context context, AttributeSet attrs) {
         super(context, attrs);
         // TODO Auto-generated constructor stub
@@ -87,6 +104,162 @@ public class ResumenInternet extends LinearLayout {
 
         chkMigracion.setOnCheckedChangeListener(cambioMigracion);
         chkWifi.setOnCheckedChangeListener(cambioWifi);
+
+    }
+
+    public void Internet(Activity activity, Context context, CotizacionCliente cotizacionCliente, Cliente cliente) {
+
+        this.activity = activity;
+        this.context = context;
+        this.productoCotizador = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getINTERNET());
+        productoCotizador.imprimir();
+        this.descuento = String.valueOf(productoCotizador.getDescuentoCargobasico());
+        this.duracion = String.valueOf(productoCotizador.getDuracionDescuento());
+        this.estrato = cliente.getEstrato();
+
+        this.internet = productoCotizador.getPlan();
+
+        if(cotizacionCliente.isVentaEmpaquetada()){
+            this.precio = String.valueOf(productoCotizador.getCargoBasicoEmp());
+        }else {
+            this.precio = String.valueOf(productoCotizador.getCargoBasicoInd());
+        }
+
+        this.planFacturaActual = productoCotizador.getPlanFacturacionActual();
+
+        this.adicionales = adicionales;
+        this.adicionalesCotizador = productoCotizador.getAdicionalesCotizador();
+        this.precioAdicionales = String.valueOf(productoCotizador.getTotalAdicionales());
+
+
+        asignarPlan(internet);
+        asignarValor(precio);
+
+        asignarPlan(internet);
+        asignarValor(precio);
+        setPlanFacturacion(planFacturacion);
+
+        aplicarDescuento();
+
+        chkWifi.setChecked(true);
+        chkWifi.setEnabled(false);
+        chkWifi.setVisibility(View.INVISIBLE);
+
+
+        System.out.println("Internet => " + internet);
+        if (internet.equals("Segunda Banda Ancha")) {
+            chkMigracion.setEnabled(false);
+            chkWifi.setChecked(true);
+            chkWifi.setEnabled(false);
+        }
+
+        llenarTipoMigracion();
+        /*if (!planAnt.equals("")) {
+            setTipoMigracion(planAnt);
+            sltTipoMigracion.setEnabled(false);
+        }*/
+
+        ArrayAdicionales();
+
+        llenarAdicionales();
+
+
+
+
+    }
+
+    public void aplicarDescuento(){
+        if (descuento != null) {
+            if (descuento.equalsIgnoreCase("-") || descuento.equalsIgnoreCase("Sin Promocion") || descuento.equalsIgnoreCase("0.0")) {
+                limpiarDuracion();
+            }else if (internet.contains("Existente")) {
+                limpiarDuracion();
+            } else {
+                asignarDuracion(UtilidadesTarificadorNew.traducirMeses(duracion));
+                asignarDescuento(UtilidadesTarificadorNew.traducirPorcentaje(descuento));
+                asignarValorDescuento(UtilidadesTarificadorNew.calcularDescuento(Utilidades.convertirDouble(descuento,"precioDescuento"),Utilidades.convertirDouble(precio,"precio")));
+            }
+        } else {
+            limpiarDuracion();
+        }
+    }
+
+    public void Internet(Activity activity, Context context, String tipo, String internet, String precio, String descuento,
+                         String Duracion, String precioDescuento, String planFacturacion, String estrato, String planAnt,
+                         String[][] adicionales, String precioAdicionales, String tecnologiacr, boolean aplicarDescuentos) {
+
+        this.activity = activity;
+        this.context = context;
+        this.tecnologiacr = tecnologiacr;
+
+        this.adicionales = adicionales;
+        this.precioAdicionales = precioAdicionales;
+
+        System.out.println("rtiInternet->tecnologiacr " + this.tecnologiacr);
+        asignarPlan(internet);
+        asignarValor(precio);
+        setPlanFacturacion(planFacturacion);
+
+        if (aplicarDescuentos && descuento.contains("%")) {
+
+            ArrayList<Object> listDescuentos = Utilidades.precioDescuento(descuento, precio);
+
+            if ((Boolean) listDescuentos.get(0)) {
+
+                if (!listDescuentos.get(2).equals(0.0) && !listDescuentos.get(2).equals(0)) {
+                    tituloValorDescuento.setVisibility(View.GONE);
+                    precioDescuento = "(" + listDescuentos.get(2) + ")";
+                } else {
+                    tituloValorDescuento.setVisibility(View.VISIBLE);
+                }
+            }
+
+        }
+
+        if (descuento != null) {
+            if (descuento.equalsIgnoreCase("-")) {
+                precioDescuento = "N/A";
+            }
+
+            if (descuento.equalsIgnoreCase("Sin Promocion")) {
+                limpiarDuracion();
+            } else if (internet.contains("Existente")) {
+                limpiarDuracion();
+            } else {
+                asignarDuracion(Duracion);
+                asignarValorDescuento(precioDescuento);
+                asignarDescuento(descuento);
+            }
+        }
+
+        chkWifi.setChecked(true);
+        chkWifi.setEnabled(false);
+        chkWifi.setVisibility(View.INVISIBLE);
+
+        // if (tipo != null) {
+        // if (tipo.equalsIgnoreCase("C")) {
+        // chkMigracion.setChecked(true);
+        // } else {
+        // chkMigracion.setEnabled(false);
+        // }
+        // }
+
+        System.out.println("Internet => " + internet);
+        if (internet.equals("Segunda Banda Ancha")) {
+            chkMigracion.setEnabled(false);
+            chkWifi.setChecked(true);
+            chkWifi.setEnabled(false);
+        }
+
+        llenarTipoMigracion();
+        if (!planAnt.equals("")) {
+            setTipoMigracion(planAnt);
+            sltTipoMigracion.setEnabled(false);
+        }
+
+        ArrayAdicionales();
+
+        llenarAdicionales();
 
     }
 
@@ -254,90 +427,15 @@ public class ResumenInternet extends LinearLayout {
         lblValorGota.setText(valorGota);
     }
 
-    public void Internet(Activity activity, Context context, String tipo, String internet, String precio, String descuento,
-                         String Duracion, String precioDescuento, String planFacturacion, String estrato, String planAnt,
-                         String[][] adicionales, String precioAdicionales, String tecnologiacr, boolean aplicarDescuentos) {
-
-        this.activity = activity;
-        this.context = context;
-        this.tecnologiacr = tecnologiacr;
-
-        this.adicionales = adicionales;
-        this.precioAdicionales = precioAdicionales;
-
-        System.out.println("rtiInternet->tecnologiacr " + this.tecnologiacr);
-        asignarPlan(internet);
-        asignarValor(precio);
-        setPlanFacturacion(planFacturacion);
-
-        if (aplicarDescuentos && descuento.contains("%")) {
-
-            ArrayList<Object> listDescuentos = Utilidades.precioDescuento(descuento, precio);
-
-            if ((Boolean) listDescuentos.get(0)) {
-
-                if (!listDescuentos.get(2).equals(0.0) && !listDescuentos.get(2).equals(0)) {
-                    tituloValorDescuento.setVisibility(View.GONE);
-                    precioDescuento = "(" + listDescuentos.get(2) + ")";
-                } else {
-                    tituloValorDescuento.setVisibility(View.VISIBLE);
-                }
-            }
-
-        }
-
-        if (descuento != null) {
-            if (descuento.equalsIgnoreCase("-")) {
-                precioDescuento = "N/A";
-            }
-
-            if (descuento.equalsIgnoreCase("Sin Promocion")) {
-                limpiarDuracion();
-            } else if (internet.contains("Existente")) {
-                limpiarDuracion();
-            } else {
-                asignarDuracion(Duracion);
-                asignarValorDescuento(precioDescuento);
-                asignarDescuento(descuento);
-            }
-        }
-
-        chkWifi.setChecked(true);
-        chkWifi.setEnabled(false);
-        chkWifi.setVisibility(View.INVISIBLE);
-
-        // if (tipo != null) {
-        // if (tipo.equalsIgnoreCase("C")) {
-        // chkMigracion.setChecked(true);
-        // } else {
-        // chkMigracion.setEnabled(false);
-        // }
-        // }
-
-        System.out.println("Internet => " + internet);
-        if (internet.equals("Segunda Banda Ancha")) {
-            chkMigracion.setEnabled(false);
-            chkWifi.setChecked(true);
-            chkWifi.setEnabled(false);
-        }
-
-        llenarTipoMigracion();
-        if (!planAnt.equals("")) {
-            setTipoMigracion(planAnt);
-            sltTipoMigracion.setEnabled(false);
-        }
-
-        ArrayAdicionales();
-
-        llenarAdicionales();
-
-    }
-
     public void ArrayAdicionales() {
         adicionalesBa.clear();
         if (adicionales != null) {
             for (int i = 0; i < adicionales.length; i++) {
                 adicionalesBa.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "", "",true));
+            }
+        }else if(adicionalesCotizador != null && adicionalesCotizador.size()>0){
+            for (int i = 0; i < adicionalesCotizador.size(); i++) {
+                adicionalesBa.add(new ListaAdicionales(adicionalesCotizador.get(i).getNombreAdicional(), String.valueOf(adicionalesCotizador.get(i).getPrecioAdicional()), "", "",true));
             }
         }
     }

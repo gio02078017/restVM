@@ -838,7 +838,7 @@ public class UtilidadesTarificadorNew {
     public static boolean validarScooring(Cliente cliente,CotizacionCliente cotizacionCliente,Scooring scooring,Context context) {
         boolean valid = true;
         String codigoPA = "00";
-        if (!scooring.isValidarCartera()) {
+        if (scooring != null && !scooring.isValidarCartera()) {
             if (cliente.getScooringune() != null) {
                 if (cliente.getScooringune().getDocumentoScooring().equalsIgnoreCase(cliente.getCedula())) {
                     if (cliente.getScooringune().isValidarScooring()) {
@@ -908,5 +908,25 @@ public class UtilidadesTarificadorNew {
 
         return nuevos;
     }
+
+    public static String traducirMeses(String dato){
+        String meses = dato + " Meses";
+        if(dato.equals("1")){
+            meses = dato +" Mes";
+        }
+
+        return meses;
+    }
+
+    public static String traducirPorcentaje(String dato){
+        return dato +"%";
+    }
+
+    public static String calcularDescuento(double porcentaje, double precio){
+        double total = (precio * porcentaje)/100;
+        return String.valueOf(total);
+    }
+
+
 
 }
