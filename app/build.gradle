@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "co.com.une.appmovilesune"
         minSdkVersion 7
         targetSdkVersion 7
         versionCode 10
-        versionName "2.1.3d"
+        versionName "2.1.3"
     }
 
     buildTypes {

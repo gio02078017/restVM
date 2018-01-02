@@ -112,7 +112,7 @@ public class MainActivity extends Activity implements Observer {
 
     /* Servidor de conexion */
     public static boolean debug = true;
-    public static String servidor = Conexion.SERVIDOR_DESARROLLO;//
+    public static String servidor = Conexion.SERVIDOR_PRODUCCION;//
     public static boolean seguimiento;
 
 	/* Para ponerles los titulos en el component */
