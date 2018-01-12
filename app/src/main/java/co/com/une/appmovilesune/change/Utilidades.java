@@ -39,11 +39,13 @@ import co.com.une.appmovilesune.adapters.ListaDefault;
 import co.com.une.appmovilesune.adapters.ListaIpDinamica;
 import co.com.une.appmovilesune.complements.Calendario;
 import co.com.une.appmovilesune.complements.Dialogo;
+import co.com.une.appmovilesune.model.AdicionalCotizador;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
 import co.com.une.appmovilesune.model.Decodificadores;
 import co.com.une.appmovilesune.model.Localizacion;
 import co.com.une.appmovilesune.model.Producto;
+import co.com.une.appmovilesune.model.ProductoCotizador;
 import co.com.une.appmovilesune.model.Venta;
 
 import android.widget.Toast;
@@ -1348,7 +1350,54 @@ public class Utilidades {
     public static ArrayList<ListaDefault> getVenta(Venta venta) {
         ArrayList<ListaDefault> listVenta = new ArrayList<ListaDefault>();
 
-        String[] Telefonia = venta.getTelefonia();
+        for (int i = 0; i < venta.getCotizacionCliente().getProductoCotizador().size(); i++) {
+            ProductoCotizador producto= venta.getCotizacionCliente().getProductoCotizador().get(i);
+            if(!Utilidades.validarVacioProducto(producto.getPlan())){
+                if(producto.getTipo() == ProductoCotizador.getTELEFONIA()){
+                    listVenta.add(new ListaDefault(0, "Productos Telefonia", "Titulo"));
+                    listVenta.add(new ListaDefault(1, "Telefonía",producto.getPlan()));
+                    listVenta.add(new ListaDefault(1, "Precio", producto.getPrecio()));
+
+                    /*listVenta.add(new ListaDefault(2, "Nuevo o Migración",
+                            "Migración: " + Telefonia[4] + " - Tipo Migración: " + Telefonia[5]));*/
+                    listVenta.add(new ListaDefault(2, "Linea", "Linea: " + producto.getLinea()/*Telefonia[2]*/ + " - Pago: " + producto.getLinea()/*Telefonia[3]*/));
+                    listVenta.add(new ListaDefault(2, "Promociones",
+                            "Promoción: " + producto.getDescuentoCargobasico() + " - Duración: " + producto.getDuracionDescuento() + " - Precio: " +"precio con descuento"/*+ Telefonia[8]*/));
+                    /*if (!Telefonia[13].equalsIgnoreCase("") || !Telefonia[13].equalsIgnoreCase("-")) {
+                        listVenta.add(new ListaDefault(0, "Servicios Especiales TO", "Titulo"));
+                        listVenta.add(new ListaDefault(1, "Adicionales", Telefonia[13]));
+                        listVenta.add(new ListaDefault(2, "Precio", Telefonia[14]));
+                    }*/
+                }else if(producto.getTipo() == ProductoCotizador.getTELEVISION()){
+                    listVenta.add(new ListaDefault(0, "Productos Television", "Titulo"));
+                    listVenta.add(new ListaDefault(1, "Televisión",producto.getPlan()));
+                    listVenta.add(new ListaDefault(1, "Precio", producto.getPrecio()));
+
+                    /*listVenta.add(new ListaDefault(2, "Extensiones", "No. de Extensiones: " + Television[2]));
+                    listVenta.add(new ListaDefault(2, "Promociones",
+                            "Promoción: " + Television[3] + " - Duración: " + Television[4] + " - Precio: " + Television[5]));*/
+
+                    listVenta.add(new ListaDefault(2, "Promociones",
+                            "Promoción: " + producto.getDescuentoCargobasico() + " - Duración: " + producto.getDuracionDescuento() + " - Precio: " +"precio con descuento"/*+ Telefonia[8]*/));
+                    /*if (!Television[6].equalsIgnoreCase("") || !Television[6].equalsIgnoreCase("-")) {
+                        listVenta.add(new ListaDefault(0, "Adicionales de Television", "Titulo"));
+                        listVenta.add(new ListaDefault(1, "Adicionales", Television[6]));
+                        listVenta.add(new ListaDefault(2, "Precio", Television[7]));
+                    }*/
+                }else if(producto.getTipo() == ProductoCotizador.getINTERNET()){
+                    listVenta.add(new ListaDefault(0, "Productos Internet", "Titulo"));
+                    listVenta.add(new ListaDefault(1, "Internet",producto.getPlan()));
+                    listVenta.add(new ListaDefault(1, "Precio", producto.getPrecio()));
+                    /*listVenta.add(new ListaDefault(2, "Nuevo o Migración",
+                            "Migración: " + Internet[3] + " - Tipo Migración: " + Internet[4]));*/
+                    listVenta.add(new ListaDefault(2, "Promociones",
+                            "Promoción: " + producto.getDescuentoCargobasico() + " - Duración: " + producto.getDuracionDescuento() + " - Precio: " +"precio con descuento"/*+ Telefonia[8]*/));
+                    listVenta.add(new ListaDefault(2, "Wifi", producto.getWifi()));
+                }
+            }
+        }
+
+        /*String[] Telefonia = venta.getTelefonia();
         if (!Telefonia[0].equalsIgnoreCase("-")) {
             listVenta.add(new ListaDefault(0, "Productos Telefonia", "Titulo"));
             listVenta.add(new ListaDefault(1, "Telefonía", Telefonia[0]));
@@ -1365,9 +1414,9 @@ public class Utilidades {
                 listVenta.add(new ListaDefault(2, "Precio", Telefonia[14]));
             }
 
-        }
+        }*/
 
-        String[] Television = venta.getTelevision();
+        /*String[] Television = venta.getTelevision();
         if (!Television[0].equalsIgnoreCase("-")) {
             listVenta.add(new ListaDefault(0, "Productos Television", "Titulo"));
             listVenta.add(new ListaDefault(1, "Televisión", Television[0]));
@@ -1382,9 +1431,9 @@ public class Utilidades {
                 listVenta.add(new ListaDefault(2, "Precio", Television[7]));
             }
 
-        }
+        }*/
 
-        String[] Internet = venta.getInternet();
+       /* String[] Internet = venta.getInternet();
         if (!Internet[0].equalsIgnoreCase("-")) {
             listVenta.add(new ListaDefault(0, "Productos Internet", "Titulo"));
             listVenta.add(new ListaDefault(1, "Internet", Internet[0]));
@@ -1395,7 +1444,7 @@ public class Utilidades {
                     "Promoción: " + Internet[5] + " - Duración: " + Internet[6] + " - Precio: " + Internet[7]));
             listVenta.add(new ListaDefault(2, "Wifi", Internet[2]));
 
-        }
+        }*/
 
 
         String[] Documentacion = venta.getDocumentacion();
@@ -1584,7 +1633,7 @@ public class Utilidades {
                 new String[]{"lst_valor"}, "lst_clave=? and lst_ciudad=?", new String[]{clave, ciudad}, null,
                 null, null);
 
-        System.out.println("respuesta " + respuesta);
+        System.out.println("----Carrusel--- respuesta " + respuesta);
 
         String data = "";
 
@@ -1596,11 +1645,13 @@ public class Utilidades {
             }
         }
 
-        System.out.println("data " + data);
+        System.out.println("----Carrusel--- data " + data);
 
         if (data.equalsIgnoreCase("true")) {
             excluir = true;
         }
+
+        System.out.println("----Carrusel--- excluir " + excluir);
 
         return excluir;
 
@@ -3708,7 +3759,7 @@ public class Utilidades {
         boolean valido = false;
 
         ArrayList<ArrayList<String>> permisos = MainActivity.basedatos.consultar(false, "permisos", null, "accion = ?", new String[]{permiso}, null, null, null);
-
+        System.out.println("----Carrusel--- permisos carrusel "+permisos);
         if (permisos != null) {
             valido = true;
         }
@@ -3843,9 +3894,11 @@ public class Utilidades {
     public static boolean validarVacioProducto(String producto){
         boolean vacio = false;
 
-        if(producto.equalsIgnoreCase(inicial_vacio) || producto.equalsIgnoreCase(inicial_guion)){
+        if(producto != null && producto.equalsIgnoreCase(inicial_vacio) || producto.equalsIgnoreCase(inicial_guion)){
             vacio = true;
         }
+
+        System.out.println("----Carrusel--- vacio " + vacio);
 
         return vacio;
 
@@ -3859,6 +3912,225 @@ public class Utilidades {
         }
 
         return igualdad;
+    }
+
+    public static JSONObject jsonProductosCotizacion(ProductoCotizador productoCotizador) {
+
+        //System.out.println("jsonProductosVenta->tecnologiacr " + tecnologiacr);
+        JSONArray arrayAdicionales = null;
+
+        JSONArray arrayEquipos = new JSONArray();
+        JSONObject mejorasDecos = new JSONObject();
+        int wifi;
+        String cambioPlan = "";
+
+        /*System.out.println("adicionales " + adicionales);
+        try {
+
+            System.out.println("adicionales " + adicionales);
+
+            arrayAdicionales = new JSONArray(adicionales);
+
+        } catch (JSONException e1) {
+            // e1.printStackTrace();
+            Log.w("error " + e1.getMessage());
+            arrayAdicionales = new JSONArray();
+        }*/
+
+        if (productoCotizador.getCambioPlan().equalsIgnoreCase("Nueva")) {
+            cambioPlan = "0";
+        } else {
+            cambioPlan = "1";
+        }
+
+        if (productoCotizador.getWifi() != null) {
+            if (productoCotizador.getWifi().equalsIgnoreCase("SI")) {
+                wifi = 1;
+            } else {
+                wifi = 0;
+            }
+        }else{
+            wifi = -1;
+        }
+
+        JSONObject productos = new JSONObject();
+        try {
+            productos.put("nombre", productoCotizador.getPlan());
+            productos.put("tipoCotizacion", productoCotizador.getTipoPeticionNumerico());
+            productos.put("tipo", productoCotizador.traducirProducto().toUpperCase());
+            productos.put("cambioPlan", cambioPlan);
+            productos.put("planAnterior", "");
+            productos.put("precio", productoCotizador.getPrecio());
+            productos.put("pagoAntCargoFijo", productoCotizador.getPagoAnticipado());
+            productos.put("pagoParcialConexion", productoCotizador.getPagoParcial());
+            productos.put("descuento", productoCotizador.getDescuentoCargobasico());
+            productos.put("duracion", productoCotizador.getDuracionDescuento());
+            productos.put("extensiones", "");
+            productos.put("linea", productoCotizador.getLinea());
+            productos.put("wifi", wifi);
+            productos.put("marca", "");
+            productos.put("referencia", "");
+            productos.put("capacidad", "");
+            productos.put("homologado", "");
+            productos.put("planfacturacion", "");
+            productos.put("identificador", "");
+            productos.put("ipDinamica", "");
+            productos.put("adicionales", jsonArrayAdicionales(productoCotizador.getAdicionalesCotizador()));
+            productos.put("planFacturacion", productoCotizador.getPlanFacturacion());
+            productos.put("tecnologia", productoCotizador.getTecnologia());
+            productos.put("tecnologiacr", "N/A");
+
+
+            /*if (!productoCotizador.getTecnologia().equalsIgnoreCase("IPTV")) {
+                productos.put("tecnologia", productoCotizador.getTecnologia());
+            } else {
+                productos.put("tecnologia", "REDCO");
+            }*/
+
+            /*productos.put("tecnologiacr", tecnologiacr);*/
+
+            /*System.out.println("decos productoCotizador.getJsonDecos()" + productoCotizador.getJsonDecos());
+
+            if (productoCotizador.getJsonDecos() != null && productoCotizador.getJsonDecos().equalsIgnoreCase("") && !productoCotizador.getJsonDecos().equalsIgnoreCase("N/A")) {
+
+                productos.put("decos", new JSONObject(productoCotizador.getJsonDecos()));
+
+                mejorasDecos.put("decoPosicion1", new JSONObject(productoCotizador.getJsonDecos()).get("decoPosicion1"));
+                mejorasDecos.put("decoPosicion2", new JSONObject(productoCotizador.getJsonDecos()).get("decoPosicion2"));
+                mejorasDecos.put("decoPosicion3", new JSONObject(productoCotizador.getJsonDecos()).get("decoPosicion3"));
+                mejorasDecos.put("decoPosicion4", new JSONObject(productoCotizador.getJsonDecos()).get("decoPosicion4"));
+
+            }*/
+
+            ArrayList<ItemDecodificador> itemDecodificadors = null;
+
+            /*System.out.println("decodificador tipo ["+tipo+"] "+decodificador);*/
+
+            if(productoCotizador.getDecodificadores() != null){
+                itemDecodificadors = productoCotizador.getDecodificadores();
+            }
+
+            //UtilidadesDecos.imprimirDecos("itemDecodificadors jsonProductosVenta tipo ["+productoCotizador.getTipo()+"] ",itemDecodificadors);
+
+            if (itemDecodificadors != null && itemDecodificadors.size() > 0) {
+                //UtilidadesDecos.imprimirDecos("Consolidar ", itemDecodificadors);
+                ArrayList<JSONObject> objectEquipos = new ArrayList<JSONObject>();
+
+                String decosActuales = "";
+                String infoDecosActuales = "";
+
+                for (int i = 0; i < itemDecodificadors.size(); i++) {
+
+                    /*System.out.println("itemDecodificadors.get(i).getInfoActualesDecos() "
+                            + itemDecodificadors.get(i).getInfoActualesDecos());
+                    System.out.println("itemDecodificadors.get(i).isNuevo() " + itemDecodificadors.get(i).isNuevo());*/
+
+                    if (!itemDecodificadors.get(i).isNuevo()) {
+                        decosActuales = itemDecodificadors.get(i).getDecosActuales();
+                        infoDecosActuales = itemDecodificadors.get(i).getInfoActualesDecos();
+                        break;
+                    }
+                }
+
+               /* System.out.println("decosActuales A " + decosActuales);
+                System.out.println("infoDecosActuales A " + infoDecosActuales);*/
+
+                if (decosActuales.equalsIgnoreCase("") && infoDecosActuales.equalsIgnoreCase("")) {
+                    for (int i = 0; i < itemDecodificadors.size(); i++) {
+                        if (itemDecodificadors.get(i).isIncluido()) {
+                            decosActuales = itemDecodificadors.get(i).getDecosActuales();
+                            infoDecosActuales = itemDecodificadors.get(i).getInfoActualesDecos();
+                            break;
+                        }
+                    }
+                }
+
+                /*System.out.println("decosActuales B " + decosActuales);
+                System.out.println("infoDecosActuales B " + infoDecosActuales);*/
+
+                for (int i = 0; i < itemDecodificadors.size(); i++) {
+                    objectEquipos.add(
+                            jsonEquipos(itemDecodificadors.get(i), decosActuales, infoDecosActuales, productoCotizador.getTipoPeticion()));
+                }
+
+                for (int i = 0; i < objectEquipos.size(); i++) {
+                    arrayEquipos.put(objectEquipos.get(i));
+                    System.out.println("arrayEquipos.get(" + i + ") " + arrayEquipos.get(i).toString());
+                }
+
+                System.out.println("arrayEquipos " + arrayEquipos);
+
+                mejorasDecos.put("mejoraDecos", "SI");
+                mejorasDecos.put("equipos", arrayEquipos);
+                //mejorasDecos.put("decos_sd", new JSONObject(decos).get("decos_sd"));
+                System.out.println("decos productoCotizador.getJsonDecos()" + productoCotizador.getJsonDecos());
+
+                if (productoCotizador.getJsonDecos() != null && !productoCotizador.getJsonDecos().equalsIgnoreCase("") && !productoCotizador.getJsonDecos().equalsIgnoreCase("N/A")) {
+
+                    productos.put("infoDecos", new JSONObject(productoCotizador.getJsonDecos()));
+
+                    mejorasDecos.put("decoPosicion1", new JSONObject(productoCotizador.getJsonDecos()).get("decoPosicion1"));
+                    mejorasDecos.put("decoPosicion2", new JSONObject(productoCotizador.getJsonDecos()).get("decoPosicion2"));
+                    mejorasDecos.put("decoPosicion3", new JSONObject(productoCotizador.getJsonDecos()).get("decoPosicion3"));
+                    mejorasDecos.put("decoPosicion4", new JSONObject(productoCotizador.getJsonDecos()).get("decoPosicion4"));
+
+                }
+
+                System.out.println("***** mejorasDecos ****"+mejorasDecos);
+                System.out.println("***** productos ****"+productos);
+
+
+            }
+
+            productos.put("decos", mejorasDecos);
+
+            if (productoCotizador.traducirProducto().equalsIgnoreCase("BA")) {
+                productos.put("homologado", Utilidades.homologado(productoCotizador.getPlan()));
+            } else {
+                productos.put("homologado", "");
+            }
+
+        } catch (JSONException e) {
+            Log.w("error " + e.getMessage());
+        }
+
+        //System.out.println("productos tipo ["+productoCotizador.traducirProducto()+"] "+productos);
+        return productos;
+    }
+
+    public static JSONArray jsonArrayAdicionales(ArrayList<AdicionalCotizador> adicionalesCotizador) {
+
+        JSONArray arrayAdicionales = new JSONArray();
+
+        if(adicionalesCotizador != null) {
+            for (int i = 0; i < adicionalesCotizador.size(); i++) {
+                arrayAdicionales.put(jsonObjectAdicional(adicionalesCotizador.get(i)));
+            }
+        }
+
+        return arrayAdicionales;
+
+    }
+
+    public static JSONObject jsonObjectAdicional(AdicionalCotizador adicionalesCotizador) {
+
+        JSONObject adicional = new JSONObject();
+
+        try {
+            adicional.put("solicitud", adicionalesCotizador.getTiposolicitud());
+            adicional.put("tipo", adicionalesCotizador.getTipoAdicional());
+            adicional.put("producto", adicionalesCotizador.getNombreAdicional());
+            adicional.put("precio", String.valueOf(adicionalesCotizador.getPrecioAdicional()));
+            adicional.put("precioSinIva", adicionalesCotizador.getPrecioSinIva());
+            adicional.put("descuento", adicionalesCotizador.getDescuento());
+            adicional.put("duracion", adicionalesCotizador.getDuracionDescuento());
+            adicional.put("permanencia", adicionalesCotizador.getPermanencia());
+            adicional.put("demo", adicionalesCotizador.getDemo());
+        } catch (JSONException e) {
+            Log.w("error " + e.getMessage());
+        }
+
+        return adicional;
     }
 
 }

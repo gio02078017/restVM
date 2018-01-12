@@ -973,6 +973,8 @@ public class UtilidadesDecos {
 
         JSONObject datosValidarDecos = new JSONObject();
 
+        //imprimirDecos("datosValidarDecos ",itemDecodificadors);
+
         if (itemDecodificadors != null && itemDecodificadors.size() > 0) {
 
             for (int i = 0; i < itemDecodificadors.size(); i++) {

@@ -78,4 +78,5 @@ public class Decodificadores implements Serializable {
     public void setListaDecosIncluido(ArrayList<ListaDecosIncluido> listaDecosIncluido) {
         this.listaDecosIncluido = listaDecosIncluido;
     }
+
 }

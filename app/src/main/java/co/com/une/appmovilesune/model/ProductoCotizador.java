@@ -23,7 +23,13 @@ public class ProductoCotizador implements Serializable {
 
     private String tipoPeticion;
     private int tipo;
+    private String cambioPlan;
     private String plan;
+    private String precio;
+    private String planFacturacion;
+    private String wifi;
+    private String linea;
+    private String tecnologia;
     private String planFacturacionInd;
     private String planFacturacionEmp;
     private String velocidad;
@@ -35,6 +41,7 @@ public class ProductoCotizador implements Serializable {
     private double pagoParcial;
     private double pagoParcialDescuento;
     private double totalPagoParcial;
+
 
     private boolean aplicaPA;
     private boolean clienteNuevo;
@@ -51,6 +58,7 @@ public class ProductoCotizador implements Serializable {
     private ArrayList<ItemDecodificador> itemDecodificadores;
     private Decodificadores objectDecodificador;
     private ArrayList<ItemDecodificador> decodificadores;
+    private String jsonDecos = null;
     private double totalDecos = 0.0;
 
     public ProductoCotizador(String tipoPeticion, int tipo, String plan, double cargoBasicoInd, double cargoBasicoEmp, double descuentoCargobasico, int duracionDescuento, String planFacturacionInd, String planFacturacionEmp, String velocidad) {
@@ -138,6 +146,14 @@ public class ProductoCotizador implements Serializable {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
+    }
+
+    public String getCambioPlan() {
+        return cambioPlan;
+    }
+
+    public void setCambioPlan(String cambioPlan) {
+        this.cambioPlan = cambioPlan;
     }
 
     public String getPlan() {
@@ -262,9 +278,17 @@ public class ProductoCotizador implements Serializable {
         obtenerValorPagoParcialAnticipado();
     }
 
+    public boolean isAplicaPA() {
+        return aplicaPA;
+    }
+
     public void setClienteNuevo(boolean clienteNuevo){
         this.clienteNuevo = clienteNuevo;
         obtenerValorPagoParcialAnticipado();
+    }
+
+    public boolean isClienteNuevo() {
+        return clienteNuevo;
     }
 
     public String getPlanFacturacionAnterior() {
@@ -365,6 +389,57 @@ public class ProductoCotizador implements Serializable {
         return Respuesta;
     }
 
+    public String getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(String precio) {
+        this.precio = precio;
+    }
+
+    public String getPlanFacturacion() {
+        if(planFacturacion == null){
+            planFacturacion = "";
+        }
+        return planFacturacion;
+    }
+
+    public void setPlanFacturacion(String planFacturacion) {
+        this.planFacturacion = planFacturacion;
+    }
+
+    public String getWifi() {
+        return wifi;
+    }
+
+    public void setWifi(String wifi) {
+        this.wifi = wifi;
+    }
+
+    public String getTecnologia() {
+        if(tecnologia == null){
+            tecnologia = "";
+        }
+        return tecnologia;
+    }
+
+    public void setTecnologia(String tecnologia) {
+        this.tecnologia = tecnologia;
+    }
+
+    public String getLinea() {
+
+        if(linea == null){
+            linea = "";
+        }
+
+        return linea;
+    }
+
+    public void setLinea(String linea) {
+        this.linea = linea;
+    }
+
     public void imprimir (){
                 System.out.println("************tipo**********"+tipo+"********");
                 System.out.println("************tipoPeticion**********"+tipoPeticion+"********");
@@ -380,8 +455,27 @@ public class ProductoCotizador implements Serializable {
                 System.out.println("************pagoParcial**********"+pagoParcial+"********");
                 System.out.println("************pagoParcialDescuento**********"+pagoParcialDescuento+"********");
                 System.out.println("************totalPagoParcial**********"+totalPagoParcial+"********");
+                System.out.println("************linea**********"+linea+"********");
+                System.out.println("************tecnologia**********"+tecnologia+"********");
                 if(adicionalesCotizador != null){
                     UtilidadesTarificadorNew.imprimirAdicionalesCotizacion(adicionalesCotizador);
                 }
+    }
+
+    public String descuentoConcatenado(){
+        String meses = "Meses";
+        if(duracionDescuento == 1){
+            meses = "Mes";
+        }
+
+        return descuentoCargobasico +" % "+duracionDescuento +" "+meses;
+    }
+
+    public String getJsonDecos() {
+        return jsonDecos;
+    }
+
+    public void setJsonDecos(String jsonDecos) {
+        this.jsonDecos = jsonDecos;
     }
 }

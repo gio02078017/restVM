@@ -69,6 +69,8 @@ public class ResumenTelefonia extends LinearLayout {
 
     private ProductoCotizador productoCotizador;
 
+    public boolean productoNulo = true;
+
 
     public ResumenTelefonia(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -171,6 +173,8 @@ public class ResumenTelefonia extends LinearLayout {
         ArrayAdicionales();
 
         llenarAdicionales();
+
+        productoNulo = false;
 
 
     }
@@ -390,7 +394,11 @@ public class ResumenTelefonia extends LinearLayout {
         adicionalesTo.clear();
         if (adicionales != null) {
             for (int i = 0; i < adicionales.length; i++) {
-                adicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "", "", true));
+                adicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "", "",true));
+            }
+        }else if(adicionalesCotizador != null && adicionalesCotizador.size()>0){
+            for (int i = 0; i < adicionalesCotizador.size(); i++) {
+                adicionalesTo.add(new ListaAdicionales(adicionalesCotizador.get(i).getNombreAdicional(), String.valueOf(adicionalesCotizador.get(i).getPrecioAdicional()), "", "", true));
             }
         }
     }
@@ -709,5 +717,27 @@ public class ResumenTelefonia extends LinearLayout {
 
     public void setQuitarPromo(boolean quitarPromo) {
         this.quitarPromo = quitarPromo;
+    }
+
+    public ProductoCotizador getProductoCotizador() {
+        productoCotizador.setPrecio(precio);
+        productoCotizador.setPlanFacturacion(planFacturaActual);
+        productoCotizador.setLinea(getLinea());
+        productoCotizador.setAdicionalesCotizador(adicionalesCotizador);
+        productoCotizador.setCambioPlan(getMigracion());
+        productoCotizador.setTecnologia(getTecnologia());
+        return productoCotizador;
+    }
+
+    public void setProductoCotizador(ProductoCotizador productoCotizador) {
+        this.productoCotizador = productoCotizador;
+    }
+
+    public boolean isProductoNulo() {
+        return productoNulo;
+    }
+
+    public void setProductoNulo(boolean productoNulo) {
+        this.productoNulo = productoNulo;
     }
 }

@@ -80,6 +80,8 @@ public class Venta implements Serializable {
         return telefonia;
     }
 
+    CotizacionCliente cotizacionCliente;
+
     public void setTelefonia(String plan, String precio, String linea, String pagoLinea, String migracion,
                              String tipoMigracion, String promocion, String duracion, String precioDescuento, String planFacturacion,
                              String tecnologia, String tipoCotizacion, String identificador, String adicionales,
@@ -134,8 +136,9 @@ public class Venta implements Serializable {
         this.television[16] = tvTecnologiacr;
         this.television[17] = PagoAntCargoFijo;
         this.television[18] = PagoParcialConexion;
-
         System.out.println("this.television[16] " + this.television[16]);
+
+
     }
 
     public String[] getInternet() {
@@ -515,7 +518,7 @@ public class Venta implements Serializable {
 
         try {
 
-            if (!telefonia[0].equalsIgnoreCase(Utilidades.inicial_guion) && !telefonia[0].equalsIgnoreCase("")) {
+            /*if (!telefonia[0].equalsIgnoreCase(Utilidades.inicial_guion) && !telefonia[0].equalsIgnoreCase("")) {
                 System.out.println("telefonia[16] " + telefonia[16]);
                 objectProductos.add(new Utilidades().jsonProductosVenta(telefonia[0], "TO", telefonia[4], telefonia[5],
                         telefonia[1], telefonia[6], telefonia[7], "null", "null", telefonia[2], "null", "null", "null",
@@ -547,9 +550,14 @@ public class Venta implements Serializable {
             for (int i = 0; i < objectProductos.size(); i++) {
                 arrayProductos.put(objectProductos.get(i));
                 System.out.println("objectProductos.get(" + i + ") " + objectProductos.get(i).toString());
-            }
+            }*/
+
+            /*System.out.println("cotizacion "+getCotizacionCliente().consolidarCotizacionCliente(this));
+            System.out.println("cotizacion "+getCotizacionCliente().consolidarCotizacionCliente().getString("cotizacionCliente"));*/
+            //System.out.println("cotizacion "+getCotizacionCliente().consolidarCotizacionCliente().getJSONObject("cotizacion"));
 
             venta.put("productos", arrayProductos);
+            venta.put("cotizacionCliente",getCotizacionCliente().consolidarCotizacionCliente(this).getJSONObject("cotizacionCliente"));
             venta.put("total", total);
             venta.put("totalPagoAntCargoFijo", totalPagoAntCargoFijo);
             venta.put("totalPagoConexion", totalPagoConexion);
@@ -557,7 +565,8 @@ public class Venta implements Serializable {
             venta.put("descuentoConexion", descuentoConexion);
             venta.put("totalNuevos", totalNuevos);
             venta.put("fecha", fecha + " " + hora);
-            venta.put("permanencia", telefonia[3]);
+
+            //venta.put("permanencia", telefonia[3]);
 
             if (empaquetamiento.equalsIgnoreCase("SI")) {
                 empaquetada = "1";
@@ -610,6 +619,9 @@ public class Venta implements Serializable {
             }
 
             // venta.put("scooring", scooring);
+
+            venta = getCotizacionCliente().consolidarCotizacionCliente(this).getJSONObject("cotizacionCliente");
+
         } catch (JSONException e) {
             Log.w("Error", e.getMessage());
         }
@@ -774,5 +786,13 @@ public class Venta implements Serializable {
 
     public void setDescuentoConexion(String descuentoConexion) {
         this.descuentoConexion = descuentoConexion;
+    }
+
+    public CotizacionCliente getCotizacionCliente() {
+        return cotizacionCliente;
+    }
+
+    public void setCotizacionCliente(CotizacionCliente cotizacionCliente) {
+        this.cotizacionCliente = cotizacionCliente;
     }
 }

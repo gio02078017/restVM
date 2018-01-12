@@ -408,6 +408,7 @@
     <string name="noseagreganporretiros">No se pueden agregar decodificadores nuevos por que existen transacciones de retiro</string>
     <string name="consultardecodificadores">Se debe consultar los decodificadores antes de proceder con la venta</string>
     <string name="carrusel">Validar Retiro</string>
+    <string name="carruselTitulo">Retiros</string>
     <string name="paquete">Paquete</string>
     <string name="fecharetiro">Fecha Retiro</string>
     <string name="mensajeCarrusel">Productos con carrusel: </string>

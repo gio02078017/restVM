@@ -72,6 +72,8 @@ public class ResumenInternet extends LinearLayout {
 
     boolean aplicarDescuentos;
 
+    public boolean productoNulo = true;
+
     public ResumenInternet(Context context, AttributeSet attrs) {
         super(context, attrs);
         // TODO Auto-generated constructor stub
@@ -163,8 +165,7 @@ public class ResumenInternet extends LinearLayout {
 
         llenarAdicionales();
 
-
-
+        productoNulo = false;
 
     }
 
@@ -435,7 +436,13 @@ public class ResumenInternet extends LinearLayout {
             }
         }else if(adicionalesCotizador != null && adicionalesCotizador.size()>0){
             for (int i = 0; i < adicionalesCotizador.size(); i++) {
-                adicionalesBa.add(new ListaAdicionales(adicionalesCotizador.get(i).getNombreAdicional(), String.valueOf(adicionalesCotizador.get(i).getPrecioAdicional()), "", "",true));
+                adicionalesCotizador.get(i).imprimirAdicional();
+                if(!adicionalesCotizador.get(i).isGota()) {
+                    adicionalesBa.add(new ListaAdicionales(adicionalesCotizador.get(i).getNombreAdicional(), String.valueOf(adicionalesCotizador.get(i).getPrecioAdicional()), "", "", true));
+                }else{
+                    setLblGota(adicionalesCotizador.get(i).getNombreAdicional());
+                    setLblValorGota(String.valueOf(adicionalesCotizador.get(i).getPrecioAdicional()));
+                }
             }
         }
     }
@@ -553,4 +560,24 @@ public class ResumenInternet extends LinearLayout {
         this.precioAdicionales = precioAdicionales;
     }
 
+    public ProductoCotizador getProductoCotizador() {
+        productoCotizador.setPrecio(precio);
+        productoCotizador.setPlanFacturacion(planFacturaActual);
+        productoCotizador.setWifi(getWifi());
+        productoCotizador.setCambioPlan(getMigracion());
+        productoCotizador.setTecnologia("N/A");
+        return productoCotizador;
+    }
+
+    public void setProductoCotizador(ProductoCotizador productoCotizador) {
+        this.productoCotizador = productoCotizador;
+    }
+
+    public boolean isProductoNulo() {
+        return productoNulo;
+    }
+
+    public void setProductoNulo(boolean productoNulo) {
+        this.productoNulo = productoNulo;
+    }
 }

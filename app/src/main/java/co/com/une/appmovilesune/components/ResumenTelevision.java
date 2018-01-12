@@ -104,6 +104,8 @@ public class ResumenTelevision extends LinearLayout {
 
     boolean aplicarDescuentos;
 
+    public boolean productoNulo = true;
+
     public ResumenTelevision(Context context, AttributeSet attrs) {
         super(context, attrs);
         // TODO Auto-generated constructor stub
@@ -165,6 +167,7 @@ public class ResumenTelevision extends LinearLayout {
         this.adicionalesCotizador = productoCotizador.getAdicionalesCotizador();
         this.precioAdicionales = String.valueOf(productoCotizador.getTotalAdicionales());
         this.tecnologiacr = tecnologiacr;
+        this.tecnologia = cliente.getTecnologia();
         this.aplicarDescuentos = cotizacionCliente.isAplicarDescuentos();
         this.tipoCotizacion = cotizacionCliente.getTipoOferta();
 
@@ -174,7 +177,7 @@ public class ResumenTelevision extends LinearLayout {
 
         setAdicionales(adicionales);
         setPrecioAdicionales(precioAdicionales);
-        //llenarExtensiones(tipoTecnologia);
+//        llenarExtensiones(cliente.getTecnologia());
         //}
 
         aplicarDescuento();
@@ -183,7 +186,14 @@ public class ResumenTelevision extends LinearLayout {
         //llenarExtensiones(tipoTecnologia);
         //}
 
-        llenarDecodificadores(productoCotizador.getObjectDecodificador().getItemDecodificadors());
+        this.decodificador = productoCotizador.getObjectDecodificador();
+
+        if(decodificador != null) {
+            this.decodificadores = decodificador.getItemDecodificadors();
+        }
+
+        llenarDecodificadores(decodificadores);
+
         llenarAdicionales();
         limpiarExtenciones();
 
@@ -202,7 +212,8 @@ public class ResumenTelevision extends LinearLayout {
         }*/
         llenarTecnologia(television, ciudad);
 
-        //setTecnologia(tipoTecnologia);
+        setTecnologia(cliente.getTecnologia());
+        productoNulo = false;
 
 
     }
@@ -289,7 +300,7 @@ public class ResumenTelevision extends LinearLayout {
         }
 
         //if(!Utilidades.excluirNacional("tipoTivo",television)) {
-        llenarExtensiones(tipoTecnologia);
+        //llenarExtensiones(tipoTecnologia);
         //}
 
         llenarDecodificadores(decodificadores);
@@ -428,7 +439,7 @@ public class ResumenTelevision extends LinearLayout {
         sltTipoTecnologia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, android.view.View v, int position, long id) {
 
-                llenarExtensiones((String) sltTipoTecnologia.getSelectedItem());
+                //llenarExtensiones((String) sltTipoTecnologia.getSelectedItem());
                 sltTelevisores.setSelection(0);
 
             }
@@ -573,6 +584,8 @@ public class ResumenTelevision extends LinearLayout {
         System.out.println("ext " + ext);
 
         JSONObject datosDecos = null;
+        System.out.println("decodificador "+decodificador);
+        System.out.println("decodificadores "+decodificadores);
 
         if(Utilidades.excluirNacional("tipoTivo",television)) {
             datosDecos = UtilidadesDecos.datosValidarDecos(decodificador);
@@ -585,6 +598,8 @@ public class ResumenTelevision extends LinearLayout {
         } catch (JSONException e) {
             Log.w("Error " + e.getMessage());
         }
+
+        System.out.println("****** "+datosDecos+"*******");
 
         return datosDecos.toString();
 
@@ -916,6 +931,9 @@ public class ResumenTelevision extends LinearLayout {
 
         String tecno = (String) sltTipoTecnologia.getSelectedItem();
 
+        System.out.println("tecno tv tecno "+tecno);
+        System.out.println("tecno tv tecnologia "+tecnologia);
+
         if (tecno != null && !tecno.equals("")) {
             return tecno;
         } else {
@@ -936,6 +954,27 @@ public class ResumenTelevision extends LinearLayout {
         }
 
         sltTipoTecnologia.setSelection(adaptador.getPosition(TipoTecnologia));
+    }
+
+    public ProductoCotizador getProductoCotizador() {
+        productoCotizador.setPrecio(precio);
+        productoCotizador.setPlanFacturacion(planFacturaActual);
+        productoCotizador.setTecnologia(getTecnologia());
+        productoCotizador.setJsonDecos(getDecos());
+        productoCotizador.setCambioPlan(getMigracion());
+        return productoCotizador;
+    }
+
+    public void setProductoCotizador(ProductoCotizador productoCotizador) {
+        this.productoCotizador = productoCotizador;
+    }
+
+    public boolean isProductoNulo() {
+        return productoNulo;
+    }
+
+    public void setProductoNulo(boolean productoNulo) {
+        this.productoNulo = productoNulo;
     }
 
 }

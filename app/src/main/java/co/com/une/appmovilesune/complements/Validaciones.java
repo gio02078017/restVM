@@ -348,7 +348,7 @@ public class Validaciones {
             System.out.println("login  " + cliente.getLogin());
             System.out.println("validarLogin  " + cliente.isValidarLogin());
 
-            if (!venta.getInternet()[0].equals("-") && venta.getInternet()[3].equals("Nueva")) {
+            /*if (!venta.getInternet()[0].equals("-") && venta.getInternet()[3].equals("Nueva")) {
                 if (!Utilidades.excluirNacional("excluir", "login")
                         && Utilidades.excluirMunicipal("validarCampos", "login", cliente.getCiudad())) {
                     if (!cliente.getLogin().equalsIgnoreCase("") && cliente.isValidarLogin()) {
@@ -382,7 +382,7 @@ public class Validaciones {
                         }
                     }
                 }
-            }
+            }*/
 
             System.out.println("validar correo " + cliente.isValidarCorreo());
             if (cliente.isValidarCorreo()) {
@@ -810,7 +810,63 @@ public class Validaciones {
                 }
             }
 
-            if (!venta.getTelefonia()[0].equals("-") && !venta.getTelefonia()[0].equals("")) {
+            for (int i = 0; i < venta.getCotizacionCliente().getProductoCotizador().size(); i++) {
+                if(!Utilidades.validarVacioProducto(venta.getCotizacionCliente().getProductoCotizador().get(i).getPlan())) {
+                    if (venta.getCotizacionCliente().getProductoCotizador().get(i).getTipo() == ProductoCotizador.getTELEFONIA()) {
+                        venta.getCotizacionCliente().getProductoCotizador().get(i).imprimir();
+                        if (!venta.getCotizacionCliente().getProductoCotizador().get(i).getLinea().equals("-- Seleccione Pago Linea --")) {
+                            reg.add(true);
+                        } else {
+                            reg.add(false);
+                            ja.put(Utilidades.jsonMensajes("Pago Linea", "Sin Seleccionar"));
+                        }
+                    } else if (venta.getCotizacionCliente().getProductoCotizador().get(i).getTipo() == ProductoCotizador.getTELEVISION()) {
+                        //cotizacionCliente.getProductoCotizador().set(i, rtv.getProductoCotizador());
+                        if (!Utilidades.excluirNacional("tipoTivo", venta.getCotizacionCliente().getProductoCotizador().get(i).getPlan())) {
+                            //System.out.println("decos json" + venta.getTelevision()[12]);
+
+                            UtilidadesDecos.imprimirDecos("Validar Decos ", venta.getCotizacionCliente().getProductoCotizador().get(i).getItemDecodificadores());
+
+                            JSONObject decos;
+                            int ext = 0;
+
+                            try {
+
+                               decos = new JSONObject(venta.getCotizacionCliente().getProductoCotizador().get(i).getJsonDecos());
+                               if (decos.has("ext")) {
+                                    ext = Utilidades.convertirNumericos(decos.getString("ext"), "decos.getString(ext)");
+                                }
+                            } catch (Exception e) {
+                                Log.w("Error ", e.getMessage());
+                            }
+
+
+                            JSONObject datosDecos = UtilidadesDecos.datosValidarDecos(venta.getCotizacionCliente().getProductoCotizador().get(i).getObjectDecodificador().getItemDecodificadors(), ext);
+
+                            //System.out.println("decos validacion "+datosDecos);
+
+                            boolean valicionDecos = UtilidadesDecos.validarDecos(datosDecos, venta.getCotizacionCliente().getProductoCotizador().get(i).getPlan());
+
+                            //System.out.println("valicionDecos " + valicionDecos);
+
+                            if (venta.getCotizacionCliente().getProductoCotizador().get(i).getPlan().contains("Existente")) {
+                                valicionDecos = true;
+                            }
+
+                            if (valicionDecos) {
+                                reg.add(true);
+                            } else {
+                                reg.add(false);
+                                ja.put(Utilidades.jsonMensajes("Config", "La configuracion de los decos es erronea"));
+                            }
+                        }
+                    } else if (venta.getCotizacionCliente().getProductoCotizador().get(i).getTipo() == ProductoCotizador.getINTERNET()) {
+                        //cotizacionCliente.getProductoCotizador().set(i, rba.getProductoCotizador());
+                    }
+                }
+            }
+
+            /*if (!venta.getTelefonia()[0].equals("-") && !venta.getTelefonia()[0].equals("")) {
                 if (!venta.getTelefonia()[3].equals("-- Seleccione Pago Linea --")) {
                     reg.add(true);
                 } else {
@@ -840,9 +896,9 @@ public class Validaciones {
 
             } else {
                 reg.add(true);
-            }
+            }*/
 
-            if (!venta.getTelevision()[0].equals("-")) {
+            /*if (!venta.getTelevision()[0].equals("-")) {
 
                 if (!venta.getTelevision()[13].equalsIgnoreCase(Utilidades.inicial_opcion)) {
                     reg.add(true);
@@ -870,7 +926,7 @@ public class Validaciones {
 				 * "No Puede Seleccionar Decos Sin Canales Compatibles")); }
 				 */
 
-                if (Utilidades.excluir("validarAgendaGPON", venta.getMunicipio())) {
+                /*if (Utilidades.excluir("validarAgendaGPON", venta.getMunicipio())) {
                     if (venta.getTelevision()[13].equalsIgnoreCase("GPON") && agenda) {
                         // reg.add(true);
                         if (venta.getHorarioAtencion().contains("AM")) {
@@ -932,9 +988,9 @@ public class Validaciones {
 
             } else {
                 reg.add(true);
-            }
+            }*/
 
-            if (!venta.getInternet()[0].equals("-")) {
+            /*if (!venta.getInternet()[0].equals("-")) {
                 if (!venta.getInternet()[5].equals("-")) {
                     if (!venta.getInternet()[6].equals("-- Seleccione Duración --")) {
                         reg.add(true);
@@ -954,7 +1010,7 @@ public class Validaciones {
                 } else {
                     reg.add(true);
                 }
-            }
+            }*/
 
             if (!reg.contains(false)) {
                 return true;
@@ -971,6 +1027,8 @@ public class Validaciones {
             return false;
         }
     }
+
+
 
     public static boolean validarProspecto(Prospecto prospecto) {
         ArrayList<Boolean> reg = new ArrayList<Boolean>();
@@ -1256,6 +1314,13 @@ public class Validaciones {
             } else {
                 reg.add(false);
                 ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.estadocuenta), context.getResources().getString(R.string.mensajeestadocuenta)));
+            }
+
+            if (UtilidadesTarificadorNew.validarCarrusel(cotizacionCliente, cliente, context )) {
+                reg.add(true);
+            } else {
+                reg.add(false);
+                ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.carruselTitulo), context.getResources().getString(R.string.carrusel)));
             }
 
             if (UtilidadesTarificadorNew.validarCotizacionClienteNuevo(cliente, cotizacionCliente)) {

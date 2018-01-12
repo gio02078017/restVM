@@ -1216,6 +1216,16 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
             productoCotizador.setAdicionalesCotizador(cadcTelefonia.listaAdicionalesConPromocion(cadcTelefonia.listaAdicionales()));
             productoCotizador.setTotalAdicionales(cadcTelefonia.calcularTotal());
+            double valor = UtilidadesTarificador.ImpuestoTelefonico(cliente.getCiudad(), cliente.getDepartamento(), cliente.getEstrato());
+            if(valor == -1){
+                valor = 0.0;
+            }
+
+            productoCotizador.setAdicionalesCotizador(cadcTelefonia.listaAdicionalesConPromocion(cadcTelefonia.listaAdicionales()));
+            ArrayList<AdicionalCotizador> adicionalesCotizador = productoCotizador.getAdicionalesCotizador();
+            adicionalesCotizador.add(new AdicionalCotizador("IMP","Impuesto Telefonico",valor,"Nuevo"));
+            productoCotizador.setAdicionalesCotizador(adicionalesCotizador);
+
 
         }
 
@@ -1263,6 +1273,15 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
             productoCotizador.setAdicionalesCotizador(cadcInternet.listaAdicionalesConPromocion(cadcInternet.listaAdicionales()));
+            if(cotizacionCliente.getGotaba().isControlGota()){
+                ArrayList<AdicionalCotizador> adicionalesCotizador = productoCotizador.getAdicionalesCotizador();
+                String nombreGota = "Gota de " + cotizacionCliente.getGotaba().getVelocidadInicial() + " a " + cotizacionCliente.getGotaba().getVelocidadFinal();
+                adicionalesCotizador.add(new AdicionalCotizador("ADBA",nombreGota,(double) Math.round(cotizacionCliente.getGotaba().getValorGota()),String.valueOf(cotizacionCliente.getGotaba().getValorGotaSinIva()),"Nuevo",cotizacionCliente.getGotaba().isControlGota(),cotizacionCliente.getGotaba().getVelocidadInicial(), cotizacionCliente.getGotaba().getVelocidadFinal()));
+                productoCotizador.setAdicionalesCotizador(adicionalesCotizador);
+                /*cotizacion.setGota(cotizacionCliente.getGotaba().isControlGota(), (int) Math.round(cotizacionCliente.getGotaba().getValorGota()),
+                        (int) Math.round(cotizacionCliente.getGotaba().getValorGotaSinIva()), cotizacionCliente.getGotaba().getVelocidadInicial(), cotizacionCliente.getGotaba().getVelocidadFinal(),
+                        nombreGota);*/
+            }
             productoCotizador.setTotalAdicionales(cadcInternet.calcularTotal());
 
         }

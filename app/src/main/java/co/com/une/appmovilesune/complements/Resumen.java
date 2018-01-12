@@ -4,6 +4,7 @@ import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.model.Cliente;
+import co.com.une.appmovilesune.model.ProductoCotizador;
 import co.com.une.appmovilesune.model.Venta;
 
 import android.app.Activity;
@@ -54,7 +55,17 @@ public class Resumen extends Activity {
 
         txtTotal = (TextView) findViewById(R.id.totalVenta);
 
-        if (!venta.getTelefonia()[0].equals("-") && !venta.getTelefonia()[0].equals("")) {
+        for (int i = 0; i < venta.getCotizacionCliente().getProductoCotizador().size(); i++) {
+                if (venta.getCotizacionCliente().getProductoCotizador().get(i).getTipo() == ProductoCotizador.getTELEFONIA()) {
+                    pintarTelefonia(venta.getCotizacionCliente().getProductoCotizador().get(i));
+                } else if (venta.getCotizacionCliente().getProductoCotizador().get(i).getTipo() == ProductoCotizador.getTELEVISION()) {
+                    pintarTelevision(venta.getCotizacionCliente().getProductoCotizador().get(i));
+                } else if (venta.getCotizacionCliente().getProductoCotizador().get(i).getTipo() == ProductoCotizador.getINTERNET()) {
+                    pintarInternet(venta.getCotizacionCliente().getProductoCotizador().get(i));
+                }
+        }
+
+       /* if (!venta.getTelefonia()[0].equals("-") && !venta.getTelefonia()[0].equals("")) {
             txtPlanTO.setText(venta.getTelefonia()[0]);
             if (!venta.getTelefonia()[6].equals("-")) {
                 txtDescuentoTO.setText(venta.getTelefonia()[6]);
@@ -125,10 +136,100 @@ public class Resumen extends Activity {
             txtDescuentoBA.setVisibility(View.GONE);
             findViewById(R.id.TableRow7).setVisibility(View.GONE);
             findViewById(R.id.TableRow8).setVisibility(View.GONE);
-        }
+        }*/
 
         txtTotal.setText(venta.getTotal());
 
+    }
+
+    public void pintarTelefonia(ProductoCotizador productoCotizador){
+        if(!Utilidades.validarVacioProducto(productoCotizador.getPlan())) {
+            txtPlanTO.setText(productoCotizador.getPlan());
+
+            if(productoCotizador.getDescuentoCargobasico() > 0.0){
+                txtDescuentoTO.setText(productoCotizador.descuentoConcatenado());
+            }else{
+                txtDescuentoTO.setVisibility(View.GONE);
+            }
+        }else{
+            lblTO.setVisibility(View.GONE);
+            txtPlanTO.setVisibility(View.GONE);
+            txtDescuentoTO.setVisibility(View.GONE);
+            findViewById(R.id.tableRow1).setVisibility(View.GONE);
+            findViewById(R.id.tableRow2).setVisibility(View.GONE);
+        }
+
+        /*if (!venta.getTelefonia()[0].equals("-") && !venta.getTelefonia()[0].equals("")) {
+            txtPlanTO.setText(venta.getTelefonia()[0]);
+            if (!venta.getTelefonia()[6].equals("-")) {
+                txtDescuentoTO.setText(venta.getTelefonia()[6]);
+            } else {
+                txtDescuentoTO.setVisibility(View.GONE);
+            }
+
+            if (!venta.getTelefonia()[13].equals("-") && !venta.getTelefonia()[13].trim().equals("")) {
+                txtAdicionalesTO.setText(venta.getTelefonia()[13]);
+            } else {
+                lblAdicionalTO.setVisibility(View.GONE);
+                txtAdicionalesTO.setVisibility(View.GONE);
+                findViewById(R.id.TableRow16).setVisibility(View.GONE);
+            }
+
+            if (Utilidades.excluirMunicipal("mensajeImpuestoEstrato", "mensajeImpuestoEstrato", cliente.getCiudad())) {
+                if (Utilidades.listaEstratos("mensajeImpuesto", cliente.getEstrato()).equalsIgnoreCase("true")) {
+                    tableimpuesto.setVisibility(View.VISIBLE);
+                }
+            } else {
+                tableimpuesto.setVisibility(View.VISIBLE);
+            }
+
+        } else {
+            lblTO.setVisibility(View.GONE);
+            txtPlanTO.setVisibility(View.GONE);
+            txtDescuentoTO.setVisibility(View.GONE);
+            findViewById(R.id.tableRow1).setVisibility(View.GONE);
+            findViewById(R.id.tableRow2).setVisibility(View.GONE);
+        }*/
+    }
+
+    public void pintarTelevision(ProductoCotizador productoCotizador){
+        if(!Utilidades.validarVacioProducto(productoCotizador.getPlan())) {
+            txtPlanTV.setText(productoCotizador.getPlan());
+
+            if(productoCotizador.getDescuentoCargobasico() > 0.0){
+                txtDescuentoTV.setText(productoCotizador.descuentoConcatenado());
+            }else{
+                txtDescuentoTV.setVisibility(View.GONE);
+            }
+        }else{
+            lblTV.setVisibility(View.GONE);
+            txtPlanTV.setVisibility(View.GONE);
+            txtDescuentoTV.setVisibility(View.GONE);
+            lblAdicional.setVisibility(View.GONE);
+            txtAdicionales.setVisibility(View.GONE);
+            findViewById(R.id.tableRow3).setVisibility(View.GONE);
+            findViewById(R.id.TableRow4).setVisibility(View.GONE);
+            findViewById(R.id.TableRow5).setVisibility(View.GONE);
+            findViewById(R.id.TableRow6).setVisibility(View.GONE);
+        }
+    }
+
+    public void pintarInternet(ProductoCotizador productoCotizador){
+        if(!Utilidades.validarVacioProducto(productoCotizador.getPlan())) {
+            txtPlanBA.setText(productoCotizador.getPlan());
+
+            if(productoCotizador.getDescuentoCargobasico() > 0.0){
+                txtDescuentoBA.setText(productoCotizador.descuentoConcatenado());
+            }else{
+                txtDescuentoBA.setVisibility(View.GONE);
+            }
+        }else{
+            lblBA.setVisibility(View.GONE);
+            txtPlanBA.setVisibility(View.GONE);
+            txtDescuentoBA.setVisibility(View.GONE);
+            findViewById(R.id.TableRow7).setVisibility(View.GONE);
+            findViewById(R.id.TableRow8).setVisibility(View.GONE);
+        }
     }
 
     public void aceptarResumen(View v) {

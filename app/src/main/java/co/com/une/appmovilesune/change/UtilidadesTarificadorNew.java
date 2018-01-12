@@ -892,11 +892,12 @@ public class UtilidadesTarificadorNew {
 
         boolean nuevos = false;
 
-        System.out.println("nuevos " + nuevos);
+        System.out.println("----Carrusel--- nuevos " + nuevos);
+        System.out.println("----Carrusel--- otizacionCliente.getProductoCotizador().size(); " + cotizacionCliente.getProductoCotizador().size());
 
         for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
-            if(Utilidades.validarVacioProducto(cotizacionCliente.getProductoCotizador().get(i).getPlan())){
-                System.out.println("cotizacion.getTipoCotizacion " + cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNumerico());
+            if(!Utilidades.validarVacioProducto(cotizacionCliente.getProductoCotizador().get(i).getPlan())){
+                System.out.println("----Carrusel--- cotizacion.getTipoCotizacion " + cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNumerico());
                 if (cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNumerico().equalsIgnoreCase("1")) {
                     nuevos = true;
                 }
@@ -904,7 +905,7 @@ public class UtilidadesTarificadorNew {
 
         }
 
-        System.out.println("nuevos " + nuevos);
+        System.out.println("----Carrusel--- nuevos respuesta " + nuevos);
 
         return nuevos;
     }
@@ -925,6 +926,88 @@ public class UtilidadesTarificadorNew {
     public static String calcularDescuento(double porcentaje, double precio){
         double total = (precio * porcentaje)/100;
         return String.valueOf(total);
+    }
+
+    public static boolean validarCarrusel(CotizacionCliente cotizacionCliente,Cliente cliente, Context context) {
+        boolean validar = true;
+
+        ArrayList<String> productosLog = new ArrayList<String>();
+
+        if (Utilidades.validarPermiso("carrusel") || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
+            return true;
+        }
+
+        System.out.println("----Carrusel--- carrusel inicio validacion");
+        System.out.println("----Carrusel--- cliente.isControlCarrusel() "+cliente.isControlCarrusel());
+
+        if (Utilidades.excluir("MunicipiosCarrusel", cliente.getCiudad())) {
+            if (cliente.isControlCarrusel()) {
+                System.out.println("----Carrusel--- if ");
+                System.out.println("----Carrusel--- cliente.getCodigoCarrusel() "+cliente.getCodigoCarrusel());
+                if (cliente.getCodigoCarrusel().equals("02") || cliente.getCodigoCarrusel().equals("-1")) {
+                } else if (cliente.getDireccion().equalsIgnoreCase(cliente.getDireccionCarrusel())) {
+                    if (cliente.getCodigoCarrusel().equals("00") && cliente.getArraycarrusel() != null) {
+                        if (cliente.getArraycarrusel().size() > 0) {
+                            for (int i = 0; i < cliente.getArraycarrusel().size(); i++) {
+                                if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("TO")) {
+                                    ProductoCotizador productoCotizador = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(),ProductoCotizador.getTELEFONIA());
+                                    if(!Utilidades.validarVacioProducto(productoCotizador.getPlan())){
+                                        if (!UtilidadesTarificador.validarCarruselProductos(
+                                                productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), context)) {
+                                            productosLog.add("TO");
+                                        }
+                                    }
+                                } else if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("TV")) {
+                                    ProductoCotizador productoCotizador = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(),ProductoCotizador.getTELEVISION());
+                                    if(!Utilidades.validarVacioProducto(productoCotizador.getPlan())){
+                                        if (!UtilidadesTarificador.validarCarruselProductos(
+                                                productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), context)) {
+                                            productosLog.add("TV");
+                                        }
+                                    }
+
+                                } else if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("BA")) {
+                                    ProductoCotizador productoCotizador = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(),ProductoCotizador.getINTERNET());
+                                    if(!Utilidades.validarVacioProducto(productoCotizador.getPlan())){
+                                        if (!UtilidadesTarificador.validarCarruselProductos(
+                                                productoCotizador.getTipoPeticion(), productoCotizador.getPlan(), context)) {
+                                            productosLog.add("TV");
+                                        }
+                                    }
+                                }
+                            }
+
+                            if(productosLog.size() > 0){
+                                validar = false;
+                                for (String prod: productosLog) {
+                                    //Log.i(TAG,"LOG "+prod);
+                                }
+                            }
+
+
+
+                        }
+                    } else if (cliente.getCodigoCarrusel().equals("01")) {
+                    }
+                } else {
+                    Toast.makeText(context, context.getResources().getString(R.string.mensajeRetiros), Toast.LENGTH_SHORT).show();
+                    //resultCotizador("carrusel");
+                    return  false;
+                }
+            } else {
+                System.out.println("----Carrusel--- else ");
+               if (productosNuevos(cotizacionCliente)) {
+                   System.out.println("----Carrusel--- cliente.getCodigoCarrusel() "+cliente.getCodigoCarrusel());
+                    if (cliente.getCodigoCarrusel() == null) {
+                        Toast.makeText(context, context.getResources().getString(R.string.mensajeRetiros), Toast.LENGTH_SHORT)
+                                .show();
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return validar;
     }
 
 

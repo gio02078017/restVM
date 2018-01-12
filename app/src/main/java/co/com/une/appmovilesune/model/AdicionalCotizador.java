@@ -35,6 +35,7 @@ public class AdicionalCotizador implements Serializable {
         this.velocidadFinal = velocidadFinal;
         this.velocidadInicial = velocidadInicial;
         this.precioSinIva = precioSinIva;
+        this.gota = false;
     }
 
     public AdicionalCotizador(String tipoAdicional, String nombreAdicional, double precioAdicional, String descuento, String duracionDescuento, String tiposolicitud, int permanencia, int demo) {
@@ -46,6 +47,7 @@ public class AdicionalCotizador implements Serializable {
         this.tiposolicitud = tiposolicitud;
         this.permanencia = permanencia;
         this.demo = demo;
+        this.gota = false;
     }
 
     public AdicionalCotizador(String tipoAdicional, String nombreAdicional, double precioAdicional, String descuento, String duracionDescuento, String tiposolicitud) {
@@ -55,15 +57,33 @@ public class AdicionalCotizador implements Serializable {
         this.descuento = descuento;
         this.duracionDescuento = duracionDescuento;
         this.tiposolicitud = tiposolicitud;
+        this.gota = false;
     }
 
-    public AdicionalCotizador(String nombreAdicional, double precioAdicional,String tipoAdicional,String tiposolicitud) {
+    public AdicionalCotizador(String tipoAdicional,String nombreAdicional, double precioAdicional,String tiposolicitud) {
         this.nombreAdicional = nombreAdicional;
         this.precioAdicional = precioAdicional;
         this.tipoAdicional = tipoAdicional;
         this.tiposolicitud = tiposolicitud;
         this.descuento = "-";
         this.duracionDescuento = "0 meses";
+        this.demo = 0;
+        this.gota = false;
+    }
+
+    public AdicionalCotizador(String tipoAdicional, String nombreAdicional, double precioAdicional,String precioSinIva,String tiposolicitud,boolean gota, String velocidadFinal, String velocidadInicial) {
+        this.tipoAdicional = tipoAdicional;
+        this.nombreAdicional = nombreAdicional;
+        this.precioAdicional = precioAdicional;
+        this.precioSinIva = precioSinIva;
+        this.tiposolicitud = tiposolicitud;
+        this.gota = gota;
+        this.velocidadFinal = velocidadFinal;
+        this.velocidadInicial = velocidadInicial;
+        this.descuento = "0.0";
+        this.duracionDescuento = "0";
+        this.permanencia = 0;
+        this.demo = 0;
     }
 
     public String getTipoAdicional() {
@@ -160,5 +180,23 @@ public class AdicionalCotizador implements Serializable {
 
     public void setPrecioSinIva(String precioSinIva) {
         this.precioSinIva = precioSinIva;
+    }
+
+    public void imprimirAdicional(){
+        System.out.println("Impresion Adicionales Inicio");
+        System.out.println("Impresion Adicionales tipoAdicional  => " + tipoAdicional);
+        System.out.println("Impresion Adicionales nombreAdicional  => "+nombreAdicional);
+        System.out.println("Impresion Adicionales precioAdicional  => "+ precioAdicional);
+        System.out.println("Impresion Adicionales precioSinIva  => "+ precioSinIva );
+        System.out.println("Impresion Adicionales descuento  => "+ descuento);
+        System.out.println("Impresion Adicionales duracionDescuento  => "+ duracionDescuento );
+        System.out.println("Impresion Adicionales tiposolicitud  => "+ tiposolicitud );
+        System.out.println("Impresion Adicionales permanencia  => "+ permanencia );
+        System.out.println("Impresion Adicionales demo  => "+ demo );
+        System.out.println("Impresion Adicionales gota  => "+ gota );
+        System.out.println("Impresion Adicionales velocidadFinal  => "+ velocidadFinal );
+        System.out.println("Impresion Adicionales velocidadInicial  => "+ velocidadInicial );
+        System.out.println("Impresion Adicionales precioSinIva  => "+ precioSinIva );
+        System.out.println("Impresion Adicionales Fin");
     }
 }
