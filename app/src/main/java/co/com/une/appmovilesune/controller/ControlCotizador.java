@@ -127,8 +127,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     private String codigoClienteNuevo = "";
 
     private boolean clienteNuevo;
+    private boolean clienteSmartPromo;
 
     private Dialogo dialogo;
+
+    public boolean controlServicios = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,19 +234,20 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     protected void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
+        if(!controlServicios) {
+            System.out.println("smart promo => " + Utilidades.excluir("ConsultarSmartPromo", cliente.getCiudad()));
 
-        System.out.println("smart promo => " + Utilidades.excluir("ConsultarSmartPromo", cliente.getCiudad()));
+            if (Utilidades.excluir("ConsultarSmartPromo", cliente.getCiudad())) {
+                lanzarTipoHogar();
+            }
 
-        if (Utilidades.excluir("ConsultarSmartPromo", cliente.getCiudad())) {
-            lanzarTipoHogar();
-        }
+            MainActivity.basedatos.eliminar("pagoparcialanticipado", null, null);
+            MainActivity.basedatos.eliminar("valorconexion", null, null);
+            MainActivity.basedatos.eliminar("pagoParcial", null, null);
 
-        MainActivity.basedatos.eliminar("pagoparcialanticipado", null, null);
-        MainActivity.basedatos.eliminar("valorconexion", null, null);
-        MainActivity.basedatos.eliminar("pagoParcial", null, null);
-
-        if (!Utilidades.excluir("excluirppca", cliente.getCiudad())) {
-            obtenerPagoParcialAnticipado();
+            if (!Utilidades.excluir("excluirppca", cliente.getCiudad())) {
+                obtenerPagoParcialAnticipado();
+            }
         }
 
     }
@@ -640,7 +644,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         if(cotizacionCliente.getControl().equalsIgnoreCase("00")) {
 
             //productos = obtenerValorConexionCotizacion(cotizacionCliente);
-            productos = UtilidadesPagoParcial.obtenerPagoParcial(cotizacionCliente);if (productos != null) {
+            productos = UtilidadesPagoParcial.obtenerPagoParcial(cotizacionCliente);
+            UtilidadesTarificadorNew.tipoDeFacturacion(cotizacionCliente,cliente);
+
+            if (productos != null) {
             for (int i = 0; i < productos.size(); i++) {
 
 
@@ -732,11 +739,14 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     }
 
     public void procesarCotizacion2(CotizacionCliente cotizacionCliente) {
+
         if (cprdTelevision.isActivo() || cprdInternet.isActivo() || cprdTelefonia.isActivo()) {
             if (!spnestrato.getSelectedItem().equals("--Seleccione Estrato--")
                     && (!cprdTelefonia.getPlan().equals("--Seleccione Producto--")
                     || !cprdTelevision.getPlan().equals("--Seleccione Producto--")
                     || !cprdInternet.getPlan().equals("--Seleccione Producto--"))) {
+
+                controlServicios = false;
 
                 cotizacionCliente.setTipoOferta((String) spntipooferta.getSelectedItem());
                 cotizacionCliente.setOfertaCotizacion((String) spnoferta.getSelectedItem());
@@ -779,6 +789,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     Intent intent = new Intent(MainActivity.MODULO_MENSAJES);
                     intent.putExtra("mensajes", Validaciones.getMensajes().toString());
                     startActivityForResult(intent, MainActivity.REQUEST_CODE);
+                    controlServicios = true;
                 }
 
             }
@@ -2249,6 +2260,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     private void tratarPagoParcialAnticipado(String respuesta) {
 
         Log.i("JSon", respuesta);
+        clienteSmartPromo = false;
+        cliente.setClienteNuevoSmartPromo(false);
 
         try {
             JSONObject json = new JSONObject(respuesta);
@@ -2266,8 +2279,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 JSONArray jsonValoresConexion = json.getJSONObject("data").getJSONArray("valorConexion");
                 JSONArray jsonPagoParcial = json.getJSONObject("data").getJSONArray("pagoParcial");
 
+                System.out.println("cliente nuevo "+json.getJSONObject("data").getBoolean("clienteNuevo"));
+
                 if(codigoClienteNuevo.equalsIgnoreCase("00")){
                     clienteNuevo = json.getJSONObject("data").getBoolean("clienteNuevo");
+                    cliente.setClienteNuevoSmartPromo(json.getJSONObject("data").getBoolean("clienteNuevo"));
                 }else {
                     clienteNuevo = true;
                 }

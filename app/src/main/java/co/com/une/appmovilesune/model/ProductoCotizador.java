@@ -49,9 +49,6 @@ public class ProductoCotizador implements Serializable {
     private String planFacturacionAnterior;
     private String planFacturacionActual;
 
-    private String tipoFacturacion;
-    private String smartPromo;
-
     private ArrayList<AdicionalCotizador> adicionalesCotizador;
     private double totalAdicionales;
 
@@ -60,6 +57,12 @@ public class ProductoCotizador implements Serializable {
     private ArrayList<ItemDecodificador> decodificadores;
     private String jsonDecos = null;
     private double totalDecos = 0.0;
+
+    private String activacion;
+    private String tipoTransaccion;
+    private String inicioFacturacion;
+    private String tipoFacturacion;
+    private boolean smartPromo;
 
     public ProductoCotizador(String tipoPeticion, int tipo, String plan, double cargoBasicoInd, double cargoBasicoEmp, double descuentoCargobasico, int duracionDescuento, String planFacturacionInd, String planFacturacionEmp, String velocidad) {
         this.tipoPeticion = tipoPeticion;
@@ -307,7 +310,43 @@ public class ProductoCotizador implements Serializable {
         this.planFacturacionActual = planFacturacionActual;
     }
 
+    public String getActivacion() {
+        if(activacion == null || activacion.equalsIgnoreCase("")){
+            activacion  = "N/A";
+        }
+        return activacion;
+    }
+
+    public void setActivacion(String activacion) {
+        this.activacion = activacion;
+    }
+
+    public String getTipoTransaccion() {
+        if(tipoTransaccion == null || tipoTransaccion.equalsIgnoreCase("")){
+            tipoTransaccion  = "N/A";
+        }
+        return tipoTransaccion;
+    }
+
+    public void setTipoTransaccion(String tipoTransaccion) {
+        this.tipoTransaccion = tipoTransaccion;
+    }
+
+    public String getInicioFacturacion() {
+        if(inicioFacturacion == null || inicioFacturacion.equalsIgnoreCase("")){
+            inicioFacturacion  = "N/A";
+        }
+        return inicioFacturacion;
+    }
+
+    public void setInicioFacturacion(String inicioFacturacion) {
+        this.inicioFacturacion = inicioFacturacion;
+    }
+
     public String getTipoFacturacion() {
+        if(tipoFacturacion == null || tipoFacturacion.equalsIgnoreCase("")){
+            tipoFacturacion  = "N/A";
+        }
         return tipoFacturacion;
     }
 
@@ -315,11 +354,11 @@ public class ProductoCotizador implements Serializable {
         this.tipoFacturacion = tipoFacturacion;
     }
 
-    public String getSmartPromo() {
+    public boolean isSmartPromo() {
         return smartPromo;
     }
 
-    public void setSmartPromo(String smartPromo) {
+    public void setSmartPromo(boolean smartPromo) {
         this.smartPromo = smartPromo;
     }
 
@@ -384,6 +423,20 @@ public class ProductoCotizador implements Serializable {
             Respuesta = "0";
         } else if (tipoPeticion.equalsIgnoreCase("E")) {
             Respuesta = "3";
+        }
+
+        return Respuesta;
+    }
+
+    public String getTipoPeticionNombreCompeto() {
+        String Respuesta = "";
+
+        if (tipoPeticion.equalsIgnoreCase("N")) {
+            Respuesta = "Nuevo";
+        } else if (tipoPeticion.equalsIgnoreCase("C")) {
+            Respuesta = "Cambio";
+        } else if (tipoPeticion.equalsIgnoreCase("E")) {
+            Respuesta = "Existente";
         }
 
         return Respuesta;

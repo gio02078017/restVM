@@ -105,6 +105,12 @@ public class Utilidades {
     public static double precioCero = 0;
     public static String tipoAdicionalBa = "AD_BA";
 
+    public static String id_ivr = "841";
+    public static String nombre_ivr_venta = "finalizacion_venta";
+    public static String nombre_ivr_scoring = "scoring";
+    public static int tipoIvrScoring = 1;
+    public static int tipoIvrVenta = 5;
+
     public Utilidades() {
 
     }
@@ -3953,6 +3959,15 @@ public class Utilidades {
             wifi = -1;
         }
 
+
+        ArrayList<ItemDecodificador> itemDecodificadors = null;
+
+            /*System.out.println("decodificador tipo ["+tipo+"] "+decodificador);*/
+
+        if(productoCotizador.getDecodificadores() != null){
+            itemDecodificadors = productoCotizador.getDecodificadores();
+        }
+
         JSONObject productos = new JSONObject();
         try {
             productos.put("nombre", productoCotizador.getPlan());
@@ -3975,10 +3990,15 @@ public class Utilidades {
             productos.put("planfacturacion", "");
             productos.put("identificador", "");
             productos.put("ipDinamica", "");
-            productos.put("adicionales", jsonArrayAdicionales(productoCotizador.getAdicionalesCotizador()));
+            productos.put("adicionales", jsonArrayAdicionales(productoCotizador.getAdicionalesCotizador(),itemDecodificadors ));
             productos.put("planFacturacion", productoCotizador.getPlanFacturacion());
             productos.put("tecnologia", productoCotizador.getTecnologia());
             productos.put("tecnologiacr", "N/A");
+            productos.put("activacion",productoCotizador.getActivacion());
+            productos.put("tipoTransaccion",productoCotizador.getTipoTransaccion());
+            productos.put("inicioFacturacion",productoCotizador.getInicioFacturacion());
+            productos.put("tipoFacturacion",productoCotizador.getTipoFacturacion());
+            productos.put("smartPromo",productoCotizador.isSmartPromo());
 
 
             /*if (!productoCotizador.getTecnologia().equalsIgnoreCase("IPTV")) {
@@ -4002,13 +4022,6 @@ public class Utilidades {
 
             }*/
 
-            ArrayList<ItemDecodificador> itemDecodificadors = null;
-
-            /*System.out.println("decodificador tipo ["+tipo+"] "+decodificador);*/
-
-            if(productoCotizador.getDecodificadores() != null){
-                itemDecodificadors = productoCotizador.getDecodificadores();
-            }
 
             //UtilidadesDecos.imprimirDecos("itemDecodificadors jsonProductosVenta tipo ["+productoCotizador.getTipo()+"] ",itemDecodificadors);
 
@@ -4098,13 +4111,19 @@ public class Utilidades {
         return productos;
     }
 
-    public static JSONArray jsonArrayAdicionales(ArrayList<AdicionalCotizador> adicionalesCotizador) {
+    public static JSONArray jsonArrayAdicionales(ArrayList<AdicionalCotizador> adicionalesCotizador, ArrayList<ItemDecodificador> itemDecodificadors) {
 
         JSONArray arrayAdicionales = new JSONArray();
 
         if(adicionalesCotizador != null) {
             for (int i = 0; i < adicionalesCotizador.size(); i++) {
                 arrayAdicionales.put(jsonObjectAdicional(adicionalesCotizador.get(i)));
+            }
+        }
+
+        if(itemDecodificadors != null){
+            for (int i = 0; i < itemDecodificadors.size(); i++) {
+                arrayAdicionales.put(jsonObjectAdicionalDecos(itemDecodificadors.get(i)));
             }
         }
 
@@ -4131,6 +4150,196 @@ public class Utilidades {
         }
 
         return adicional;
+    }
+
+    public static JSONObject jsonObjectAdicionalDecos(ItemDecodificador itemDecodificador) {
+
+        JSONObject adicional = new JSONObject();
+
+        try {
+            adicional.put("tipo", "Equipo");
+            adicional.put("solicitud", itemDecodificador.getTipoTransaccion());
+            adicional.put("nombre", itemDecodificador.getOriginal());
+            adicional.put("precio", String.valueOf(itemDecodificador.getPrecio()));
+            adicional.put("precioSinIva", null);
+            adicional.put("descuento", itemDecodificador.getDescuento());
+            adicional.put("duracion", itemDecodificador.getTiempo());
+            adicional.put("permanencia", 0);
+            adicional.put("demo", 0);
+        } catch (JSONException e) {
+            Log.w("error " + e.getMessage());
+        }
+
+        return adicional;
+    }
+
+    public static JSONObject jsonProductosCotizacionIVR(ProductoCotizador productoCotizador) {
+
+        //System.out.println("jsonProductosVenta->tecnologiacr " + tecnologiacr);
+        JSONArray arrayAdicionales = null;
+
+        JSONArray arrayEquipos = new JSONArray();
+        JSONObject mejorasDecos = new JSONObject();
+        int wifi;
+        String cambioPlan = "";
+
+        /*System.out.println("adicionales " + adicionales);
+        try {
+
+            System.out.println("adicionales " + adicionales);
+
+            arrayAdicionales = new JSONArray(adicionales);
+
+        } catch (JSONException e1) {
+            // e1.printStackTrace();
+            Log.w("error " + e1.getMessage());
+            arrayAdicionales = new JSONArray();
+        }*/
+
+        if (productoCotizador.getCambioPlan().equalsIgnoreCase("Nueva")) {
+            cambioPlan = "0";
+        } else {
+            cambioPlan = "1";
+        }
+
+        if (productoCotizador.getWifi() != null) {
+            if (productoCotizador.getWifi().equalsIgnoreCase("SI")) {
+                wifi = 1;
+            } else {
+                wifi = 0;
+            }
+        }else{
+            wifi = -1;
+        }
+
+
+        ArrayList<ItemDecodificador> itemDecodificadors = null;
+
+            /*System.out.println("decodificador tipo ["+tipo+"] "+decodificador);*/
+
+        if(productoCotizador.getDecodificadores() != null){
+            itemDecodificadors = productoCotizador.getDecodificadores();
+        }
+
+        JSONObject productos = new JSONObject();
+        try {
+            productos.put("idProducto", "");
+            productos.put("tipoProducto", productoCotizador.traducirProducto().toUpperCase());
+            productos.put("nombre", productoCotizador.getPlan());
+            productos.put("id", "");
+            productos.put("valor", productoCotizador.getPrecio());
+            productos.put("porcentajeDescuento", productoCotizador.getDescuentoCargobasico());
+            productos.put("duracionDescuento", productoCotizador.getDuracionDescuento());
+            productos.put("permanencia", false);
+
+            if(productoCotizador.getTipoPeticion().equalsIgnoreCase("N")){
+                productos.put("permanencia", true);
+            }
+
+            productos.put("accion", productoCotizador.getTipoPeticionNombreCompeto());
+            productos.put("pagoAntCargoFijo", productoCotizador.getPagoAnticipado());
+            productos.put("pagoParcialConexion", productoCotizador.getPagoParcial());
+            productos.put("adicionales", jsonArrayAdicionalesIVR(productoCotizador.getAdicionalesCotizador(),itemDecodificadors ));
+            productos.put("activacion",productoCotizador.getActivacion());
+            productos.put("tipoTransaccion",productoCotizador.getTipoTransaccion());
+            productos.put("inicioFacturacion",productoCotizador.getInicioFacturacion());
+            productos.put("tipoFacturacion",productoCotizador.getTipoFacturacion());
+
+
+        } catch (JSONException e) {
+            Log.w("error " + e.getMessage());
+        }
+
+        //System.out.println("productos tipo ["+productoCotizador.traducirProducto()+"] "+productos);
+        return productos;
+    }
+
+    public static JSONArray jsonArrayAdicionalesIVR(ArrayList<AdicionalCotizador> adicionalesCotizador, ArrayList<ItemDecodificador> itemDecodificadors) {
+
+        JSONArray arrayAdicionales = new JSONArray();
+
+        if(adicionalesCotizador != null) {
+            for (int i = 0; i < adicionalesCotizador.size(); i++) {
+                arrayAdicionales.put(jsonObjectAdicionalIVR(adicionalesCotizador.get(i)));
+            }
+        }
+
+        if(itemDecodificadors != null){
+            for (int i = 0; i < itemDecodificadors.size(); i++) {
+                arrayAdicionales.put(jsonObjectAdicionalDecosIVR(itemDecodificadors.get(i)));
+            }
+        }
+
+        return arrayAdicionales;
+
+    }
+
+    public static JSONObject jsonObjectAdicionalIVR(AdicionalCotizador adicionalesCotizador) {
+
+        JSONObject adicional = new JSONObject();
+
+        try {
+            adicional.put("idProducto", "");
+            adicional.put("tipoProducto", adicionalesCotizador.getTipoAdicional());
+            adicional.put("nombre", adicionalesCotizador.getNombreAdicional());
+            adicional.put("id", "");
+            adicional.put("valor", String.valueOf(adicionalesCotizador.getPrecioAdicional()));
+            adicional.put("porcentajeDescuento", adicionalesCotizador.getDescuento());
+            adicional.put("duracionDescuento", adicionalesCotizador.getDuracionDescuento());
+            adicional.put("permanencia", false);
+            adicional.put("adicionales",new JSONArray());
+            adicional.put("cargos",new JSONArray());
+            adicional.put("accion", adicionalesCotizador.getTiposolicitud());
+        } catch (JSONException e) {
+            Log.w("error " + e.getMessage());
+        }
+
+        return adicional;
+    }
+
+    public static JSONObject jsonObjectAdicionalDecosIVR(ItemDecodificador itemDecodificador) {
+
+        JSONObject adicional = new JSONObject();
+
+        try {
+            adicional.put("idProducto", "");
+            adicional.put("tipoProducto", "Equipo");
+            adicional.put("nombre", itemDecodificador.getOriginal());
+            adicional.put("id", "");
+            adicional.put("valor", String.valueOf(itemDecodificador.getPrecio()));
+            adicional.put("porcentajeDescuento", itemDecodificador.getDescuento());
+            adicional.put("duracionDescuento", itemDecodificador.getTiempo());
+            adicional.put("permanencia", false);
+            adicional.put("adicionales",new JSONArray());
+            adicional.put("cargos",new JSONArray());
+            adicional.put("accion", itemDecodificador.getTipoTransaccion());
+        } catch (JSONException e) {
+            Log.w("error " + e.getMessage());
+        }
+
+        return adicional;
+    }
+
+    public static Boolean validarNullyVacio(String parametro) {
+
+        boolean datoNullyVacio = false;
+
+        if(parametro == null || parametro.equalsIgnoreCase("")){
+            datoNullyVacio = true;
+        }
+
+        return datoNullyVacio;
+    }
+
+    public static String cumpleMail(Cliente cliente){
+
+        String mail = "NO";
+
+        if (!cliente.getCorreo().equalsIgnoreCase("") && !cliente.getCorreo().contains("@sincorreo.com")) {
+            mail = "SI";
+        }
+
+        return mail;
     }
 
 }

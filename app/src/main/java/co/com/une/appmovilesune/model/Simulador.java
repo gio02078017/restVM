@@ -142,7 +142,10 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
         } else if (accion.equals("LanzarLlamada")) {
             parametros = (ArrayList<String>) params[0].get(2);
             resultados.add(LanzarLlamada(parametros));
-        } else if (accion.equals("ConsultarRespuesta")) {
+        }else if (accion.equals("LanzarLLamadaPorLlamadasMasivas")) {
+            parametros = (ArrayList<String>) params[0].get(2);
+            resultados.add(LanzarLLamadaPorLlamadasMasivas(parametros));
+        }  else if (accion.equals("ConsultarRespuesta")) {
             parametros = (ArrayList<String>) params[0].get(2);
             resultados.add(consultarRespuesta(parametros));
         } else if (accion.equals("actualizarBandera")) {
@@ -444,7 +447,15 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
             resultado = result;
 
             notifyObserver();
-        } else if (result.get(0).equals("ConsultarRespuesta")) {
+        } else if (result.get(0).equals("LanzarLlamada")) {
+            // MainActivity.btnCarteraUne.setInvisible();
+            // System.out.println(result);
+            System.out.println("Simulador 161 LanzarLlamada => " + observer);
+            System.out.println("result " + result);
+            resultado = result;
+
+            notifyObserver();
+        }else if (result.get(0).equals("LanzarLLamadaPorLlamadasMasivas")) {
             // MainActivity.btnCarteraUne.setInvisible();
             // System.out.println(result);
             System.out.println("Simulador 161 Consultar Respuesta => " + observer);
@@ -1000,6 +1011,21 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
         param.add(new String[]{"PagoParcial", parametros.get(6)});
 
         return MainActivity.conexion.ejecutarSoap("LanzarLlamada", param);
+
+    }
+
+    public String LanzarLLamadaPorLlamadasMasivas(ArrayList<String> parametros) {
+
+        ArrayList<String[]> param = new ArrayList<String[]>();
+
+        param.add(new String[]{"parametros", parametros.get(0)});
+        param.add(new String[]{"codigoAsesor", parametros.get(1)});
+        param.add(new String[]{"idConfirmacion", parametros.get(2)});
+        param.add(new String[]{"idCampaña", parametros.get(3)});
+        param.add(new String[]{"documentoCliente",parametros.get(4)});
+        param.add(new String[]{"nombreCliente",parametros.get(5)});
+
+        return MainActivity.conexion.ejecutarSoap("LanzarLLamadaPorLlamadasMasivas", param);
 
     }
 

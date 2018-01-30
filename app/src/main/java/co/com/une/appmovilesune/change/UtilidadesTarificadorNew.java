@@ -1010,6 +1010,55 @@ public class UtilidadesTarificadorNew {
         return validar;
     }
 
+    public static CotizacionCliente tipoDeFacturacion(CotizacionCliente cotizacionCliente, Cliente cliente ) {
+
+        //ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
+        System.out.println("cliente.servicio "+cliente.getServicioElite() );
+        System.out.println("cliente smart promo "+cliente.isClienteNuevoSmartPromo());
+
+        if(!Utilidades.validarNullyVacio(cliente.getServicioElite())) {
+            try {
+                JSONObject facturacion_SmartPromo = new JSONObject(cliente.getServicioElite());
+
+                if(facturacion_SmartPromo.has("resultTipoFacturacionySmartPromoxCiudad") && facturacion_SmartPromo.getJSONObject("resultTipoFacturacionySmartPromoxCiudad").getString("codigoRespuesta").equalsIgnoreCase("00")){
+                    if (!UtilidadesTarificadorNew.ventaConExistente(cotizacionCliente)) {
+                        System.out.println("venta nueva ");
+                        System.out.println("cliente smart promo "+cliente.isClienteNuevoSmartPromo());
+                        JSONObject informacion =  facturacion_SmartPromo.getJSONObject("resultTipoFacturacionySmartPromoxCiudad").getJSONObject("datos");
+                        for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
+                            cotizacionCliente.getProductoCotizador().get(i).setTipoFacturacion(informacion.getString("tipoFacturacion"));
+                            cotizacionCliente.getProductoCotizador().get(i).setSmartPromo(false);
+                            cotizacionCliente.getProductoCotizador().get(i).setActivacion("Activacion");
+                            cotizacionCliente.getProductoCotizador().get(i).setInicioFacturacion("I");
+                            if(informacion.getString("smartpromo").equalsIgnoreCase("ON") && cliente.isClienteNuevoSmartPromo()){
+                                cotizacionCliente.getProductoCotizador().get(i).setSmartPromo(true);
+                                cotizacionCliente.getProductoCotizador().get(i).setInicioFacturacion("S");
+                            }
+                        }
+
+                        cotizacionCliente.setLecturaxProducto("NO");
+                        cotizacionCliente.setOfertaTipoFacturacion(informacion.getString("tipoFacturacion"));
+                        cotizacionCliente.setSmartPromo(false);
+                        cotizacionCliente.setOfertaInicioFacturacion("I");
+                        if(informacion.getString("smartpromo").equalsIgnoreCase("ON") && cliente.isClienteNuevoSmartPromo()){
+                            cotizacionCliente.setSmartPromo(true);
+                            cotizacionCliente.setOfertaInicioFacturacion("S");
+                        }
+                    } else {
+                        System.out.println("venta existente ");
+                    }
+                }
+
+
+            }catch(JSONException e){
+                System.out.println("error "+e.getMessage());
+            }
+        }
+
+
+        return cotizacionCliente;
+    }
+
 
 
 }

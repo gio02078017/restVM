@@ -2,6 +2,7 @@ package co.com.une.appmovilesune.change;
 
 import android.content.ContentValues;
 
+import org.apache.commons.logging.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +13,7 @@ import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.adapters.ListaCotizacion;
 import co.com.une.appmovilesune.model.CotizacionCliente;
 import co.com.une.appmovilesune.model.ProductoCotizador;
+import co.com.une.appmovilesune.model.Cliente;
 
 /**
  * Created by Gospina on 28/10/2016.

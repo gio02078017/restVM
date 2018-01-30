@@ -281,11 +281,14 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
                         scooringPrueba(cliente.getCedula());
                         cliente.setRealizoConfronta(true);
                         cliente.setConfronta(true);
-                    } else if (cliente.getTipoCuenta().equalsIgnoreCase("")) {
-
-                        IngresarEstadoCuenta(deshabilitarIvr);
-
                     } else if (!cliente.getTipoCuenta().equalsIgnoreCase("")) {
+                        if(cliente.getScooringune()!= null && !cliente.getScooringune().getIdScooring().equalsIgnoreCase("")){
+                            if(idScooring.equalsIgnoreCase("")){
+                                if(cliente.getScooringune().getDocumentoScooring().equalsIgnoreCase(cliente.getCedula())){
+                                    idScooring = cliente.getScooringune().getIdScooring();
+                                }
+                            }
+                        }
                         if (!idScooring.equalsIgnoreCase("")) {
                             if (Utilidades.validarFechaConsuta(fecha1, Calendario.getTimestamp(), context)) {
                                 ResultadoScooring(idScooring);
@@ -293,6 +296,9 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
                         } else {
                             IngresarEstadoCuenta(deshabilitarIvr);
                         }
+                    }else{
+                        IngresarEstadoCuenta(deshabilitarIvr);
+                        IngresarEstadoCuenta(deshabilitarIvr);
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.ingresetelefono),
@@ -1909,6 +1915,7 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
                         cliente.setIdIVR(Utilidades.convertirNumericos(idIVR, "idIVR Control Simulador"));
                         if (!idIVR.equalsIgnoreCase("")) {
                             LanzarLLamada(idIVR, "1", "NO", "0");
+                            //LanzarLLamadaPorLlamadasMasivas(idIVR);
                         } else {
                             System.out.println("Error " + confirmacion.getString("mensaje"));
                         }
@@ -1939,7 +1946,22 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
             } else if (resultado.get(1).equals("FAIL")) {
                 Toast.makeText(this, "EL lanzamiento de la llamada fallo", Toast.LENGTH_SHORT).show();
             }
-        } else if (resultado.get(0).equals("ConsultarRespuesta")) {
+        }else if (resultado.get(0).equals("LanzarLLamadaPorLlamadasMasivas")) {
+            System.out.println("data LanzarLLamadaPorLlamadasMasivas" + resultado.get(1));
+
+            try {
+                JSONObject jop = new JSONObject(resultado.get(1).toString());
+                if (jop.has("codigoMensaje") && jop.getString("codigoMensaje").equalsIgnoreCase("00")) {
+                    mostrarDialogo();
+                } else {
+                    Toast.makeText(this, "EL lanzamiento de la llamada fallo", Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "EL lanzamiento de la llamada fallo", Toast.LENGTH_SHORT).show();
+            }
+
+        }  else if (resultado.get(0).equals("ConsultarRespuesta")) {
 
             System.out.println("data " + resultado.get(1));
             System.out.println(resultado);
@@ -2418,7 +2440,8 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
                 simulador.execute(params);
 
             } else {
-                LanzarLLamada(idIVR, "1", "NO", "0");
+                //LanzarLLamada(idIVR, "1", "NO", "0");
+                LanzarLLamadaPorLlamadasMasivas(idIVR);
             }
 
         } else {
@@ -2441,6 +2464,40 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
         ArrayList<Object> params = new ArrayList<Object>();
         params.add(MainActivity.config.getCodigo());
         params.add("LanzarLlamada");
+        params.add(parametros);
+        Simulador simulador = new Simulador();
+        simulador.setManual(this);
+        simulador.addObserver(this);
+        simulador.execute(params);
+
+    }
+
+    private void LanzarLLamadaPorLlamadasMasivas(String id) {
+
+        JSONObject datosExtras = new JSONObject();
+        try {
+            datosExtras.put("idIVR", Utilidades.id_ivr);
+            datosExtras.put("nombreIVR", Utilidades.nombre_ivr_scoring);
+            datosExtras.put("tipoIVR", Utilidades.tipoIvrScoring);
+            datosExtras.put("idConfirmacion", id);
+            datosExtras.put("codigoConfirmacion", codigoIVR);
+            datosExtras.put("tipoLLamada", 1);
+            datosExtras.put("mail", Utilidades.cumpleMail(cliente));
+            datosExtras.put("codigoAsesor",MainActivity.config.getCodigo_asesor());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<String> parametros = new ArrayList<String>();
+        parametros.add(datosExtras.toString());
+        parametros.add(MainActivity.config.getCodigo());
+        parametros.add(id);
+        parametros.add(Utilidades.id_ivr);
+        parametros.add(cliente.getCedula());
+        parametros.add(cliente.getNombre() + " " + cliente.getApellido());
+        ArrayList<Object> params = new ArrayList<Object>();
+        params.add(MainActivity.config.getCodigo());
+        params.add("LanzarLLamadaPorLlamadasMasivas");
         params.add(parametros);
         Simulador simulador = new Simulador();
         simulador.setManual(this);

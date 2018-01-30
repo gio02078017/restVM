@@ -10,6 +10,7 @@ import org.kobjects.util.Util;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
 
@@ -46,6 +47,11 @@ public class CotizacionCliente implements Serializable {
     private boolean aplicarDescuentos;
 
     private boolean validoIVR;
+
+    private String lecturaxProducto;
+    private String ofertaTipoFacturacion;
+    private String ofertaInicioFacturacion;
+    private boolean smartPromo;
 
     public String getOferta() {
         return oferta;
@@ -231,6 +237,47 @@ public class CotizacionCliente implements Serializable {
         this.validoIVR = validoIVR;
     }
 
+    public String getLecturaxProducto() {
+        if(lecturaxProducto == null || lecturaxProducto.equalsIgnoreCase("")){
+            lecturaxProducto  = "N/A";
+        }
+        return lecturaxProducto;
+    }
+
+    public void setLecturaxProducto(String lecturaxProducto) {
+        this.lecturaxProducto = lecturaxProducto;
+    }
+
+    public String getOfertaTipoFacturacion() {
+        if(ofertaTipoFacturacion == null || ofertaTipoFacturacion.equalsIgnoreCase("")){
+            ofertaTipoFacturacion  = "N/A";
+        }
+        return ofertaTipoFacturacion;
+    }
+
+    public void setOfertaTipoFacturacion(String ofertaTipoFacturacion) {
+        this.ofertaTipoFacturacion = ofertaTipoFacturacion;
+    }
+
+    public String getOfertaInicioFacturacion() {
+        if(ofertaInicioFacturacion == null || ofertaInicioFacturacion.equalsIgnoreCase("")){
+            ofertaInicioFacturacion  = "N/A";
+        }
+        return ofertaInicioFacturacion;
+    }
+
+    public void setOfertaInicioFacturacion(String ofertaInicioFacturacion) {
+        this.ofertaInicioFacturacion = ofertaInicioFacturacion;
+    }
+
+    public boolean isSmartPromo() {
+        return smartPromo;
+    }
+
+    public void setSmartPromo(boolean smartPromo) {
+        this.smartPromo = smartPromo;
+    }
+
     public JSONObject consolidarCotizacionCliente(Venta venta) {
 
         JSONObject cotizacionCliente = new JSONObject();
@@ -251,83 +298,18 @@ public class CotizacionCliente implements Serializable {
                         arrayProductos.put(Utilidades.jsonProductosCotizacion(productoCotizador.get(i)));
                     }
                 }
-
-            /*for (int i = 0; i < objectProductos.size(); i++) {
-                arrayProductos.put(objectProductos.get(i));
-                System.out.println("objectProductos.get(" + i + ") " + objectProductos.get(i).toString());
-            }*/
             }
 
-            /*venta.put("productos", arrayProductos);
-            venta.put("total", total);
-            venta.put("totalPagoAntCargoFijo", totalPagoAntCargoFijo);
-            venta.put("totalPagoConexion", totalPagoConexion);
-            venta.put("totalPagoParcialConexion", totalPagoParcialConexion);
-            venta.put("descuentoConexion", descuentoConexion);
-            venta.put("totalNuevos", totalNuevos);
-            venta.put("fecha", fecha + " " + hora);
-            venta.put("permanencia", telefonia[3]);
-
-            if (empaquetamiento.equalsIgnoreCase("SI")) {
-                empaquetada = "1";
-            } else {
-                empaquetada = "0";
-            }
-
-            venta.put("empaquetada", empaquetada);
-            venta.put("empaquetadaNombre", empaquetamiento);
-            venta.put("dependencias", dependencia);
-
-            venta.put("observaciones", observaciones.replace(";", ".,"));
-            venta.put("horarioAtencion", horarioAtencion);
-            venta.put("microZona", microZona);
-            venta.put("cobroDomingo", cobroDomingo);
-            venta.put("tipoServicio", tipoServicio);
-            venta.put("estrato", estrato);
-            venta.put("municipio", municipio);
-            venta.put("departamento", departamento);*/
-
-			/*
-             * JSONObject movilidad = new JSONObject();
-			 * movilidad.put("producto", "");
-			 *
-			 * venta.put("movilidad", movilidad);
-			 */
-            /*venta.put("movilidad", "");
-            venta.put("municipiossc", municipioSSC);*/
-
-            /*if (agendaSiebel != null && !agendaSiebel.equalsIgnoreCase("")) {
-                venta.put("agendaSiebel", new JSONObject(agendaSiebel));
-                venta.put("idOferta", idOferta);
-            } else {
-                venta.put("agendaSiebel", "");
-                venta.put("idOferta", "");
-            }
-
-            venta.put("agendableSiebel", agendableSiebel);
-            venta.put("oferta", oferta);
-
-            if (Utilidades.excluirNacional("conceptoConstructor", TipoConstruccion)) {
-                venta.put("constructores", 1);
-                venta.put("conceptoConstructor", TipoConstruccion);
-            } else {
-                venta.put("constructores", 0);
-            }
-            if (medioIngreso != null) {
-                venta.put("medioIngreso", medioIngreso);
-            } else {
-                venta.put("medioIngreso", "n/a");
-            }*/
-
-            // venta.put("scooring", scooring);
             cotizacion.put("productos", arrayProductos);
-            //cotizacion.put("TipoOferta",getTipoOferta());
             cotizacion.put("total", totalCotizacionConsolidado);
             cotizacion.put("totalPagoAntCargoFijo", totalPagoAntCargoFijo);
             cotizacion.put("totalPagoConexion", totalPagoConexion);
             cotizacion.put("totalPagoParcialConexion", totalPagoParcialConexion);
             cotizacion.put("descuentoConexion", descuentoConexion);
-
+            cotizacion.put("lecturaxProducto",lecturaxProducto);
+            cotizacion.put("ofertaTipoFacturacion",ofertaTipoFacturacion);
+            cotizacion.put("ofertaInicioFacturacion",ofertaInicioFacturacion);
+            cotizacion.put("smartPromo",smartPromo);
             cotizacion.put("permanencia", "N/A" /*actualizar este dato*/);
 
             if (venta != null) {
@@ -383,4 +365,56 @@ public class CotizacionCliente implements Serializable {
         }
         return cotizacionCliente;
     }
+
+    public JSONObject consolidarCotizacionIVR(JSONObject datosExtras) {
+
+        JSONObject cotizacionCliente = new JSONObject();
+        JSONObject cotizacion = new JSONObject();
+
+        JSONObject productos = new JSONObject();
+        JSONArray arrayProductos = new JSONArray();
+
+
+        try {
+
+
+            if (productoCotizador != null && productoCotizador.size() > 0) {
+
+                for (int i = 0; i < productoCotizador.size(); i++) {
+                    if (!Utilidades.validarVacioProducto(productoCotizador.get(i).getPlan())) {
+                        //objectProductos.add(Utilidades.jsonProductosCotizacion(productoCotizador.get(i)));
+                        arrayProductos.put(Utilidades.jsonProductosCotizacionIVR(productoCotizador.get(i)));
+                    }
+                }
+            }
+
+            cotizacion.put("productos", arrayProductos);
+            cotizacion.put("valorTotal", totalCotizacionConsolidado);
+            cotizacion.put("totalPagoAntCargoFijo", totalPagoAntCargoFijo);
+            cotizacion.put("totalPagoConexion", totalPagoConexion);
+            cotizacion.put("totalPagoParcialConexion", totalPagoParcialConexion);
+            cotizacion.put("descuentoConexion", descuentoConexion);
+            cotizacion.put("lecturaxProducto",lecturaxProducto);
+            cotizacion.put("ofertaTipoFacturacion",ofertaTipoFacturacion);
+            cotizacion.put("ofertaInicioFacturacion",ofertaInicioFacturacion);
+            cotizacion.put("sourceCRM","Venta Movil");
+
+            cotizacionCliente.put("oferta", cotizacion);
+            System.out.println("datosExtras " +datosExtras);
+            if(datosExtras != null){
+                cotizacionCliente.put("idIVR", datosExtras.getString("idIVR"));
+                cotizacionCliente.put("nombreIVR", datosExtras.getString("nombreIVR"));
+                cotizacionCliente.put("tipoIVR", datosExtras.getString("tipoIVR"));
+                cotizacionCliente.put("idConfirmacion", datosExtras.getString("idConfirmacion"));
+                cotizacionCliente.put("codigoConfirmacion", datosExtras.getString("codigoConfirmacion"));
+                cotizacionCliente.put("mail", datosExtras.getString("mail"));
+                cotizacionCliente.put("codigoAsesor", datosExtras.getString("codigoAsesor"));
+            }
+
+        } catch (JSONException e) {
+            Log.w("Error", e.getMessage());
+        }
+        return cotizacionCliente;
+    }
+
 }

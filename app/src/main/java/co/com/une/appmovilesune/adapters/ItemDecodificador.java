@@ -188,6 +188,9 @@ public class ItemDecodificador implements Serializable, Cloneable {
     }
 
     public String getDescuento() {
+        if(descuento == null || descuento.equalsIgnoreCase("")){
+            descuento = "0";
+        }
         return descuento;
     }
 
@@ -196,6 +199,9 @@ public class ItemDecodificador implements Serializable, Cloneable {
     }
 
     public String getTiempo() {
+        if(tiempo == null || tiempo.equalsIgnoreCase("")){
+            tiempo = "0";
+        }
         return tiempo;
     }
 

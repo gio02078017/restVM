@@ -1461,6 +1461,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
                 jo.put("daneDepartamento", cliente.getDepartamentoDane());
                 jo.put("daneMunicipio", cliente.getCiudadDane());
                 jo.put("direccion", txtDireccion.getText().toString());
+                jo.put("codigoAsesor", MainActivity.config.getCodigo());
                 VerificarDireccionElite(jo.toString(), "integrada");
 
             } catch (JSONException e) {

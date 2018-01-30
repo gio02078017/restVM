@@ -158,7 +158,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
     private String microZona = "";
 
-    private String Mail = "NO";
+    //private String Mail = "NO";
 
     private ArrayList<ItemDecodificador> itemDecodificadors;
 
@@ -322,9 +322,9 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             id = String.valueOf(cliente.getIdIVR());
             System.out.println("id IVR " + id + " cliente id ivr " + cliente.getIdIVR());
 
-            if (!cliente.getCorreo().equalsIgnoreCase("") && !cliente.getCorreo().contains("@sincorreo.com")) {
+            /*if (!cliente.getCorreo().equalsIgnoreCase("") && !cliente.getCorreo().contains("@sincorreo.com")) {
                 Mail = "SI";
-            }
+            }*/
 
             if (!tipoPropiedad.equalsIgnoreCase("Conjunto Residencial") && Utilidades
                     .excluirMunicipal("habilitarAgendaDomingo", "habilitarAgendaDomingo", cliente.getCiudad())) {
@@ -368,7 +368,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                     // llenarAgendamiento();
                 }
 
-            }else if (cotizacionCliente != null) {
+            } else if (cotizacionCliente != null) {
                 if (Utilidades.excluir(cotizacionCliente.getOferta(), cliente.getCiudad())) {
                     cotizacionCliente.setAplicarDescuentos(true);
                 }
@@ -518,14 +518,14 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                     cliente.getDepartamento(), cliente.getEstrato()));
         }*/
 
-        if(adicionales != null) {
+        if (adicionales != null) {
             for (int i = 0; i < adicionales.length; i++) {
-                listaAdicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses",true));
+                listaAdicionalesTo.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses", true));
             }
         }
 
         listaAdicionalesTo.add(new ListaAdicionales("Impuesto Telefonico", String.valueOf(UtilidadesTarificador.ImpuestoTelefonico(cliente.getCiudad(),
-                cliente.getDepartamento(), cliente.getEstrato())), "-", "0 Meses",true));
+                cliente.getDepartamento(), cliente.getEstrato())), "-", "0 Meses", true));
 
         for (int i = 0; i < listaAdicionalesTo.size(); i++) {
 
@@ -601,10 +601,10 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 System.out.println("descuento " + descuento);
                 System.out.println("duracion " + duracion);
 
-                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], descuento, duracion,true));
+                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], descuento, duracion, true));
 
             } else {
-                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses",true));
+                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses", true));
             }
 
             promoAdIndividual = promocionesAdIndividuales(cotizacion.getTelevision(),
@@ -615,7 +615,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                     if (listaAdicionales.get(j).getAdicional().equalsIgnoreCase(adicionales[i][0])) {
                         listaAdicionales.remove(j);
                         listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1],
-                                promoAdIndividual.get(0)[0], promoAdIndividual.get(0)[1],true));
+                                promoAdIndividual.get(0)[0], promoAdIndividual.get(0)[1], true));
                     }
                 }
                 // System.out.println("posicion
@@ -657,7 +657,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
     }
 
     public ArrayList<JSONObject> arraylistAdicionalesBaGota(String nombreGota, String valorGota, String valorGotaSinIva,
-                                                        String velocidadInicial, String velocidadFinal) {
+                                                            String velocidadInicial, String velocidadFinal) {
         ArrayList<JSONObject> arraylistAdicionales = new ArrayList<JSONObject>();
 
         JSONObject adicional = new JSONObject();
@@ -672,7 +672,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             adicional.put("duracion", "0 Meses");
             adicional.put("permanencia", "0");
             adicional.put("demo", "0");
-            adicional.put("tiposolicitud","Nuevo");
+            adicional.put("tiposolicitud", "Nuevo");
 
 
             arraylistAdicionales.add(adicional);
@@ -692,7 +692,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         listaAdicionales.clear();
         String[][] adicionales = cotizacion.getAdicionalesBa();
 
-        for (int i = 0; i < adicionales.length; i++){
+        for (int i = 0; i < adicionales.length; i++) {
 
             String descuento = "-";
             String duracion = "0 Meses";
@@ -718,10 +718,10 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 System.out.println("descuento " + descuento);
                 System.out.println("duracion " + duracion);
 
-                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], descuento, duracion,true));
+                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], descuento, duracion, true));
 
             } else {
-                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses",true));
+                listaAdicionales.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "-", "0 Meses", true));
             }
         }
 
@@ -741,12 +741,12 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
                 adicional.put("demo", demosAd(listaAdicionales.get(i).getAdicional()));
 
-                System.out.println("retirar HBO GO no cumple jsonAdicionalesBa listaAdicionales.get(i).getAdicional() "+listaAdicionales.get(i).getAdicional());
+                System.out.println("retirar HBO GO no cumple jsonAdicionalesBa listaAdicionales.get(i).getAdicional() " + listaAdicionales.get(i).getAdicional());
 
                 if (listaAdicionales.get(i).getAdicional().equalsIgnoreCase("HBO GO")) {
-                        Log.d("cotizacion TV ", cotizacion.getTelevision());
-                        System.out.println("retirar HBO GO no cumple if hbo go ");
-                        System.out.println("retirar HBO GO no cumple cotizacion.isRetiroHBOGO() 1 " + cotizacion.isRetiroHBOGO());
+                    Log.d("cotizacion TV ", cotizacion.getTelevision());
+                    System.out.println("retirar HBO GO no cumple if hbo go ");
+                    System.out.println("retirar HBO GO no cumple cotizacion.isRetiroHBOGO() 1 " + cotizacion.isRetiroHBOGO());
                         /*if (!cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial) && !cotizacion.getTelevision().equalsIgnoreCase(Utilidades.inicial_guion)) {
                             //if(UtilidadesTarificadorNew.validarHBOGOPortafolioElite(cliente.getPortafolioElite(), cliente.getCedula(), cotizacion.getTipoOferta())){
                             System.out.println("retirar HBO GO no cumple cotizacion.isRetiroHBOGO() 2 " + cotizacion.isRetiroHBOGO());
@@ -768,33 +768,33 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         adicional.put("tiposolicitud", "Nuevo");
                         System.out.println("retirar HBO GO no cumple tiposolicitud nuevo  " + cotizacion.isRetiroHBOGO());
                     }
-                    }else if (listaAdicionales.get(i).getAdicional().equalsIgnoreCase("Crackle Sony Ba")) {
-                        Log.d("cotizacion TV ", cotizacion.getTelevision());
-                        System.out.println("if hbo go ");
-                        //CrackleExistente crackleExistente = UtilidadesTarificadorNew.validarCracklePortafolioElite(cliente.getPortafolioElite(), cliente.getCedula(), cotizacion.getTipoOferta());
-                        if (cotizacion.isRetiroCrackleBa()) {
-                            adicional.put("tiposolicitud", "Eliminar");
-                        } else {
-                            adicional.put("tiposolicitud", "Nuevo");
-                        }
-                        adicional.put("producto", "Crackle Sony");
-                    }else{
+                } else if (listaAdicionales.get(i).getAdicional().equalsIgnoreCase("Crackle Sony Ba")) {
+                    Log.d("cotizacion TV ", cotizacion.getTelevision());
+                    System.out.println("if hbo go ");
+                    //CrackleExistente crackleExistente = UtilidadesTarificadorNew.validarCracklePortafolioElite(cliente.getPortafolioElite(), cliente.getCedula(), cotizacion.getTipoOferta());
+                    if (cotizacion.isRetiroCrackleBa()) {
+                        adicional.put("tiposolicitud", "Eliminar");
+                    } else {
+                        adicional.put("tiposolicitud", "Nuevo");
+                    }
+                    adicional.put("producto", "Crackle Sony");
+                } else {
                     adicional.put("tiposolicitud", "Nuevo");
                     System.out.println("else hbo go ");
                 }
 
-                System.out.println("jretirar HBO GO no cumple sonAdicionalesBa adicional "+adicional);
+                System.out.println("jretirar HBO GO no cumple sonAdicionalesBa adicional " + adicional);
 
                 arraylistAdicionales.add(adicional);
 
-                System.out.println("retirar HBO GO no cumple jsonAdicionalesBa arraylistAdicionales"+arraylistAdicionales);
+                System.out.println("retirar HBO GO no cumple jsonAdicionalesBa arraylistAdicionales" + arraylistAdicionales);
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
-        System.out.println("adba "+arraylistAdicionales.toString());
+        System.out.println("adba " + arraylistAdicionales.toString());
 
         return arraylistAdicionales;
 
@@ -805,7 +805,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 Utilidades.SI_NO);
         sltEmpaquetado.setAdapter(adaptador);
 
-        System.out.println("Empaquetamiento oferta "+cotizacionCliente.getOferta());
+        System.out.println("Empaquetamiento oferta " + cotizacionCliente.getOferta());
 
         if (cotizacionCliente.getOferta() != null) {
             if (!cotizacionCliente.getOferta().equalsIgnoreCase("")) {
@@ -819,13 +819,13 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             int contador = cotizacionCliente.getContadorProductos();
             if (contador > 1) {
 
-                System.out.println("Empaquetamiento contador "+contador);
+                System.out.println("Empaquetamiento contador " + contador);
 
-                if(Utilidades.validarNacionalValor("ofertaIndividual",cotizacionCliente.getOferta())){
+                if (Utilidades.validarNacionalValor("ofertaIndividual", cotizacionCliente.getOferta())) {
                     System.out.println("Empaquetamiento ofertaIndividual ");
                     sltEmpaquetado.setSelection(1);
                     Venta_Individual();
-                }else{
+                } else {
                     System.out.println("Empaquetamiento paquete ");
                     sltEmpaquetado.setSelection(0);
                     Venta_Empaquetada();
@@ -868,21 +868,21 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         System.out.println("llenadoVenta Venta_Empaquetada");
 
-        if(!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEFONIA()).getPlan())){
+        if (!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEFONIA()).getPlan())) {
             rto.Telefonia(this, this, cotizacionCliente, cliente);
-        }else{
+        } else {
             rto.setVisibility(View.GONE);
         }
 
-        if(!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEVISION()).getPlan())){
+        if (!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEVISION()).getPlan())) {
             rtv.Television(this, this, cotizacionCliente, cliente);
-        }else{
+        } else {
             rtv.setVisibility(View.GONE);
         }
 
-        if(!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getINTERNET()).getPlan())){
+        if (!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getINTERNET()).getPlan())) {
             rba.Internet(this, this, cotizacionCliente, cliente);
-        }else{
+        } else {
             rba.setVisibility(View.GONE);
         }
 
@@ -902,21 +902,21 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         System.out.println("llenadoVenta Venta_Empaquetada");
 
-        if(!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEFONIA()).getPlan())){
+        if (!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEFONIA()).getPlan())) {
             rto.Telefonia(this, this, cotizacionCliente, cliente);
-        }else{
+        } else {
             rto.setVisibility(View.GONE);
         }
 
-        if(!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEVISION()).getPlan())){
+        if (!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEVISION()).getPlan())) {
             rtv.Television(this, this, cotizacionCliente, cliente);
-        }else{
+        } else {
             rtv.setVisibility(View.GONE);
         }
 
-        if(!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getINTERNET()).getPlan())){
+        if (!Utilidades.validarVacioProducto(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getINTERNET()).getPlan())) {
             rba.Internet(this, this, cotizacionCliente, cliente);
-        }else{
+        } else {
             rba.setVisibility(View.GONE);
         }
 
@@ -1072,7 +1072,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                             parametros = new ArrayList<String[]>();
                             parametros.add(new String[]{"Tipo", "6"});
                             parametros.add(new String[]{"Id", id});
-                            parametros.add(new String[]{"Mail", Mail});
+                            parametros.add(new String[]{"Mail", Utilidades.cumpleMail(cliente)});
                             parametros.add(new String[]{"CobroDomingo",
                                     Utilidades.cambioCobroDomingo(venta.getCobroDomingo())});
                             String llamada = MainActivity.conexion.ejecutarSoap("LanzarLlamada", parametros);
@@ -1082,7 +1082,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         }
                     } else {
                         /*
-						 * System.out .println(
+                         * System.out .println(
 						 * "Los datos no se descargaron correctamente" );
 						 */
                     }
@@ -1095,13 +1095,13 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 Toast.makeText(this, "Complete el ivr", Toast.LENGTH_SHORT).show();
             }
         } else if (item.getTitle().equals("Repetir Llamada")) {
-            LanzarLLamada(id, "5", Mail, venta.getCobroDomingo());
+            //LanzarLLamada(id, "5", Mail, venta.getCobroDomingo());
         } else if (item.getTitle().equals("Grabacion")) {
             System.out.println("id" + id);
             ArrayList<String[]> parametros = new ArrayList<String[]>();
             parametros.add(new String[]{"Tipo", "4"});
             parametros.add(new String[]{"Id", id});
-            parametros.add(new String[]{"Mail", Mail});
+            parametros.add(new String[]{"Mail", Utilidades.cumpleMail(cliente)});
             parametros.add(new String[]{"CobroDomingo", Utilidades.cambioCobroDomingo(venta.getCobroDomingo())});
             String llamada = MainActivity.conexion.ejecutarSoap("LanzarLlamada", parametros);
             System.out.println(llamada);
@@ -1114,13 +1114,13 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
     public void procesarVenta(View v) {
 
         for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
-            if(!Utilidades.validarVacioProducto(cotizacionCliente.getProductoCotizador().get(i).getPlan())) {
+            if (!Utilidades.validarVacioProducto(cotizacionCliente.getProductoCotizador().get(i).getPlan())) {
                 if (cotizacionCliente.getProductoCotizador().get(i).getTipo() == ProductoCotizador.getTELEFONIA()) {
-                        cotizacionCliente.getProductoCotizador().set(i, rto.getProductoCotizador());
+                    cotizacionCliente.getProductoCotizador().set(i, rto.getProductoCotizador());
                 } else if (cotizacionCliente.getProductoCotizador().get(i).getTipo() == ProductoCotizador.getTELEVISION()) {
-                        cotizacionCliente.getProductoCotizador().set(i, rtv.getProductoCotizador());
+                    cotizacionCliente.getProductoCotizador().set(i, rtv.getProductoCotizador());
                 } else if (cotizacionCliente.getProductoCotizador().get(i).getTipo() == ProductoCotizador.getINTERNET()) {
-                        cotizacionCliente.getProductoCotizador().set(i, rba.getProductoCotizador());
+                    cotizacionCliente.getProductoCotizador().set(i, rba.getProductoCotizador());
                 }
             }
         }
@@ -1130,7 +1130,8 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         btnSiguiente = (ImageButton) v;
 
         boolean compatibilidad = true;
-        boolean nuevos = nuevos(cotizacionCliente);;
+        boolean nuevos = nuevos(cotizacionCliente);
+        ;
         int totalNuevos = totalProductosNuevos(cotizacionCliente);
 
         venta = new Venta();
@@ -1405,11 +1406,11 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         System.out.println("agendableSiebel " + agendableSiebel);
 
-            venta.setAgendaSiebel("");
-            venta.setIdOferta("");
-            venta.setAgendableSiebel(2);
+        venta.setAgendaSiebel("");
+        venta.setIdOferta("");
+        venta.setAgendableSiebel(2);
 
-            System.out.println("no aplica validacion");
+        System.out.println("no aplica validacion");
 
 
         if (compatibilidad) {
@@ -1424,12 +1425,12 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
     }
 
-    public boolean nuevos (CotizacionCliente cotizacionCliente){
+    public boolean nuevos(CotizacionCliente cotizacionCliente) {
         boolean nuevos = false;
 
         for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
-            if(!Utilidades.validarVacioProducto(cotizacionCliente.getProductoCotizador().get(i).getPlan())) {
-                if(cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNumerico().equalsIgnoreCase("1")){
+            if (!Utilidades.validarVacioProducto(cotizacionCliente.getProductoCotizador().get(i).getPlan())) {
+                if (cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNumerico().equalsIgnoreCase("1")) {
                     nuevos = true;
                 }
             }
@@ -1438,12 +1439,12 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         return nuevos;
     }
 
-    public int totalProductosNuevos (CotizacionCliente cotizacionCliente){
-        int  totalNuevos = 0;
+    public int totalProductosNuevos(CotizacionCliente cotizacionCliente) {
+        int totalNuevos = 0;
 
         for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
-            if(!Utilidades.validarVacioProducto(cotizacionCliente.getProductoCotizador().get(i).getPlan())) {
-                if(cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNumerico().equalsIgnoreCase("1")){
+            if (!Utilidades.validarVacioProducto(cotizacionCliente.getProductoCotizador().get(i).getPlan())) {
+                if (cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNumerico().equalsIgnoreCase("1")) {
                     totalNuevos += Utilidades.convertirNumericos(cotizacionCliente.getProductoCotizador().get(i).getPrecio(), "get(i).getPrecio()");
                 }
             }
@@ -1531,8 +1532,100 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         System.out.println("consolidado " + consolidado);
 
         if (consolidado.get(2).length() >= 7) {
+            if (id.equals("0") || id.equals("")) {
+                codigo = (int) (Math.random() * (9999 - 1000 + 1) + 1000);
 
-            if (cliente.getIdIVR() == 0) {
+                consolidado.add(String.valueOf(codigo));
+
+                JSONObject IVR = new JSONObject();
+                JSONArray cotizacion = new JSONArray();
+                JSONObject jsonPlan = new JSONObject();
+                JSONObject jsonAdicional = new JSONObject();
+                JSONObject jsonDecos = new JSONObject();
+
+                try {
+                    for (int i = 0; i < venta.getCotizacionCliente().getProductoCotizador().size(); i++) {
+                        ProductoCotizador producto = venta.getCotizacionCliente().getProductoCotizador().get(i);
+                        if (!Utilidades.validarVacioProducto(producto.getPlan())) {
+                            jsonPlan = Utilidades.jsonProductos(producto.traducirProducto().toUpperCase(), UtilidadesTarificadorNew.cambiarPlan(producto.getPlan()), producto.getPrecio(), String.valueOf(producto.getDescuentoCargobasico()),
+                                    String.valueOf(producto.getDuracionDescuento()), "0");
+                            cotizacion.put(jsonPlan);
+                            if (producto.getTipo() == ProductoCotizador.getTELEVISION()) {
+                                if (producto.getObjectDecodificador().getItemDecodificadors() != null) {
+                                    for (int j = 0; j < producto.getObjectDecodificador().getItemDecodificadors().size(); j++) {
+
+                                        String precio = producto.getObjectDecodificador().getItemDecodificadors().get(j).getPrecio();
+                                        String tipoAlquiler = producto.getObjectDecodificador().getItemDecodificadors().get(j).getTipoAlquiler();
+                                        String tipoDeco = UtilidadesTarificadorNew.cambiarPlan(producto.getObjectDecodificador().getItemDecodificadors().get(j).getOriginal());
+
+                                        if (tipoAlquiler.equalsIgnoreCase("AL") && !precio.equals("0") && !precio.equals("0.0")) {
+                                            System.out.println("itemDecodificadors.get(i) entro ");
+                                            cotizacion.put(Utilidades.jsonProductos("ADTV", "Decodificador " + tipoDeco + " (Adicional)", precio, "0", "0", "0"));
+                                        }
+
+                                    }
+                                }
+                            }
+
+                            if (producto.getAdicionalesCotizador() != null) {
+                                for (int j = 0; j < producto.getAdicionalesCotizador().size(); j++) {
+                                    AdicionalCotizador adicional = producto.getAdicionalesCotizador().get(j);
+                                    jsonAdicional = Utilidades.jsonProductos("AD" + producto.traducirProducto().toUpperCase(), adicional.getNombreAdicional(), String.valueOf(adicional.getPrecioAdicional()), adicional.getDescuento(),
+                                            adicional.getDuracionDescuento(), "0");
+                                    cotizacion.put(jsonAdicional);
+                                }
+                            }
+
+                        }
+                    }
+
+                    IVR.put("cotizacionCliente", cotizacionCliente.consolidarCotizacionIVR(null).getJSONObject("oferta"));
+
+                    if (cliente.getIdIVR() == 0) {
+                        IVR.put("tipo", "insert");
+                        IVR.put("codigoasesor", consolidado.get(0));
+                        IVR.put("telefono", consolidado.get(2));
+                        IVR.put("codigo", consolidado.get(5));
+                        IVR.put("tipocliente", consolidado.get(3));
+                        IVR.put("cotizacion", cotizacion);
+                        IVR.put("documento", consolidado.get(4));
+                    } else {
+                        IVR.put("tipo", "update");
+                        IVR.put("id", cliente.getIdIVR());
+                        IVR.put("codigo", String.valueOf(codigo));
+                        IVR.put("cotizacion", cotizacion);
+                    }
+
+                    if (Utilidades.excluir("excluirAgenda", Municipio)) {
+                        IVR.put("fecha", "");
+                        IVR.put("franja", "");
+                    } else {
+                        IVR.put("fecha", fecha);
+                        IVR.put("franja", franja);
+                    }
+                    IVR.put("Scooring", 0);
+                } catch (JSONException e1) {
+                    e1.printStackTrace();
+                }
+                System.out.println("datos del IVR " + IVR);
+
+                ArrayList<String> parametros = new ArrayList<String>();
+                parametros.add(IVR.toString());
+                parametros.add(Utilidades.generarJsonVerificacionServicios());
+                ArrayList<Object> params = new ArrayList<Object>();
+                params.add(MainActivity.config.getCodigo());
+                params.add("InsertarConfirmacion");
+                params.add(parametros);
+                Simulador simulador = new Simulador();
+                simulador.setManual(this);
+                simulador.addObserver(this);
+                simulador.execute(params);
+            } else {
+                //LanzarLLamada(id, "5", Mail, venta.getCobroDomingo());
+            }
+
+
+            /*if (cliente.getIdIVR() == 0) {
                 if (id.equals("0") || id.equals("")) {
                     codigo = (int) (Math.random() * (9999 - 1000 + 1) + 1000);
 
@@ -1589,10 +1682,8 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         IVR.put("codigo", consolidado.get(5));
                         IVR.put("tipocliente", consolidado.get(3));
                         IVR.put("cotizacion", cotizacion);
-                        IVR.put("cotizacionCliente", cotizacionCliente.consolidarCotizacionCliente(null).getJSONObject("cotizacionCliente"));
+                        IVR.put("cotizacionCliente", cotizacionCliente.consolidarCotizacionIVR(null).getJSONObject("cotizacionCliente"));
                         IVR.put("documento", consolidado.get(4));
-                        /*IVR.opt(cotizacionCliente.consolidarCotizacionCliente());
-                        IVR.*/
 
                         if (Utilidades.excluir("excluirAgenda", Municipio)) {
                             IVR.put("fecha", "");
@@ -1677,7 +1768,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                     IVR.put("id", cliente.getIdIVR());
                     IVR.put("codigo", String.valueOf(codigo));
                     IVR.put("cotizacion", cotizacion);
-                    IVR.put("cotizacionCliente", cotizacionCliente.consolidarCotizacionCliente(null).getJSONObject("cotizacionCliente"));
+                    IVR.put("cotizacionCliente", cotizacionCliente.consolidarCotizacionIVR(null).getJSONObject("cotizacionCliente"));
                     if (Utilidades.excluir("excluirAgenda", Municipio)) {
                         IVR.put("fecha", "");
                         IVR.put("franja", "");
@@ -1705,7 +1796,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 simulador.addObserver(this);
                 simulador.execute(params);
 
-            }
+            }*/
 
         } else {
             Toast.makeText(this, "No ha Ingresado Telefono de destino", Toast.LENGTH_SHORT).show();
@@ -1727,6 +1818,44 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         ArrayList<Object> params = new ArrayList<Object>();
         params.add(MainActivity.config.getCodigo());
         params.add("LanzarLlamada");
+        params.add(parametros);
+        Simulador simulador = new Simulador();
+        simulador.setManual(this);
+        simulador.addObserver(this);
+        simulador.execute(params);
+
+    }
+
+    private void LanzarLLamadaPorLlamadasMasivas(String id) {
+
+        JSONObject datosExtras = new JSONObject();
+        try {
+            datosExtras.put("idIVR", Utilidades.id_ivr);
+            datosExtras.put("nombreIVR", Utilidades.nombre_ivr_venta);
+            datosExtras.put("tipoIVR", Utilidades.tipoIvrVenta);
+            datosExtras.put("idConfirmacion", id);
+            datosExtras.put("codigoConfirmacion", codigo);
+            datosExtras.put("tipoLLamada", 2);
+            datosExtras.put("mail", Utilidades.cumpleMail(cliente));
+            datosExtras.put("codigoAsesor",MainActivity.config.getCodigo_asesor());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String datosIVR = cotizacionCliente.consolidarCotizacionIVR(datosExtras).toString();
+
+        System.out.println("datosIVR " + datosIVR);
+
+        ArrayList<String> parametros = new ArrayList<String>();
+        parametros.add(datosIVR);
+        parametros.add(MainActivity.config.getCodigo());
+        parametros.add(id);
+        parametros.add(Utilidades.id_ivr);
+        parametros.add(cliente.getCedula());
+        parametros.add(cliente.getNombre() + " " + cliente.getApellido());
+        ArrayList<Object> params = new ArrayList<Object>();
+        params.add(MainActivity.config.getCodigo());
+        params.add("LanzarLLamadaPorLlamadasMasivas");
         params.add(parametros);
         Simulador simulador = new Simulador();
         simulador.setManual(this);
@@ -1962,7 +2091,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         // TODO Auto-generated method stub
         ArrayList<Object> resultado = (ArrayList<Object>) value;
 
-        System.out.println("******"+resultado+"********");
+        System.out.println("******" + resultado + "********");
 
         if (resultado.get(0).equals("InsertarConfirmacion")) {
             JSONObject jop;
@@ -1970,7 +2099,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             try {
                 jop = new JSONObject(resultado.get(1).toString());
 
-                System.out.println("**** jop ***"+jop);
+                System.out.println("**** jop ***" + jop);
 
                 String data = jop.get("data").toString();
 
@@ -1979,17 +2108,18 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                     // Confirmacion(data);
                     JSONObject confirmacion = new JSONObject(data);
 
-                        if (confirmacion.has("id")) {
-                            id = confirmacion.getString("id");
+                    if (confirmacion.has("id")) {
+                        id = confirmacion.getString("id");
 
-                            if (!id.equalsIgnoreCase("")) {
-                                // blindaje.idIVR = id;
-                                LanzarLLamada(id, "5", Mail, venta.getCobroDomingo());
-                                // LLamadaUneMas = true;
-                            } else {
-                                System.out.println("Error " + confirmacion.getString("mensaje"));
-                            }
+                        if (!id.equalsIgnoreCase("")) {
+                            // blindaje.idIVR = id;
+                            //LanzarLLamada(id, "5", Mail, venta.getCobroDomingo());
+                            LanzarLLamadaPorLlamadasMasivas(id);
+                            // LLamadaUneMas = true;
+                        } else {
+                            System.out.println("Error " + confirmacion.getString("mensaje"));
                         }
+                    }
 
                 }
             } catch (JSONException e) {
@@ -2012,6 +2142,21 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             } else if (resultado.get(1).equals("FAIL")) {
                 Toast.makeText(this, "EL lanzamiento de la llamada fallo", Toast.LENGTH_SHORT).show();
             }
+        } else if (resultado.get(0).equals("LanzarLLamadaPorLlamadasMasivas")) {
+            System.out.println("data LanzarLLamadaPorLlamadasMasivas" + resultado.get(1));
+
+            try {
+                JSONObject jop = new JSONObject(resultado.get(1).toString());
+                if (jop.has("codigoMensaje") && jop.getString("codigoMensaje").equalsIgnoreCase("00")) {
+                    mostrarDialgo();
+                } else {
+                    Toast.makeText(this, "EL lanzamiento de la llamada fallo", Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "EL lanzamiento de la llamada fallo", Toast.LENGTH_SHORT).show();
+            }
+
         } else if (resultado.get(0).equals("RepetirCodigo")) {
             JSONObject jop;
 
@@ -2031,7 +2176,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         Toast.makeText(this, "Complete el ivr", Toast.LENGTH_SHORT).show();
                     } else {
 
-                        LanzarLLamada(id, "5", Mail, venta.getCobroDomingo());
+                        //LanzarLLamada(id, "5", Mail, venta.getCobroDomingo());
 
                     }
                 } else {
@@ -2179,7 +2324,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }else if (resultado != null && resultado.get(0).equals("ValidacionConfiguracionMovil")) {
+        } else if (resultado != null && resultado.get(0).equals("ValidacionConfiguracionMovil")) {
 
             try {
 

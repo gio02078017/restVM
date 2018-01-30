@@ -107,6 +107,7 @@ public class Cliente implements Serializable, Observer, Subject {
 
     private String portafolio;
     private String portafolioElite;
+    private String servicioElite;
     private String cobertura;
     private String carteraUNE;
     private String consolidado;
@@ -163,6 +164,8 @@ public class Cliente implements Serializable, Observer, Subject {
     private String tipoZona;
 
     private String idGerenciaExistente;
+
+    private boolean clienteNuevoSmartPromo;
 
 	public Cliente() {
 		TipoDocumento = "";
@@ -804,6 +807,8 @@ public class Cliente implements Serializable, Observer, Subject {
                     }
 
                 }
+
+                servicioElite = resultado;
 
             }
 
@@ -1679,6 +1684,14 @@ public class Cliente implements Serializable, Observer, Subject {
         this.portafolioElite = portafolioElite;
     }
 
+    public String getServicioElite() {
+        return servicioElite;
+    }
+
+    public void setServicioElite(String servicioElite) {
+        this.servicioElite = servicioElite;
+    }
+
     public String getCobertura() {
         return cobertura;
     }
@@ -2137,6 +2150,14 @@ public class Cliente implements Serializable, Observer, Subject {
 
     public void setHoraDomiciliacion(String horaDomiciliacion) {
         this.horaDomiciliacion = horaDomiciliacion;
+    }
+
+    public boolean isClienteNuevoSmartPromo() {
+        return clienteNuevoSmartPromo;
+    }
+
+    public void setClienteNuevoSmartPromo(boolean clienteNuevoSmartPromo) {
+        this.clienteNuevoSmartPromo = clienteNuevoSmartPromo;
     }
 
     @Override
