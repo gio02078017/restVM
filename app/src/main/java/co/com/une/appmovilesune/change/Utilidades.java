@@ -110,6 +110,7 @@ public class Utilidades {
     public static String nombre_ivr_scoring = "scoring";
     public static int tipoIvrScoring = 1;
     public static int tipoIvrVenta = 5;
+    public static int tipoIvrRepetirCodigo = 6;
 
     public Utilidades() {
 
@@ -3930,19 +3931,6 @@ public class Utilidades {
         int wifi;
         String cambioPlan = "";
 
-        /*System.out.println("adicionales " + adicionales);
-        try {
-
-            System.out.println("adicionales " + adicionales);
-
-            arrayAdicionales = new JSONArray(adicionales);
-
-        } catch (JSONException e1) {
-            // e1.printStackTrace();
-            Log.w("error " + e1.getMessage());
-            arrayAdicionales = new JSONArray();
-        }*/
-
         if (productoCotizador.getCambioPlan().equalsIgnoreCase("Nueva")) {
             cambioPlan = "0";
         } else {
@@ -3961,8 +3949,6 @@ public class Utilidades {
 
 
         ArrayList<ItemDecodificador> itemDecodificadors = null;
-
-            /*System.out.println("decodificador tipo ["+tipo+"] "+decodificador);*/
 
         if(productoCotizador.getDecodificadores() != null){
             itemDecodificadors = productoCotizador.getDecodificadores();
@@ -3998,7 +3984,7 @@ public class Utilidades {
             productos.put("tipoTransaccion",productoCotizador.getTipoTransaccion());
             productos.put("inicioFacturacion",productoCotizador.getInicioFacturacion());
             productos.put("tipoFacturacion",productoCotizador.getTipoFacturacion());
-            productos.put("smartPromo",productoCotizador.isSmartPromo());
+            productos.put("smartPromo",productoCotizador.getSmartPromo());
 
 
             /*if (!productoCotizador.getTecnologia().equalsIgnoreCase("IPTV")) {
@@ -4121,11 +4107,11 @@ public class Utilidades {
             }
         }
 
-        if(itemDecodificadors != null){
+        /*if(itemDecodificadors != null){
             for (int i = 0; i < itemDecodificadors.size(); i++) {
                 arrayAdicionales.put(jsonObjectAdicionalDecos(itemDecodificadors.get(i)));
             }
-        }
+        }*/
 
         return arrayAdicionales;
 

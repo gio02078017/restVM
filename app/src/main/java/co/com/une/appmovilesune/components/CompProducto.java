@@ -448,6 +448,12 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         }
     }
 
+    public void setPeticionProducton(String PeticionProducto) {
+        ArrayAdapter<String> adaptador = (ArrayAdapter<String>) spntipeticionproducto.getAdapter();
+        spntipeticionproducto.setSelection(adaptador.getPosition(PeticionProducto));
+        spntipeticionproducto.setEnabled(false);
+    }
+
     public Spinner getSpnSelectorPlan() {
         return spnSelectorPlan;
     }

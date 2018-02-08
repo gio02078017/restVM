@@ -62,7 +62,7 @@ public class ProductoCotizador implements Serializable {
     private String tipoTransaccion;
     private String inicioFacturacion;
     private String tipoFacturacion;
-    private boolean smartPromo;
+    private String smartPromo;
 
     public ProductoCotizador(String tipoPeticion, int tipo, String plan, double cargoBasicoInd, double cargoBasicoEmp, double descuentoCargobasico, int duracionDescuento, String planFacturacionInd, String planFacturacionEmp, String velocidad) {
         this.tipoPeticion = tipoPeticion;
@@ -354,11 +354,11 @@ public class ProductoCotizador implements Serializable {
         this.tipoFacturacion = tipoFacturacion;
     }
 
-    public boolean isSmartPromo() {
+    public String getSmartPromo() {
         return smartPromo;
     }
 
-    public void setSmartPromo(boolean smartPromo) {
+    public void setSmartPromo(String smartPromo) {
         this.smartPromo = smartPromo;
     }
 

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import co.com.une.appmovilesune.R;
+import co.com.une.appmovilesune.adapters.ItemKeyValue2;
 import co.com.une.appmovilesune.adapters.ListaDefault;
 import co.com.une.appmovilesune.change.Utilidades;
 import co.com.une.appmovilesune.change.UtilidadesDecos;
@@ -36,6 +37,9 @@ public class Validaciones {
     public static ArrayList<ListaDefault> mensaje = new ArrayList<ListaDefault>();
 
     public static JSONObject mensajes;
+
+    public static ArrayList<String> tipoControlador = new ArrayList<String>();
+
 
     public static boolean validarClienteVenta(Cliente cliente, Venta venta, Context context) {
 
@@ -1072,14 +1076,6 @@ public class Validaciones {
         }
     }
 
-    public static JSONObject getMensajes() {
-        return mensajes;
-    }
-
-    public static void setMensajes(JSONObject mensajes) {
-        Validaciones.mensajes = mensajes;
-    }
-
     public static boolean validarAgendaSiebel(Cliente cliente) {
         ArrayList<Boolean> reg = new ArrayList<Boolean>();
         int tamanoDocumento = 0;
@@ -1282,6 +1278,7 @@ public class Validaciones {
     public static boolean validarCotizacion(Cliente cliente, CotizacionCliente cotizacionCliente, Scooring scooring, Context context) {
 
         ArrayList<Boolean> reg = new ArrayList<Boolean>();
+        tipoControlador.clear();
 
         try {
             mensajes = new JSONObject();
@@ -1293,6 +1290,7 @@ public class Validaciones {
             } else {
                 reg.add(false);
                 ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.cotizacion), context.getResources().getString(R.string.cotizacioninvalidanocontinua)));
+                tipoControlador.add(new String("Cotizacion"));
             }
 
             if (UtilidadesTarificador.validarDependencias(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEVISION()), context)) {
@@ -1300,6 +1298,7 @@ public class Validaciones {
             } else {
                 reg.add(false);
                 ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.dependencias), context.getResources().getString(R.string.mensajedependencias)));
+                tipoControlador.add(new String("Cotizacion"));
             }
 
             if (UtilidadesTarificador.validarDecos(UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEVISION()).getObjectDecodificador(), context)) {
@@ -1307,6 +1306,7 @@ public class Validaciones {
             } else {
                 reg.add(false);
                 ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.decos), context.getResources().getString(R.string.mensajedecos)));
+                tipoControlador.add(new String("Cotizacion"));
             }
 
             if (cliente.isControlEstadoCuenta()) {
@@ -1314,6 +1314,7 @@ public class Validaciones {
             } else {
                 reg.add(false);
                 ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.estadocuenta), context.getResources().getString(R.string.mensajeestadocuenta)));
+                tipoControlador.add(new String("Scoring"));
             }
 
             if (UtilidadesTarificadorNew.validarCarrusel(cotizacionCliente, cliente, context )) {
@@ -1321,6 +1322,7 @@ public class Validaciones {
             } else {
                 reg.add(false);
                 ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.carruselTitulo), context.getResources().getString(R.string.carrusel)));
+                tipoControlador.add(new String("Carrusel"));
             }
 
             if (UtilidadesTarificadorNew.validarCotizacionClienteNuevo(cliente, cotizacionCliente)) {
@@ -1328,6 +1330,7 @@ public class Validaciones {
             } else {
                 reg.add(false);
                 ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.clientenuevo), context.getResources().getString(R.string.mensajeCotizacioninvalidaClienteNuevo)));
+                tipoControlador.add(new String("Cotizacion"));
             }
 
             if (Utilidades.validarTelefonos(cliente, context)) {
@@ -1335,6 +1338,7 @@ public class Validaciones {
             } else {
                 reg.add(false);
                 ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.telefonosinvalidos), context.getResources().getString(R.string.mensajetelefonosinvalidos)));
+                tipoControlador.add(new String("Cliente"));
             }
 
             if (!cliente.getTelefonoDestino().equalsIgnoreCase("")
@@ -1343,6 +1347,7 @@ public class Validaciones {
             } else {
                 reg.add(false);
                 ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.telefonodestino), context.getResources().getString(R.string.mensajetelefonodestino)));
+                tipoControlador.add(new String("Cliente"));
             }
 
             if ((!cliente.getDireccion().equalsIgnoreCase("") || cliente.isControlCerca())
@@ -1350,20 +1355,19 @@ public class Validaciones {
                     && !cliente.getTipoDocumento()
                     .equalsIgnoreCase(Utilidades.inicial_opcion)) {
                 reg.add(true);
-                if (UtilidadesTarificadorNew.validarEstandarizacion(cliente, cotizacionCliente, context) || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
+                if (UtilidadesTarificadorNew.validarEstandarizacion(cliente,context) || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
                     reg.add(true);
 
                 } else {
                     reg.add(false);
                     ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.direccion), context.getResources().getString(R.string.estandarizardireccion2)));
+                    tipoControlador.add(new String("Cliente"));
                 }
             } else {
                 reg.add(false);
                 ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.campossensibles), context.getResources().getString(R.string.mensajecampossensibles)));
+                tipoControlador.add(new String("Cliente"));
             }
-				/*if (validarAgendaSiebel()) {
-
-				}*/
 
             if ((cliente.getTipoPropiedad() != null
                     && !cliente.getTipoPropiedad()
@@ -1376,6 +1380,7 @@ public class Validaciones {
             } else {
                 reg.add(false);
                 ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.tipopropiedad), context.getResources().getString(R.string.mensajetipopropiedad)));
+                tipoControlador.add(new String("Cliente"));
             }
 
             if (cliente.isRealizoConfronta()) {
@@ -1385,10 +1390,12 @@ public class Validaciones {
                 } else {
                     reg.add(false);
                     ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.confronta), context.getResources().getString(R.string.mensajeconfrontanoaprobado)));
+                    tipoControlador.add(new String("Scoring"));
                 }
             } else {
                 reg.add(false);
                 ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.confronta), context.getResources().getString(R.string.mensajeconfrontanorealizado)));
+                tipoControlador.add(new String("Scoring"));
             }
 
             if(UtilidadesTarificadorNew.validarCarteraUNE(cliente, scooring)) {
@@ -1396,6 +1403,7 @@ public class Validaciones {
             }else{
                 reg.add(false);
                 ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.cuentasune), context.getResources().getString(R.string.mensajecuentasune)));
+                tipoControlador.add(new String("Scoring"));
             }
 
             if (UtilidadesTarificadorNew.validarScooring(cliente,cotizacionCliente,scooring,context)) {
@@ -1403,25 +1411,8 @@ public class Validaciones {
             }else{
                 reg.add(false);
                 ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.scoring), context.getResources().getString(R.string.mensajescoring)));
+                tipoControlador.add(new String("Scoring"));
             }
-
-
-
-
-								/*if (validarCarteraUNE()) {
-
-								}
-									if (validarScooring()) {
-
-									}*/
-
-
-            /*if (validarCarrusel()){
-                reg.add(true);
-            }else {
-                //resultCotizador("estado cuenta");
-               // ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.estadocuenta), context.getResources().getString(R.string.mensajeestadocuenta)));
-            }*/
 
             System.out.println("reg " + reg);
 
@@ -1442,5 +1433,29 @@ public class Validaciones {
             Log.w("Error ", e.getMessage());
             return false;
         }
+    }
+
+    public static JSONObject getMensajes() {
+        return mensajes;
+    }
+
+    public static void setMensajes(JSONObject mensajes) {
+        Validaciones.mensajes = mensajes;
+    }
+
+    public static ArrayList<ListaDefault> getMensaje() {
+        return mensaje;
+    }
+
+    public static void setMensaje(ArrayList<ListaDefault> mensaje) {
+        Validaciones.mensaje = mensaje;
+    }
+
+    public static ArrayList<String> getTipoControlador() {
+        return tipoControlador;
+    }
+
+    public static void setTipoControlador(ArrayList<String> tipoControlador) {
+        Validaciones.tipoControlador = tipoControlador;
     }
 }

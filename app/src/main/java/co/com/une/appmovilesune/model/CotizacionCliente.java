@@ -51,7 +51,7 @@ public class CotizacionCliente implements Serializable {
     private String lecturaxProducto;
     private String ofertaTipoFacturacion;
     private String ofertaInicioFacturacion;
-    private boolean smartPromo;
+    private String smartPromo;
 
     public String getOferta() {
         return oferta;
@@ -270,11 +270,11 @@ public class CotizacionCliente implements Serializable {
         this.ofertaInicioFacturacion = ofertaInicioFacturacion;
     }
 
-    public boolean isSmartPromo() {
+    public String getSmartPromo() {
         return smartPromo;
     }
 
-    public void setSmartPromo(boolean smartPromo) {
+    public void setSmartPromo(String smartPromo) {
         this.smartPromo = smartPromo;
     }
 

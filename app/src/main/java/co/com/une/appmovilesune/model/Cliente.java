@@ -167,6 +167,8 @@ public class Cliente implements Serializable, Observer, Subject {
 
     private boolean clienteNuevoSmartPromo;
 
+    private PortafolioUNE portafolioUNE;
+
 	public Cliente() {
 		TipoDocumento = "";
 		Cedula = "";
@@ -782,6 +784,8 @@ public class Cliente implements Serializable, Observer, Subject {
 
                 JSONObject jsonResultado = new JSONObject(resultado);
 
+                portafolioUNE = new PortafolioUNE();
+
                 if (jsonResultado.has("estandarizar")) {
                     if(jsonResultado.getJSONObject("estandarizar").getString("codigoRespuesta").equals("00")){
                         if(jsonResultado.getJSONObject("estandarizar").has("datos")){
@@ -792,6 +796,7 @@ public class Cliente implements Serializable, Observer, Subject {
                             DireccionNormalizada = Direccion;
                             estandarizarElite =1;
                             controlNormalizada = true;
+                            portafolioUNE.setEstandarizado("1");
                         }
                     }
 
@@ -803,9 +808,23 @@ public class Cliente implements Serializable, Observer, Subject {
                             JSONObject datos = jsonResultado.getJSONObject("portafolio").getJSONObject("datos");
 
                             portafolioElite = datos.toString();
+
+                            portafolioUNE.productoPortafolioUNEArrayList(datos);
+
+                            for (int i = 0; i < portafolioUNE.getProductoPortafolioUNEArrayList().size(); i++) {
+                                portafolioUNE.getProductoPortafolioUNEArrayList().get(i).imprimir();
+                            }
                         }
                     }
 
+                }
+
+                if(jsonResultado.has("resultTipoFacturacionySmartPromoxCiudad")){
+                    if(jsonResultado.getJSONObject("resultTipoFacturacionySmartPromoxCiudad").getString("codigoRespuesta").equals("00")){
+                        portafolioUNE.setSmartPromoCiudad(jsonResultado.getJSONObject("resultTipoFacturacionySmartPromoxCiudad").getJSONObject("datos").getString("smartpromo"));
+                        portafolioUNE.setTipoFacturacionCiudad(jsonResultado.getJSONObject("resultTipoFacturacionySmartPromoxCiudad").getJSONObject("datos").getString("tipoFacturacion"));
+
+                    }
                 }
 
                 servicioElite = resultado;
@@ -2158,6 +2177,14 @@ public class Cliente implements Serializable, Observer, Subject {
 
     public void setClienteNuevoSmartPromo(boolean clienteNuevoSmartPromo) {
         this.clienteNuevoSmartPromo = clienteNuevoSmartPromo;
+    }
+
+    public PortafolioUNE getPortafolioUNE() {
+        return portafolioUNE;
+    }
+
+    public void setPortafolioUNE(PortafolioUNE portafolioUNE) {
+        this.portafolioUNE = portafolioUNE;
     }
 
     @Override

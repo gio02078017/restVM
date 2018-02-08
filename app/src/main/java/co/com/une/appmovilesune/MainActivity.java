@@ -10,9 +10,11 @@ import org.kobjects.base64.Base64;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.itextpdf.text.log.SysoCounter;
 
+import co.com.une.appmovilesune.adapters.ItemKeyValue2;
 import co.com.une.appmovilesune.adapters.ListaDefault;
 import co.com.une.appmovilesune.change.Interprete;
 import co.com.une.appmovilesune.change.Utilidades;
+import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
 import co.com.une.appmovilesune.complements.BaseDatos;
 import co.com.une.appmovilesune.complements.Conexion;
 import co.com.une.appmovilesune.complements.Dialogo;
@@ -275,8 +277,15 @@ public class MainActivity extends Activity implements Observer {
                                 /*lanzarModulo(MODULO_TARIFICADOR);
                                 modulo = MODULO_TARIFICADOR;
                                 ccfg.setLanzador("tarificador");*/
-                                lanzarModulo(MODULO_COTIZADOR);
-                                modulo = MODULO_COTIZADOR;
+                                if(Utilidades.excluir("eliteMunicipios", asesoria.cliente.getCiudad())){
+                                    if(UtilidadesTarificadorNew.validarEstandarizacion(asesoria.cliente, this)){
+                                        lanzarModulo(MODULO_COTIZADOR);
+                                        modulo = MODULO_COTIZADOR;
+                                    }
+                                }else{
+                                    lanzarModulo(MODULO_COTIZADOR);
+                                    modulo = MODULO_COTIZADOR;
+                                }
 
                             } else {
                                         Toast.makeText(this, getResources().getString(R.string.seleccionartecnologia),
@@ -583,6 +592,11 @@ public class MainActivity extends Activity implements Observer {
         modulo = MODULO_CARRUSEL;
     }
 
+    private void lanzarCliente() {
+        lanzarModulo(MODULO_CLIENTE);
+        modulo = MODULO_CLIENTE;
+    }
+
     public void mostrarElearning(View v) {
         Uri uri = Uri.parse("http://aprendernosune.une.net.co/");
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -814,6 +828,8 @@ public class MainActivity extends Activity implements Observer {
                         lanzarCompetencia();
                     } else if (tipoIngreso.equalsIgnoreCase("carrusel")) {
                         lanzarCarrusel();
+                    }else if (tipoIngreso.equalsIgnoreCase("cliente")) {
+                        lanzarCliente();
                     }
                 } else if (modulo.equals(MODULO_VENTA)) {
                     asesoria.venta = (Venta) data.getSerializableExtra("Venta");

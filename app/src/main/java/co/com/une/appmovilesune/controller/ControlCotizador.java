@@ -55,6 +55,7 @@ import co.com.une.appmovilesune.model.Configuracion;
 import co.com.une.appmovilesune.model.Cotizacion;
 import co.com.une.appmovilesune.model.CotizacionCliente;
 import co.com.une.appmovilesune.model.ProductoCotizador;
+import co.com.une.appmovilesune.model.ProductoPortafolioUNE;
 import co.com.une.appmovilesune.model.Scooring;
 import co.com.une.appmovilesune.model.Simulador;
 import co.com.une.appmovilesune.model.TarificadorNew;
@@ -132,6 +133,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     private Dialogo dialogo;
 
     public boolean controlServicios = false;
+
+    public ArrayList<String> tipoControlador = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -234,7 +237,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     protected void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
-        if(!controlServicios) {
+        if (!controlServicios) {
             System.out.println("smart promo => " + Utilidades.excluir("ConsultarSmartPromo", cliente.getCiudad()));
 
             if (Utilidades.excluir("ConsultarSmartPromo", cliente.getCiudad())) {
@@ -299,11 +302,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             Log.w("Error", e.getMessage());
         }
 
-        System.out.println("smart promo => consultar "+consultar);
-        System.out.println("smart promo => dataa "+data);
+        System.out.println("smart promo => consultar " + consultar);
+        System.out.println("smart promo => dataa " + data);
         if (consultar) {
 
-            System.out.println("smart promo => data "+data);
+            System.out.println("smart promo => data " + data);
 
             ArrayList<String> parametros = new ArrayList<String>();
             parametros.add(data.toString());
@@ -371,9 +374,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         }
 
         String queryOferta = "select distinct Oferta from Precios p " +
-                UtilidadesTarificadorNew.innerJoinTarifas+
-                " where cxt.id_condicion in ("+ UtilidadesTarificadorNew.queryInternoTarifas(UtilidadesTarificadorNew.homologarDepartamentoCotizacion(cliente.getDepartamento(),cliente.getCiudad()),cliente.getCiudad())+")" +
-                " and estrato like '%" + estrato + "%' and tipo_paquete like '%"+tipoPaquete+"%' and Tecnologia like '%"+cliente.getTecnologia()+"%'";
+                UtilidadesTarificadorNew.innerJoinTarifas +
+                " where cxt.id_condicion in (" + UtilidadesTarificadorNew.queryInternoTarifas(UtilidadesTarificadorNew.homologarDepartamentoCotizacion(cliente.getDepartamento(), cliente.getCiudad()), cliente.getCiudad()) + ")" +
+                " and estrato like '%" + estrato + "%' and tipo_paquete like '%" + tipoPaquete + "%' and Tecnologia like '%" + cliente.getTecnologia() + "%'";
 
         //System.out.println("queryOferta "+queryOferta);
 
@@ -406,6 +409,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         if (cotizacion != null) {
             //rellenarCotizacion();
         }
+        System.out.println("cliente elite " + cliente.getServicioElite());
+        System.out.println("cliente portafolio elite " + cliente.getPortafolioElite());
+
+
     }
 
     public void rellenarCotizacion() {
@@ -416,7 +423,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         adaptador = (ArrayAdapter<String>) spnoferta.getAdapter();
         spnoferta.setSelection(adaptador.getPosition(cotizacion.getOfertaCotizacion()));
 
-        if (!cotizacion.getTipoTv().equals("-") && !cotizacion.getTelevision().equals("-")) {
+        /*if (!cotizacion.getTipoTv().equals("-") && !cotizacion.getTelevision().equals("-")) {
             cprdTelevision.setActivo(true);
             cprdTelevision.rellenarProducto(cotizacion.getTipoTv(), cotizacion.getTelevision());
         }
@@ -429,7 +436,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         if (!cotizacion.getTipoTo().equals("-") && !cotizacion.getTelefonia().equals("-")) {
             cprdTelefonia.setActivo(true);
             cprdTelefonia.rellenarProducto(cotizacion.getTipoTo(), cotizacion.getTelefonia());
-        }
+        }*/
+
+        //if(cliente.getServicioElite().)
+        System.out.println("cliente elite " + cliente.getServicioElite());
+        System.out.println("cliente portafolio elite " + cliente.getPortafolioElite());
+
     }
 
     AdapterView.OnItemSelectedListener seleccionarEstrato = new AdapterView.OnItemSelectedListener() {
@@ -518,21 +530,37 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     if (arrayList.get(0).equalsIgnoreCase("tv")) {
                         cprdTelevision.setActivo(true);
                         cprdTelevision.deshabilitarCheckProducto();
+                        llenarComponente(cprdTelevision, ProductoPortafolioUNE.TELEVISION);
                     }
 
                     if (arrayList.get(0).equalsIgnoreCase("ba")) {
                         cprdInternet.setActivo(true);
                         cprdInternet.deshabilitarCheckProducto();
+                        llenarComponente(cprdInternet, ProductoPortafolioUNE.INTERNET);
+
                     }
 
                     if (arrayList.get(0).equalsIgnoreCase("to")) {
                         cprdTelefonia.setActivo(true);
                         cprdTelefonia.deshabilitarCheckProducto();
+                        llenarComponente(cprdTelefonia, ProductoPortafolioUNE.TELEFONIA);
                     }
                 }
             }
         }
 
+    }
+
+    public void llenarComponente(CompProducto componente, String tipoProducto) {
+        if (cliente.getPortafolioUNE() != null && cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList() != null) {
+            ProductoPortafolioUNE productoPortafolioUNE = cliente.getPortafolioUNE().buscarProductoPorTipoProducto(tipoProducto);
+            System.out.println("productoPortafolioUNE  llenarComponente " + productoPortafolioUNE);
+            if (productoPortafolioUNE != null) {
+                componente.setPeticionProducton("C");
+            } else {
+                componente.setPeticionProducton("N");
+            }
+        }
     }
 
 
@@ -561,11 +589,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             } else if (resultado != null && resultado.get(0).equals("consultarPagoParcialAnticipado")) {
                 tratarPagoParcialAnticipado(resultado.get(1).toString());
             } else if (resultado != null && resultado.get(0).equals("guardarLogCarruselAutomatico")) {
-                Log.d(TAG,"guardarLogCarruselAutomatico "+resultado.get(1).toString());
+                Log.d(TAG, "guardarLogCarruselAutomatico " + resultado.get(1).toString());
                 tratarLogAutomaticoCarrusel(resultado.get(1).toString());
             } else if (resultado != null && resultado.get(0).equals("decos")) {
 
-            }else  if (resultado != null && resultado.get(0).equals("ValidacionConfiguracionMovil")) {
+            } else if (resultado != null && resultado.get(0).equals("ValidacionConfiguracionMovil")) {
 
                 try {
 
@@ -587,10 +615,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     Log.w("Error JSONException ", e.getMessage());
                 }
 
-            } else if(resultado != null && resultado.get(0).equals("validarDebitoAutomaticoExistente")){
+            } else if (resultado != null && resultado.get(0).equals("validarDebitoAutomaticoExistente")) {
                 tratarValidacionDebitoAutomatico(resultado.get(1).toString());
             }
-
 
 
         } catch (Exception e) {
@@ -627,7 +654,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 cprdInternet.getPeticionProducto(), cprdInternet.getPlan(), adicionales,
                 0, (String) spnestrato.getSelectedItem(), false, cliente,
                 UtilidadesTarificador.jsonDatos(cliente, cliente.getSmartPromo(), cliente.getTecnologia(), aplicarAnaloga), this,
-                0,(String)spnoferta.getSelectedItem());
+                0, (String) spnoferta.getSelectedItem());
 
         // ArrayList<ProductoCotizador> productos = tarificador.cotizacionVenta();
 
@@ -641,31 +668,28 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         boolean duoNuevo = UtilidadesTarificadorNew.isDuoNuevo(productos);
         boolean comportamientoExistentes = UtilidadesTarificadorNew.isCotizacionConExistentes(productos);
 
-        if(cotizacionCliente.getControl().equalsIgnoreCase("00")) {
+        if (cotizacionCliente.getControl().equalsIgnoreCase("00")) {
 
             //productos = obtenerValorConexionCotizacion(cotizacionCliente);
             productos = UtilidadesPagoParcial.obtenerPagoParcial(cotizacionCliente);
-            UtilidadesTarificadorNew.tipoDeFacturacion(cotizacionCliente,cliente);
+            UtilidadesTarificadorNew.tipoDeFacturacion(cotizacionCliente, cliente);
 
             if (productos != null) {
-            for (int i = 0; i < productos.size(); i++) {
+                for (int i = 0; i < productos.size(); i++) {
 
-
-
-                if(!codigoClienteNuevo.equalsIgnoreCase("00")){
-                    if(clienteNuevo && !comportamientoExistentes){
-                        productos.get(i).setClienteNuevo(true);
+                    if (!codigoClienteNuevo.equalsIgnoreCase("00")) {
+                        if (clienteNuevo && !comportamientoExistentes) {
+                            productos.get(i).setClienteNuevo(true);
+                        } else {
+                            productos.get(i).setClienteNuevo(false);
+                        }
                     } else {
-                        productos.get(i).setClienteNuevo(false);
+                        if (clienteNuevo) {
+                            productos.get(i).setClienteNuevo(true);
+                        } else {
+                            productos.get(i).setClienteNuevo(false);
+                        }
                     }
-                }else {
-                    if(clienteNuevo){
-                        productos.get(i).setClienteNuevo(true);
-                    } else {
-                        productos.get(i).setClienteNuevo(false);
-                    }
-                }
-
 
                     if (codigoPA.equalsIgnoreCase("00")) {
                         if (clienteNuevo) {
@@ -718,14 +742,13 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             }
 
 
+            String cadenaConexion = UtilidadesPagoParcial.obtenerCadenaValorConexion(productos);
+            double valorConexion = UtilidadesPagoParcial.obtenerValorConexion(cadenaConexion);
+            double valorDescuentoComercial = valorConexion - totalPagoParcial;
+            cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal(), cadcInternet.calcularTotal(), valorConexion, totalPagoParcial, valorDescuentoComercial, totalPagoAnticipado);
 
-        String cadenaConexion = UtilidadesPagoParcial.obtenerCadenaValorConexion(productos);
-        double valorConexion = UtilidadesPagoParcial.obtenerValorConexion(cadenaConexion);
-        double valorDescuentoComercial = valorConexion - totalPagoParcial;
-        cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal(), cadcInternet.calcularTotal(), valorConexion, totalPagoParcial, valorDescuentoComercial, totalPagoAnticipado);
 
-
-    }
+        }
     }
 
     public void procesarCotizacion(View v) {
@@ -740,13 +763,14 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     public void procesarCotizacion2(CotizacionCliente cotizacionCliente) {
 
+        tipoControlador.clear();
+        controlServicios = false;
+
         if (cprdTelevision.isActivo() || cprdInternet.isActivo() || cprdTelefonia.isActivo()) {
             if (!spnestrato.getSelectedItem().equals("--Seleccione Estrato--")
                     && (!cprdTelefonia.getPlan().equals("--Seleccione Producto--")
                     || !cprdTelevision.getPlan().equals("--Seleccione Producto--")
                     || !cprdInternet.getPlan().equals("--Seleccione Producto--"))) {
-
-                controlServicios = false;
 
                 cotizacionCliente.setTipoOferta((String) spntipooferta.getSelectedItem());
                 cotizacionCliente.setOfertaCotizacion((String) spnoferta.getSelectedItem());
@@ -763,38 +787,41 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                         switch (cotizacionCliente.getProductoCotizador().get(i).getTipo()) {
                             case 0:
-                                cotizacionCliente.getProductoCotizador().set(i,llenarcotizacionTelefonia(cotizacionCliente.getProductoCotizador().get(i)));
+                                cotizacionCliente.getProductoCotizador().set(i, llenarcotizacionTelefonia(cotizacionCliente.getProductoCotizador().get(i)));
                                 break;
                             case 1:
-                                cotizacionCliente.getProductoCotizador().set(i,llenarcotizacionTelevision(cotizacionCliente.getProductoCotizador().get(i)));
+                                cotizacionCliente.getProductoCotizador().set(i, llenarcotizacionTelevision(cotizacionCliente.getProductoCotizador().get(i)));
                                 //llenarcotizacionTelevision(cotizacionCliente.getProductoCotizador().get(i), tv, cotizacionCliente.getContadorProductos(), trioNuevo);
                                 break;
                             case 2:
-                                cotizacionCliente.getProductoCotizador().set(i,llenarcotizacionInternet(cotizacionCliente.getProductoCotizador().get(i)));
+                                cotizacionCliente.getProductoCotizador().set(i, llenarcotizacionInternet(cotizacionCliente.getProductoCotizador().get(i)));
                                 //llenarcotizacionInternet(cotizacionCliente.getProductoCotizador().get(i), cotizacionCliente, ba, cotizacionCliente.getContadorProductos(), trioNuevo, cadcInternet.isHBOGOExistente(),cadcInternet.getObjectCrackleExistente());
                                 break;
                         }
                     }
                 }
 
-                ProductoCotizador tele = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(),ProductoCotizador.getTELEVISION());
-                tele.imprimir();
+                /*ProductoCotizador tele = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEVISION());
+                tele.imprimir();*/
 
-                if(Validaciones.validarCotizacion(cliente,cotizacionCliente,scooring,this)){
+                if (Validaciones.validarCotizacion(cliente, cotizacionCliente, scooring, this)) {
                     System.out.println("hola");
                     resultCotizador("venta");
 
-                }else{
+                } else {
                     Toast.makeText(this, "No cumple", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.MODULO_MENSAJES);
                     intent.putExtra("mensajes", Validaciones.getMensajes().toString());
+                    intent.putExtra("medio", "Cotizador");
                     startActivityForResult(intent, MainActivity.REQUEST_CODE);
                     controlServicios = true;
+                    tipoControlador = Validaciones.getTipoControlador();
+
                 }
 
             }
 
-            }
+        }
     }
 
 
@@ -818,7 +845,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 if (cotizacion == null) {
                     cotizacion = new Cotizacion();
                 }
-
 
 
                 cotizacion.setTipoOferta((String) spntipooferta.getSelectedItem());
@@ -857,7 +883,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                 llenarcotizacionTelevision(cotizacionCliente.getProductoCotizador().get(i), tv, cotizacionCliente.getContadorProductos(), trioNuevo);
                                 break;
                             case 2:
-                                llenarcotizacionInternet(cotizacionCliente.getProductoCotizador().get(i), cotizacionCliente, ba, cotizacionCliente.getContadorProductos(), trioNuevo, cadcInternet.isHBOGOExistente(),cadcInternet.getObjectCrackleExistente());
+                                llenarcotizacionInternet(cotizacionCliente.getProductoCotizador().get(i), cotizacionCliente, ba, cotizacionCliente.getContadorProductos(), trioNuevo, cadcInternet.isHBOGOExistente(), cadcInternet.getObjectCrackleExistente());
                                 break;
                         }
                     }
@@ -962,11 +988,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                 && UtilidadesTarificador.validarDecos(cotizacion.getObjectDecodificador(), this)) {
                             if (cliente.isControlEstadoCuenta()) {
                                 if (validarCarrusel()) {
-                                    if(validarCotizacionClienteNuevo(cotizacion)){
+                                    if (validarCotizacionClienteNuevo(cotizacion)) {
                                         if (validarDigital()) {
                                             if (validarTelefonoServicio) {
                                                 if (Utilidades.validarTelefonos(cliente, this)) {
-                                                    if (UtilidadesTarificadorNew.validarEstandarizacion(cotizacion,cliente, this) || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
+                                                    if (UtilidadesTarificadorNew.validarEstandarizacion(cotizacion, cliente, this) || cliente.isControlCerca() || Utilidades.CoberturaRural(cliente)) {
                                                         if ((!cliente.getDireccion().equalsIgnoreCase("") || cliente.isControlCerca())
                                                                 && !cliente.getCedula().equalsIgnoreCase("")
                                                                 && !cliente.getTipoDocumento()
@@ -1100,43 +1126,43 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     }
 
-    private void enviarLogCarruselAutomatico(){
+    private void enviarLogCarruselAutomatico() {
 
-        try{
+        try {
 
             ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
 
-            JSONObject  dataLogCarrusel = new JSONObject();
-            dataLogCarrusel.put("documento",cliente.getCedula());
-            dataLogCarrusel.put("tipoDocumento",cliente.getTipoDocumento());
-            dataLogCarrusel.put("departamento",cliente.getDepartamento());
-            dataLogCarrusel.put("municipio",cliente.getCiudad());
-            dataLogCarrusel.put("direccion",cliente.getDireccion());
-            dataLogCarrusel.put("codigoAsesor",MainActivity.config.getCodigo_asesor());
-            dataLogCarrusel.put("nombreAsesor",MainActivity.config.getNombre_asesor());
-            dataLogCarrusel.put("codigoCanal",MainActivity.config.getCanal());
-            dataLogCarrusel.put("nombreCanal","");
-            dataLogCarrusel.put("motivo","VALIDACION SEGUNDO NIVEL");
-            dataLogCarrusel.put("submotivo","Carrusel");
-            dataLogCarrusel.put("crm",cliente.getCrmCarrusel());
+            JSONObject dataLogCarrusel = new JSONObject();
+            dataLogCarrusel.put("documento", cliente.getCedula());
+            dataLogCarrusel.put("tipoDocumento", cliente.getTipoDocumento());
+            dataLogCarrusel.put("departamento", cliente.getDepartamento());
+            dataLogCarrusel.put("municipio", cliente.getCiudad());
+            dataLogCarrusel.put("direccion", cliente.getDireccion());
+            dataLogCarrusel.put("codigoAsesor", MainActivity.config.getCodigo_asesor());
+            dataLogCarrusel.put("nombreAsesor", MainActivity.config.getNombre_asesor());
+            dataLogCarrusel.put("codigoCanal", MainActivity.config.getCanal());
+            dataLogCarrusel.put("nombreCanal", "");
+            dataLogCarrusel.put("motivo", "VALIDACION SEGUNDO NIVEL");
+            dataLogCarrusel.put("submotivo", "Carrusel");
+            dataLogCarrusel.put("crm", cliente.getCrmCarrusel());
 
             JSONArray dataLogCarruselProductos = new JSONArray();
 
-            for (ProductoCotizador producto:productos) {
+            for (ProductoCotizador producto : productos) {
                 JSONObject productoJson = new JSONObject();
-                productoJson.put("tipo",producto.traducirProducto().toUpperCase());
-                productoJson.put("plan",producto.getPlan());
-                if(productosLog.contains(producto.traducirProducto().toUpperCase())){
-                    productoJson.put("carrusel","1");
-                }else{
-                    productoJson.put("carrusel","0");
+                productoJson.put("tipo", producto.traducirProducto().toUpperCase());
+                productoJson.put("plan", producto.getPlan());
+                if (productosLog.contains(producto.traducirProducto().toUpperCase())) {
+                    productoJson.put("carrusel", "1");
+                } else {
+                    productoJson.put("carrusel", "0");
                 }
                 dataLogCarruselProductos.put(productoJson);
             }
 
-            dataLogCarrusel.put("productos",dataLogCarruselProductos);
+            dataLogCarrusel.put("productos", dataLogCarruselProductos);
 
-            Log.i(TAG,"JSON Automatico "+dataLogCarrusel.toString());
+            Log.i(TAG, "JSON Automatico " + dataLogCarrusel.toString());
 
             Simulador simulador = new Simulador();
             simulador.setManual(this);
@@ -1155,14 +1181,14 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         } catch (JSONException e) {
             e.printStackTrace();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
 
     }
 
-    public ProductoCotizador  llenarcotizacionTelevision(ProductoCotizador productoCotizador){
+    public ProductoCotizador llenarcotizacionTelevision(ProductoCotizador productoCotizador) {
 
         if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
             productoCotizador.setAdicionalesCotizador(cadcTelevision.listaAdicionalesConPromocion(cadcTelevision.listaAdicionales()));
@@ -1222,19 +1248,19 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         }
     }
 
-    public ProductoCotizador  llenarcotizacionTelefonia(ProductoCotizador productoCotizador){
+    public ProductoCotizador llenarcotizacionTelefonia(ProductoCotizador productoCotizador) {
 
         if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
             productoCotizador.setAdicionalesCotizador(cadcTelefonia.listaAdicionalesConPromocion(cadcTelefonia.listaAdicionales()));
             productoCotizador.setTotalAdicionales(cadcTelefonia.calcularTotal());
             double valor = UtilidadesTarificador.ImpuestoTelefonico(cliente.getCiudad(), cliente.getDepartamento(), cliente.getEstrato());
-            if(valor == -1){
+            if (valor == -1) {
                 valor = 0.0;
             }
 
             productoCotizador.setAdicionalesCotizador(cadcTelefonia.listaAdicionalesConPromocion(cadcTelefonia.listaAdicionales()));
             ArrayList<AdicionalCotizador> adicionalesCotizador = productoCotizador.getAdicionalesCotizador();
-            adicionalesCotizador.add(new AdicionalCotizador("IMP","Impuesto Telefonico",valor,"Nuevo"));
+            adicionalesCotizador.add(new AdicionalCotizador("IMP", "Impuesto Telefonico", valor, "Nuevo"));
             productoCotizador.setAdicionalesCotizador(adicionalesCotizador);
 
 
@@ -1245,7 +1271,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     public void llenarcotizacionTelefonia(ProductoCotizador productoCotizador, String to, int contadorProd, boolean trioNuevo) {
 
-       if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
+        if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
 
             String descuentoCadena = Utilidades.limpiarDecimales(String.valueOf(productoCotizador.getDescuentoCargobasico()));
 
@@ -1280,14 +1306,14 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     }
 
-    public ProductoCotizador llenarcotizacionInternet(ProductoCotizador productoCotizador){
+    public ProductoCotizador llenarcotizacionInternet(ProductoCotizador productoCotizador) {
 
         if (!productoCotizador.getPlan().equalsIgnoreCase("-") && !productoCotizador.getTipoPeticion().equalsIgnoreCase("-")) {
             productoCotizador.setAdicionalesCotizador(cadcInternet.listaAdicionalesConPromocion(cadcInternet.listaAdicionales()));
-            if(cotizacionCliente.getGotaba().isControlGota()){
+            if (cotizacionCliente.getGotaba().isControlGota()) {
                 ArrayList<AdicionalCotizador> adicionalesCotizador = productoCotizador.getAdicionalesCotizador();
                 String nombreGota = "Gota de " + cotizacionCliente.getGotaba().getVelocidadInicial() + " a " + cotizacionCliente.getGotaba().getVelocidadFinal();
-                adicionalesCotizador.add(new AdicionalCotizador("ADBA",nombreGota,(double) Math.round(cotizacionCliente.getGotaba().getValorGota()),String.valueOf(cotizacionCliente.getGotaba().getValorGotaSinIva()),"Nuevo",cotizacionCliente.getGotaba().isControlGota(),cotizacionCliente.getGotaba().getVelocidadInicial(), cotizacionCliente.getGotaba().getVelocidadFinal()));
+                adicionalesCotizador.add(new AdicionalCotizador("ADBA", nombreGota, (double) Math.round(cotizacionCliente.getGotaba().getValorGota()), String.valueOf(cotizacionCliente.getGotaba().getValorGotaSinIva()), "Nuevo", cotizacionCliente.getGotaba().isControlGota(), cotizacionCliente.getGotaba().getVelocidadInicial(), cotizacionCliente.getGotaba().getVelocidadFinal()));
                 productoCotizador.setAdicionalesCotizador(adicionalesCotizador);
                 /*cotizacion.setGota(cotizacionCliente.getGotaba().isControlGota(), (int) Math.round(cotizacionCliente.getGotaba().getValorGota()),
                         (int) Math.round(cotizacionCliente.getGotaba().getValorGotaSinIva()), cotizacionCliente.getGotaba().getVelocidadInicial(), cotizacionCliente.getGotaba().getVelocidadFinal(),
@@ -1323,15 +1349,15 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             String tipoCotizacion = Utilidades.planNumerico(productoCotizador.getTipoPeticion());
             cotizacion.setTipoCotizacionBa(tipoCotizacion);
             cotizacion.setRetiroHBOGO(false);
-            UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(),"Cotizacion.getAdicionalesBa() Ante HBO GO Existente ");
+            UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(), "Cotizacion.getAdicionalesBa() Ante HBO GO Existente ");
             cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
-            if(HBOGOExistente){
-                if(!cprdTelevision.getPlan().equalsIgnoreCase(Utilidades.inicial)){
+            if (HBOGOExistente) {
+                if (!cprdTelevision.getPlan().equalsIgnoreCase(Utilidades.inicial)) {
                     cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa()));
                     cotizacion.setRetiroHBOGO(true);
-                }else {
-                    String adicional =  cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa())[0][0];
-                    if(!UtilidadesTarificadorNew.validarVelocidadInternet(productoCotizador.getPlan(),adicional,cliente)){
+                } else {
+                    String adicional = cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa())[0][0];
+                    if (!UtilidadesTarificadorNew.validarVelocidadInternet(productoCotizador.getPlan(), adicional, cliente)) {
                         cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa()));
                         cotizacion.setRetiroHBOGO(true);
                     } /*else {
@@ -1347,18 +1373,18 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
             }
 
-            UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(),"Cotizacion.getAdicionalesBa() Despues HBO GO Existente ");
+            UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(), "Cotizacion.getAdicionalesBa() Despues HBO GO Existente ");
             cotizacion.setRetiroCrackleBa(false);
-            UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(),"Cotizacion.getAdicionalesBa() Antes Crackle Existente ");
-            if(crackleExistente !=null  && crackleExistente.isExistente() && crackleExistente.getTipoProducto().equalsIgnoreCase("INTER")){
+            UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(), "Cotizacion.getAdicionalesBa() Antes Crackle Existente ");
+            if (crackleExistente != null && crackleExistente.isExistente() && crackleExistente.getTipoProducto().equalsIgnoreCase("INTER")) {
                 //String adicional =  cadcInternet.arrayAdicionalesCrackle()[0][0];
-                if(!UtilidadesTarificadorNew.validarVelocidadInternet(productoCotizador.getPlan(),"Crackle",cliente) && productoCotizador.getTipoPeticion().equalsIgnoreCase("C")){
+                if (!UtilidadesTarificadorNew.validarVelocidadInternet(productoCotizador.getPlan(), "Crackle", cliente) && productoCotizador.getTipoPeticion().equalsIgnoreCase("C")) {
                     cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesCrackle(cotizacion.getAdicionalesBa()));
                     cotizacion.setRetiroCrackleBa(true);
                 }
             }
 
-            UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(),"Cotizacion.getAdicionalesBa() Despues Crackle Existente ");
+            UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(), "Cotizacion.getAdicionalesBa() Despues Crackle Existente ");
 
             cotizacion.setTotalAdicionalesBa(String.valueOf(cadcInternet.calcularTotal()));
 
@@ -1374,7 +1400,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 cotizacion.setControlGota(false);
             }
         } else {
-            if(HBOGOExistente){
+            if (HBOGOExistente) {
 
                 String tipoCotizacion = Utilidades.planNumerico("E");
                 cotizacion.setTipoCotizacionBa(tipoCotizacion);
@@ -1393,7 +1419,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
             }
-
 
 
             cotizacion.setTotalAdicionalesBa(String.valueOf(cadcInternet.calcularTotal()));
@@ -1458,7 +1483,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         }
 
-       if (descuentoAd != 0 && descuentoAd != 00) {
+        if (descuentoAd != 0 && descuentoAd != 00) {
             totalDescuento = totalDescuento - descuentoAd;
         }
 
@@ -1815,14 +1840,14 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                         if (cliente.getArraycarrusel().size() > 0) {
                             for (int i = 0; i < cliente.getArraycarrusel().size(); i++) {
                                 if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("TO")) {
-                                    if(cprdTelefonia.isActivo()){
+                                    if (cprdTelefonia.isActivo()) {
                                         if (!UtilidadesTarificador.validarCarruselProductos(
                                                 cotizacion.getTipoCotizacionTo(), cotizacion.getTelefonia(), this)) {
                                             productosLog.add("TO");
                                         }
                                     }
                                 } else if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("TV")) {
-                                    if(cprdTelevision.isActivo()){
+                                    if (cprdTelevision.isActivo()) {
                                         if (!UtilidadesTarificador.validarCarruselProductos(
                                                 cotizacion.getTipoCotizacionTv(), cotizacion.getTelevision(), this)) {
                                             productosLog.add("TV");
@@ -1830,7 +1855,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                     }
 
                                 } else if (cliente.getArraycarrusel().get(i).getProducto().equalsIgnoreCase("BA")) {
-                                    if(cprdInternet.isActivo()){
+                                    if (cprdInternet.isActivo()) {
                                         if (!UtilidadesTarificador.validarCarruselProductos(
                                                 cotizacion.getTipoCotizacionBa(), cotizacion.getInternet(), this)) {
                                             productosLog.add("BA");
@@ -1839,13 +1864,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                 }
                             }
 
-                            if(productosLog.size() > 0){
+                            if (productosLog.size() > 0) {
                                 validar = false;
-                                for (String prod: productosLog) {
-                                    Log.i(TAG,"LOG "+prod);
+                                for (String prod : productosLog) {
+                                    Log.i(TAG, "LOG " + prod);
                                 }
                             }
-
 
 
                         }
@@ -1955,7 +1979,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     public boolean validarAgendaSiebel() {
         boolean agenda = true;
-        System.out.println("cliente.getEstandarizarSiebel()  "+cliente.getEstandarizarSiebel() );
+        System.out.println("cliente.getEstandarizarSiebel()  " + cliente.getEstandarizarSiebel());
 
         if (Utilidades.excluir("siebelMunicipios", cliente.getCiudad())) {
             if (cliente.getEstandarizarSiebel() == 1) {
@@ -2025,7 +2049,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         }
 
         System.out.println("planFactura " + planFactura);
-        if(planFactura != null && !planFactura.equalsIgnoreCase("null")) {
+        if (planFactura != null && !planFactura.equalsIgnoreCase("null")) {
             adicional = Utilidades.adicionalesGratis("adicionalesGratis", planFactura);
         }
 
@@ -2185,7 +2209,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         finish();
     }
 
-    private void validarDebitoAutomaticoExistente(){
+    private void validarDebitoAutomaticoExistente() {
         JSONObject data = new JSONObject();
 
         try {
@@ -2199,7 +2223,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         }
 
         Log.d("Domiciliacion", data.toString());
-        Log.d("Domiciliacion",Utilidades.camposUnicosCiudad("CRMCarrusel", cliente.getCiudad()));
+        Log.d("Domiciliacion", Utilidades.camposUnicosCiudad("CRMCarrusel", cliente.getCiudad()));
 
         ArrayList<String> parametros = new ArrayList<String>();
         parametros.add(Utilidades.camposUnicosCiudad("CRMCarrusel", cliente.getCiudad()));
@@ -2248,9 +2272,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         params.add("consultarPagoParcialAnticipado");
         params.add(parametros);
 
-        try{
+        try {
             simulador.execute(params);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -2279,12 +2303,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 JSONArray jsonValoresConexion = json.getJSONObject("data").getJSONArray("valorConexion");
                 JSONArray jsonPagoParcial = json.getJSONObject("data").getJSONArray("pagoParcial");
 
-                System.out.println("cliente nuevo "+json.getJSONObject("data").getBoolean("clienteNuevo"));
+                System.out.println("cliente nuevo " + json.getJSONObject("data").getBoolean("clienteNuevo"));
 
-                if(codigoClienteNuevo.equalsIgnoreCase("00")){
+                if (codigoClienteNuevo.equalsIgnoreCase("00")) {
                     clienteNuevo = json.getJSONObject("data").getBoolean("clienteNuevo");
                     cliente.setClienteNuevoSmartPromo(json.getJSONObject("data").getBoolean("clienteNuevo"));
-                }else {
+                } else {
                     clienteNuevo = true;
                 }
 
@@ -2321,7 +2345,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         }
     }
 
-    private void tratarLogAutomaticoCarrusel(String respuesta){
+    private void tratarLogAutomaticoCarrusel(String respuesta) {
 
         try {
             JSONObject json = new JSONObject(respuesta);
@@ -2331,18 +2355,18 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 json = new JSONObject(data);
 
-                if(json.getString("codigoMensaje").equalsIgnoreCase("00")){
+                if (json.getString("codigoMensaje").equalsIgnoreCase("00")) {
                     cliente.setIdGerenciaExistente(json.get("idGerencia").toString());
-                }else {
+                } else {
                     //Toast.makeText(this, getResources().getString(R.string.logautomaticocarrusel), Toast.LENGTH_LONG).show();
                 }
 
                 String prodcutosCarrusel = "";
-                for(String producto: productosLog){
-                    prodcutosCarrusel += producto+"-";
+                for (String producto : productosLog) {
+                    prodcutosCarrusel += producto + "-";
                 }
 
-                dialogo = new Dialogo(this,Dialogo.DIALOGO_CUSTOM,"Carrusel",getResources().getString(R.string.mensajeCarrusel)+prodcutosCarrusel.substring(0,prodcutosCarrusel.length()-1)+getResources().getString(R.string.mensajeCarrusel2),"Prospectar","Reconfigurar",carruselOK,carruselCANCEL);
+                dialogo = new Dialogo(this, Dialogo.DIALOGO_CUSTOM, "Carrusel", getResources().getString(R.string.mensajeCarrusel) + prodcutosCarrusel.substring(0, prodcutosCarrusel.length() - 1) + getResources().getString(R.string.mensajeCarrusel2), "Prospectar", "Reconfigurar", carruselOK, carruselCANCEL);
                 dialogo.dialogo.show();
 
             } else {
@@ -2357,7 +2381,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     DialogInterface.OnClickListener carruselOK = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            Log.i(TAG,"Prospectar");
+            Log.i(TAG, "Prospectar");
             resultCotizador("gerencia de ruta");
         }
     };
@@ -2365,17 +2389,17 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     DialogInterface.OnClickListener carruselCANCEL = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            Log.i(TAG,"Reconfigurar");
+            Log.i(TAG, "Reconfigurar");
         }
     };
 
-    private boolean validarCotizacionClienteNuevo(Cotizacion cotizacion){
+    private boolean validarCotizacionClienteNuevo(Cotizacion cotizacion) {
 
         boolean cotizacionValida = false;
 
         if (!Utilidades.excluir("excluirppca", cliente.getCiudad())) {
-            if(clienteNuevo && codigoClienteNuevo.equalsIgnoreCase("00")) {
-                if(!UtilidadesTarificadorNew.ventaConExistente(cotizacion)){
+            if (clienteNuevo && codigoClienteNuevo.equalsIgnoreCase("00")) {
+                if (!UtilidadesTarificadorNew.ventaConExistente(cotizacion)) {
                     cotizacionValida = true;
                 }
             } else if (clienteNuevo && !codigoClienteNuevo.equalsIgnoreCase("00")) {
@@ -2392,7 +2416,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     }
 
-    private void tratarValidacionDebitoAutomatico(String respuesta){
+    private void tratarValidacionDebitoAutomatico(String respuesta) {
 
         Log.d("Domiciliacion", respuesta);
 
@@ -2404,22 +2428,22 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             if (Configuracion.validarIntegridad(json.getString("data"), json.getString("crc"))) {
                 String data = new String(Base64.decode(json.getString("data")));
 
-                Log.d("Domiciliacion",data);
+                Log.d("Domiciliacion", data);
 
                 json = new JSONObject(data);
 
-                if(json.getString("codigoMensaje").equals("00")){
-                    if(json.getJSONObject("data").getString("debitoAutomatico").equalsIgnoreCase("S")){
+                if (json.getString("codigoMensaje").equals("00")) {
+                    if (json.getJSONObject("data").getString("debitoAutomatico").equalsIgnoreCase("S")) {
                         cliente.setDomiciliacion("NO");
                         Dialogo dialogo = null;
-                        if(!json.getJSONObject("data").getString("entidad").contains("BANCOLOMBIA")){
-                            if(json.getJSONObject("data").getString("tipoDebitoAutomatico").equalsIgnoreCase("DB")){
-                                dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA,getResources().getString(R.string.mensajedebitoautomaticodebito));
-                            }else{
-                                dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA,getResources().getString(R.string.mensajedebitoautomaticredito));
+                        if (!json.getJSONObject("data").getString("entidad").contains("BANCOLOMBIA")) {
+                            if (json.getJSONObject("data").getString("tipoDebitoAutomatico").equalsIgnoreCase("DB")) {
+                                dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA, getResources().getString(R.string.mensajedebitoautomaticodebito));
+                            } else {
+                                dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA, getResources().getString(R.string.mensajedebitoautomaticredito));
                             }
-                        }else {
-                            dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA,getResources().getString(R.string.mensajedebitoautomaticredito));
+                        } else {
+                            dialogo = new Dialogo(this, Dialogo.DIALOGO_ALERTA, getResources().getString(R.string.mensajedebitoautomaticredito));
                         }
 
                         dialogo.dialogo.show();
@@ -2444,10 +2468,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         }
 
 
-        if(!bloqueo){
+        if (!bloqueo) {
             procesarCotizacion(cotizacionCliente);
         }
-
 
 
     }
@@ -2465,5 +2488,34 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     @Override
     public void notifyObserver() {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            System.out.println("requestCode => " + requestCode);
+            System.out.println("resultCode => " + resultCode);
+            System.out.println("data => " + data);
+            if (requestCode == MainActivity.REQUEST_CODE) {
+                // cogemos el valor devuelto por la otra actividad
+                String result = data.getStringExtra("result");
+                String mensaje = data.getStringExtra("Mensaje");
+
+                System.out.println("result " + result);
+                System.out.println("Mensaje " + mensaje);
+                if (mensaje.equalsIgnoreCase("Validacion")) {
+                    if (tipoControlador.contains("Cliente")) {
+                        resultCotizador("cliente");
+                    } else if (tipoControlador.contains("Scoring")) {
+                        resultCotizador("estado cuenta");
+                    } else if (tipoControlador.contains("Carrusel")) {
+                        resultCotizador("carrusel");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.w("Error", "Mensaje " + e.getMessage());
+        }
     }
 }

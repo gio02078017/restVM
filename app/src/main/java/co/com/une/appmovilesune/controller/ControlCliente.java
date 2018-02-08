@@ -827,26 +827,6 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
     AdapterView.OnItemSelectedListener eventoProyectoRural = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-//            String tipoZona = (String) spnTipoZona.getSelectedItem();
-//            String barrio = txtBarrio.getText().toString();
-//
-//            System.out.println("Zona rural tipoZona" + tipoZona);
-//            System.out.println("Zona rural barrio" + barrio);
-//
-//            if (tipoZona.equalsIgnoreCase("Rural")) {
-//                if (!barrio.equalsIgnoreCase("")) {
-//                    ConsultarProyectos();
-//                    rowProyectosRurales.setVisibility(View.VISIBLE);
-//                } else {
-//                    limpiarSpnTipoZona();
-//                }
-//            } else {
-//                //limpiar
-//                arrayProyectosRurales.clear();
-//                llenarProyectosRurales(arrayProyectosRurales);
-//                rowProyectosRurales.setVisibility(View.GONE);
-//            }
             Utilidades.MensajesToast(txtProyectosRurales.getText().toString(), MainActivity.context);
         }
 
@@ -1166,7 +1146,8 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         }
 
         if (cliente.consolidarCliente() == null || cliente.getCedula().equalsIgnoreCase("")) {
-            txtDocumento.setText("1111241111");
+            //txtDocumento.setText("1111241111");
+            txtDocumento.setText("4317614");
         }
 
         System.out.println("cliente.getCiudad() " + cliente.getCiudad());
@@ -1179,14 +1160,17 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
                 //txtDireccion.setText("CL 88 A  # 67 - 46 APT 601");
                 txtDireccion.setText("CL 88 A # 67 - 46 APT 301");
             } else {
-                txtDireccion.setText("CL 25 # 15 - 25");
+                //txtDireccion.setText("CL 25 # 15 - 25");
+                txtDireccion.setText("KR 27 # 65 B - 21 AP 202");
+
             }
         } else {
             if (cliente.getCiudad().equalsIgnoreCase("Medellin")
                     || MainActivity.config.getCiudad().equals("Medellin")) {
                 txtDireccion.setText("CL 64 E CR 91 B -42");
             } else {
-                txtDireccion.setText("CL 25 # 15 - 25");
+                //txtDireccion.setText("CL 25 # 15 - 25");
+                txtDireccion.setText("KR 27 # 65 B - 21 AP 202");
             }
         }
 

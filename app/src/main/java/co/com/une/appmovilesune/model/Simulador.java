@@ -447,15 +447,15 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
             resultado = result;
 
             notifyObserver();
-        } else if (result.get(0).equals("LanzarLlamada")) {
+        } else if (result.get(0).equals("ConsultarRespuesta")) {
             // MainActivity.btnCarteraUne.setInvisible();
             // System.out.println(result);
-            System.out.println("Simulador 161 LanzarLlamada => " + observer);
+            System.out.println("Simulador 161 Consultar Respuesta => " + observer);
             System.out.println("result " + result);
             resultado = result;
 
             notifyObserver();
-        }else if (result.get(0).equals("LanzarLLamadaPorLlamadasMasivas")) {
+        } else if (result.get(0).equals("LanzarLLamadaPorLlamadasMasivas")) {
             // MainActivity.btnCarteraUne.setInvisible();
             // System.out.println(result);
             System.out.println("Simulador 161 Consultar Respuesta => " + observer);

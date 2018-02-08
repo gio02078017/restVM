@@ -286,6 +286,8 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
                             if(idScooring.equalsIgnoreCase("")){
                                 if(cliente.getScooringune().getDocumentoScooring().equalsIgnoreCase(cliente.getCedula())){
                                     idScooring = cliente.getScooringune().getIdScooring();
+                                    TableCartera.setVisibility(View.GONE);
+                                    lvscooring.setVisibility(View.VISIBLE);
                                 }
                             }
                         }
@@ -298,7 +300,7 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
                         }
                     }else{
                         IngresarEstadoCuenta(deshabilitarIvr);
-                        IngresarEstadoCuenta(deshabilitarIvr);
+                        //IngresarEstadoCuenta(deshabilitarIvr);
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.ingresetelefono),
@@ -2601,22 +2603,6 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
         promptDialog.show();
     }
 
-    // @Override
-    // public void onBackPressed() {
-    //
-    // System.out.println("cliente.getScooringune().getDocumentoScooring()
-    // "+cliente.getScooringune().getDocumentoScooring());
-    //
-    // System.out.println("cliente.getScooringune().getEstado()
-    // "+cliente.getScooringune().getEstado());
-    //
-    // Intent intent = new Intent();
-    // intent.putExtra("Cliente", cliente);
-    // intent.putExtra("Scooring", scooring);
-    // setResult(MainActivity.OK_RESULT_CODE, intent);
-    // finish();
-    // }
-
     private void mostrarMensajeConfronta() {
         AlertDialog.Builder promptDialog = new AlertDialog.Builder(this);
         promptDialog.setTitle(getResources().getString(R.string.valdiacionconfronta));
@@ -2657,41 +2643,6 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
                     cliente.setConfronta(false);
                     Toast.makeText(context, "El proceso de confronta no fue exitoso, no es posible continuar con el ingreso de la venta", Toast.LENGTH_LONG).show();
                 }
-				
-				/*System.out.println(exitoso.isChecked());
-				if(input.isChecked()){
-					
-				}else {
-					
-				}*/
-				
-				/*String value = input.getText().toString();
-				System.out.println("promptDialog id" + idIVR);
-				if (cliente.getIdIVR() != 0) {
-
-					idIVR = String.valueOf(cliente.getIdIVR());
-
-					if (value.toCharArray().length == 4) {
-						if (value.equals(String.valueOf(codigoIVR)) || value.equals("20130806")) {
-
-							consultarRespuesta();
-							actualizarBandera();
-
-							if (Utilidades.excluirNacional("bloqueoTelefonoIVR", "confirmacion")) {
-								cliente.setBloquearTelefonoDestino(true);
-							}
-
-						} else {
-							Toast.makeText(context, "No Concuerdan los codigos", Toast.LENGTH_SHORT).show();
-						}
-					} else {
-						Toast.makeText(context, getResources().getString(R.string.tamanocodigoincorrecto),
-								Toast.LENGTH_SHORT).show();
-						return;
-					}
-				} else {
-					Toast.makeText(context, "Primero Debe Lanzar La Llamada", Toast.LENGTH_SHORT).show();
-				}*/
 
             }
         });

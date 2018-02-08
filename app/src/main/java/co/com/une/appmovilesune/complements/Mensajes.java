@@ -36,6 +36,8 @@ public class Mensajes extends Activity {
     protected static final int REQUEST_CODE = 10;
     private static final int OK_RESULT_CODE = 1;
 
+    String medio = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +49,14 @@ public class Mensajes extends Activity {
 
         Bundle reicieveParams = getIntent().getExtras();
 
+
+
         if (reicieveParams != null) {
             String dato = reicieveParams.getString("mensajes");
+            if(reicieveParams.getString("medio") != null){
+                medio = reicieveParams.getString("medio");
+            }
+
             mensajes.clear();
             mensajes = interprete.Mensajes(dato);
             onMostrar(mensajes);
@@ -56,9 +64,13 @@ public class Mensajes extends Activity {
 
         Aceptar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                System.out.println("medio "+medio);
                 if (ventaMovilidad()) {
                     Enviar("Pedido Exitoso");
-                } else {
+                }else if(medio != null && medio.equalsIgnoreCase("Cotizador")) {
+                    Enviar("Validacion");
+                }
+                else {
                     Cerrar();
                 }
 

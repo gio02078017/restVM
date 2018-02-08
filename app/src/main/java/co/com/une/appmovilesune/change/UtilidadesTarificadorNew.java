@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
@@ -21,6 +22,7 @@ import co.com.une.appmovilesune.model.AdicionalCotizador;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
 import co.com.une.appmovilesune.model.CotizacionCliente;
+import co.com.une.appmovilesune.model.PortafolioUNE;
 import co.com.une.appmovilesune.model.ProductoCotizador;
 import co.com.une.appmovilesune.model.Scooring;
 
@@ -200,7 +202,7 @@ public class UtilidadesTarificadorNew {
         return nuevos.contains(false);
     }
 
-    public static boolean validarEstandarizacion(Cliente cliente,CotizacionCliente cotizacionCliente, Context contex) {
+    public static boolean validarEstandarizacion(Cliente cliente, Context contex) {
 
         boolean validarEstandarizacion = true;
 
@@ -813,7 +815,7 @@ public class UtilidadesTarificadorNew {
 
         if (scooring != null && scooring.isValidarCartera()) {
 
-            if (scooring.getIdCliente().equalsIgnoreCase(cliente.getCedula())) {
+            if (scooring.getIdCliente() != null && scooring.getIdCliente().equalsIgnoreCase(cliente.getCedula())) {
 
                 if (Utilidades.excluir("habilitarBloqueoScooring", cliente.getCiudad())) {
                     if (scooring.getAccion().equalsIgnoreCase("No Vender")) {
@@ -1010,7 +1012,7 @@ public class UtilidadesTarificadorNew {
         return validar;
     }
 
-    public static CotizacionCliente tipoDeFacturacion(CotizacionCliente cotizacionCliente, Cliente cliente ) {
+    public static CotizacionCliente tipoDeFacturacion_Copia(CotizacionCliente cotizacionCliente, Cliente cliente ) {
 
         //ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
         System.out.println("cliente.servicio "+cliente.getServicioElite() );
@@ -1027,21 +1029,21 @@ public class UtilidadesTarificadorNew {
                         JSONObject informacion =  facturacion_SmartPromo.getJSONObject("resultTipoFacturacionySmartPromoxCiudad").getJSONObject("datos");
                         for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
                             cotizacionCliente.getProductoCotizador().get(i).setTipoFacturacion(informacion.getString("tipoFacturacion"));
-                            cotizacionCliente.getProductoCotizador().get(i).setSmartPromo(false);
+                            cotizacionCliente.getProductoCotizador().get(i).setSmartPromo("NO");
                             cotizacionCliente.getProductoCotizador().get(i).setActivacion("Activacion");
                             cotizacionCliente.getProductoCotizador().get(i).setInicioFacturacion("I");
                             if(informacion.getString("smartpromo").equalsIgnoreCase("ON") && cliente.isClienteNuevoSmartPromo()){
-                                cotizacionCliente.getProductoCotizador().get(i).setSmartPromo(true);
+                                cotizacionCliente.getProductoCotizador().get(i).setSmartPromo("SI");
                                 cotizacionCliente.getProductoCotizador().get(i).setInicioFacturacion("S");
                             }
                         }
 
                         cotizacionCliente.setLecturaxProducto("NO");
                         cotizacionCliente.setOfertaTipoFacturacion(informacion.getString("tipoFacturacion"));
-                        cotizacionCliente.setSmartPromo(false);
+                        cotizacionCliente.setSmartPromo("NO");
                         cotizacionCliente.setOfertaInicioFacturacion("I");
                         if(informacion.getString("smartpromo").equalsIgnoreCase("ON") && cliente.isClienteNuevoSmartPromo()){
-                            cotizacionCliente.setSmartPromo(true);
+                            cotizacionCliente.setSmartPromo("SI");
                             cotizacionCliente.setOfertaInicioFacturacion("S");
                         }
                     } else {
@@ -1057,6 +1059,98 @@ public class UtilidadesTarificadorNew {
 
 
         return cotizacionCliente;
+    }
+
+
+    public static CotizacionCliente tipoDeFacturacion(CotizacionCliente cotizacionCliente, Cliente cliente ) {
+
+        //ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
+        System.out.println("cliente.servicio "+cliente.getServicioElite() );
+        System.out.println("cliente smart promo "+cliente.isClienteNuevoSmartPromo());
+
+        if(cliente.getPortafolioUNE() != null) {
+                    if (!UtilidadesTarificadorNew.ventaConExistente(cotizacionCliente)) {
+                        System.out.println("venta nueva ");
+                        System.out.println("cliente smart promo "+cliente.isClienteNuevoSmartPromo());
+
+                        if(cliente.getPortafolioUNE().getTipoFacturacionCiudad() != null) {
+                            for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
+                                cotizacionCliente.getProductoCotizador().get(i).setTipoFacturacion(cliente.getPortafolioUNE().getTipoFacturacionCiudad());
+                                cotizacionCliente.getProductoCotizador().get(i).setSmartPromo("NO");
+                                cotizacionCliente.getProductoCotizador().get(i).setActivacion("Activacion");
+                                cotizacionCliente.getProductoCotizador().get(i).setInicioFacturacion("I");
+                                if (cliente.getPortafolioUNE().getSmartPromoCiudad().equalsIgnoreCase("ON") && cliente.isClienteNuevoSmartPromo()) {
+                                    cotizacionCliente.getProductoCotizador().get(i).setSmartPromo("SI");
+                                    cotizacionCliente.getProductoCotizador().get(i).setInicioFacturacion("S");
+                                }
+                            }
+
+                            cotizacionCliente.setLecturaxProducto("NO");
+                            cotizacionCliente.setOfertaTipoFacturacion(cliente.getPortafolioUNE().getTipoFacturacionCiudad());
+                            cotizacionCliente.setSmartPromo("NO");
+                            cotizacionCliente.setOfertaInicioFacturacion("I");
+                            if (cliente.getPortafolioUNE().getSmartPromoCiudad().equalsIgnoreCase("ON") && cliente.isClienteNuevoSmartPromo()) {
+                                cotizacionCliente.setSmartPromo("SI");
+                                cotizacionCliente.setOfertaInicioFacturacion("S");
+                            }
+                        }
+                    } else {
+                        System.out.println("venta existente ");
+                        if(cliente.getPortafolioUNE() != null && cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList() != null) {
+                            for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
+                                //cotizacionCliente.getProductoCotizador().get(i).imprimir();
+                                if(cotizacionCliente.getProductoCotizador().get(i).getTipoPeticion().equalsIgnoreCase("N")){
+                                    cotizacionCliente.getProductoCotizador().get(i).setTipoFacturacion(facturacionProductosNuevos(cliente.getPortafolioUNE()));
+                                }else{
+                                    for (int j = 0; j < cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().size(); j++) {
+                                        //if(cotizacionCliente.getProductoCotizador())
+                                        System.out.println("facturacion ventas existentes");
+                                        cotizacionCliente.getProductoCotizador().get(i).imprimir();
+                                        cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).imprimir();
+                                        if(cotizacionCliente.getProductoCotizador().get(i).getTipo() == cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).tipoProducto()){
+                                            cotizacionCliente.getProductoCotizador().get(i).setTipoFacturacion(cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).getTipoFactura());
+                                            cotizacionCliente.getProductoCotizador().get(i).setSmartPromo(cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).getSmartPromo());
+                                        }
+
+                                    }
+
+                                }
+                            }
+                            //facturacionProductosNuevos(cliente.getPortafolioUNE());
+                        }
+                    }
+        }
+
+
+        return cotizacionCliente;
+    }
+
+
+    public static String facturacionProductosNuevos(PortafolioUNE portafolioUNE){
+
+        ArrayList<String> facturacion = new ArrayList<String>();
+
+        String nuevoTipoFacturacion = null;
+
+        for (int i = 0; i < portafolioUNE.getProductoPortafolioUNEArrayList().size(); i++) {
+            facturacion.add(portafolioUNE.getProductoPortafolioUNEArrayList().get(i).getTipoFactura());
+        }
+
+        System.out.println("facturacion 0 "+facturacion);
+
+        HashSet<String> hashSet = new HashSet<String>(facturacion);
+        facturacion.clear();
+        facturacion.addAll(hashSet);
+
+        if(facturacion.size() == 1){
+            nuevoTipoFacturacion = facturacion.get(0);
+        }else if(facturacion.size() > 1){
+            nuevoTipoFacturacion = "ANTICIPADA";
+        }
+
+        System.out.println("facturacion 1 "+facturacion);
+
+        return nuevoTipoFacturacion;
     }
 
 
