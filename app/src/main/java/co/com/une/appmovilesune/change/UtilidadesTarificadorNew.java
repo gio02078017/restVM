@@ -1107,6 +1107,8 @@ public class UtilidadesTarificadorNew {
                                         System.out.println("facturacion ventas existentes");
                                         cotizacionCliente.getProductoCotizador().get(i).imprimir();
                                         cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).imprimir();
+                                        System.out.println("cotizacionCliente.getProductoCotizador().get(i).getTipo() "+cotizacionCliente.getProductoCotizador().get(i).getTipo());
+                                        System.out.println("cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).tipoProducto() "+cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).tipoProducto());
                                         if(cotizacionCliente.getProductoCotizador().get(i).getTipo() == cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).tipoProducto()){
                                             cotizacionCliente.getProductoCotizador().get(i).setTipoFacturacion(cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).getTipoFactura());
                                             cotizacionCliente.getProductoCotizador().get(i).setSmartPromo(cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).getSmartPromo());

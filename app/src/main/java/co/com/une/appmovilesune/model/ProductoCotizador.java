@@ -510,6 +510,12 @@ public class ProductoCotizador implements Serializable {
                 System.out.println("************totalPagoParcial**********"+totalPagoParcial+"********");
                 System.out.println("************linea**********"+linea+"********");
                 System.out.println("************tecnologia**********"+tecnologia+"********");
+                System.out.println("************activacion**********"+activacion+"********");
+                System.out.println("************tipoTransaccion**********"+tipoTransaccion+"********");
+                System.out.println("************inicioFacturacion**********"+inicioFacturacion+"********");
+                System.out.println("************tipoFacturacion**********"+tipoFacturacion+"********");
+                System.out.println("************smartPromo**********"+smartPromo+"********");
+
                 if(adicionalesCotizador != null){
                     UtilidadesTarificadorNew.imprimirAdicionalesCotizacion(adicionalesCotizador);
                 }

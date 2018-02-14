@@ -783,8 +783,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 if (cotizacionCliente.getProductoCotizador().size() > 0) {
                     for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
-                        System.out.println("tipoProducto " + cotizacionCliente.getProductoCotizador().get(i).getTipo());
-
+                        //System.out.println("tipoProducto " + cotizacionCliente.getProductoCotizador().get(i).getTipo());
+                        cotizacionCliente.getProductoCotizador().get(i).imprimir();
                         switch (cotizacionCliente.getProductoCotizador().get(i).getTipo()) {
                             case 0:
                                 cotizacionCliente.getProductoCotizador().set(i, llenarcotizacionTelefonia(cotizacionCliente.getProductoCotizador().get(i)));

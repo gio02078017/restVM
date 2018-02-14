@@ -166,11 +166,11 @@ public class ProductoPortafolioUNE implements Serializable {
 
     public int tipoProducto(){
         if(producto.equalsIgnoreCase("TO")){
-            return 1;
+            return 0;
         }else if(producto.equalsIgnoreCase("TELEV")){
-            return 2;
+            return 1;
         }else if(producto.equalsIgnoreCase("INTER")){
-            return 3;
+            return 2;
         }
         return 0;
     }
