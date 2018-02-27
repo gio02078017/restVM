@@ -391,7 +391,8 @@ public class CotizacionCliente implements Serializable {
             cotizacion.put("productos", arrayProductos);
             cotizacion.put("valorTotal", totalCotizacionConsolidado);
             cotizacion.put("totalPagoAntCargoFijo", totalPagoAntCargoFijo);
-            cotizacion.put("totalPagoConexion", totalPagoConexion);
+            //cotizacion.put("totalPagoConexion", totalPagoConexion);
+            cotizacion.put("cargoConexion", totalPagoConexion);
             cotizacion.put("totalPagoParcialConexion", totalPagoParcialConexion);
             cotizacion.put("descuentoConexion", descuentoConexion);
             cotizacion.put("lecturaxProducto",lecturaxProducto);
@@ -409,6 +410,7 @@ public class CotizacionCliente implements Serializable {
                 cotizacionCliente.put("codigoConfirmacion", datosExtras.getString("codigoConfirmacion"));
                 cotizacionCliente.put("mail", datosExtras.getString("mail"));
                 cotizacionCliente.put("codigoAsesor", datosExtras.getString("codigoAsesor"));
+                cotizacionCliente.put("scoring", datosExtras.getString("scoring"));
             }
 
         } catch (JSONException e) {

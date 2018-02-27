@@ -1101,6 +1101,9 @@ public class UtilidadesTarificadorNew {
                                 //cotizacionCliente.getProductoCotizador().get(i).imprimir();
                                 if(cotizacionCliente.getProductoCotizador().get(i).getTipoPeticion().equalsIgnoreCase("N")){
                                     cotizacionCliente.getProductoCotizador().get(i).setTipoFacturacion(facturacionProductosNuevos(cliente.getPortafolioUNE()));
+                                    cotizacionCliente.getProductoCotizador().get(i).setActivacion("Activacion");
+                                    cotizacionCliente.getProductoCotizador().get(i).setTipoTransaccion(cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNombreCompeto());
+                                    cotizacionCliente.getProductoCotizador().get(i).setInicioFacturacion(InicioFacturacionCrossVentaNueva(cliente));
                                 }else{
                                     for (int j = 0; j < cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().size(); j++) {
                                         //if(cotizacionCliente.getProductoCotizador())
@@ -1112,6 +1115,12 @@ public class UtilidadesTarificadorNew {
                                         if(cotizacionCliente.getProductoCotizador().get(i).getTipo() == cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).tipoProducto()){
                                             cotizacionCliente.getProductoCotizador().get(i).setTipoFacturacion(cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).getTipoFactura());
                                             cotizacionCliente.getProductoCotizador().get(i).setSmartPromo(cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).getSmartPromo());
+                                            cotizacionCliente.getProductoCotizador().get(i).setPlanAnterior(cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).getPlanId());
+                                            if(cotizacionCliente.getProductoCotizador().get(i).getTipoFacturacion().equalsIgnoreCase("VENCIDA")){
+                                                cotizacionCliente.getProductoCotizador().get(i).setActivacion("Activacion");
+                                                cotizacionCliente.getProductoCotizador().get(i).setTipoTransaccion(cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNombreCompeto());
+                                                cotizacionCliente.getProductoCotizador().get(i).setInicioFacturacion("I");
+                                            }
                                         }
 
                                     }
@@ -1119,12 +1128,33 @@ public class UtilidadesTarificadorNew {
                                 }
                             }
                             //facturacionProductosNuevos(cliente.getPortafolioUNE());
+                            cotizacionCliente.setLecturaxProducto("SI");
                         }
                     }
         }
 
 
         return cotizacionCliente;
+    }
+
+    public static String InicioFacturacionCrossVentaNueva(Cliente cliente){
+        boolean smartPromo = false;
+        String tipoFacturacion = "I";
+
+        for (int i = 0; i < cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().size(); i++) {
+            if (cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(i).getSmartPromo().equalsIgnoreCase("SI")){
+               smartPromo = true;
+            }
+        }
+
+        if(smartPromo){
+            System.out.println("cliente.getPortafolioUNE().getSmartPromoCiudad() "+cliente.getPortafolioUNE().getSmartPromoCiudad());
+            if(cliente.getPortafolioUNE().getSmartPromoCiudad().equalsIgnoreCase("ON")){
+                tipoFacturacion = "S";
+            }
+        }
+
+        return tipoFacturacion;
     }
 
 

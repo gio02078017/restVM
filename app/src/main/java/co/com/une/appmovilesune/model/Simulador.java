@@ -201,6 +201,9 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
         } else if(accion.equals("validarDebitoAutomaticoExistente")){
             parametros = (ArrayList<String>) params[0].get(2);
             resultados.add(validarDebitoAutomaticoExistente(parametros));
+        }else if(accion.equals("consultarTipoCambioPlan")){
+            parametros = (ArrayList<String>) params[0].get(2);
+            resultados.add(consultarTipoCambioPlan(parametros));
         }
 
         System.out.println("Conexion doInBackground simulador despues CambiarAccion"+MainActivity.conexion.isCambiarAccion());
@@ -573,6 +576,11 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
         } else if(accion.equals("validarDebitoAutomaticoExistente")){
             System.out.println("Simulador 161 Consultar Respuesta => " + observer);
             System.out.println("result " + result);
+            resultado = result;
+            notifyObserver();
+        } else if(accion.equals("consultarTipoCambioPlan")){
+            System.out.println("Simulador 161 Consultar consultarTipoCambioPlan => " + observer);
+            System.out.println("result consultarTipoCambioPlan" + result);
             resultado = result;
             notifyObserver();
         }
@@ -1247,17 +1255,30 @@ public class Simulador extends AsyncTask<ArrayList<Object>, Integer, ArrayList<O
 
 	public String validarDebitoAutomaticoExistente(ArrayList<String> parametros){
 
-		System.out.println("parametros " + parametros);
-		ArrayList<String[]> param = new ArrayList<String[]>();
+        System.out.println("parametros " + parametros);
+        ArrayList<String[]> param = new ArrayList<String[]>();
 
-		param.add(new String[] { "sistema", parametros.get(0)});
-		param.add(new String[] { "parametros", parametros.get(1)});
-		param.add(new String[] { "debug", "false" });
-		param.add(new String[] { "profundidad", "0" });
+        param.add(new String[] { "sistema", parametros.get(0)});
+        param.add(new String[] { "parametros", parametros.get(1)});
+        param.add(new String[] { "debug", "false" });
+        param.add(new String[] { "profundidad", "0" });
 
-		return MainActivity.conexion.ejecutarSoap("validarDebitoAutomaticoExistente", param);
+        return MainActivity.conexion.ejecutarSoap("validarDebitoAutomaticoExistente", param);
 
-	}
+    }
+
+    public String consultarTipoCambioPlan(ArrayList<String> parametros){
+
+        System.out.println("parametros " + parametros);
+        ArrayList<String[]> param = new ArrayList<String[]>();
+
+        param.add(new String[] { "parametros", parametros.get(0)});
+
+        return MainActivity.conexion.ejecutarSoap("consultarTipoCambioPlan", param);
+
+    }
+
+
 
 	public void setManual(Context context) {
 		this.lugar = "Manual";

@@ -63,6 +63,7 @@ public class ProductoCotizador implements Serializable {
     private String inicioFacturacion;
     private String tipoFacturacion;
     private String smartPromo;
+    private String planAnterior;
 
     public ProductoCotizador(String tipoPeticion, int tipo, String plan, double cargoBasicoInd, double cargoBasicoEmp, double descuentoCargobasico, int duracionDescuento, String planFacturacionInd, String planFacturacionEmp, String velocidad) {
         this.tipoPeticion = tipoPeticion;
@@ -362,6 +363,14 @@ public class ProductoCotizador implements Serializable {
         this.smartPromo = smartPromo;
     }
 
+    public String getPlanAnterior() {
+        return planAnterior;
+    }
+
+    public void setPlanAnterior(String planAnterior) {
+        this.planAnterior = planAnterior;
+    }
+
     public ArrayList<AdicionalCotizador> getAdicionalesCotizador() {
         return adicionalesCotizador;
     }
@@ -515,6 +524,7 @@ public class ProductoCotizador implements Serializable {
                 System.out.println("************inicioFacturacion**********"+inicioFacturacion+"********");
                 System.out.println("************tipoFacturacion**********"+tipoFacturacion+"********");
                 System.out.println("************smartPromo**********"+smartPromo+"********");
+                System.out.println("************planAnterior**********"+planAnterior+"********");
 
                 if(adicionalesCotizador != null){
                     UtilidadesTarificadorNew.imprimirAdicionalesCotizacion(adicionalesCotizador);

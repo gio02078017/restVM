@@ -1162,6 +1162,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
             } else {
                 //txtDireccion.setText("CL 25 # 15 - 25");
                 txtDireccion.setText("KR 27 # 65 B - 21 AP 202");
+                //txtDireccion.setText("KR 23 # 73 - 118");
 
             }
         } else {
@@ -1171,6 +1172,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
             } else {
                 //txtDireccion.setText("CL 25 # 15 - 25");
                 txtDireccion.setText("KR 27 # 65 B - 21 AP 202");
+                //txtDireccion.setText("KR 23 # 73 - 118");
             }
         }
 

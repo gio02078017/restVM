@@ -1285,12 +1285,14 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                         IVR.put("tipocliente", consolidado.get(3));
                         IVR.put("cotizacion", cotizacion);
                         IVR.put("documento", consolidado.get(4));
+                        IVR.put("scoring", "NO");
                         tipoLlamada = 1;
                     } else {
                         IVR.put("tipo", "update");
                         IVR.put("id", cliente.getIdIVR());
                         IVR.put("codigo", String.valueOf(codigo));
                         IVR.put("cotizacion", cotizacion);
+                        IVR.put("scoring", "SI");
                         tipoLlamada = 2;
                     }
 
@@ -1359,6 +1361,10 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             datosExtras.put("tipoLLamada", tipoLlamada);
             datosExtras.put("mail", Utilidades.cumpleMail(cliente));
             datosExtras.put("codigoAsesor",MainActivity.config.getCodigo_asesor());
+            datosExtras.put("scoring","NO");
+            if(tipoLlamada == 2){
+                datosExtras.put("scoring","SI");
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

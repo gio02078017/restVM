@@ -567,6 +567,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     @Override
     public void update(Object value) {
 
+        boolean validarCotizar = true;
+
         try {
             ArrayList<Object> resultado = null;
             if (value != null) {
@@ -617,6 +619,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
             } else if (resultado != null && resultado.get(0).equals("validarDebitoAutomaticoExistente")) {
                 tratarValidacionDebitoAutomatico(resultado.get(1).toString());
+            } else if (resultado != null && resultado.get(0).equals("consultarTipoCambioPlan")) {
+                //tratarValidacionDebitoAutomatico(resultado.get(1).toString());
+                System.out.println("consultarTipoCambioPlan " + resultado);
+                consolidarTipoCambioDePlan(resultado.get(1).toString());
+                validarCotizar = false;
             }
 
 
@@ -624,7 +631,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             Log.w("error update", e.getMessage());
         }
 
-        cotizar();
+        if (validarCotizar) {
+            cotizar();
+        }
 
     }
 
@@ -671,8 +680,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         if (cotizacionCliente.getControl().equalsIgnoreCase("00")) {
 
             //productos = obtenerValorConexionCotizacion(cotizacionCliente);
+            cotizacionCliente = UtilidadesTarificadorNew.tipoDeFacturacion(cotizacionCliente, cliente);
             productos = UtilidadesPagoParcial.obtenerPagoParcial(cotizacionCliente);
-            UtilidadesTarificadorNew.tipoDeFacturacion(cotizacionCliente, cliente);
+
 
             if (productos != null) {
                 for (int i = 0; i < productos.size(); i++) {
@@ -747,8 +757,59 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             double valorDescuentoComercial = valorConexion - totalPagoParcial;
             cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal(), cadcInternet.calcularTotal(), valorConexion, totalPagoParcial, valorDescuentoComercial, totalPagoAnticipado);
 
+            validarTipoCambio();
 
         }
+    }
+
+    public void validarTipoCambio() {
+        boolean enviar = false;
+        JSONObject consultaTipoCambio = new JSONObject();
+        try {
+            consultaTipoCambio.put("departamento", cliente.getDepartamento());
+            consultaTipoCambio.put("ciudad", cliente.getCiudad());
+            consultaTipoCambio.put("estrato", cliente.getEstrato());
+            JSONArray productos = new JSONArray();
+            for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
+                System.out.println("" + cotizacionCliente.getProductoCotizador().get(i).getTipoPeticion());
+                if (!Utilidades.validarVacioProducto(cotizacionCliente.getProductoCotizador().get(i).getPlan()) && cotizacionCliente.getProductoCotizador().get(i).getTipoPeticion().equalsIgnoreCase("C")) {
+                    enviar = true;
+                    if(cotizacionCliente.getProductoCotizador().get(i).getTipoFacturacion().equalsIgnoreCase("Anticipada")) {
+                        JSONObject producto = new JSONObject();
+                        producto.put("tipoProducto", cotizacionCliente.getProductoCotizador().get(i).traducirProducto().toUpperCase());
+                        producto.put("nombrePlan", cotizacionCliente.getProductoCotizador().get(i).getPlan());
+                        producto.put("planAnterior", cotizacionCliente.getProductoCotizador().get(i).getPlanAnterior());
+                        productos.put(producto);
+                    }
+                }
+            }
+
+            consultaTipoCambio.put("productos", productos);
+            System.out.println("consultaTipoCambio " + consultaTipoCambio);
+
+            if (enviar) {
+                consultarTipoCambioPlan(consultaTipoCambio.toString());
+            }
+        } catch (JSONException e) {
+            Log.w("Error ", e.getMessage());
+        }
+    }
+
+    public void consultarTipoCambioPlan(String data) {
+        Simulador simulador = new Simulador();
+        simulador.setManual(this);
+        simulador.addObserver(this);
+
+        ArrayList<String> parametros = new ArrayList<String>();
+        parametros.add(data);
+
+        ArrayList<Object> params = new ArrayList<Object>();
+        params.add(MainActivity.config.getCodigo());
+        params.add("consultarTipoCambioPlan");
+        params.add(parametros);
+
+        simulador.execute(params);
+
     }
 
     public void procesarCotizacion(View v) {
@@ -2473,6 +2534,69 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         }
 
 
+    }
+
+    public void consolidarTipoCambioDePlan(String respuesta) {
+        try {
+            JSONObject json = new JSONObject(respuesta);
+
+            if (Configuracion.validarIntegridad(json.getString("data"), json.getString("crc"))) {
+                String data = new String(Base64.decode(json.getString("data")));
+                //Log.d("consolidarTipoCambioDePlan ", data);
+
+                json = new JSONObject(data);
+
+                if (json.has("productos")) {
+                    JSONArray productos = json.getJSONArray("productos");
+
+                    for (int i = 0; i < productos.length(); i++) {
+                        if (productos.getJSONObject(i).has("tipoCambio")) {
+                            JSONObject tipoCambio = productos.getJSONObject(i).getJSONObject("tipoCambio");
+
+                            for (int j = 0; j < cotizacionCliente.getProductoCotizador().size(); j++) {
+                                System.out.println("consolidarTipoCambioDePlan productos.getJSONObject(i).getString('tipoProducto')"+productos.getJSONObject(i).getString("tipoProducto"));
+                                System.out.println("consolidarTipoCambioDePlan cotizacionCliente.getProductoCotizador().get(j).traducirProducto().toUpperCase())')"+cotizacionCliente.getProductoCotizador().get(j).traducirProducto().toUpperCase());
+                                if (productos.getJSONObject(i).getString("tipoProducto").equalsIgnoreCase(cotizacionCliente.getProductoCotizador().get(j).traducirProducto().toUpperCase())) {
+                                    System.out.println("consolidarTipoCambioDePlan tipoCambio "+tipoCambio );
+                                    if (!tipoCambio.getString("datos").equalsIgnoreCase("-1")) {
+                                        if (tipoCambio.getString("datos").equalsIgnoreCase("UP")) {
+                                            cotizacionCliente.getProductoCotizador().get(j).setActivacion("Activacion");
+                                            cotizacionCliente.getProductoCotizador().get(j).setInicioFacturacion("S");
+                                            cotizacionCliente.getProductoCotizador().get(j).setTipoTransaccion(cotizacionCliente.getProductoCotizador().get(j).getTipoPeticionNombreCompeto());
+                                        } else if (tipoCambio.getString("datos").equalsIgnoreCase("DOWN")) {
+                                            cotizacionCliente.getProductoCotizador().get(j).setActivacion("Inicio Ciclo");
+                                            cotizacionCliente.getProductoCotizador().get(j).setInicioFacturacion("S");
+                                            cotizacionCliente.getProductoCotizador().get(j).setTipoTransaccion(cotizacionCliente.getProductoCotizador().get(j).getTipoPeticionNombreCompeto());
+                                        } else {
+                                            cotizacionCliente.getProductoCotizador().get(i).setActivacion("N/A");
+                                            cotizacionCliente.getProductoCotizador().get(j).setInicioFacturacion("N/A");
+                                            cotizacionCliente.getProductoCotizador().get(j).setTipoTransaccion(cotizacionCliente.getProductoCotizador().get(j).getTipoPeticionNombreCompeto());
+                                        }
+                                    }else{
+                                        cotizacionCliente.getProductoCotizador().get(j).setActivacion("N/A");
+                                        cotizacionCliente.getProductoCotizador().get(j).setInicioFacturacion("N/A");
+                                        cotizacionCliente.getProductoCotizador().get(j).setTipoTransaccion(cotizacionCliente.getProductoCotizador().get(j).getTipoPeticionNombreCompeto());
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+
+            } else {
+                //  Toast.makeText(this, getResources().getString(R.string.mensajedebitoautomaticoexistente), Toast.LENGTH_LONG).show();
+            }
+        } catch (JSONException e) {
+            //Toast.makeText(this, getResources().getString(R.string.mensajedebitoautomaticoexistente), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+        System.out.println("consolidarTipoCambioDePlan imprimir ");
+        for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
+            cotizacionCliente.getProductoCotizador().get(i).imprimir();
+        }
     }
 
     @Override

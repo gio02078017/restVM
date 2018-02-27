@@ -4169,19 +4169,6 @@ public class Utilidades {
         int wifi;
         String cambioPlan = "";
 
-        /*System.out.println("adicionales " + adicionales);
-        try {
-
-            System.out.println("adicionales " + adicionales);
-
-            arrayAdicionales = new JSONArray(adicionales);
-
-        } catch (JSONException e1) {
-            // e1.printStackTrace();
-            Log.w("error " + e1.getMessage());
-            arrayAdicionales = new JSONArray();
-        }*/
-
         if (productoCotizador.getCambioPlan().equalsIgnoreCase("Nueva")) {
             cambioPlan = "0";
         } else {
