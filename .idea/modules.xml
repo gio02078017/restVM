@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://D:\VersionamientoUNe\StudioProjects\restVM\UNE.ventamovil.iml" filepath="D:\VersionamientoUNe\StudioProjects\restVM\UNE.ventamovil.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\VersionamientoUNe\StudioProjects\restVM\app\app.iml" filepath="D:\VersionamientoUNe\StudioProjects\restVM\app\app.iml" />
       <module fileurl="file://D:\VersionamientoUNe\StudioProjects\restVM\appVentaMovil.iml" filepath="D:\VersionamientoUNe\StudioProjects\restVM\appVentaMovil.iml" />
       <module fileurl="file://$PROJECT_DIR$/restVM.iml" filepath="$PROJECT_DIR$/restVM.iml" />
     </modules>

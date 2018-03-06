@@ -170,8 +170,12 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
         dialogo = new Dialogo(this, Dialogo.DIALOGO_FECHA, "");
         dialogo.dialogo.setOnDismissListener(dl);
 
-		dialogoHora = new Dialogo(this, Dialogo.DIALOGO_HORA, "");
-		dialogoHora.dialogo.setOnDismissListener(dlh);
+		try {
+            dialogoHora = new Dialogo(this, Dialogo.DIALOGO_HORA, "");
+            dialogoHora.dialogo.setOnDismissListener(dlh);
+        }catch(Exception e){
+		    Log.w("Error dialogo Hora ",e.getMessage());
+        }
 
 		tp = (TituloPrincipal) findViewById(R.id.tlpPrincipal);
 		tp.setTitulo("Cliente");
