@@ -475,7 +475,7 @@ public class ControlVenta_old extends Activity implements Subject, Observer, Tex
                 adicionales[i][1] = preAdic[i];
             }
             rtv.setAdicionales(adicionales);
-            rtv.setPrecioAdicionales(venta.getTelevision()[8]);
+            //rtv.setPrecioAdicionales(venta.getTelevision()[8]);
             rtv.llenarAdicionales();
         }
 
@@ -1766,7 +1766,7 @@ public class ControlVenta_old extends Activity implements Subject, Observer, Tex
 
         venta.setTelevision(rtv.getPlan(), rtv.getValor(), rtv.getExtensiones(), rtv.getDescuento(), rtv.getDuracion(),
                 rtv.getValorDescuento(), rtv.getAdicionalesCadena(), rtv.getPreciosAdicionalesCadena(),
-                rtv.getPrecioAdicionales(), rtv.getMigracion(), rtv.getTipoMigracion(), rtv.getPlanFacturacion(), decos,
+                String.valueOf(rtv.getTotalPrecioAdicionales()), rtv.getMigracion(), rtv.getTipoMigracion(), rtv.getPlanFacturacion(), decos,
                 rtv.getTecnologia(), cotizacion.getTipoCotizacionTv(), cotizacion.tvIdent, rtv.getTecnologiacr(), cotizacion.getTvPagoAntCargoFijo(), cotizacion.getTvPagoParcialConexion());
 
         if(cotizacion.getObjectDecodificador() != null) {

@@ -1185,6 +1185,10 @@ public class UtilidadesTarificadorNew {
         return nuevoTipoFacturacion;
     }
 
+    public static String homologarPlanDecosIVR(String deco){
+        return "Decodificador " + deco + " (Adicional)";
+    }
+
 
 
 }

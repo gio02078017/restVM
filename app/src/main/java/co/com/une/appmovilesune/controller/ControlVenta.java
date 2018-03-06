@@ -472,7 +472,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 adicionales[i][1] = preAdic[i];
             }
             rtv.setAdicionales(adicionales);
-            rtv.setPrecioAdicionales(venta.getTelevision()[8]);
+            //rtv.setPrecioAdicionales(venta.getTelevision()[8]);
             rtv.llenarAdicionales();
         }
 

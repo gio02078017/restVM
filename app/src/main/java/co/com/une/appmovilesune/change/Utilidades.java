@@ -4198,7 +4198,7 @@ public class Utilidades {
         try {
             productos.put("idProducto", "");
             productos.put("tipoProducto", productoCotizador.traducirProducto().toUpperCase());
-            productos.put("nombre", productoCotizador.getPlan());
+            productos.put("nombre", ConcatenarProducto(productoCotizador.traducirProducto().toUpperCase(), UtilidadesTarificadorNew.cambiarPlan(productoCotizador.getPlan())));
             productos.put("id", "");
             productos.put("valor", productoCotizador.getPrecio());
             productos.put("porcentajeDescuento", productoCotizador.getDescuentoCargobasico());
@@ -4218,7 +4218,6 @@ public class Utilidades {
             productos.put("inicioFacturacion",productoCotizador.getInicioFacturacion());
             productos.put("tipoFacturacion",productoCotizador.getTipoFacturacion());
 
-
         } catch (JSONException e) {
             Log.w("error " + e.getMessage());
         }
@@ -4227,19 +4226,44 @@ public class Utilidades {
         return productos;
     }
 
+    public static String ConcatenarProducto(String tipoProducto, String producto){
+
+        String productoHomologado = producto;
+
+        if(tipoProducto.equalsIgnoreCase("TO")){
+            if(!producto.contains("Telefonia")){
+                productoHomologado = "Telefonia "+producto;
+            }
+        }else if(tipoProducto.equalsIgnoreCase("TV")){
+            if(!producto.contains("Television")){
+                productoHomologado = "Television "+producto;
+            }
+        }else if(tipoProducto.equalsIgnoreCase("BA")){
+            if(!producto.contains("Internet")){
+                productoHomologado = "Internet "+producto;
+            }
+        }
+
+        return productoHomologado;
+    }
+
     public static JSONArray jsonArrayAdicionalesIVR(ArrayList<AdicionalCotizador> adicionalesCotizador, ArrayList<ItemDecodificador> itemDecodificadors) {
 
         JSONArray arrayAdicionales = new JSONArray();
 
         if(adicionalesCotizador != null) {
             for (int i = 0; i < adicionalesCotizador.size(); i++) {
-                arrayAdicionales.put(jsonObjectAdicionalIVR(adicionalesCotizador.get(i)));
+                if(!adicionalesCotizador.get(i).getTipoAdicional().equalsIgnoreCase("IMP")) {
+                    arrayAdicionales.put(jsonObjectAdicionalIVR(adicionalesCotizador.get(i)));
+                }
             }
         }
 
         if(itemDecodificadors != null){
             for (int i = 0; i < itemDecodificadors.size(); i++) {
-                arrayAdicionales.put(jsonObjectAdicionalDecosIVR(itemDecodificadors.get(i)));
+                if(!itemDecodificadors.get(i).isIncluido() && !itemDecodificadors.get(i).isFidelizaIncluido()) {
+                    arrayAdicionales.put(jsonObjectAdicionalDecosIVR(itemDecodificadors.get(i)));
+                }
             }
         }
 
@@ -4275,17 +4299,18 @@ public class Utilidades {
         JSONObject adicional = new JSONObject();
 
         try {
-            adicional.put("idProducto", "");
-            adicional.put("tipoProducto", "Equipo");
-            adicional.put("nombre", itemDecodificador.getOriginal());
-            adicional.put("id", "");
-            adicional.put("valor", String.valueOf(itemDecodificador.getPrecio()));
-            adicional.put("porcentajeDescuento", itemDecodificador.getDescuento());
-            adicional.put("duracionDescuento", itemDecodificador.getTiempo());
-            adicional.put("permanencia", false);
-            adicional.put("adicionales",new JSONArray());
-            adicional.put("cargos",new JSONArray());
-            adicional.put("accion", itemDecodificador.getTipoTransaccion());
+                adicional.put("idProducto", "");
+                adicional.put("tipoProducto", "Equipo");
+                adicional.put("nombre", UtilidadesTarificadorNew.homologarPlanDecosIVR(itemDecodificador.getOriginal()));
+                adicional.put("id", "");
+                adicional.put("valor", String.valueOf(itemDecodificador.getPrecio()));
+                adicional.put("porcentajeDescuento", itemDecodificador.getDescuento());
+                adicional.put("duracionDescuento", itemDecodificador.getTiempo());
+                adicional.put("permanencia", false);
+                adicional.put("adicionales", new JSONArray());
+                adicional.put("cargos", new JSONArray());
+                adicional.put("accion", itemDecodificador.getTipoTransaccion());
+
         } catch (JSONException e) {
             Log.w("error " + e.getMessage());
         }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.interfaces.ObserverTotales;
+import co.com.une.appmovilesune.model.CotizacionCliente;
 
 public class CompTotalCotizador extends LinearLayout {
 
@@ -58,6 +59,7 @@ public class CompTotalCotizador extends LinearLayout {
         txtvalordescuentoconexion = (TextView) findViewById(R.id.txtvalordescuentoconexion);
         txtvalortotalpagoanticipado = (TextView) findViewById(R.id.txtvalortotalpagoanticipado);
     }
+
 
     public void llenarTotales(double totalIndividual, double totalEmpaquetado, double totalAdicionalesTV, double totalDecodificadores, double totalAdicionalesTO, double totalAdicionalesBA, double totalConexion, double totalPagoParcial, double valorDescuentoConexion, double totalPagoAnticipado) {
 

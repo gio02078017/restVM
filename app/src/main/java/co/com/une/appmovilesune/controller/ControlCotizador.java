@@ -755,6 +755,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             String cadenaConexion = UtilidadesPagoParcial.obtenerCadenaValorConexion(productos);
             double valorConexion = UtilidadesPagoParcial.obtenerValorConexion(cadenaConexion);
             double valorDescuentoComercial = valorConexion - totalPagoParcial;
+
             cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal(), cadcInternet.calcularTotal(), valorConexion, totalPagoParcial, valorDescuentoComercial, totalPagoAnticipado);
 
             validarTipoCambio();
@@ -841,6 +842,24 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 cotizacionCliente.setTotalPagoParcialConexion(String.valueOf(cttlTotales.getTotalPagoParcial()));
                 cotizacionCliente.setDescuentoConexion(String.valueOf(cttlTotales.getValorDescuentoConexion()));
                 cotizacionCliente.setCodigoPagoAnticipado(codigoPA);
+
+                double totalIndividual, totalEmpaquetado;
+
+                totalIndividual = cotizacionCliente.getTotalIndividual();
+                totalEmpaquetado = cotizacionCliente.getTotalEmpaquetado();
+
+                double totalAdicionales = cadcTelefonia.calcularTotal() + cadcTelevision.calcularTotal() + cadcInternet.calcularTotal();
+
+                if(totalIndividual != 0.0) {
+                    totalIndividual += totalAdicionales + cdcsDecodificadores.obtenerTotalDecos();
+                }
+
+                if(totalEmpaquetado != 0.0){
+                    totalEmpaquetado += totalAdicionales + cdcsDecodificadores.obtenerTotalDecos();
+                }
+
+                cotizacionCliente.setTotalEmpaquetado(totalEmpaquetado);
+                cotizacionCliente.setTotalIndividual(totalIndividual);
 
                 if (cotizacionCliente.getProductoCotizador().size() > 0) {
                     for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {

@@ -78,7 +78,10 @@ public class ResumenTelevision extends LinearLayout {
     private boolean migracion;
 
     String[][] adicionales;
-    String precioAdicionales;
+    double precioAdicionales;
+    double precioDecos;
+    double totalPrecioAdicionales;
+
 
     int ext = 0;
     int totalTelevisores;
@@ -165,18 +168,18 @@ public class ResumenTelevision extends LinearLayout {
 
         this.adicionales = adicionales;
         this.adicionalesCotizador = productoCotizador.getAdicionalesCotizador();
-        this.precioAdicionales = String.valueOf(productoCotizador.getTotalAdicionales());
+        this.precioAdicionales = productoCotizador.getTotalAdicionales();
         this.tecnologiacr = tecnologiacr;
         this.tecnologia = cliente.getTecnologia();
         this.aplicarDescuentos = cotizacionCliente.isAplicarDescuentos();
         this.tipoCotizacion = cotizacionCliente.getTipoOferta();
 
+        this.precioDecos = productoCotizador.getTotalDecos();
+
         asignarPlan(television);
         asignarValor(precio);
         setPlanFacturacion(planFacturaActual);
 
-        setAdicionales(adicionales);
-        setPrecioAdicionales(precioAdicionales);
 //        llenarExtensiones(cliente.getTecnologia());
         //}
 
@@ -194,7 +197,14 @@ public class ResumenTelevision extends LinearLayout {
 
         llenarDecodificadores(decodificadores);
 
-        llenarAdicionales();
+        setAdicionales(adicionales);
+        setPrecioAdicionales(precioAdicionales);
+
+        totalPrecioAdicionales = precioAdicionales + precioDecos;
+
+        lblValorAdicionales.setText(String.valueOf(totalPrecioAdicionales));
+
+                llenarAdicionales();
         limpiarExtenciones();
 
         if (tipoCotizacion != null) {
@@ -263,7 +273,7 @@ public class ResumenTelevision extends LinearLayout {
         setPlanFacturacion(planFacturacion);
 
         setAdicionales(adicionales);
-        setPrecioAdicionales(precioAdicionales);
+        //setPrecioAdicionales(precioAdicionales);
 
         if (aplicarDescuentos && descuento.contains("%")) {
 
@@ -701,11 +711,8 @@ public class ResumenTelevision extends LinearLayout {
             adaptador = new ListaPreciosAdapter(activity, adicional, context);
             lstAdicionales.setAdapter(adaptador);
             setListViewHeightBasedOnChildren(lstAdicionales);
-            double total = Double.parseDouble(lblValor.getText().toString()) + totalDecodificadores();
-
-            lblValorAdicionales.setText(getPrecioAdicionales());
-
-            asignarValor(String.valueOf(total));
+            /*double total = Double.parseDouble(lblValor.getText().toString()) + totalDecodificadores();
+            asignarValor(String.valueOf(total));*/
         }
     }
 
@@ -731,9 +738,6 @@ public class ResumenTelevision extends LinearLayout {
             lstDecodificadores.setAdapter(adaptadorDecos);
             setListViewHeightBasedOnChildren(lstDecodificadores);
         }
-
-        lblValorAdicionales.setText(getPrecioAdicionales());
-
     }
 
     OnCheckedChangeListener cambioMigracion = new OnCheckedChangeListener() {
@@ -903,12 +907,28 @@ public class ResumenTelevision extends LinearLayout {
         this.adicionales = adicionales;
     }
 
-    public String getPrecioAdicionales() {
+    public double getPrecioAdicionales() {
         return precioAdicionales;
     }
 
-    public void setPrecioAdicionales(String precioAdicionales) {
+    public void setPrecioAdicionales(double precioAdicionales) {
         this.precioAdicionales = precioAdicionales;
+    }
+
+    public double getPrecioDecos() {
+        return precioDecos;
+    }
+
+    public void setPrecioDecos(double precioDecos) {
+        this.precioDecos = precioDecos;
+    }
+
+    public double getTotalPrecioAdicionales() {
+        return totalPrecioAdicionales;
+    }
+
+    public void setTotalPrecioAdicionales(double totalPrecioAdicionales) {
+        this.totalPrecioAdicionales = totalPrecioAdicionales;
     }
 
     public Activity getActivity() {
