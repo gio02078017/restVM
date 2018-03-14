@@ -102,6 +102,50 @@
             android:background="@color/white"
             android:padding="10dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="Tipo Factura" />
+
+            <TextView
+                android:id="@+id/lblTipoFactura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="6"
+                android:paddingLeft="7dp"
+                android:text="N/A"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="¿Aplica SmartPromo?" />
+
+            <TextView
+                android:id="@+id/lblSmartpromo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="6"
+                android:paddingLeft="7dp"
+                android:text="N/A"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp">
+
             <CheckBox
                 android:id="@+id/chkMigracion"
                 android:layout_width="wrap_content"
@@ -285,6 +329,23 @@
                     android:textColor="@color/purple"
                     android:textStyle="bold" />
             </RelativeLayout>
+        </TableRow>
+        <TableRow
+            android:id="@+id/trlCampoMensajes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/lblMensajeUpDown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="8"
+                android:paddingLeft="7dp"
+                android:text="N/A"
+                android:textColor="@color/purple"
+                android:textStyle="bold" />
         </TableRow>
     </TableLayout>
 

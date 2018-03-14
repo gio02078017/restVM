@@ -207,6 +207,36 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/TableRow18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/lblAdicionalesBA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="6"
+                android:text="@string/adicionales"
+                android:textColor="@color/black" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/TableRow19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/strAdicionalesBA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="6"
+                android:text="@string/guiontwo"
+                android:textColor="@color/purple" />
+        </TableRow>
+
+        <TableRow
             android:id="@+id/TableRow13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

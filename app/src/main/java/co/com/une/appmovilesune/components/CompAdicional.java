@@ -399,7 +399,7 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
         ArrayList<AdicionalCotizador> listaAdicional = new ArrayList<AdicionalCotizador>();
         int contAdicionales = adicionales.size();
         for (int i = 0; i < adicionales.size(); i++) {
-            listaAdicional.add(new AdicionalCotizador(lblTipoAdicional.getText().toString(),adicionales.get(i).getAdicional(),Utilidades.convertirDouble(adicionales.get(i).getPrecio(),"adicionales.get(i).getPrecio()"),Utilidades.paqueteNuevo));
+            listaAdicional.add(new AdicionalCotizador(Utilidades.Quitar_Solo_Tildes(lblTipoAdicional.getText().toString()),adicionales.get(i).getAdicional(),Utilidades.convertirDouble(adicionales.get(i).getPrecio(),"adicionales.get(i).getPrecio()"),Utilidades.paqueteNuevo));
         }
         return listaAdicional;
     }

@@ -51,13 +51,13 @@ public class ResumenTelevision extends LinearLayout {
 
     public Spinner sltTelevisores, sltTipoMigracion, sltExtensiones, sltTipoTecnologia;
     TextView lblPlan, lblDescuento, lblValor, lblValorDescuento, lblValorAdicionales, lblDuracion, lblDescuentoA,
-            tituloValorDescuento;
+            tituloValorDescuento,lblSmartpromo, lblTipoFactura,lblMensajeUpDown;
 
     TextView lblExtensiones, lblDecos_SD, lblDecos_HD;
 
     CheckBox chkMigracion;
 
-    private TableRow trlTipoMigracion;
+    private TableRow trlTipoMigracion,trlCampoMensajes;
 
     ListaPreciosAdapter adaptador;
     ListaResumenDecodificadoresAdapter adaptadorDecos;
@@ -143,6 +143,12 @@ public class ResumenTelevision extends LinearLayout {
 
         chkMigracion.setOnCheckedChangeListener(cambioMigracion);
 
+        lblSmartpromo = (TextView) findViewById(R.id.lblSmartpromo);
+        lblTipoFactura = (TextView) findViewById(R.id.lblTipoFactura);
+
+        trlCampoMensajes = (TableRow) findViewById(R.id.trlCampoMensajes);
+        lblMensajeUpDown = (TextView) findViewById(R.id.lblMensajeUpDown);
+
     }
 
     public void Television(Activity activity, Context context, CotizacionCliente cotizacionCliente, Cliente cliente) {
@@ -150,7 +156,7 @@ public class ResumenTelevision extends LinearLayout {
         this.activity = activity;
         this.context = context;
         this.productoCotizador = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEVISION());
-        productoCotizador.imprimir();
+        productoCotizador.imprimir("Resumen Television");
         this.descuento = String.valueOf(productoCotizador.getDescuentoCargobasico());
         this.duracion = String.valueOf(productoCotizador.getDuracionDescuento());
         this.estrato = cliente.getEstrato();
@@ -225,7 +231,37 @@ public class ResumenTelevision extends LinearLayout {
         setTecnologia(cliente.getTecnologia());
         productoNulo = false;
 
+        pintarFacturacionySmartPromo();
+        pintarMensajes();
 
+    }
+
+    public void pintarMensajes() {
+        trlCampoMensajes.setVisibility(View.GONE);
+        lblMensajeUpDown.setText("");
+
+        if (productoCotizador.getTipoTransaccion().equalsIgnoreCase("Cambio")) {
+            if (productoCotizador.getTipoFacturacion().equalsIgnoreCase("Anticipada") && productoCotizador.getTipoCambio() != null) {
+                if (productoCotizador.getTipoCambio().equalsIgnoreCase("UP")) {
+                    mostrarMensajeUpDown(Utilidades.mensajeUp("Televisión"));
+                } else if (productoCotizador.getTipoCambio().equalsIgnoreCase("DOWN")) {
+                    mostrarMensajeUpDown(Utilidades.mensajeDown("Televisión"));
+                }
+            } else if (productoCotizador.getTipoFacturacion().equalsIgnoreCase("Vencida")) {
+                mostrarMensajeUpDown(Utilidades.mensajeVencida("Televisión"));
+            }
+        }
+
+    }
+
+    public void mostrarMensajeUpDown(String mensaje){
+        trlCampoMensajes.setVisibility(View.VISIBLE);
+        lblMensajeUpDown.setText("el servicio comenzara a facturarse a partir del momento de la instalación");
+    }
+
+    public void pintarFacturacionySmartPromo() {
+        lblTipoFactura.setText(productoCotizador.getTipoFacturacion());
+        lblSmartpromo.setText(productoCotizador.getSmartPromo());
     }
 
     public void aplicarDescuento(){

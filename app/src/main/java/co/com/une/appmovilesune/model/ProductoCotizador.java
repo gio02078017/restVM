@@ -64,6 +64,7 @@ public class ProductoCotizador implements Serializable {
     private String tipoFacturacion;
     private String smartPromo;
     private String planAnterior;
+    private String tipoCambio;
 
     public ProductoCotizador(String tipoPeticion, int tipo, String plan, double cargoBasicoInd, double cargoBasicoEmp, double descuentoCargobasico, int duracionDescuento, String planFacturacionInd, String planFacturacionEmp, String velocidad) {
         this.tipoPeticion = tipoPeticion;
@@ -371,6 +372,14 @@ public class ProductoCotizador implements Serializable {
         this.planAnterior = planAnterior;
     }
 
+    public String getTipoCambio() {
+        return tipoCambio;
+    }
+
+    public void setTipoCambio(String tipoCambio) {
+        this.tipoCambio = tipoCambio;
+    }
+
     public ArrayList<AdicionalCotizador> getAdicionalesCotizador() {
         return adicionalesCotizador;
     }
@@ -502,29 +511,32 @@ public class ProductoCotizador implements Serializable {
         this.linea = linea;
     }
 
-    public void imprimir (){
-                System.out.println("************tipo**********"+tipo+"********");
-                System.out.println("************tipoPeticion**********"+tipoPeticion+"********");
-                System.out.println("************plan**********"+plan+"********");
-                System.out.println("************planFacturacionInd**********"+planFacturacionInd+"********");
-                System.out.println("************planFacturacionEmp**********"+planFacturacionEmp+"********");
-                System.out.println("************cargoBasicoInd**********"+cargoBasicoInd+"********");
-                System.out.println("************cargoBasicoEmp**********"+cargoBasicoEmp+"********");
-                System.out.println("************cargoBasicoInd**********"+cargoBasicoInd+"********");
-                System.out.println("************descuentoCargobasico**********"+descuentoCargobasico+"********");
-                System.out.println("************duracionDescuento**********"+duracionDescuento+"********");
-                System.out.println("************velocidad**********"+velocidad+"********");
-                System.out.println("************pagoParcial**********"+pagoParcial+"********");
-                System.out.println("************pagoParcialDescuento**********"+pagoParcialDescuento+"********");
-                System.out.println("************totalPagoParcial**********"+totalPagoParcial+"********");
-                System.out.println("************linea**********"+linea+"********");
-                System.out.println("************tecnologia**********"+tecnologia+"********");
-                System.out.println("************activacion**********"+activacion+"********");
-                System.out.println("************tipoTransaccion**********"+tipoTransaccion+"********");
-                System.out.println("************inicioFacturacion**********"+inicioFacturacion+"********");
-                System.out.println("************tipoFacturacion**********"+tipoFacturacion+"********");
-                System.out.println("************smartPromo**********"+smartPromo+"********");
-                System.out.println("************planAnterior**********"+planAnterior+"********");
+    public void imprimir (String consumidor){
+        System.out.println("*****"+consumidor+"*************INICIO**********");
+        System.out.println("*****"+consumidor+"*************tipo**********"+tipo+"********");
+        System.out.println("*****"+consumidor+"*************tipoPeticion**********"+tipoPeticion+"********");
+        System.out.println("*****"+consumidor+"*************plan**********"+plan+"********");
+        System.out.println("*****"+consumidor+"*************planFacturacionInd**********"+planFacturacionInd+"********");
+        System.out.println("*****"+consumidor+"*************planFacturacionEmp**********"+planFacturacionEmp+"********");
+        System.out.println("*****"+consumidor+"*************cargoBasicoInd**********"+cargoBasicoInd+"********");
+        System.out.println("*****"+consumidor+"*************cargoBasicoEmp**********"+cargoBasicoEmp+"********");
+        System.out.println("*****"+consumidor+"*************cargoBasicoInd**********"+cargoBasicoInd+"********");
+        System.out.println("*****"+consumidor+"*************descuentoCargobasico**********"+descuentoCargobasico+"********");
+        System.out.println("*****"+consumidor+"*************duracionDescuento**********"+duracionDescuento+"********");
+        System.out.println("*****"+consumidor+"*************velocidad**********"+velocidad+"********");
+        System.out.println("*****"+consumidor+"*************pagoParcial**********"+pagoParcial+"********");
+        System.out.println("*****"+consumidor+"*************pagoParcialDescuento**********"+pagoParcialDescuento+"********");
+        System.out.println("*****"+consumidor+"*************totalPagoParcial**********"+totalPagoParcial+"********");
+        System.out.println("*****"+consumidor+"*************linea**********"+linea+"********");
+        System.out.println("*****"+consumidor+"*************tecnologia**********"+tecnologia+"********");
+        System.out.println("*****"+consumidor+"*************activacion**********"+activacion+"********");
+        System.out.println("*****"+consumidor+"*************tipoTransaccion**********"+tipoTransaccion+"********");
+        System.out.println("*****"+consumidor+"*************inicioFacturacion**********"+inicioFacturacion+"********");
+        System.out.println("*****"+consumidor+"*************tipoFacturacion**********"+tipoFacturacion+"********");
+        System.out.println("*****"+consumidor+"*************smartPromo**********"+smartPromo+"********");
+        System.out.println("*****"+consumidor+"*************planAnterior**********"+planAnterior+"********");
+        System.out.println("*****"+consumidor+"*************tipoCambio**********"+tipoCambio+"********");
+        System.out.println("*****"+consumidor+"*************FIN**********");
 
                 if(adicionalesCotizador != null){
                     UtilidadesTarificadorNew.imprimirAdicionalesCotizacion(adicionalesCotizador);

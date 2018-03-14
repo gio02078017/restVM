@@ -433,7 +433,7 @@
     <string name="mensajedependencias">No cumple Con Las Dependencias de TV</string>
 
     <string name="decos">Decodificadores</string>
-    <string name="mensajedecos">La configuracion de Decos es no cumple para el plan de TV</string>
+    <string name="mensajedecos">La configuracion de los decos no cumple para el plan de TV</string>
 
     <string name="clientenuevo">Cliente Nuevo</string>
 
@@ -527,5 +527,6 @@
     <string name="mensajehbogoexistente">Cliente con adicional de HBO GO en su portafolio.  Recuerde que si adiciona el servicio de Televisión se retirará el HBO GO.</string>
     <string name="mensajecrackleexistente">Este usuario cuenta con adicional de Crackel Sony en el portafolio</string>
     <string name="estandarizardireccion2">Recuerda normalizar la dirección en el módulo infocliente</string>
-
+    <string name="mensaje_up_down">Mensaje</string>
+    <string name="up_down">Mensaje Up Down</string>
 </resources>

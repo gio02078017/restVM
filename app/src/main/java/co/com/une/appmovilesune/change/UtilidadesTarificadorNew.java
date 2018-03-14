@@ -1079,6 +1079,7 @@ public class UtilidadesTarificadorNew {
                                 cotizacionCliente.getProductoCotizador().get(i).setSmartPromo("NO");
                                 cotizacionCliente.getProductoCotizador().get(i).setActivacion("Activacion");
                                 cotizacionCliente.getProductoCotizador().get(i).setInicioFacturacion("I");
+                                cotizacionCliente.getProductoCotizador().get(i).setTipoTransaccion("Nuevo");
                                 if (cliente.getPortafolioUNE().getSmartPromoCiudad().equalsIgnoreCase("ON") && cliente.isClienteNuevoSmartPromo()) {
                                     cotizacionCliente.getProductoCotizador().get(i).setSmartPromo("SI");
                                     cotizacionCliente.getProductoCotizador().get(i).setInicioFacturacion("S");
@@ -1108,7 +1109,7 @@ public class UtilidadesTarificadorNew {
                                     for (int j = 0; j < cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().size(); j++) {
                                         //if(cotizacionCliente.getProductoCotizador())
                                         System.out.println("facturacion ventas existentes");
-                                        cotizacionCliente.getProductoCotizador().get(i).imprimir();
+                                        cotizacionCliente.getProductoCotizador().get(i).imprimir("CotizacionCliente tipoDeFacturacion");
                                         cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).imprimir();
                                         System.out.println("cotizacionCliente.getProductoCotizador().get(i).getTipo() "+cotizacionCliente.getProductoCotizador().get(i).getTipo());
                                         System.out.println("cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).tipoProducto() "+cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).tipoProducto());

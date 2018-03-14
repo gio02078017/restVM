@@ -34,13 +34,13 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 public class ResumenInternet extends LinearLayout {
 
     private Spinner sltTipoMigracion;
-    private TextView lblPlan, lblDescuento, lblValor, lblValorDescuento, lblDuracion, lblDescuentoA;
+    private TextView lblPlan, lblDescuento, lblValor, lblValorDescuento, lblDuracion, lblDescuentoA, lblSmartpromo, lblTipoFactura;
     private CheckBox chkMigracion, chkWifi;
 
-    private TableRow trlTipoMigracion;
+    private TableRow trlTipoMigracion, trlCampoMensajes;
 
     private ListView lstAdicionales;
-    private TextView lblValorAdicionales;
+    private TextView lblValorAdicionales, lblMensajeUpDown;
 
     private Context context;
 
@@ -68,7 +68,7 @@ public class ResumenInternet extends LinearLayout {
 
     //private String descuento, estrato, telefonia, precio, tecnologia, planFacturaActual;
 
-    private String internet, duracion, descuento,precioDescuento,precio, estrato,planFacturaActual;
+    private String internet, duracion, descuento, precioDescuento, precio, estrato, planFacturaActual;
 
     boolean aplicarDescuentos;
 
@@ -107,6 +107,12 @@ public class ResumenInternet extends LinearLayout {
         chkMigracion.setOnCheckedChangeListener(cambioMigracion);
         chkWifi.setOnCheckedChangeListener(cambioWifi);
 
+        lblSmartpromo = (TextView) findViewById(R.id.lblSmartpromo);
+        lblTipoFactura = (TextView) findViewById(R.id.lblTipoFactura);
+
+        trlCampoMensajes = (TableRow) findViewById(R.id.trlCampoMensajes);
+        lblMensajeUpDown = (TextView) findViewById(R.id.lblMensajeUpDown);
+
     }
 
     public void Internet(Activity activity, Context context, CotizacionCliente cotizacionCliente, Cliente cliente) {
@@ -114,16 +120,16 @@ public class ResumenInternet extends LinearLayout {
         this.activity = activity;
         this.context = context;
         this.productoCotizador = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getINTERNET());
-        productoCotizador.imprimir();
+        productoCotizador.imprimir("Resumen Internet");
         this.descuento = String.valueOf(productoCotizador.getDescuentoCargobasico());
         this.duracion = String.valueOf(productoCotizador.getDuracionDescuento());
         this.estrato = cliente.getEstrato();
 
         this.internet = productoCotizador.getPlan();
 
-        if(cotizacionCliente.isVentaEmpaquetada()){
+        if (cotizacionCliente.isVentaEmpaquetada()) {
             this.precio = String.valueOf(productoCotizador.getCargoBasicoEmp());
-        }else {
+        } else {
             this.precio = String.valueOf(productoCotizador.getCargoBasicoInd());
         }
 
@@ -167,18 +173,49 @@ public class ResumenInternet extends LinearLayout {
 
         productoNulo = false;
 
+        pintarFacturacionySmartPromo();
+        pintarMensajes();
+
     }
 
-    public void aplicarDescuento(){
+    public void pintarMensajes() {
+        trlCampoMensajes.setVisibility(View.GONE);
+        lblMensajeUpDown.setText("");
+
+        if (productoCotizador.getTipoTransaccion().equalsIgnoreCase("Cambio")) {
+            if (productoCotizador.getTipoFacturacion().equalsIgnoreCase("Anticipada") && productoCotizador.getTipoCambio() != null) {
+                if (productoCotizador.getTipoCambio().equalsIgnoreCase("UP")) {
+                    mostrarMensajeUpDown(Utilidades.mensajeUp("Internet"));
+                } else if (productoCotizador.getTipoCambio().equalsIgnoreCase("DOWN")) {
+                    mostrarMensajeUpDown(Utilidades.mensajeDown("Internet"));
+                }
+            } else if (productoCotizador.getTipoFacturacion().equalsIgnoreCase("Vencida")) {
+                mostrarMensajeUpDown(Utilidades.mensajeVencida("Internet"));
+            }
+        }
+
+    }
+
+    public void mostrarMensajeUpDown(String mensaje){
+        trlCampoMensajes.setVisibility(View.VISIBLE);
+        lblMensajeUpDown.setText(mensaje);
+    }
+
+    public void pintarFacturacionySmartPromo() {
+        lblTipoFactura.setText(productoCotizador.getTipoFacturacion());
+        lblSmartpromo.setText(productoCotizador.getSmartPromo());
+    }
+
+    public void aplicarDescuento() {
         if (descuento != null) {
             if (descuento.equalsIgnoreCase("-") || descuento.equalsIgnoreCase("Sin Promocion") || descuento.equalsIgnoreCase("0.0")) {
                 limpiarDuracion();
-            }else if (internet.contains("Existente")) {
+            } else if (internet.contains("Existente")) {
                 limpiarDuracion();
             } else {
                 asignarDuracion(UtilidadesTarificadorNew.traducirMeses(duracion));
                 asignarDescuento(UtilidadesTarificadorNew.traducirPorcentaje(descuento));
-                asignarValorDescuento(UtilidadesTarificadorNew.calcularDescuento(Utilidades.convertirDouble(descuento,"precioDescuento"),Utilidades.convertirDouble(precio,"precio")));
+                asignarValorDescuento(UtilidadesTarificadorNew.calcularDescuento(Utilidades.convertirDouble(descuento, "precioDescuento"), Utilidades.convertirDouble(precio, "precio")));
             }
         } else {
             limpiarDuracion();
@@ -432,14 +469,14 @@ public class ResumenInternet extends LinearLayout {
         adicionalesBa.clear();
         if (adicionales != null) {
             for (int i = 0; i < adicionales.length; i++) {
-                adicionalesBa.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "", "",true));
+                adicionalesBa.add(new ListaAdicionales(adicionales[i][0], adicionales[i][1], "", "", true));
             }
-        }else if(adicionalesCotizador != null && adicionalesCotizador.size()>0){
+        } else if (adicionalesCotizador != null && adicionalesCotizador.size() > 0) {
             for (int i = 0; i < adicionalesCotizador.size(); i++) {
                 adicionalesCotizador.get(i).imprimirAdicional();
-                if(!adicionalesCotizador.get(i).isGota()) {
+                if (!adicionalesCotizador.get(i).isGota()) {
                     adicionalesBa.add(new ListaAdicionales(adicionalesCotizador.get(i).getNombreAdicional(), String.valueOf(adicionalesCotizador.get(i).getPrecioAdicional()), "", "", true));
-                }else{
+                } else {
                     setLblGota(adicionalesCotizador.get(i).getNombreAdicional());
                     setLblValorGota(String.valueOf(adicionalesCotizador.get(i).getPrecioAdicional()));
                 }
@@ -455,9 +492,9 @@ public class ResumenInternet extends LinearLayout {
         // System.out.println("adicionales resumen tv => " + adicionales);
         if (adicionalesBa.size() > 0) {
             for (int i = 0; i < adicionalesBa.size(); i++) {
-                if(adicionalesBa.get(i).getAdicional().equalsIgnoreCase("Crackle Sony Ba")){
+                if (adicionalesBa.get(i).getAdicional().equalsIgnoreCase("Crackle Sony Ba")) {
                     adicional.add(new ListaPrecios("Crackle Sony", adicionalesBa.get(i).getPrecio()));
-                }else {
+                } else {
                     adicional.add(new ListaPrecios(adicionalesBa.get(i).getAdicional(), adicionalesBa.get(i).getPrecio()));
                 }
             }

@@ -164,6 +164,8 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
     private ArrayList<ItemDecodificador> itemDecodificadors;
 
+    private boolean validarConfirmacion = false;
+
     public void onBackPressed() {
         dialogo = new Dialogo(this, Dialogo.DIALOGO_CONFIRMACION, "Desea volver de la venta?");
         dialogo.dialogo.setOnDismissListener(dls);
@@ -321,7 +323,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
             System.out.println("MainActivity.config.srvVersion " + MainActivity.config.srvVersion);
 
-            id = String.valueOf(cliente.getIdIVR());
+            id = "0";
             System.out.println("id IVR " + id + " cliente id ivr " + cliente.getIdIVR());
 
             /*if (!cliente.getCorreo().equalsIgnoreCase("") && !cliente.getCorreo().contains("@sincorreo.com")) {
@@ -346,9 +348,11 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 }
 
                 Validar = true;
-                validoIVR = cotizacion.isValidoIVR();
+                //validoIVR = cotizacion.isValidoIVR();
+                validoIVR = cotizacionCliente.isValidoIVR();
                 Empaquetamiento();
                 medioIngreso = cotizacion.medioIngreso;
+                //medioIngreso = cotizacionCliente.
 
                 System.out.println("Segunda TO " + cotizacion.isSegundaTelefonia());
 
@@ -1188,11 +1192,15 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         System.out.println("Validaciones.validarVenta(venta) " + Validaciones.validarVenta(venta));
 
+        System.out.println("procesarVenta Validaciones.validarVenta(venta)) "+Validaciones.validarVenta(venta));
         if (Validaciones.validarVenta(venta)) {
+            System.out.println("procesarVenta validoIVR "+validoIVR);
             if (!validoIVR) {
+                System.out.println("procesarVenta SI ");
                 // LanzarLLamada(id,"5");
                 InsertarConfirmacion();
             } else {
+                System.out.println("procesarVenta NO ");
                 cotizacion.setValidoIVR(true);
                 MainActivity.btnTarificador.setOK();
                 Intent intent = new Intent();
@@ -1322,6 +1330,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
                 simulador.execute(params);
             } else {
                 //LanzarLLamada(id, "5", Mail, venta.getCobroDomingo());
+                LanzarLLamadaPorLlamadasMasivas(id);
             }
         } else {
             Toast.makeText(this, "No ha Ingresado Telefono de destino", Toast.LENGTH_SHORT).show();
@@ -1362,7 +1371,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
             datosExtras.put("mail", Utilidades.cumpleMail(cliente));
             datosExtras.put("codigoAsesor",MainActivity.config.getCodigo_asesor());
             datosExtras.put("scoring","NO");
-            if(tipoLlamada == 2){
+            if(tipoLlamada == 2 || cliente.getIdIVR() != 0){
                 datosExtras.put("scoring","SI");
             }
         } catch (JSONException e) {

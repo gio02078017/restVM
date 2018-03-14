@@ -817,7 +817,7 @@ public class Validaciones {
             for (int i = 0; i < venta.getCotizacionCliente().getProductoCotizador().size(); i++) {
                 if(!Utilidades.validarVacioProducto(venta.getCotizacionCliente().getProductoCotizador().get(i).getPlan())) {
                     if (venta.getCotizacionCliente().getProductoCotizador().get(i).getTipo() == ProductoCotizador.getTELEFONIA()) {
-                        venta.getCotizacionCliente().getProductoCotizador().get(i).imprimir();
+                        venta.getCotizacionCliente().getProductoCotizador().get(i).imprimir("validarVenta");
                         if (!venta.getCotizacionCliente().getProductoCotizador().get(i).getLinea().equals("-- Seleccione Pago Linea --")) {
                             reg.add(true);
                         } else {

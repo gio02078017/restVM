@@ -3,6 +3,7 @@ package co.com.une.appmovilesune.complements;
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.change.Utilidades;
+import co.com.une.appmovilesune.model.AdicionalCotizador;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.ProductoCotizador;
 import co.com.une.appmovilesune.model.Venta;
@@ -15,6 +16,8 @@ import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class Resumen extends Activity {
 
     Venta venta;
@@ -22,7 +25,7 @@ public class Resumen extends Activity {
 
     TextView lblTO, lblTV, lblAdicional, lblBA, txtPlanTO, txtDescuentoTO, txtPlanTV, txtDescuentoTV,
             txtAdicionales, txtPlanBA, txtDescuentoBA, txtTotal,
-            txtAdicionalesTO, lblAdicionalTO;
+            txtAdicionalesTO, lblAdicionalTO,txtAdicionalesBA, lblAdicionalBA;
 
     TableRow tableimpuesto;
 
@@ -52,6 +55,9 @@ public class Resumen extends Activity {
         lblBA = (TextView) findViewById(R.id.lblInternet);
         txtPlanBA = (TextView) findViewById(R.id.planInternet);
         txtDescuentoBA = (TextView) findViewById(R.id.dtoInternet);
+
+        txtAdicionalesBA = (TextView) findViewById(R.id.strAdicionalesBA);
+        lblAdicionalBA = (TextView) findViewById(R.id.lblAdicionalesBA);
 
         txtTotal = (TextView) findViewById(R.id.totalVenta);
 
@@ -201,6 +207,15 @@ public class Resumen extends Activity {
             }else{
                 txtDescuentoTV.setVisibility(View.GONE);
             }
+
+            String adicionales = pintarAdicionales(productoCotizador.getAdicionalesCotizador());
+
+           if(adicionales != null){
+               txtAdicionales.setText(adicionales);
+           }else{
+               lblAdicional.setVisibility(View.GONE);
+               txtAdicionales.setVisibility(View.GONE);
+           }
         }else{
             lblTV.setVisibility(View.GONE);
             txtPlanTV.setVisibility(View.GONE);
@@ -214,6 +229,23 @@ public class Resumen extends Activity {
         }
     }
 
+    public String pintarAdicionales(ArrayList<AdicionalCotizador> arrayAdicionales){
+        String adicionales = null;
+
+        if(arrayAdicionales.size() > 0){
+            for (int i = 0; i < arrayAdicionales.size(); i++) {
+                arrayAdicionales.get(i).imprimirAdicional();
+                if(i==0){
+                    adicionales = arrayAdicionales.get(i).getNombreAdicional();
+                }else{
+                    adicionales += " , "+arrayAdicionales.get(i).getNombreAdicional();
+                }
+            }
+        }
+
+        return adicionales;
+    }
+
     public void pintarInternet(ProductoCotizador productoCotizador){
         if(!Utilidades.validarVacioProducto(productoCotizador.getPlan())) {
             txtPlanBA.setText(productoCotizador.getPlan());
@@ -223,10 +255,20 @@ public class Resumen extends Activity {
             }else{
                 txtDescuentoBA.setVisibility(View.GONE);
             }
+            String adicionales = pintarAdicionales(productoCotizador.getAdicionalesCotizador());
+
+            if(adicionales != null){
+                txtAdicionalesBA.setText(adicionales);
+            }else{
+                lblAdicionalBA.setVisibility(View.GONE);
+                txtAdicionalesBA.setVisibility(View.GONE);
+            }
         }else{
             lblBA.setVisibility(View.GONE);
             txtPlanBA.setVisibility(View.GONE);
             txtDescuentoBA.setVisibility(View.GONE);
+            lblAdicionalBA.setVisibility(View.GONE);
+            txtAdicionalesBA.setVisibility(View.GONE);
             findViewById(R.id.TableRow7).setVisibility(View.GONE);
             findViewById(R.id.TableRow8).setVisibility(View.GONE);
         }

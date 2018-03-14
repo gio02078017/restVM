@@ -758,8 +758,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
             cttlTotales.llenarTotales(cotizacionCliente.getTotalIndividual(), cotizacionCliente.getTotalEmpaquetado(), cadcTelevision.calcularTotal(), cdcsDecodificadores.obtenerTotalDecos(), cadcTelefonia.calcularTotal(), cadcInternet.calcularTotal(), valorConexion, totalPagoParcial, valorDescuentoComercial, totalPagoAnticipado);
 
-            validarTipoCambio();
 
+            if(cotizacionValida()) {
+                validarTipoCambio();
+                mensajeFacturacion();
+            }
         }
     }
 
@@ -770,17 +773,20 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             consultaTipoCambio.put("departamento", cliente.getDepartamento());
             consultaTipoCambio.put("ciudad", cliente.getCiudad());
             consultaTipoCambio.put("estrato", cliente.getEstrato());
+            consultaTipoCambio.put("codigoAsesor", MainActivity.config.getCodigo_asesor());
+
             JSONArray productos = new JSONArray();
             for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
                 System.out.println("" + cotizacionCliente.getProductoCotizador().get(i).getTipoPeticion());
                 if (!Utilidades.validarVacioProducto(cotizacionCliente.getProductoCotizador().get(i).getPlan()) && cotizacionCliente.getProductoCotizador().get(i).getTipoPeticion().equalsIgnoreCase("C")) {
-                    enviar = true;
+
                     if(cotizacionCliente.getProductoCotizador().get(i).getTipoFacturacion().equalsIgnoreCase("Anticipada")) {
                         JSONObject producto = new JSONObject();
                         producto.put("tipoProducto", cotizacionCliente.getProductoCotizador().get(i).traducirProducto().toUpperCase());
                         producto.put("nombrePlan", cotizacionCliente.getProductoCotizador().get(i).getPlan());
                         producto.put("planAnterior", cotizacionCliente.getProductoCotizador().get(i).getPlanAnterior());
                         productos.put(producto);
+                        enviar = true;
                     }
                 }
             }
@@ -812,6 +818,14 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         simulador.execute(params);
 
     }
+
+    public void mensajeFacturacion(){
+        if(cotizacionCliente.getLecturaxProducto().equalsIgnoreCase("NO")){
+            Utilidades.mensajeFacturacion(this, cotizacionCliente);
+        }
+    }
+
+
 
     public void procesarCotizacion(View v) {
         if (cotizacionCliente != null) {
@@ -864,7 +878,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 if (cotizacionCliente.getProductoCotizador().size() > 0) {
                     for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
                         //System.out.println("tipoProducto " + cotizacionCliente.getProductoCotizador().get(i).getTipo());
-                        cotizacionCliente.getProductoCotizador().get(i).imprimir();
+                        cotizacionCliente.getProductoCotizador().get(i).imprimir("procesarCotizacion2");
                         switch (cotizacionCliente.getProductoCotizador().get(i).getTipo()) {
                             case 0:
                                 cotizacionCliente.getProductoCotizador().set(i, llenarcotizacionTelefonia(cotizacionCliente.getProductoCotizador().get(i)));
@@ -904,6 +918,18 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         }
     }
 
+    public boolean cotizacionValida(){
+        boolean valida = false;
+        if (cprdTelevision.isActivo() || cprdInternet.isActivo() || cprdTelefonia.isActivo()) {
+            if (!spnestrato.getSelectedItem().equals("--Seleccione Estrato--")
+                    && (!cprdTelefonia.getPlan().equals("--Seleccione Producto--")
+                    || !cprdTelevision.getPlan().equals("--Seleccione Producto--")
+                    || !cprdInternet.getPlan().equals("--Seleccione Producto--"))) {
+                  valida = true;
+            }
+        }
+        return valida;
+    }
 
     public void procesarCotizacion(CotizacionCliente cotizacionCliente) {
 
@@ -2582,10 +2608,12 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                                             cotizacionCliente.getProductoCotizador().get(j).setActivacion("Activacion");
                                             cotizacionCliente.getProductoCotizador().get(j).setInicioFacturacion("S");
                                             cotizacionCliente.getProductoCotizador().get(j).setTipoTransaccion(cotizacionCliente.getProductoCotizador().get(j).getTipoPeticionNombreCompeto());
+                                            cotizacionCliente.getProductoCotizador().get(j).setTipoCambio("UP");
                                         } else if (tipoCambio.getString("datos").equalsIgnoreCase("DOWN")) {
                                             cotizacionCliente.getProductoCotizador().get(j).setActivacion("Inicio Ciclo");
                                             cotizacionCliente.getProductoCotizador().get(j).setInicioFacturacion("S");
                                             cotizacionCliente.getProductoCotizador().get(j).setTipoTransaccion(cotizacionCliente.getProductoCotizador().get(j).getTipoPeticionNombreCompeto());
+                                            cotizacionCliente.getProductoCotizador().get(j).setTipoCambio("DOWN");
                                         } else {
                                             cotizacionCliente.getProductoCotizador().get(i).setActivacion("N/A");
                                             cotizacionCliente.getProductoCotizador().get(j).setInicioFacturacion("N/A");
@@ -2614,7 +2642,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         System.out.println("consolidarTipoCambioDePlan imprimir ");
         for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
-            cotizacionCliente.getProductoCotizador().get(i).imprimir();
+            cotizacionCliente.getProductoCotizador().get(i).imprimir("consolidarTipoCambioDePlan");
         }
     }
 

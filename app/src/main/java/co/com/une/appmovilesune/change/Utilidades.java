@@ -32,6 +32,7 @@ import com.google.gson.JsonObject;
 import com.itextpdf.text.xml.simpleparser.NewLineHandler;
 
 import co.com.une.appmovilesune.MainActivity;
+import co.com.une.appmovilesune.R;
 import co.com.une.appmovilesune.adapters.BloqueoCobertura;
 import co.com.une.appmovilesune.adapters.ItemDecodificador;
 import co.com.une.appmovilesune.adapters.ItemTarificador;
@@ -42,6 +43,7 @@ import co.com.une.appmovilesune.complements.Dialogo;
 import co.com.une.appmovilesune.model.AdicionalCotizador;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Cotizacion;
+import co.com.une.appmovilesune.model.CotizacionCliente;
 import co.com.une.appmovilesune.model.Decodificadores;
 import co.com.une.appmovilesune.model.Localizacion;
 import co.com.une.appmovilesune.model.Producto;
@@ -4259,7 +4261,10 @@ public class Utilidades {
             }
         }
 
+        System.out.println("envio IVR itemDecodificadors "+itemDecodificadors);
+
         if(itemDecodificadors != null){
+            System.out.println("envio IVR itemDecodificadors.size() "+itemDecodificadors.size());
             for (int i = 0; i < itemDecodificadors.size(); i++) {
                 if(!itemDecodificadors.get(i).isIncluido() && !itemDecodificadors.get(i).isFidelizaIncluido()) {
                     arrayAdicionales.put(jsonObjectAdicionalDecosIVR(itemDecodificadors.get(i)));
@@ -4290,6 +4295,8 @@ public class Utilidades {
         } catch (JSONException e) {
             Log.w("error " + e.getMessage());
         }
+
+        System.out.println("envio IVR adicional "+adicional);
 
         return adicional;
     }
@@ -4340,4 +4347,27 @@ public class Utilidades {
         return mail;
     }
 
+    public static String mensajeDown(String producto){
+        return "Podrás continuar disfrutando de tu plan de "+producto+" actual hasta el final del presente ciclo de facturación y en ese momento se efectuará el cambio a tu nuevo plan.";
+    }
+
+    public static String mensajeUp(String producto){
+        return "Podrás disfrutar de las nuevas características de tu plan de "+producto+", desde el momento de la activación y se facturara desde el Inicio del siguiente ciclo de facturación.";
+    }
+
+    public static String mensajeVencida(String producto){
+        return "Podrás disfrutar de las nuevas características de tu plan de "+producto+", desde el momento de la activación y se facturara a partir del momento de la instalación.";
+    }
+
+
+    public static void mensajeFacturacion(Context context, CotizacionCliente cotizacionCliente){
+        String mensaje = "Esquema De Facturacion "+cotizacionCliente.getOfertaTipoFacturacion()+" , Recuerda Informar Al Cliente Esta Modalidad!!";
+
+        if(cotizacionCliente.getSmartPromo().equalsIgnoreCase("SI")) {
+           mensaje = "Aplica SmartPromo y "+mensaje;
+        }
+
+        Toast.makeText(context, mensaje, Toast.LENGTH_SHORT)
+                .show();
+    }
 }

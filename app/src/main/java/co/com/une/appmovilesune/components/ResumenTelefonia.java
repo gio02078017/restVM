@@ -37,12 +37,12 @@ public class ResumenTelefonia extends LinearLayout {
 
     public Spinner sltPagoLinea, sltTipoMigracion, sltTipoTecnologia;
     private TextView lblPlan, lblDescuento, lblValor, lblValorDescuento, lblDuracion, lblDescuentoA,
-            lblValorAdicionales, tituloValorDescuento;
+            lblValorAdicionales, tituloValorDescuento,lblSmartpromo, lblTipoFactura,lblMensajeUpDown;
     private CheckBox chkMigracion, chkLineaAdicional, chkquitarPromo;
 
     private ListView lstAdicionales;
 
-    private TableRow trlTipoMigracion, trlQuitarPromocion;
+    private TableRow trlTipoMigracion, trlQuitarPromocion,trlCampoMensajes;
 
     private Context context;
 
@@ -110,6 +110,12 @@ public class ResumenTelefonia extends LinearLayout {
         chkMigracion.setOnCheckedChangeListener(cambioMigracion);
         chkquitarPromo.setOnCheckedChangeListener(eventoQuitarPromo);
 
+        lblSmartpromo = (TextView) findViewById(R.id.lblSmartpromo);
+        lblTipoFactura = (TextView) findViewById(R.id.lblTipoFactura);
+
+        trlCampoMensajes = (TableRow) findViewById(R.id.trlCampoMensajes);
+        lblMensajeUpDown = (TextView) findViewById(R.id.lblMensajeUpDown);
+
     }
 
     public void Telefonia(Activity activity, Context context, CotizacionCliente cotizacionCliente, Cliente cliente) {
@@ -117,7 +123,7 @@ public class ResumenTelefonia extends LinearLayout {
         this.activity = activity;
         this.context = context;
         this.productoCotizador = UtilidadesTarificadorNew.traducirProducto(cotizacionCliente.getProductoCotizador(), ProductoCotizador.getTELEFONIA());
-        productoCotizador.imprimir();
+        productoCotizador.imprimir("Resumen Telefonia");
         this.descuento = String.valueOf(productoCotizador.getDescuentoCargobasico());
         this.duracion = String.valueOf(productoCotizador.getDuracionDescuento());
         this.estrato = cliente.getEstrato();
@@ -176,8 +182,45 @@ public class ResumenTelefonia extends LinearLayout {
 
         productoNulo = false;
 
+        pintarFacturacionySmartPromo();
+        pintarMensajes();
 
     }
+
+    public void pintarMensajes() {
+        trlCampoMensajes.setVisibility(View.GONE);
+        lblMensajeUpDown.setText("");
+
+        if (productoCotizador.getTipoTransaccion().equalsIgnoreCase("Cambio")) {
+            if (productoCotizador.getTipoFacturacion().equalsIgnoreCase("Anticipada") && productoCotizador.getTipoCambio() != null) {
+                if (productoCotizador.getTipoCambio().equalsIgnoreCase("UP")) {
+                    mostrarMensajeUpDown(Utilidades.mensajeUp("Telefonía"));
+                } else if (productoCotizador.getTipoCambio().equalsIgnoreCase("DOWN")) {
+                    mostrarMensajeUpDown(Utilidades.mensajeDown("Telefonía"));
+                }
+            } else if (productoCotizador.getTipoFacturacion().equalsIgnoreCase("Vencida")) {
+                mostrarMensajeUpDown(Utilidades.mensajeVencida("Telefonía"));
+            }
+        }
+
+    }
+
+    public void mostrarMensajeUpDown(String mensaje){
+        trlCampoMensajes.setVisibility(View.VISIBLE);
+        lblMensajeUpDown.setText(mensaje);
+    }
+
+    public void pintarFacturacionySmartPromo() {
+        if(productoCotizador.getTipoFacturacion() != null) {
+            lblTipoFactura.setText(productoCotizador.getTipoFacturacion());
+        }
+
+        if(productoCotizador.getSmartPromo() != null) {
+            lblSmartpromo.setText(productoCotizador.getSmartPromo());
+        }
+    }
+
+
 
     public void aplicarDescuento(){
         if (descuento != null) {
