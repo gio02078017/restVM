@@ -1,5 +1,9 @@
 package co.com.une.appmovilesune.model;
 
+import android.util.Log;
+
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**

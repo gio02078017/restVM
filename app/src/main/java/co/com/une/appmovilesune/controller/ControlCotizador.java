@@ -36,6 +36,7 @@ import co.com.une.appmovilesune.adapters.ItemPromocionesAdicionales;
 import co.com.une.appmovilesune.adapters.ItemTarificador;
 import co.com.une.appmovilesune.change.Interprete;
 import co.com.une.appmovilesune.change.Utilidades;
+import co.com.une.appmovilesune.change.UtilidadesFacturacionAnticipada;
 import co.com.une.appmovilesune.change.UtilidadesPagoParcial;
 import co.com.une.appmovilesune.change.UtilidadesTarificadorNew;
 import co.com.une.appmovilesune.complements.Dialogo;
@@ -670,6 +671,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         cotizacionCliente = tarificador.cotizacionCliente();
 
         ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
+
+        UtilidadesFacturacionAnticipada.imprimirPortafolio(cliente.getPortafolioUNE());
 
         //UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 

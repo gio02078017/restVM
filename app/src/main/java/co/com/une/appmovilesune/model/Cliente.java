@@ -805,18 +805,30 @@ public class Cliente implements Serializable, Observer, Subject {
                 if (jsonResultado.has("portafolio")) {
                     if(jsonResultado.getJSONObject("portafolio").getString("codigoRespuesta").equals("00")){
                         if(jsonResultado.getJSONObject("portafolio").has("datos")){
-                            JSONObject datos = jsonResultado.getJSONObject("portafolio").getJSONObject("datos");
 
-                            portafolioElite = datos.toString();
+                            if(jsonResultado.getJSONObject("portafolio").get("datos").getClass().getSimpleName().equals("JSONArray")){
+                                JSONArray datos = jsonResultado.getJSONObject("portafolio").getJSONArray("datos");
 
-                            portafolioUNE.productoPortafolioUNEArrayList(datos);
+                                //System.out.println("datos portafolio "+datos);
+                                portafolioUNE.paqueteUNEArrayList (jsonResultado.getJSONObject("portafolio").getJSONArray("datos"));
 
-                            for (int i = 0; i < portafolioUNE.getProductoPortafolioUNEArrayList().size(); i++) {
-                                portafolioUNE.getProductoPortafolioUNEArrayList().get(i).imprimir();
+
+                            }else if(jsonResultado.getJSONObject("portafolio").get("datos").getClass().getSimpleName().equals("JSONObject")){
+                                JSONObject datos = jsonResultado.getJSONObject("portafolio").getJSONObject("datos");
+
+                                System.out.println("datos portafolio "+datos);
+
+                                portafolioElite = datos.toString();
+
+                                portafolioUNE.productoPortafolioUNEArrayList(datos);
+
+                                for (int i = 0; i < portafolioUNE.getProductoPortafolioUNEArrayList().size(); i++) {
+                                    portafolioUNE.getProductoPortafolioUNEArrayList().get(i).imprimir();
+                                }
                             }
+
                         }
                     }
-
                 }
 
                 if(jsonResultado.has("resultTipoFacturacionySmartPromoxCiudad")){

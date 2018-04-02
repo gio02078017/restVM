@@ -9,21 +9,22 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+import co.com.une.appmovilesune.change.UtilidadesFacturacionAnticipada;
 /**
  * Created by Gospina on 05/02/2018.
  */
 
-public class PortafolioUNE implements Serializable{
+public class PortafolioUNE implements Serializable {
 
-    private ArrayList<ProductoPortafolioUNE> productoPortafolioUNEArrayList= new ArrayList<ProductoPortafolioUNE>();
+    private ArrayList<ProductoPortafolioUNE> productoPortafolioUNEArrayList = new ArrayList<ProductoPortafolioUNE>();
+    private ArrayList<PaqueteUNE> paqueteUNEArrayList = new ArrayList<PaqueteUNE>();
 
     private String contrato;
     private String smartPromoCiudad;
     private String tipoFacturacionCiudad;
     private String estandarizado;
 
-    public PortafolioUNE(){
+    public PortafolioUNE() {
 
     }
 
@@ -41,6 +42,14 @@ public class PortafolioUNE implements Serializable{
 
     public void setProductoPortafolioUNEArrayList(ArrayList<ProductoPortafolioUNE> portafolioUNEArrayList) {
         this.productoPortafolioUNEArrayList = portafolioUNEArrayList;
+    }
+
+    public ArrayList<PaqueteUNE> getPaqueteUNEArrayList() {
+        return paqueteUNEArrayList;
+    }
+
+    public void setPaqueteUNEArrayList(ArrayList<PaqueteUNE> paqueteUNEArrayList) {
+        this.paqueteUNEArrayList = paqueteUNEArrayList;
     }
 
     public String getContrato() {
@@ -75,80 +84,57 @@ public class PortafolioUNE implements Serializable{
         this.estandarizado = estandarizado;
     }
 
-    public ArrayList<ProductoPortafolioUNE> productoPortafolioUNEArrayList (JSONObject jsonPortafolio){
+    public ArrayList<PaqueteUNE> paqueteUNEArrayList(JSONArray jsonArrayPortafolio) {
+        paqueteUNEArrayList.clear();
+        System.out.println("portafolio paqueteUNEArrayList " + jsonArrayPortafolio);
+        try {
+            for (int i = 0; i < jsonArrayPortafolio.length(); i++) {
+               // System.out.println("portafolio paqueteItemArrayList [i = " + i + "] = " + jsonArrayPortafolio.getJSONObject(i));
+                paqueteUNEArrayList.add(new PaqueteUNE(jsonArrayPortafolio.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            Log.w("Exception portafolio ", e.getMessage());
+        }
+
+        return paqueteUNEArrayList;
+    }
+
+    public ArrayList<ProductoPortafolioUNE> productoPortafolioUNEArrayList(JSONObject jsonPortafolio) {
         productoPortafolioUNEArrayList.clear();
-        System.out.println("portafolio "+jsonPortafolio);
+        System.out.println("portafolio " + jsonPortafolio);
         try {
 
             if (jsonPortafolio.get("ListaDatosIdentificador").getClass().getSimpleName().equals("JSONArray")) {
                 JSONArray arrayPortafolio = jsonPortafolio.getJSONArray("ListaDatosIdentificador");
                 for (int i = 0; i < arrayPortafolio.length(); i++) {
-                    productoPortafolioUNEArrayList.add(productoPortafolioUNE(arrayPortafolio.getJSONObject(i)));
+                    productoPortafolioUNEArrayList.add(UtilidadesFacturacionAnticipada.productoPortafolioUNE(arrayPortafolio.getJSONObject(i)));
+
                 }
-            }else if (jsonPortafolio.get("ListaDatosIdentificador").getClass().getSimpleName().equals("JSONObject")) {
+            } else if (jsonPortafolio.get("ListaDatosIdentificador").getClass().getSimpleName().equals("JSONObject")) {
                 JSONObject objectoPortafolio = jsonPortafolio.getJSONObject("ListaDatosIdentificador");
-                productoPortafolioUNEArrayList.add(productoPortafolioUNE(objectoPortafolio));
+                productoPortafolioUNEArrayList.add(UtilidadesFacturacionAnticipada.productoPortafolioUNE(objectoPortafolio));
 
             }
-        }catch(JSONException e){
+        } catch (JSONException e) {
             Log.w("Exception portafolio ", e.getMessage());
         }
 
-        System.out.println("productoPortafolioUNEArrayList tamaño "+productoPortafolioUNEArrayList.size());
+        System.out.println("productoPortafolioUNEArrayList tamaño " + productoPortafolioUNEArrayList.size());
 
         return productoPortafolioUNEArrayList;
     }
 
 
-    public ProductoPortafolioUNE productoPortafolioUNE (JSONObject producto){
-        ProductoPortafolioUNE productoPortafolioUNE = new ProductoPortafolioUNE();
-
-        try {
-            if(producto.has("Tecnologia"))
-                productoPortafolioUNE.setTecnologia(producto.getString("Tecnologia"));
-
-            if(producto.has("TipoFactura"))
-                productoPortafolioUNE.setTipoFactura(producto.getString("TipoFactura"));
-
-            if(producto.has("Producto"))
-                productoPortafolioUNE.setProducto(producto.getString("Producto"));
-
-            if(producto.has("PlanId"))
-                productoPortafolioUNE.setPlanId(producto.getString("PlanId"));
-
-            if(producto.has("Plan"))
-                productoPortafolioUNE.setPlan(producto.getString("Plan"));
-
-            if(producto.has("Estado_Servicio"))
-                productoPortafolioUNE.setEstadoServicio(producto.getString("Estado_Servicio"));
-
-            if(producto.has("clienteId"))
-                productoPortafolioUNE.setEstadoServicio(producto.getString("clienteId"));
-
-            if(producto.has("SmartPromo"))
-                productoPortafolioUNE.setSmartPromo(producto.getString("SmartPromo"));
-
-            if(producto.has("Adicionales"))
-                productoPortafolioUNE.setAdicionales(producto.getString("Adicionales"));
-
-        }catch (Exception e){
-            Log.w("Excep productosElite", e.getMessage());
-        }
-
-
-        return  productoPortafolioUNE;
-    }
-
-    public ProductoPortafolioUNE buscarProductoPorTipoProducto (String tipoProducto){
+    public ProductoPortafolioUNE buscarProductoPorTipoProducto(String tipoProducto) {
         ProductoPortafolioUNE productoPortafolioUNE = null;
-        System.out.println("ProductoPortafolioUNE buscarProductoPorTipoProducto "+tipoProducto);
+        System.out.println("ProductoPortafolioUNE buscarProductoPorTipoProducto " + tipoProducto);
         for (int i = 0; i < productoPortafolioUNEArrayList.size(); i++) {
-            System.out.println("ProductoPortafolioUNE buscarProductoPorTipoProducto i "+i);
-            System.out.println("ProductoPortafolioUNE buscarProductoPorTipoProducto productoPortafolioUNEArrayList.get(i).getPlan() "+productoPortafolioUNEArrayList.get(i).getPlan());
-            System.out.println("ProductoPortafolioUNE buscarProductoPorTipoProducto "+tipoProducto);
-            if (productoPortafolioUNEArrayList.get(i).getProducto().equalsIgnoreCase(tipoProducto)){
-               productoPortafolioUNE = productoPortafolioUNEArrayList.get(i);
-           }
+            System.out.println("ProductoPortafolioUNE buscarProductoPorTipoProducto i " + i);
+            System.out.println("ProductoPortafolioUNE buscarProductoPorTipoProducto productoPortafolioUNEArrayList.get(i).getPlan() " + productoPortafolioUNEArrayList.get(i).getPlan());
+            System.out.println("ProductoPortafolioUNE buscarProductoPorTipoProducto " + tipoProducto);
+            if (productoPortafolioUNEArrayList.get(i).getProducto().equalsIgnoreCase(tipoProducto)) {
+                productoPortafolioUNE = productoPortafolioUNEArrayList.get(i);
+            }
         }
         return productoPortafolioUNE;
     }
