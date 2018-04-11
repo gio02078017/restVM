@@ -73,6 +73,8 @@ public class Utilidades {
     public static String iniDepartamento = "--Sin Departamento--";
     public static String iniMunicipio = "--Sin Municipio--";
 
+    public static String seleccionePaquete = "--Seleccione Paquete--";
+
     public static String[] inicialMunicipio = {iniMunicipio};
 
     public static String tipo_producto_to = "to", tipo_producto_ba = "ba", tipo_producto_tv = "tv",

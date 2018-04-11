@@ -24,6 +24,10 @@ public class PortafolioUNE implements Serializable {
     private String tipoFacturacionCiudad;
     private String estandarizado;
 
+    public PaqueteUNE paqueteSeleccionado;
+
+    public boolean validarPortafolio = false;
+
     public PortafolioUNE() {
 
     }
@@ -91,6 +95,7 @@ public class PortafolioUNE implements Serializable {
             for (int i = 0; i < jsonArrayPortafolio.length(); i++) {
                // System.out.println("portafolio paqueteItemArrayList [i = " + i + "] = " + jsonArrayPortafolio.getJSONObject(i));
                 paqueteUNEArrayList.add(new PaqueteUNE(jsonArrayPortafolio.getJSONObject(i)));
+                validarPortafolio = true;
             }
         } catch (JSONException e) {
             Log.w("Exception portafolio ", e.getMessage());
@@ -124,7 +129,6 @@ public class PortafolioUNE implements Serializable {
         return productoPortafolioUNEArrayList;
     }
 
-
     public ProductoPortafolioUNE buscarProductoPorTipoProducto(String tipoProducto) {
         ProductoPortafolioUNE productoPortafolioUNE = null;
         System.out.println("ProductoPortafolioUNE buscarProductoPorTipoProducto " + tipoProducto);
@@ -137,5 +141,27 @@ public class PortafolioUNE implements Serializable {
             }
         }
         return productoPortafolioUNE;
+    }
+
+    public ProductoPortafolioUNE buscarProductoPorTipoProductoEnPaqueteSeleccionado(String tipoProducto) {
+        ProductoPortafolioUNE productoPortafolioUNE = null;
+        System.out.println("ProductoPortafolioUNE buscarProductoPorTipoProducto " + tipoProducto);
+        for (int i = 0; i < paqueteSeleccionado.getProductoPortafolioUNEArrayList().size(); i++) {
+            System.out.println("ProductoPortafolioUNE buscarProductoPorTipoProducto i " + i);
+            System.out.println("ProductoPortafolioUNE buscarProductoPorTipoProducto productoPortafolioUNEArrayList.get(i).getPlan() " + paqueteSeleccionado.getProductoPortafolioUNEArrayList().get(i).getPlan());
+            System.out.println("ProductoPortafolioUNE buscarProductoPorTipoProducto " + tipoProducto);
+            if (paqueteSeleccionado.getProductoPortafolioUNEArrayList().get(i).getProducto().equalsIgnoreCase(tipoProducto)) {
+                productoPortafolioUNE = paqueteSeleccionado.getProductoPortafolioUNEArrayList().get(i);
+            }
+        }
+        return productoPortafolioUNE;
+    }
+
+    public PaqueteUNE getPaqueteSeleccionado() {
+        return paqueteSeleccionado;
+    }
+
+    public void setPaqueteSeleccionado(PaqueteUNE paqueteSeleccionado) {
+        this.paqueteSeleccionado = paqueteSeleccionado;
     }
 }

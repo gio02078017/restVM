@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -55,6 +56,8 @@ import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Configuracion;
 import co.com.une.appmovilesune.model.Cotizacion;
 import co.com.une.appmovilesune.model.CotizacionCliente;
+import co.com.une.appmovilesune.model.Paquete;
+import co.com.une.appmovilesune.model.PaqueteUNE;
 import co.com.une.appmovilesune.model.ProductoCotizador;
 import co.com.une.appmovilesune.model.ProductoPortafolioUNE;
 import co.com.une.appmovilesune.model.Scooring;
@@ -92,6 +95,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     private CompTotalCotizador cttlTotales;
 
     private ImageButton btnGardarCotizacion;
+
+    private LinearLayout llyPaquete;
+    private Spinner spnpaquete;
 
     private TarificadorNew tarificador;
     private Cliente cliente;
@@ -137,6 +143,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     public ArrayList<String> tipoControlador = new ArrayList<String>();
 
+    ArrayList<String[]> listPaquetes = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,6 +180,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         btnGardarCotizacion = (ImageButton) findViewById(R.id.btnGardarCotizacion);
 
+        llyPaquete = (LinearLayout) findViewById(R.id.llyPaquete);
+        spnpaquete = (Spinner) findViewById(R.id.spnpaquete);
 
         /*Se Agregan los observadores de adicionales a los producutos que cientan con la
         funcionalidad de adicionales*/
@@ -202,6 +212,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         spnoferta.setOnItemSelectedListener(seleccionarOferta);
         chkAnaloga.setOnCheckedChangeListener(aplicartvAnaloga);
         chkAnaloga.setEnabled(false);
+        spnpaquete.setOnItemSelectedListener(seleccionarPaquete);
 
         llenarEstrato();
 
@@ -209,6 +220,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
             bloqueoCobertura = Utilidades.tratarCoberturaBloqueo(cliente.getCobertura(), this);
 
+        }
+
+        if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().size()>0){
+            cliente.getPortafolioUNE().setPaqueteSeleccionado(null);
+            buscarPaqueteUNE();
         }
 
         System.out.println("bloqueoCobertura " + bloqueoCobertura);
@@ -360,6 +376,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         spnestrato.setEnabled(false);
 
+
     }
 
     private void llenarOfertas(String estrato, String tipoPaquete) {
@@ -484,6 +501,23 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         }
     };
 
+    AdapterView.OnItemSelectedListener seleccionarPaquete = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            /*llenarOfertas((String) parent.getSelectedItem(), (String) spntipooferta.getSelectedItem());
+            parametrizarComponentes();*/
+            System.out.println("spnpaquete " +(String) spnpaquete.getSelectedItem());
+            if((String) spnpaquete.getSelectedItem() != null && !((String) spnpaquete.getSelectedItem()).equalsIgnoreCase("") && !((String) spnpaquete.getSelectedItem()).equalsIgnoreCase(Utilidades.seleccionePaquete)){
+                buscarPaquetexidPaquete(listPaquetes.get(position-1)[0]);
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
     CompoundButton.OnCheckedChangeListener aplicartvAnaloga = new CompoundButton.OnCheckedChangeListener() {
 
         @Override
@@ -527,6 +561,17 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 cprdTelefonia.limpiarTipoPeticion();
                 cprdTelefonia.setActivo(false);
 
+                //PaqueteUNE paqueteUNE = buscarPaqueteUNE();
+
+                /*System.out.println("paquete seleccion paqueteUNE "+paqueteUNE);
+
+                if(paqueteUNE != null){
+                    //System.out.println("buscarPaqueteUNE "+paqueteUNE.imprimir());
+                    paqueteUNE.imprimir("paquete seleccion paqueteUNE");
+                    paqueteUNE.imprimirProductosPaquete("paquete seleccion paqueteUNE");
+                }*/
+
+
                 for (ArrayList<String> arrayList : respuesta) {
                     if (arrayList.get(0).equalsIgnoreCase("tv")) {
                         cprdTelevision.setActivo(true);
@@ -552,9 +597,76 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     }
 
+    public PaqueteUNE buscarPaqueteUNE(){
+        System.out.println("paqueteUNE "+cliente.getPortafolioUNE());
+        ArrayList<Integer> idPaquete = new ArrayList<Integer>();
+        ArrayList<String> paquetexIdCliente = new ArrayList<String>();
+        PaqueteUNE paqueteUNE = null;
+        if(cliente.getPortafolioUNE() != null && cliente.getPortafolioUNE().getPaqueteUNEArrayList() != null){
+            if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().size() > 1) {
+                for (int i = 0; i < cliente.getPortafolioUNE().getPaqueteUNEArrayList().size(); i++) {
+                    cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).imprimirProductosPaquete("buscarPaqueteUNE");
+                    System.out.println("paqueteUNE clientes " + cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes());
+                    System.out.println("paqueteUNE clientes " + cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes());
+                    System.out.println("paqueteUNE clientes " + cliente.getCedula());
+                    if (cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes().contains(cliente.getCedula())) {
+                        idPaquete.add(i);
+                    }
+                    paquetexIdCliente.add("paquete: "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete()+" - cliente Id: "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes());
+                }
+                System.out.println("paqueteUNE idPaquete " + idPaquete);
+                if(idPaquete.size() > 0){
+
+                    System.out.println("paqueteUNE SI paquete cliente ");
+                    if(idPaquete.size()==1){
+                        paqueteUNE = cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(idPaquete.get(0));
+                    }else{
+                        paqueteUNE = buscarPaqueteCliente(idPaquete);
+                    }
+                }else{
+                  Utilidades.MensajesToast("Seleccionar Paquete",this);
+                    System.out.println("paqueteUNE NO paquete cliente ");
+                    llyPaquete.setVisibility(View.VISIBLE);
+                    System.out.println("paqueteUNE paquetexIdCliente "+paquetexIdCliente);
+                    llenarPaquetes();
+                }
+            }else{
+                paqueteUNE = cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(idPaquete.get(0));
+            }
+        }
+
+        if(paqueteUNE != null){
+            cliente.getPortafolioUNE().setPaqueteSeleccionado(paqueteUNE);
+        }
+
+        return paqueteUNE;
+    }
+    
+    public PaqueteUNE buscarPaqueteCliente(ArrayList<Integer> idPaquete){
+        int id=-1;
+        int maximo = 0;
+        for (int i = 0; i < idPaquete.size(); i++) {
+            System.out.println("buscarPaqueteCliente id productos "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(idPaquete.get(i)).getProductoPortafolioUNEArrayList().size());
+            System.out.println("buscarPaqueteCliente maximo "+maximo);
+            if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(idPaquete.get(i)).getProductoPortafolioUNEArrayList().size() > maximo){
+                id = idPaquete.get(i);
+                maximo = cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(idPaquete.get(i)).getProductoPortafolioUNEArrayList().size();
+                System.out.println("buscarPaqueteCliente id "+id);
+            }
+        }
+
+        if(id >=0 ){
+            return cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(id);
+        }
+        
+        return null;
+    }
+
     public void llenarComponente(CompProducto componente, String tipoProducto) {
-        if (cliente.getPortafolioUNE() != null && cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList() != null) {
-            ProductoPortafolioUNE productoPortafolioUNE = cliente.getPortafolioUNE().buscarProductoPorTipoProducto(tipoProducto);
+        System.out.println("llenarComponente "+cliente.getPortafolioUNE().getPaqueteSeleccionado());
+        if (cliente.getPortafolioUNE() != null && cliente.getPortafolioUNE().getPaqueteSeleccionado() != null) {
+            //ProductoPortafolioUNE productoPortafolioUNE = cliente.getPortafolioUNE().buscarProductoPorTipoProducto(tipoProducto);
+            ProductoPortafolioUNE productoPortafolioUNE = cliente.getPortafolioUNE().buscarProductoPorTipoProductoEnPaqueteSeleccionado(tipoProducto);
             System.out.println("productoPortafolioUNE  llenarComponente " + productoPortafolioUNE);
             if (productoPortafolioUNE != null) {
                 componente.setPeticionProducton("C");
@@ -562,6 +674,57 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 componente.setPeticionProducton("N");
             }
         }
+    }
+
+    public void llenarPaquetes(){
+
+        if(listPaquetes != null){
+            listPaquetes.clear();
+        }
+
+        listPaquetes = arrayListPaquetes ();
+
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+
+        adaptador.add(Utilidades.seleccionePaquete);
+        for (int i = 0; i < listPaquetes.size(); i++) {
+            adaptador.add("Paquete => "+listPaquetes.get(i)[0]+" Documento => "+listPaquetes.get(i)[1]);
+        }
+
+        spnpaquete.setAdapter(adaptador);
+
+    }
+
+    public ArrayList<String[]> arrayListPaquetes (){
+        ArrayList<String[]> listaPaquetes = new ArrayList<String[]>();
+        for (int i = 0; i < cliente.getPortafolioUNE().getPaqueteUNEArrayList().size(); i++) {
+            for (int j = 0; j < cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes().size(); j++) {
+               listaPaquetes.add(new String[]{cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete(),cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes().get(j)});
+            }
+        }
+        System.out.println("llenarPaquetes cliente diferente listaPaquetes "+listaPaquetes);
+        return listaPaquetes;
+    }
+
+    public void buscarPaquetexidPaquete(String idPaquete){
+        System.out.println("buscarPaquetexidPaquete idPaquete "+idPaquete);
+        if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().size() > 1) {
+            for (int i = 0; i < cliente.getPortafolioUNE().getPaqueteUNEArrayList().size(); i++) {
+                System.out.println("buscarPaquetexidPaquete cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete() "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete());
+                System.out.println("buscarPaquetexidPaquete idPaquete "+idPaquete);
+                if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete().equalsIgnoreCase(idPaquete)){
+                    cliente.getPortafolioUNE().setPaqueteSeleccionado(cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i));
+                    System.out.println("buscarPaquetexidPaquete cliente.getPortafolioUNE().getPaqueteSeleccionado "+cliente.getPortafolioUNE().getPaqueteSeleccionado());
+                    resetearOferta();
+                    break;
+                }
+            }
+        }
+    }
+
+    public void resetearOferta(){
+        spntipooferta.setSelection(0);
+        spnoferta.setSelection(0);
     }
 
 
@@ -672,7 +835,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
 
-        UtilidadesFacturacionAnticipada.imprimirPortafolio(cliente.getPortafolioUNE());
+        //UtilidadesFacturacionAnticipada.imprimirPortafolio(cliente.getPortafolioUNE());
 
         //UtilidadesTarificadorNew.imprimirProductosCotizacion(cotizacionCliente.getProductoCotizador());
 

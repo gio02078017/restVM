@@ -30,6 +30,8 @@ public class UtilidadesFacturacionAnticipada {
     public static ProductoPortafolioUNE productoPortafolioUNE(JSONObject producto) {
         ProductoPortafolioUNE productoPortafolioUNE = new ProductoPortafolioUNE();
 
+        System.out.println("productoPortafolioUNE "+producto);
+
         try {
             if (producto.has("Tecnologia"))
                 productoPortafolioUNE.setTecnologia(producto.getString("Tecnologia"));
@@ -50,7 +52,7 @@ public class UtilidadesFacturacionAnticipada {
                 productoPortafolioUNE.setEstadoServicio(producto.getString("Estado_Servicio"));
 
             if (producto.has("clienteId"))
-                productoPortafolioUNE.setEstadoServicio(producto.getString("clienteId"));
+                productoPortafolioUNE.setClienteId(producto.getString("clienteId"));
 
             if (producto.has("SmartPromo"))
                 productoPortafolioUNE.setSmartPromo(producto.getString("SmartPromo"));
@@ -85,8 +87,8 @@ public class UtilidadesFacturacionAnticipada {
         if(portafolioUNE.getPaqueteUNEArrayList().size() > 0){
             for (int i = 0; i < portafolioUNE.getPaqueteUNEArrayList().size(); i++) {
                 System.out.println("Inicio paqute i"+i);
-                portafolioUNE.getPaqueteUNEArrayList().get(i).imprimir();
-                portafolioUNE.getPaqueteUNEArrayList().get(i).imprimirProductosPaquete();
+                portafolioUNE.getPaqueteUNEArrayList().get(i).imprimir("imprimirPortafolio");
+                portafolioUNE.getPaqueteUNEArrayList().get(i).imprimirProductosPaquete("imprimirPortafolio");
                 System.out.println("Fin paqute i"+i);
             }
         }

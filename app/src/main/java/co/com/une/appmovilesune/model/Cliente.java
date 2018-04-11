@@ -809,7 +809,7 @@ public class Cliente implements Serializable, Observer, Subject {
                             if(jsonResultado.getJSONObject("portafolio").get("datos").getClass().getSimpleName().equals("JSONArray")){
                                 JSONArray datos = jsonResultado.getJSONObject("portafolio").getJSONArray("datos");
 
-                                //System.out.println("datos portafolio "+datos);
+                                System.out.println("datos portafolio JSONArray "+datos);
                                 portafolioUNE.paqueteUNEArrayList (jsonResultado.getJSONObject("portafolio").getJSONArray("datos"));
 
 

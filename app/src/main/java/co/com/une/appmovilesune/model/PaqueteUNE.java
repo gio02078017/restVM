@@ -77,18 +77,17 @@ public class PaqueteUNE implements Serializable{
     }
 
 
-    public void imprimir(){
-
-        System.out.println("PaqueteUNE => Inicio");
-        System.out.println("PaqueteUNE => idPaquete " + idPaquete );
-        System.out.println("PaqueteUNE => productoPortafolioUNEArrayList " + productoPortafolioUNEArrayList );
-        System.out.println("PaqueteUNE => jsonPaquete " + jsonPaquete );
-        System.out.println("PaqueteUNE => clientes " + clientes );
-        System.out.println("ProductoPortafolioUNE => Fin");
+    public void imprimir(String preFijo){
+        System.out.println(preFijo+" PaqueteUNE => Inicio");
+        System.out.println(preFijo+" PaqueteUNE => idPaquete " + idPaquete );
+        System.out.println(preFijo+" PaqueteUNE => productoPortafolioUNEArrayList " + productoPortafolioUNEArrayList );
+        System.out.println(preFijo+" PaqueteUNE => jsonPaquete " + jsonPaquete );
+        System.out.println(preFijo+" PaqueteUNE => clientes " + clientes );
+        System.out.println(preFijo+" ProductoPortafolioUNE => Fin");
     }
 
-    public void imprimirProductosPaquete() {
-        System.out.println("imprimirProductosPaquete "+productoPortafolioUNEArrayList.size());
+    public void imprimirProductosPaquete(String preFijo) {
+        System.out.println(preFijo +" imprimirProductosPaquete "+productoPortafolioUNEArrayList.size());
         for (int i = 0; i < productoPortafolioUNEArrayList.size(); i++) {
             productoPortafolioUNEArrayList.get(i).imprimir();
         }

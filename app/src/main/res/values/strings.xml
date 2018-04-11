@@ -385,6 +385,7 @@
     <string name="campostipodocumentodireccionsiemprediligenciados">Los Campos Tipo Documento, Documento Y Dirección Siempre Debe Estar Diligenciados Antes De Consolidar La Venta</string>
     <string name="telefonoservicioinvalido">El Teléfono De Servicio Debe Ser Valido</string>
     <string name="cotizacioninvalidanocontinua">No puede continuar cotización Invalida</string>
+    <string name="cotizacionvsportafolio">Cotizacion vs portafolio Invalida</string>
     <string name="sincoberturaprospecte">No hay Cobertura Prospecte por el modulo de Gestión de Ruta</string>
     <string name="cambiomedioinstalaciontviptv">Se cambia el medio de instalación de la televisión por IPTV, cotize nuevamente la TV</string>
     <string name="cambiomedioinstalaciontvhfc">Se cambia el medio de instalación de la televisión por HFC, cotize nuevamente la TV</string>
@@ -487,6 +488,7 @@
     </string-array>
 
     <string name="oferta">Oferta</string>
+    <string name="paquete_une">Paquete Cliente</string>
     <string name="adicionalestelevision">Adicionales Televisión</string>
     <string name="adiconalestelefonia">Adicionales Telefonía</string>
     <string name="adicionalesinternet">Adicionales Internet</string>
