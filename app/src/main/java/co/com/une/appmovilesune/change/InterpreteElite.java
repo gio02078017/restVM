@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import co.com.une.appmovilesune.MainActivity;
 import co.com.une.appmovilesune.adapters.ItemDirecciones;
 import co.com.une.appmovilesune.adapters.ListaDefault;
+import co.com.une.appmovilesune.model.PortafolioUNE;
+import co.com.une.appmovilesune.model.ProductoPortafolioUNE;
 
 public class InterpreteElite {
 
@@ -111,6 +113,7 @@ public class InterpreteElite {
         return Portafolio;
     }
 
+
     public static void portafolioProductos(JSONObject producto) {
         boolean tipoProductoBa = false;
         boolean tipoProductoTv = false;
@@ -146,5 +149,72 @@ public class InterpreteElite {
             //e.printStackTrace();
             Log.w("Error portafolioProductos ", e.getMessage());
         }
+    }
+
+    public static ArrayList<ListaDefault> PortafolioNuevoPaquetes(PortafolioUNE portafolioUNE) {
+        System.out.println("portafolio PortafolioNuevo Elite"+portafolioUNE);
+        Portafolio.clear();
+        boolean tituloFinal = false;
+
+        if(portafolioUNE.getPaqueteUNEArrayList().size() > 0){
+            Portafolio.add(0, new ListaDefault(1, "SI", "Datos"));
+            tituloFinal= true;
+
+        }
+
+        for (int i = 0; i < portafolioUNE.getPaqueteUNEArrayList().size(); i++) {
+
+            Portafolio.add(new ListaDefault(0, "Paquete", "Titulo"));
+            if(!portafolioUNE.getPaqueteUNEArrayList().get(i).getIdPaquete().equalsIgnoreCase("0")) {
+                Portafolio.add(new ListaDefault(2, "Id Paquete", portafolioUNE.getPaqueteUNEArrayList().get(i).getIdPaquete()));
+            }else{
+                Portafolio.add(new ListaDefault(2, "Id Paquete", "Productos Individuales"));
+            }
+            for (int j = 0; j < portafolioUNE.getPaqueteUNEArrayList().get(i).getProductoPortafolioUNEArrayList().size(); j++) {
+                portafolioProductos(portafolioUNE.getPaqueteUNEArrayList().get(i).getProductoPortafolioUNEArrayList().get(j));
+
+            }
+
+        }
+
+        if(tituloFinal) {
+            Portafolio.add(new ListaDefault(0, "----", "Titulo"));
+            Portafolio.add(new ListaDefault(0, "----", "Titulo"));
+        }
+
+        return Portafolio;
+    }
+
+    public static void portafolioProductos(ProductoPortafolioUNE productoPortafolioUNE) {
+        boolean tipoProductoBa = false;
+        boolean tipoProductoTv = false;
+        boolean tipoProductoTo = false;
+
+            if (productoPortafolioUNE.getProducto().equalsIgnoreCase("TO")) {
+                Portafolio.add(new ListaDefault(0, "TO", "Titulo"));
+            }else if (productoPortafolioUNE.getProducto().equalsIgnoreCase("TV") || productoPortafolioUNE.getProducto().equalsIgnoreCase("TELEV")) {
+                Portafolio.add(new ListaDefault(0, "TV", "Titulo"));
+            }else if (productoPortafolioUNE.getProducto().equalsIgnoreCase("BA") || productoPortafolioUNE.getProducto().equalsIgnoreCase("INTER")) {
+                Portafolio.add(new ListaDefault(0, "BA", "Titulo"));
+                tipoProductoBa = true;
+            }
+
+            Portafolio.add(new ListaDefault(2, "Cliente Id", productoPortafolioUNE.getClienteId()));
+            Portafolio.add(new ListaDefault(2, "Identificador", productoPortafolioUNE.getIdentificador()));
+            Portafolio.add(new ListaDefault(2, "Plan Id", productoPortafolioUNE.getPlanId()));
+            Portafolio.add(new ListaDefault(2, "Nombre Plan", productoPortafolioUNE.getPlan()));
+            Portafolio.add(new ListaDefault(2, "Tecnologia", productoPortafolioUNE.getTecnologia()));
+            Portafolio.add(new ListaDefault(2, "Tipo Factura", productoPortafolioUNE.getTipoFactura()));
+
+            if(tipoProductoBa){
+                Portafolio.add(new ListaDefault(2, "Velocidad Original", productoPortafolioUNE.getVelocidadOriginal()));
+                if(productoPortafolioUNE.getGota()!= null && !productoPortafolioUNE.getGota().equalsIgnoreCase("") && !productoPortafolioUNE.getGota().equalsIgnoreCase("null")) {
+                    Portafolio.add(new ListaDefault(2, "Gota", productoPortafolioUNE.getGota()));
+                    Portafolio.add(new ListaDefault(2, "Velocidad Gota", productoPortafolioUNE.getVelocidadGota()));
+                }
+            }
+
+            Portafolio.add(new ListaDefault(2, "Adicionales", productoPortafolioUNE.getAdicionales()));
+
     }
 }

@@ -524,7 +524,7 @@ public class UtilidadesTarificadorNew {
                         PaqueteUNE paqueteUNE = portafolioUNE.getPaqueteUNEArrayList().get(i);
                         paqueteUNE.imprimirProductosPaquete("Validar Crackle Sony");
                         for (int j = 0; j < paqueteUNE.getProductoPortafolioUNEArrayList().size(); j++) {
-                            paqueteUNE.getProductoPortafolioUNEArrayList().get(i).imprimir();
+                            paqueteUNE.getProductoPortafolioUNEArrayList().get(j).imprimir();
                             System.out.println("Validar Crackle Sony producto " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getPlan());
                             System.out.println("Validar Crackle Sony tipoProducto " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getProducto());
                             System.out.println("Validar Crackle Adicionales " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getAdicionales());
@@ -606,44 +606,19 @@ public class UtilidadesTarificadorNew {
 
         boolean hboGoExistente = false;
 
-        System.out.println("Validar Crackle Sony HBO GO CrackleExistente portafolio "+portafolioUNE);
-        System.out.println("Validar Crackle Sony  HBO GO CrackleExistente documento "+documento);
-        System.out.println("Validar Crackle Sony  HBO GO CrackleExistente tipoOferta "+tipoOferta);
+        System.out.println("cargarAdicionalesBa Validar Crackle Sony HBO GO CrackleExistente portafolio "+portafolioUNE);
+        System.out.println("cargarAdicionalesBa Validar Crackle Sony  HBO GO CrackleExistente documento "+documento);
+        System.out.println("cargarAdicionalesBa Validar Crackle Sony  HBO GO CrackleExistente tipoOferta "+tipoOferta);
 
             if(portafolioUNE != null){
-                /*JSONObject datosPortafolio = new JSONObject(portafolio);
-
-                if (datosPortafolio.get("ListaDatosIdentificador").getClass().getSimpleName().equals("JSONArray")) {
-                    JSONArray productosInstalados = datosPortafolio.getJSONArray("ListaDatosIdentificador");
-                    System.out.println("Validar Crackle Sony  HBO GO producto array");
-                    System.out.println("Validar Crackle Sony  HBO GO producto arrayinfo "+productosInstalados);
-                    if (productosInstalados != null) {
-                        for (int i = 0; i < productosInstalados.length(); i++) {
-                            JSONObject producto = productosInstalados.getJSONObject(i);
-                            System.out.println("Validar Crackle Sony  HBO GO producto " + producto);
-                            System.out.println("Validar Crackle Sony  HBO GO  Adicionales " + producto.getString("Adicionales"));
-                            if (producto.getString("Adicionales").contains("HBO GO") && (producto.getString("clienteId").equalsIgnoreCase(documento) || (tipoOferta.equalsIgnoreCase("DUO") || tipoOferta.equalsIgnoreCase("TRIO")))) {
-                                hboGoExistente = true;
-                            }
-                        }
-                    }
-                }else if (datosPortafolio.get("ListaDatosIdentificador").getClass().getSimpleName().equals("JSONObject")) {
-                    //JSONObject productosInstalados = datosPortafolio.JSONObject("ListaDatosIdentificador");
-                    JSONObject producto = datosPortafolio.getJSONObject("ListaDatosIdentificador");
-                    System.out.println("Validar Crackle Sony  HBO GO producto object");
-                    System.out.println("Validar Crackle Sony  HBO GO producto object "+producto);
-                    if (producto.getString("Adicionales").contains("HBO GO") && (producto.getString("clienteId").equalsIgnoreCase(documento) || (tipoOferta.equalsIgnoreCase("DUO") || tipoOferta.equalsIgnoreCase("TRIO")))) {
-                        hboGoExistente = true;
-                    }
-                }*/
-                if(portafolioUNE.getPaqueteUNEArrayList() != null && portafolioUNE.getPaqueteUNEArrayList().size() > 0) {
+                 if(portafolioUNE.getPaqueteUNEArrayList() != null && portafolioUNE.getPaqueteUNEArrayList().size() > 0) {
                     for (int i = 0; i <portafolioUNE.getPaqueteUNEArrayList().size(); i++) {
                         PaqueteUNE paqueteUNE = portafolioUNE.getPaqueteUNEArrayList().get(i);
                         paqueteUNE.imprimirProductosPaquete("Validar HBO GO");
                         for (int j = 0; j < paqueteUNE.getProductoPortafolioUNEArrayList().size(); j++) {
-                            System.out.println("Validar HBO GO producto " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getPlan());
-                            System.out.println("Validar HBO GO Sony tipoProducto " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getProducto());
-                            System.out.println("Validar HBO GO Adicionales " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getAdicionales());
+                            System.out.println("cargarAdicionalesBa Validar HBO GO producto " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getPlan());
+                            System.out.println("cargarAdicionalesBa Validar HBO GO Sony tipoProducto " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getProducto());
+                            System.out.println("cargarAdicionalesBa Validar HBO GO Adicionales " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getAdicionales());
                             if (paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getAdicionales().contains("HBO GO") && (paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getClienteId().equalsIgnoreCase(documento))) {
                                 hboGoExistente = true;
                             }
@@ -653,7 +628,20 @@ public class UtilidadesTarificadorNew {
             }
 
 
-        System.out.println("Validar Crackle Sony  HBO GO  CrackleExistente hboGoExistente "+hboGoExistente);
+        System.out.println("cargarAdicionalesBa primera validacion HBO GO " + hboGoExistente);
+
+        if(!hboGoExistente && portafolioUNE.getPaqueteSeleccionado() != null){
+            for (int j = 0; j < portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().size(); j++) {
+                System.out.println("cargarAdicionalesBa Validar HBO GO producto " + portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getPlan());
+                System.out.println("cargarAdicionalesBa Validar HBO GO tipoProducto " + portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getProducto());
+                System.out.println("cargarAdicionalesBa Validar HBO GO Adicionales " + portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getAdicionales());
+                if (portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getAdicionales().contains("HBO GO")/* && (portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getClienteId().equalsIgnoreCase(documento))*/) {
+                    hboGoExistente = true;
+                }
+            }
+        }
+
+        System.out.println("cargarAdicionalesBa Validar Crackle Sony  HBO GO  CrackleExistente hboGoExistente "+hboGoExistente);
 
         return hboGoExistente;
 
@@ -721,9 +709,9 @@ public class UtilidadesTarificadorNew {
                     for (int i = 0; i <portafolioUNE.getPaqueteUNEArrayList().size(); i++) {
                         PaqueteUNE paqueteUNE = portafolioUNE.getPaqueteUNEArrayList().get(i);
                         for (int j = 0; j < paqueteUNE.getProductoPortafolioUNEArrayList().size(); j++) {
-                            System.out.println("Validar Crackle Sony producto " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getPlan());
-                            System.out.println("Validar Crackle Sony tipoProducto " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getProducto());
-                            System.out.println("Validar Crackle Adicionales " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getAdicionales());
+                            System.out.println("cargarAdicionalesBa Validar Crackle Sony producto " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getPlan());
+                            System.out.println("cargarAdicionalesBa Validar Crackle Sony tipoProducto " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getProducto());
+                            System.out.println("cargarAdicionalesBa Validar Crackle Adicionales " + paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getAdicionales());
                             if (paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getAdicionales().contains("CRACKLE SONY") && (paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getClienteId().equalsIgnoreCase(documento))) {
                                 CrackleExistente = true;
                                 tipoProducto = paqueteUNE.getProductoPortafolioUNEArrayList().get(j).getProducto();
@@ -732,43 +720,22 @@ public class UtilidadesTarificadorNew {
                     }
                 }
 
+                System.out.println("cargarAdicionalesBa primera validacion CrackleExistente " + CrackleExistente);
+
                 if(!CrackleExistente && portafolioUNE.getPaqueteSeleccionado() != null){
                     for (int j = 0; j < portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().size(); j++) {
-                        System.out.println("Validar Crackle Sony producto " + portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getPlan());
-                        System.out.println("Validar Crackle Sony tipoProducto " + portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getProducto());
-                        System.out.println("Validar Crackle Adicionales " + portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getAdicionales());
-                        if (portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getAdicionales().contains("CRACKLE SONY") && (portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getClienteId().equalsIgnoreCase(documento))) {
+                        System.out.println("cargarAdicionalesBaValidar Crackle Sony producto " + portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getPlan());
+                        System.out.println("cargarAdicionalesBaValidar Crackle Sony tipoProducto " + portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getProducto());
+                        System.out.println("cargarAdicionalesBaValidar Crackle Adicionales " + portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getAdicionales());
+                        if (portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getAdicionales().contains("CRACKLE SONY")/* && (portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getClienteId().equalsIgnoreCase(documento))*/) {
                             CrackleExistente = true;
                             tipoProducto = portafolioUNE.getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getProducto();
                         }
                     }
                 }
-                /*JSONObject datosPortafolio = new JSONObject(portafolioUNE);
-                if (datosPortafolio.get("ListaDatosIdentificador").getClass().getSimpleName().equals("JSONArray")) {
-                    JSONArray productosInstalados = datosPortafolio.getJSONArray("ListaDatosIdentificador");
 
-                    System.out.println("Validar Crackle Sony productosInstalados" + productosInstalados);
+                System.out.println("cargarAdicionalesBa segunda validacion CrackleExistente " + CrackleExistente);
 
-                    if (productosInstalados != null) {
-                        for (int i = 0; i < productosInstalados.length(); i++) {
-                            JSONObject producto = productosInstalados.getJSONObject(i);
-                            System.out.println("Validar Crackle Sony producto " + producto);
-                            System.out.println("Validar Crackle Adicionales " + producto.getString("Adicionales"));
-                            if (producto.getString("Adicionales").contains("CRACKLE SONY") && (producto.getString("clienteId").equalsIgnoreCase(documento))) {
-                                CrackleExistente = true;
-                                tipoProducto = producto.getString("Producto");
-                            }
-                        }
-                    }
-                }else if (datosPortafolio.get("ListaDatosIdentificador").getClass().getSimpleName().equals("JSONObject")) {
-                    JSONObject producto = datosPortafolio.getJSONObject("ListaDatosIdentificador");
-                    System.out.println("Validar Crackle Sony  HBO GO producto object");
-                    System.out.println("Validar Crackle Sony  HBO GO producto object "+producto);
-                    if (producto.getString("Adicionales").contains("CRACKLE SONY") && (producto.getString("clienteId").equalsIgnoreCase(documento))) {
-                        CrackleExistente = true;
-                        tipoProducto = producto.getString("Producto");
-                    }
-                }*/
             }
 
         System.out.println("Validar Crackle Sony CrackleExistente "+CrackleExistente);
@@ -1074,8 +1041,15 @@ public class UtilidadesTarificadorNew {
 
         System.out.println("validarCotizacionvsPortafolio cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList() "+cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().size());
         System.out.println("validarCotizacionvsPortafolio cotizacionCliente.getProductoCotizador() "+cotizacionCliente.getProductoCotizador().size());
+        System.out.println("validarCotizacionvsPortafolio cotizacionCliente.getTipoOferta() "+cotizacionCliente.getTipoOferta());
+
         int contadorIguales = 0;
 
+        if(cotizacionCliente.getTipoOferta().equalsIgnoreCase("Individual")){
+            if(!cliente.getPortafolioUNE().getPaqueteSeleccionado().getIdPaquete().equalsIgnoreCase("0")){
+                return false;
+            }
+        }
 
         if(cotizacionCliente.getProductoCotizador().size() >= cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().size()){
             for (int i = 0; i < cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().size(); i++) {

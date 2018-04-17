@@ -1414,19 +1414,21 @@ public class Validaciones {
                 tipoControlador.add(new String("Scoring"));
             }
 
-            if(cliente.getPortafolioUNE() != null && cliente.getPortafolioUNE().validarPortafolio){
-                if(cliente.getPortafolioUNE().getPaqueteSeleccionado() != null  && !cliente.getPortafolioUNE().getPaqueteSeleccionado().equals("")){
-                    if(UtilidadesTarificadorNew.validarCotizacionvsPortafolio(cliente,cotizacionCliente,context)){
-                        reg.add(true);
-                    }else{
+            if(cliente.getPortafolioUNE() != null && cliente.getPortafolioUNE().isValidarPortafolio()){
+                if(!cliente.getPortafolioUNE().isSaltarValidacionClienteNuevo()) {
+                    if (cliente.getPortafolioUNE().getPaqueteSeleccionado() != null && !cliente.getPortafolioUNE().getPaqueteSeleccionado().equals("")) {
+                        if (UtilidadesTarificadorNew.validarCotizacionvsPortafolio(cliente, cotizacionCliente, context)) {
+                            reg.add(true);
+                        } else {
+                            reg.add(false);
+                            ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.cotizacion), context.getResources().getString(R.string.cotizacionvsportafolio)));
+                            tipoControlador.add(new String("Cotizacion"));
+                        }
+                    } else {
                         reg.add(false);
                         ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.cotizacion), context.getResources().getString(R.string.cotizacionvsportafolio)));
                         tipoControlador.add(new String("Cotizacion"));
                     }
-                }else{
-                    reg.add(false);
-                    ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.cotizacion), context.getResources().getString(R.string.cotizacionvsportafolio)));
-                    tipoControlador.add(new String("Cotizacion"));
                 }
             }
 

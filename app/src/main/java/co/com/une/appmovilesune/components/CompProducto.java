@@ -454,6 +454,10 @@ public class CompProducto extends LinearLayout implements SubjectAdicionales, Su
         spntipeticionproducto.setEnabled(false);
     }
 
+    public void setPeticionProductonHabilirarCampo() {
+        spntipeticionproducto.setEnabled(true);
+    }
+
     public Spinner getSpnSelectorPlan() {
         return spnSelectorPlan;
     }

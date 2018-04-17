@@ -28,6 +28,8 @@ public class PortafolioUNE implements Serializable {
 
     public boolean validarPortafolio = false;
 
+    public boolean saltarValidacionClienteNuevo = false;
+
     public PortafolioUNE() {
 
     }
@@ -104,6 +106,16 @@ public class PortafolioUNE implements Serializable {
         return paqueteUNEArrayList;
     }
 
+    public ArrayList<PaqueteUNE> paqueteUNEObject(JSONObject paquete) {
+        paqueteUNEArrayList.clear();
+        System.out.println("portafolio paqueteUNEObject " + paquete);
+
+        paqueteUNEArrayList.add(new PaqueteUNE(paquete));
+        validarPortafolio = true;
+
+        return paqueteUNEArrayList;
+    }
+
     public ArrayList<ProductoPortafolioUNE> productoPortafolioUNEArrayList(JSONObject jsonPortafolio) {
         productoPortafolioUNEArrayList.clear();
         System.out.println("portafolio " + jsonPortafolio);
@@ -163,5 +175,21 @@ public class PortafolioUNE implements Serializable {
 
     public void setPaqueteSeleccionado(PaqueteUNE paqueteSeleccionado) {
         this.paqueteSeleccionado = paqueteSeleccionado;
+    }
+
+    public boolean isValidarPortafolio() {
+        return validarPortafolio;
+    }
+
+    public void setValidarPortafolio(boolean validarPortafolio) {
+        this.validarPortafolio = validarPortafolio;
+    }
+
+    public boolean isSaltarValidacionClienteNuevo() {
+        return saltarValidacionClienteNuevo;
+    }
+
+    public void setSaltarValidacionClienteNuevo(boolean saltarValidacionClienteNuevo) {
+        this.saltarValidacionClienteNuevo = saltarValidacionClienteNuevo;
     }
 }

@@ -1153,7 +1153,8 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
 
         if (cliente.consolidarCliente() == null || cliente.getCedula().equalsIgnoreCase("")) {
             //txtDocumento.setText("1111241111");
-            txtDocumento.setText("4317614");
+            //txtDocumento.setText("4317614");
+            txtDocumento.setText("41666123");
         }
 
         System.out.println("cliente.getCiudad() " + cliente.getCiudad());
@@ -1167,7 +1168,8 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
                 txtDireccion.setText("CL 88 A # 67 - 46 APT 301");
             } else {
                 //txtDireccion.setText("CL 25 # 15 - 25");
-                txtDireccion.setText("KR 27 # 65 B - 21 AP 202");
+                //txtDireccion.setText("KR 27 # 65 B - 21 AP 202");
+                txtDireccion.setText("KR 10 # 10 - 25");
                 //txtDireccion.setText("KR 23 # 73 - 118");
 
             }

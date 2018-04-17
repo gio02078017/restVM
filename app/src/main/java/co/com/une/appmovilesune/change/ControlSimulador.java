@@ -67,6 +67,7 @@ import co.com.une.appmovilesune.interfaces.Observer;
 import co.com.une.appmovilesune.model.Cliente;
 import co.com.une.appmovilesune.model.Domicilio;
 import co.com.une.appmovilesune.model.Paquete;
+import co.com.une.appmovilesune.model.PortafolioUNE;
 import co.com.une.appmovilesune.model.Producto;
 import co.com.une.appmovilesune.model.Scooring;
 import co.com.une.appmovilesune.model.Simulador;
@@ -421,9 +422,17 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
                 }
             }
 
-            if (cliente.getPortafolioElite() != null) {
+            /*if (cliente.getPortafolioElite() != null) {
                 if (Utilidades.excluir("eliteMunicipios", cliente.getCiudad())) {
-                    Resultado_ConsolidadoElite(cliente.getPortafolioElite());
+                    //Resultado_ConsolidadoElite(cliente.getPortafolioElite());
+                    Resultado_ConsolidadoPortafolioElite(cliente.getPortafolioUNE());
+                }
+            }*/
+
+            if (cliente.getPortafolioUNE() != null) {
+                if (Utilidades.excluir("eliteMunicipios", cliente.getCiudad())) {
+                    //Resultado_ConsolidadoElite(cliente.getPortafolioElite());
+                    Resultado_ConsolidadoPortafolioElite(cliente.getPortafolioUNE());
                 }
             }
 
@@ -939,6 +948,17 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
         if(Resultado != null && !Resultado.equalsIgnoreCase("")) {
             System.out.println("tamano portafolio " + portafolio.size());
             portafolio = InterpreteElite.PortafolioNuevo(Resultado);
+            System.out.println("portafolio " + portafolio);
+            PintarPortafolioNuevo();
+        }
+    }
+
+    public void Resultado_ConsolidadoPortafolioElite(PortafolioUNE portafolioUNE) {
+        //System.out.println("Consolidado Elite 5-12-2017 " + Resultado);
+        Borrar("Portafolio");
+        if(portafolioUNE != null) {
+            System.out.println("tamano portafolio " + portafolio.size());
+            portafolio = InterpreteElite.PortafolioNuevoPaquetes(portafolioUNE);
             System.out.println("portafolio " + portafolio);
             PintarPortafolioNuevo();
         }

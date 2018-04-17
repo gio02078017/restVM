@@ -26,7 +26,7 @@ public class PaqueteUNE implements Serializable{
         clientes.clear();
         System.out.println("jsonPaquete "+jsonPaquete);
         try {
-            idPaquete = jsonPaquete.getString("idPaquete");
+            idPaquete = jsonPaquete.getString("IdPaquete");
             this.jsonPaquete = jsonPaquete.toString();
             if(jsonPaquete.get("ListaDatosIdentificador").getClass().getSimpleName().equals("JSONArray")){
                 JSONArray arrayPortafolio = jsonPaquete.getJSONArray("ListaDatosIdentificador");

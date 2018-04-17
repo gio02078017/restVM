@@ -806,6 +806,8 @@ public class Cliente implements Serializable, Observer, Subject {
                     if(jsonResultado.getJSONObject("portafolio").getString("codigoRespuesta").equals("00")){
                         if(jsonResultado.getJSONObject("portafolio").has("datos")){
 
+                            System.out.println("datos "+jsonResultado.getJSONObject("portafolio"));
+
                             if(jsonResultado.getJSONObject("portafolio").get("datos").getClass().getSimpleName().equals("JSONArray")){
                                 JSONArray datos = jsonResultado.getJSONObject("portafolio").getJSONArray("datos");
 
@@ -816,7 +818,7 @@ public class Cliente implements Serializable, Observer, Subject {
                             }else if(jsonResultado.getJSONObject("portafolio").get("datos").getClass().getSimpleName().equals("JSONObject")){
                                 JSONObject datos = jsonResultado.getJSONObject("portafolio").getJSONObject("datos");
 
-                                System.out.println("datos portafolio "+datos);
+                                /*System.out.println("datos portafolio "+datos);
 
                                 portafolioElite = datos.toString();
 
@@ -824,7 +826,8 @@ public class Cliente implements Serializable, Observer, Subject {
 
                                 for (int i = 0; i < portafolioUNE.getProductoPortafolioUNEArrayList().size(); i++) {
                                     portafolioUNE.getProductoPortafolioUNEArrayList().get(i).imprimir();
-                                }
+                                }*/
+                                portafolioUNE.paqueteUNEObject (datos);
                             }
 
                         }

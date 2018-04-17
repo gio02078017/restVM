@@ -216,7 +216,11 @@ public class ResumenTelefonia extends LinearLayout {
         }
 
         if(productoCotizador.getSmartPromo() != null) {
-            lblSmartpromo.setText(productoCotizador.getSmartPromo());
+            if(productoCotizador.getTipoPeticion().equalsIgnoreCase("N")){
+                lblSmartpromo.setText(productoCotizador.getSmartPromo());
+            }else{
+                lblSmartpromo.setText("N/A");
+            }
         }
     }
 

@@ -224,6 +224,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().size()>0){
             cliente.getPortafolioUNE().setPaqueteSeleccionado(null);
+            cliente.getPortafolioUNE().setSaltarValidacionClienteNuevo(true);
             buscarPaqueteUNE();
         }
 
@@ -507,8 +508,21 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             /*llenarOfertas((String) parent.getSelectedItem(), (String) spntipooferta.getSelectedItem());
             parametrizarComponentes();*/
             System.out.println("spnpaquete " +(String) spnpaquete.getSelectedItem());
+            cliente.getPortafolioUNE().setSaltarValidacionClienteNuevo(false);
+
+            System.out.println("(String) spnpaquete.getSelectedItem()).equalsIgnoreCase(\"Pqte Nuevo\") "+((String) spnpaquete.getSelectedItem()).equalsIgnoreCase("Pqte Nuevo"));
+
             if((String) spnpaquete.getSelectedItem() != null && !((String) spnpaquete.getSelectedItem()).equalsIgnoreCase("") && !((String) spnpaquete.getSelectedItem()).equalsIgnoreCase(Utilidades.seleccionePaquete)){
-                buscarPaquetexidPaquete(listPaquetes.get(position-1)[0]);
+                System.out.println("(String) spnpaquete.getSelectedItem()).equalsIgnoreCase(\"Pqte Nuevo\") "+((String) spnpaquete.getSelectedItem()).equalsIgnoreCase("Pqte Nuevo"));
+
+                if(((String) spnpaquete.getSelectedItem()).equalsIgnoreCase("Pqte Nuevo")){
+                    cliente.getPortafolioUNE().setSaltarValidacionClienteNuevo(true);
+                    cliente.getPortafolioUNE().setPaqueteSeleccionado(null);
+                    spnoferta.setSelection(0);
+                    spntipooferta.setSelection(0);
+                }else {
+                    buscarPaquetexidPaquete(listPaquetes.get(position - 1)[0]);
+                }
             }
         }
 
@@ -631,7 +645,33 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     llenarPaquetes();
                 }
             }else{
-                paqueteUNE = cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(idPaquete.get(0));
+                System.out.println("cliente.getPortafolioUNE().getPaqueteUNEArrayList() tamaño "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().size());
+                System.out.println("cliente.getPortafolioUNE().getPaqueteUNEArrayList() idPaquete "+idPaquete);
+                cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(0).imprimir("cliente.getPortafolioUNE()");
+
+                /*if(idPaquete != null && idPaquete.size() > 0) {
+                    paqueteUNE = cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(idPaquete.get(0));
+                }else{
+                    paqueteUNE = cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(0);
+                }*/
+                for (int i = 0; i < cliente.getPortafolioUNE().getPaqueteUNEArrayList().size(); i++) {
+                    cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).imprimirProductosPaquete("buscarPaqueteUNE");
+                    System.out.println("paqueteUNE clientes " + cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes());
+                    System.out.println("paqueteUNE clientes " + cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes());
+                    System.out.println("paqueteUNE clientes " + cliente.getCedula());
+                    if (cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes().contains(cliente.getCedula())) {
+                        idPaquete.add(i);
+                    }
+                }
+
+                if(idPaquete != null && idPaquete.size() > 0) {
+                    paqueteUNE = cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(idPaquete.get(0));
+                }else{
+                    //paqueteUNE = cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(0);
+                    llyPaquete.setVisibility(View.VISIBLE);
+                    System.out.println("paqueteUNE paquetexIdCliente "+paquetexIdCliente);
+                    llenarPaquetes();
+                }
             }
         }
 
@@ -664,6 +704,7 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     public void llenarComponente(CompProducto componente, String tipoProducto) {
         System.out.println("llenarComponente "+cliente.getPortafolioUNE().getPaqueteSeleccionado());
+        componente.setPeticionProductonHabilirarCampo();
         if (cliente.getPortafolioUNE() != null && cliente.getPortafolioUNE().getPaqueteSeleccionado() != null) {
             //ProductoPortafolioUNE productoPortafolioUNE = cliente.getPortafolioUNE().buscarProductoPorTipoProducto(tipoProducto);
             ProductoPortafolioUNE productoPortafolioUNE = cliente.getPortafolioUNE().buscarProductoPorTipoProductoEnPaqueteSeleccionado(tipoProducto);
@@ -688,7 +729,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
         adaptador.add(Utilidades.seleccionePaquete);
         for (int i = 0; i < listPaquetes.size(); i++) {
-            adaptador.add("Paquete => "+listPaquetes.get(i)[0]+" Documento => "+listPaquetes.get(i)[1]);
+            adaptador.add(listPaquetes.get(i)[2]);
+        }
+        if(Utilidades.excluirNacional("ClienteNuevoPaquete","ClienteNuevoPaquete")){
+            adaptador.add("Pqte Nuevo");
         }
 
         spnpaquete.setAdapter(adaptador);
@@ -697,9 +741,14 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     public ArrayList<String[]> arrayListPaquetes (){
         ArrayList<String[]> listaPaquetes = new ArrayList<String[]>();
+        ArrayList<String> listaInformacionPaquete = new ArrayList<String>();
         for (int i = 0; i < cliente.getPortafolioUNE().getPaqueteUNEArrayList().size(); i++) {
             for (int j = 0; j < cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes().size(); j++) {
-               listaPaquetes.add(new String[]{cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete(),cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes().get(j)});
+               String informacionPaquete = "Doc => "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes().get(j) +" Pqte => "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete();
+               if(!listaInformacionPaquete.contains(informacionPaquete)) {
+                   listaInformacionPaquete.add(informacionPaquete);
+                   listaPaquetes.add(new String[]{cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete(), cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes().get(j),informacionPaquete});
+               }
             }
         }
         System.out.println("llenarPaquetes cliente diferente listaPaquetes "+listaPaquetes);
@@ -708,13 +757,20 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     public void buscarPaquetexidPaquete(String idPaquete){
         System.out.println("buscarPaquetexidPaquete idPaquete "+idPaquete);
-        if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().size() > 1) {
+        if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().size() > 0) {
             for (int i = 0; i < cliente.getPortafolioUNE().getPaqueteUNEArrayList().size(); i++) {
                 System.out.println("buscarPaquetexidPaquete cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete() "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete());
                 System.out.println("buscarPaquetexidPaquete idPaquete "+idPaquete);
+                System.out.println("buscarPaquetexidPaquete cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete() "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete());
                 if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete().equalsIgnoreCase(idPaquete)){
-                    cliente.getPortafolioUNE().setPaqueteSeleccionado(cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i));
-                    System.out.println("buscarPaquetexidPaquete cliente.getPortafolioUNE().getPaqueteSeleccionado "+cliente.getPortafolioUNE().getPaqueteSeleccionado());
+                    System.out.println("cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getProductoPortafolioUNEArrayList().size() "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getProductoPortafolioUNEArrayList().size());
+                    if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getProductoPortafolioUNEArrayList().size() <=2) {
+                        cliente.getPortafolioUNE().setPaqueteSeleccionado(cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i));
+                        System.out.println("buscarPaquetexidPaquete cliente.getPortafolioUNE().getPaqueteSeleccionado " + cliente.getPortafolioUNE().getPaqueteSeleccionado());
+                    }else{
+                        Utilidades.MensajesToast("No Es Posible Seleccionar El Paquete",this);
+                        spnpaquete.setSelection(0);
+                    }
                     resetearOferta();
                     break;
                 }
@@ -1593,6 +1649,45 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             }
             productoCotizador.setTotalAdicionales(cadcInternet.calcularTotal());
 
+            if (cadcInternet.isHBOGOExistente()) {
+                System.out.println("llenarcotizacionInternet cprdTelevision.getPlan() "+cprdTelevision.getPlan());
+                if (!cprdTelevision.getPlan().equalsIgnoreCase(Utilidades.inicial)) {
+                    System.out.println("llenarcotizacionInternet cprdTelevision.getPlan() "+cprdTelevision.getPlan());
+                    System.out.println("llenarcotizacionInternet productoCotizador.getAdicionalesCotizador() "+productoCotizador.getAdicionalesCotizador());
+
+                    productoCotizador.setAdicionalesCotizador(cadcInternet.arrayAdicionalesHBOGO(productoCotizador.getAdicionalesCotizador()));
+                    //cotizacionCliente;
+                } else {
+                    /*String adicional = cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa())[0][0];
+                    if (!UtilidadesTarificadorNew.validarVelocidadInternet(productoCotizador.getPlan(), adicional, cliente)) {
+                        cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa()));
+                        cotizacion.setRetiroHBOGO(true);
+                    } /*else {
+                        if(cotizacion.getTipoOferta().equalsIgnoreCase("DUO") || cotizacion.getTipoOferta().equalsIgnoreCase("TRIO")){
+                            cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa()));
+                            cotizacion.setRetiroHBOGO(true);
+                        } else {
+                            //cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+                        }
+                    }*/
+
+                }
+
+            }
+
+            /*System.out.println("llenarcotizacionInternet cotizacion.isRetiroHBOGO() "+cotizacion.isRetiroHBOGO());
+
+            UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(), "Cotizacion.getAdicionalesBa() Despues HBO GO Existente ");
+            cotizacion.setRetiroCrackleBa(false);
+            UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(), "Cotizacion.getAdicionalesBa() Antes Crackle Existente ");
+            if (cadcInternet.getObjectCrackleExistente() != null &&  cadcInternet.getObjectCrackleExistente().isExistente() && cadcInternet.getObjectCrackleExistente().getTipoProducto().equalsIgnoreCase("INTER")) {
+                //String adicional =  cadcInternet.arrayAdicionalesCrackle()[0][0];
+                if (!UtilidadesTarificadorNew.validarVelocidadInternet(productoCotizador.getPlan(), "Crackle", cliente) && productoCotizador.getTipoPeticion().equalsIgnoreCase("C")) {
+                    cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesCrackle(cotizacion.getAdicionalesBa()));
+                    cotizacion.setRetiroCrackleBa(true);
+                }
+            }*/
+
         }
 
         return productoCotizador;
@@ -1623,8 +1718,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             cotizacion.setRetiroHBOGO(false);
             UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(), "Cotizacion.getAdicionalesBa() Ante HBO GO Existente ");
             cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionales());
+            System.out.println("llenarcotizacionInternet HBOGOExistente "+HBOGOExistente);
             if (HBOGOExistente) {
+                System.out.println("llenarcotizacionInternet cprdTelevision.getPlan() "+cprdTelevision.getPlan());
                 if (!cprdTelevision.getPlan().equalsIgnoreCase(Utilidades.inicial)) {
+                    System.out.println("llenarcotizacionInternet cprdTelevision.getPlan() "+cprdTelevision.getPlan());
                     cotizacion.setAdicionalesBa(cadcInternet.arrayAdicionalesHBOGO(cotizacion.getAdicionalesBa()));
                     cotizacion.setRetiroHBOGO(true);
                 } else {
@@ -1644,6 +1742,8 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 }
 
             }
+
+            System.out.println("llenarcotizacionInternet cotizacion.isRetiroHBOGO() "+cotizacion.isRetiroHBOGO());
 
             UtilidadesTarificadorNew.imprimirAdicionales(cotizacion.getAdicionalesBa(), "Cotizacion.getAdicionalesBa() Despues HBO GO Existente ");
             cotizacion.setRetiroCrackleBa(false);

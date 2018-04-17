@@ -1508,9 +1508,16 @@ public class Utilidades {
     public static boolean visible(String clave, String ciudad) {
 
         boolean visible = false;
-        ArrayList<ArrayList<String>> respuesta = MainActivity.basedatos.consultar(true, "listasvalores",
-                new String[]{"lst_valor"}, "lst_clave=? and Upper(lst_ciudad)=?",
-                new String[]{clave, ciudad.toUpperCase()}, null, null, null);
+
+        ArrayList<ArrayList<String>> respuesta = null;
+
+        try {
+            respuesta = MainActivity.basedatos.consultar(true, "listasvalores",
+                    new String[]{"lst_valor"}, "lst_clave=? and Upper(lst_ciudad)=?",
+                    new String[]{clave, ciudad.toUpperCase()}, null, null, null);
+        }catch(Exception e){
+            Log.w("Error "+e.getMessage());
+        }
 
         System.out.println("respuesta  Visible " + respuesta);
 
@@ -2996,6 +3003,8 @@ public class Utilidades {
             prueba = "{'Medio':'Scooring','Respuesta':{'codigoMensaje':'00','descripcionMensaje':'Exitoso','idScooring':'0011','dupli':'1','dataDupli':{'codigoMensaje':'00','descripcionMensaje':'Exitoso','estado':'EN PROCESO','estadoFinal':'APROBADO','razonEstadoFinal':'SCORING','maximaCotizacion':'400000'}},'Documento':'7549110'}";
         }else if (documento.equalsIgnoreCase("24440257")) {
             prueba = "{'Medio':'Scooring','Respuesta':{'codigoMensaje':'00','descripcionMensaje':'Exitoso','idScooring':'0011','dupli':'1','dataDupli':{'codigoMensaje':'00','descripcionMensaje':'Exitoso','estado':'EN PROCESO','estadoFinal':'APROBADO','razonEstadoFinal':'SCORING','maximaCotizacion':'400000'}},'Documento':'24440257'}";
+        }else if (Utilidades.excluirNacional("pruebasScoringAprobado", documento)) {
+            prueba = "{'Medio':'Scooring','Respuesta':{'codigoMensaje':'00','descripcionMensaje':'Exitoso','idScooring':'0011','dupli':'1','dataDupli':{'codigoMensaje':'00','descripcionMensaje':'Exitoso','estado':'EN PROCESO','estadoFinal':'APROBADO','razonEstadoFinal':'SCORING','maximaCotizacion':'400000'}},'Documento':'"+documento+"'}";
         }
 
         if (!prueba.equalsIgnoreCase("")) {
@@ -3988,8 +3997,11 @@ public class Utilidades {
             productos.put("tipoTransaccion",productoCotizador.getTipoTransaccion());
             productos.put("inicioFacturacion",productoCotizador.getInicioFacturacion());
             productos.put("tipoFacturacion",productoCotizador.getTipoFacturacion());
-            productos.put("smartPromo",productoCotizador.getSmartPromo());
-
+            if(productoCotizador.getTipoPeticion().equalsIgnoreCase("N")) {
+                productos.put("smartPromo", productoCotizador.getSmartPromo());
+            }else{
+                productos.put("smartPromo", "N/A");
+            }
 
             /*if (!productoCotizador.getTecnologia().equalsIgnoreCase("IPTV")) {
                 productos.put("tecnologia", productoCotizador.getTecnologia());
