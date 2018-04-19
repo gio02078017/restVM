@@ -2655,7 +2655,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
     private void tratarPagoParcialAnticipado(String respuesta) {
 
-        Log.i("JSon", respuesta);
+        Log.i("tratarPagoParcialAnticipado JSon", respuesta);
+
+        System.out.println("tratarPagoParcialAnticipado respuiesta "+respuesta);
+
         clienteSmartPromo = false;
         cliente.setClienteNuevoSmartPromo(false);
 
@@ -2673,7 +2676,11 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
 
                 JSONArray jsonProdutos = json.getJSONObject("data").getJSONArray("productos");
                 JSONArray jsonValoresConexion = json.getJSONObject("data").getJSONArray("valorConexion");
-                JSONArray jsonPagoParcial = json.getJSONObject("data").getJSONArray("pagoParcial");
+                JSONArray jsonPagoParcial = null;
+
+                if(json.getJSONObject("data").has("pagoParcial") && json.getJSONObject("data").get("pagoParcial").getClass().getSimpleName().equals("JSONArray")){
+                    jsonPagoParcial = json.getJSONObject("data").getJSONArray("pagoParcial");
+                }
 
                 System.out.println("cliente nuevo " + json.getJSONObject("data").getBoolean("clienteNuevo"));
 

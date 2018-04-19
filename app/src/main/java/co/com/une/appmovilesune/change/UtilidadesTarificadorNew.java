@@ -1253,13 +1253,15 @@ public class UtilidadesTarificadorNew {
     public static CotizacionCliente tipoDeFacturacion(CotizacionCliente cotizacionCliente, Cliente cliente ) {
 
         //ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
-        System.out.println("cliente.servicio "+cliente.getServicioElite() );
-        System.out.println("cliente smart promo "+cliente.isClienteNuevoSmartPromo());
+        System.out.println("tipoDeFacturacion  cliente.servicio "+cliente.getServicioElite() );
+        System.out.println("tipoDeFacturacion  cliente smart promo "+cliente.isClienteNuevoSmartPromo());
+        System.out.println("tipoDeFacturacion getPortafolioUNE "+cliente.getPortafolioUNE());
 
-        if(cliente.getPortafolioUNE()!= null && cliente.getPortafolioUNE().getPaqueteSeleccionado() != null) {
+        if(cliente.getPortafolioUNE()!= null/* && cliente.getPortafolioUNE().getPaqueteSeleccionado() != null*/) {
                     if (!UtilidadesTarificadorNew.ventaConExistente(cotizacionCliente)) {
-                        System.out.println("venta nueva ");
-                        System.out.println("cliente smart promo "+cliente.isClienteNuevoSmartPromo());
+                        System.out.println("tipoDeFacturacion venta nueva ");
+                        System.out.println("tipoDeFacturacion cliente smart promo "+cliente.isClienteNuevoSmartPromo());
+                        System.out.println("getPortafolioUNE "+cliente.getPortafolioUNE());
 
                         if(cliente.getPortafolioUNE().getTipoFacturacionCiudad() != null) {
                             for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {

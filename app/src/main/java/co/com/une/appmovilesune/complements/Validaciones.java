@@ -1328,9 +1328,13 @@ public class Validaciones {
             if (UtilidadesTarificadorNew.validarCotizacionClienteNuevo(cliente, cotizacionCliente)) {
                 reg.add(true);
             } else {
-                reg.add(false);
-                ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.clientenuevo), context.getResources().getString(R.string.mensajeCotizacioninvalidaClienteNuevo)));
-                tipoControlador.add(new String("Cotizacion"));
+                if(cliente.getPortafolioUNE() != null && cliente.getPortafolioUNE().getPaqueteSeleccionado() != null){
+                    reg.add(true);
+                }else {
+                    reg.add(false);
+                    ja.put(Utilidades.jsonMensajes(context.getResources().getString(R.string.clientenuevo), context.getResources().getString(R.string.mensajeCotizacioninvalidaClienteNuevo)));
+                    tipoControlador.add(new String("Cotizacion"));
+                }
             }
 
             if (Utilidades.validarTelefonos(cliente, context)) {
