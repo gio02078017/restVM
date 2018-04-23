@@ -3997,6 +3997,9 @@ public class Utilidades {
             productos.put("tipoTransaccion",productoCotizador.getTipoTransaccion());
             productos.put("inicioFacturacion",productoCotizador.getInicioFacturacion());
             productos.put("tipoFacturacion",productoCotizador.getTipoFacturacion());
+            System.out.println("jsonProductosCotizacion productoCotizador.getSmartPromo() "+productoCotizador.getSmartPromo());
+            System.out.println("jsonProductosCotizacion productoCotizador.getTipoPeticion() "+productoCotizador.getTipoPeticion());
+
             if(productoCotizador.getTipoPeticion().equalsIgnoreCase("N")) {
                 productos.put("smartPromo", productoCotizador.getSmartPromo());
             }else{

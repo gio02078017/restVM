@@ -1295,6 +1295,10 @@ public class UtilidadesTarificadorNew {
                                     cotizacionCliente.getProductoCotizador().get(i).setActivacion("Activacion");
                                     cotizacionCliente.getProductoCotizador().get(i).setTipoTransaccion(cotizacionCliente.getProductoCotizador().get(i).getTipoPeticionNombreCompeto());
                                     cotizacionCliente.getProductoCotizador().get(i).setInicioFacturacion(InicioFacturacionCrossVentaNueva(cliente));
+                                    cotizacionCliente.getProductoCotizador().get(i).setSmartPromo("NO");
+                                    if(InicioFacturacionCrossVentaNueva(cliente).equalsIgnoreCase("S")){
+                                        cotizacionCliente.getProductoCotizador().get(i).setSmartPromo("SI");
+                                    }
                                 }else{
                                     for (int j = 0; j < cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().size(); j++) {
                                         //if(cotizacionCliente.getProductoCotizador())

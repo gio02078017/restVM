@@ -203,6 +203,9 @@ public class ResumenInternet extends LinearLayout {
 
     public void pintarFacturacionySmartPromo() {
         lblTipoFactura.setText(productoCotizador.getTipoFacturacion());
+        System.out.println("pintarFacturacionySmartPromo productoCotizador.getSmartPromo() "+productoCotizador.getSmartPromo());
+        System.out.println("pintarFacturacionySmartPromo productoCotizador.getTipoPeticion() "+productoCotizador.getTipoPeticion());
+
         if(productoCotizador.getTipoPeticion().equalsIgnoreCase("N")){
             lblSmartpromo.setText(productoCotizador.getSmartPromo());
         }else{

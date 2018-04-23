@@ -215,6 +215,9 @@ public class ResumenTelefonia extends LinearLayout {
             lblTipoFactura.setText(productoCotizador.getTipoFacturacion());
         }
 
+        System.out.println("pintarFacturacionySmartPromo productoCotizador.getSmartPromo() "+productoCotizador.getSmartPromo());
+        System.out.println("pintarFacturacionySmartPromo productoCotizador.getTipoPeticion() "+productoCotizador.getTipoPeticion());
+
         if(productoCotizador.getSmartPromo() != null) {
             if(productoCotizador.getTipoPeticion().equalsIgnoreCase("N")){
                 lblSmartpromo.setText(productoCotizador.getSmartPromo());
