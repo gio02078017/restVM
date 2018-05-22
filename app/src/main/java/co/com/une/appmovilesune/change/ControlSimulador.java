@@ -2462,8 +2462,8 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
                 simulador.execute(params);
 
             } else {
-                //LanzarLLamada(idIVR, "1", "NO", "0");
-                LanzarLLamadaPorLlamadasMasivas(idIVR);
+                LanzarLLamada(idIVR, "1", "NO", "0");
+                //LanzarLLamadaPorLlamadasMasivas(idIVR);
             }
 
         } else {

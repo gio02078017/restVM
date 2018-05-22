@@ -109,7 +109,7 @@ public class Utilidades {
     public static double precioCero = 0;
     public static String tipoAdicionalBa = "AD_BA";
 
-    public static String id_ivr = "841";
+    public static String id_ivr = "1636";
     public static String nombre_ivr_venta = "finalizacion_venta";
     public static String nombre_ivr_scoring = "scoring";
     public static int tipoIvrScoring = 1;
