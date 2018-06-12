@@ -1936,8 +1936,8 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
                         idIVR = confirmacion.getString("id");
                         cliente.setIdIVR(Utilidades.convertirNumericos(idIVR, "idIVR Control Simulador"));
                         if (!idIVR.equalsIgnoreCase("")) {
-                            LanzarLLamada(idIVR, "1", "NO", "0");
-                            //LanzarLLamadaPorLlamadasMasivas(idIVR);
+                            //LanzarLLamada(idIVR, "1", "NO", "0");
+                            LanzarLLamadaPorLlamadasMasivas(idIVR);
                         } else {
                             System.out.println("Error " + confirmacion.getString("mensaje"));
                         }
@@ -2462,8 +2462,8 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
                 simulador.execute(params);
 
             } else {
-                LanzarLLamada(idIVR, "1", "NO", "0");
-                //LanzarLLamadaPorLlamadasMasivas(idIVR);
+                //LanzarLLamada(idIVR, "1", "NO", "0");
+                LanzarLLamadaPorLlamadasMasivas(idIVR);
             }
 
         } else {
@@ -2496,16 +2496,24 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
 
     private void LanzarLLamadaPorLlamadasMasivas(String id) {
 
+
+
         JSONObject datosExtras = new JSONObject();
+        JSONObject crm =  new JSONObject();
+
         try {
             datosExtras.put("idIVR", Utilidades.id_ivr);
             datosExtras.put("nombreIVR", Utilidades.nombre_ivr_scoring);
             datosExtras.put("tipoIVR", Utilidades.tipoIvrScoring);
             datosExtras.put("idConfirmacion", id);
             datosExtras.put("codigoConfirmacion", codigoIVR);
-            datosExtras.put("tipoLLamada", 1);
+            //datosExtras.put("tipoLLamada", 1);
             datosExtras.put("mail", Utilidades.cumpleMail(cliente));
             datosExtras.put("codigoAsesor",MainActivity.config.getCodigo_asesor());
+            crm.put("sourceCRM","Venta Movil");
+            datosExtras.put("oferta",crm);
+            //datosExtras.put("scoring","NO");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
