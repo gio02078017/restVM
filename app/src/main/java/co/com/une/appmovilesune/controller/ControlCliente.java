@@ -1170,7 +1170,7 @@ public class ControlCliente extends Activity implements Observer, TextWatcher {
                 txtDireccion.setText("CL 25 # 15 - 25");
                 //txtDireccion.setText("KR 27 # 65 B - 21 AP 202");
                 //txtDireccion.setText("KR 21 # 23 - 21");
-                //txtDireccion.setText("KR 23 # 73 - 118");
+               // txtDireccion.setText("KR 23 # 73 - 118");
 
             }
         } else {

@@ -109,8 +109,8 @@ public class Utilidades {
     public static double precioCero = 0;
     public static String tipoAdicionalBa = "AD_BA";
 
-    public static String id_ivr = "1636";//produccion
-    //public static String id_ivr = "841";//desarrollo
+    //public static String id_ivr = "1636";//produccion
+    public static String id_ivr = "841";//desarrollo
 
     public static String nombre_ivr_venta = "finalizacion_venta";
     public static String nombre_ivr_scoring = "scoring";
@@ -4389,4 +4389,10 @@ public class Utilidades {
         Toast.makeText(context, mensaje, Toast.LENGTH_SHORT)
                 .show();
     }
+
+    public static String idCapanaLLamadasMasivas(){
+        return camposUnicos("idLLamadaMasivasVentaMovil");
+    }
+
+
 }

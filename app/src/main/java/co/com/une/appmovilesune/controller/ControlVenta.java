@@ -1362,7 +1362,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         JSONObject datosExtras = new JSONObject();
         try {
-            datosExtras.put("idIVR", Utilidades.id_ivr);
+            datosExtras.put("idIVR", Utilidades.idCapanaLLamadasMasivas());
             datosExtras.put("nombreIVR", Utilidades.nombre_ivr_venta);
             datosExtras.put("tipoIVR", Utilidades.tipoIvrVenta);
             datosExtras.put("idConfirmacion", id);
@@ -1386,7 +1386,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         parametros.add(datosIVR);
         parametros.add(MainActivity.config.getCodigo());
         parametros.add(id);
-        parametros.add(Utilidades.id_ivr);
+        parametros.add(Utilidades.idCapanaLLamadasMasivas());
         parametros.add(cliente.getCedula());
         parametros.add(cliente.getNombre() + " " + cliente.getApellido());
         ArrayList<Object> params = new ArrayList<Object>();
@@ -1404,7 +1404,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
 
         JSONObject datosExtras = new JSONObject();
         try {
-            datosExtras.put("idIVR", Utilidades.id_ivr);
+            datosExtras.put("idIVR", Utilidades.idCapanaLLamadasMasivas());
             datosExtras.put("nombreIVR", Utilidades.nombre_ivr_venta);
             datosExtras.put("tipoIVR", Utilidades.tipoIvrRepetirCodigo);
             datosExtras.put("idConfirmacion", id);
@@ -1420,7 +1420,7 @@ public class ControlVenta extends Activity implements Subject, Observer, TextWat
         parametros.add(datosExtras.toString());
         parametros.add(MainActivity.config.getCodigo());
         parametros.add(id);
-        parametros.add(Utilidades.id_ivr);
+        parametros.add(Utilidades.idCapanaLLamadasMasivas());
         parametros.add(cliente.getCedula());
         parametros.add(cliente.getNombre() + " " + cliente.getApellido());
         ArrayList<Object> params = new ArrayList<Object>();

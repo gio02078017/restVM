@@ -2502,7 +2502,7 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
         JSONObject crm =  new JSONObject();
 
         try {
-            datosExtras.put("idIVR", Utilidades.id_ivr);
+            datosExtras.put("idIVR", Utilidades.idCapanaLLamadasMasivas());
             datosExtras.put("nombreIVR", Utilidades.nombre_ivr_scoring);
             datosExtras.put("tipoIVR", Utilidades.tipoIvrScoring);
             datosExtras.put("idConfirmacion", id);
@@ -2522,7 +2522,7 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
         parametros.add(datosExtras.toString());
         parametros.add(MainActivity.config.getCodigo());
         parametros.add(id);
-        parametros.add(Utilidades.id_ivr);
+        parametros.add(Utilidades.idCapanaLLamadasMasivas());
         parametros.add(cliente.getCedula());
         parametros.add(cliente.getNombre() + " " + cliente.getApellido());
         ArrayList<Object> params = new ArrayList<Object>();
