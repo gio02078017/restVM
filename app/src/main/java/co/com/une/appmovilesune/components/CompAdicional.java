@@ -171,8 +171,6 @@ public class CompAdicional extends LinearLayout implements ObserverAdicionales, 
                 new String[]{"adicional"}, "departamento=? and tipoProducto=? and estrato like ? and tecnologia like ?",
                 new String[]{cliente.getDepartamento(), "ba", "%" + cliente.getEstrato() + "%", "%" + cliente.getTecnologia() + "%"}, null, null, null);
 
-        System.out.println("cargarAdicionalesBa cliente.getPortafolioUNE().getPaqueteUNEArrayList() "+cliente.getPortafolioUNE().getPaqueteUNEArrayList());
-
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item);
         adaptador.add("-- Seleccione Adicional --");

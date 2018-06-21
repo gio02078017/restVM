@@ -1039,10 +1039,6 @@ public class UtilidadesTarificadorNew {
     public static boolean validarCotizacionvsPortafolio(Cliente cliente,CotizacionCliente cotizacionCliente,Context context) {
         boolean valid = true;
 
-        System.out.println("validarCotizacionvsPortafolio cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList() "+cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().size());
-        System.out.println("validarCotizacionvsPortafolio cotizacionCliente.getProductoCotizador() "+cotizacionCliente.getProductoCotizador().size());
-        System.out.println("validarCotizacionvsPortafolio cotizacionCliente.getTipoOferta() "+cotizacionCliente.getTipoOferta());
-
         int contadorIguales = 0;
 
         if(cotizacionCliente.getTipoOferta().equalsIgnoreCase("Individual")){
@@ -1054,9 +1050,7 @@ public class UtilidadesTarificadorNew {
         if(cotizacionCliente.getProductoCotizador().size() >= cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().size()){
             for (int i = 0; i < cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().size(); i++) {
                 for (int j = 0; j < cotizacionCliente.getProductoCotizador().size(); j++) {
-                    System.out.println("validarCotizacionvsPortafolio cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(i).tipoProducto() "+cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(i).tipoProducto());
-                    System.out.println("validarCotizacionvsPortafolio cotizacionCliente.getProductoCotizador().get(j).getTipo() "+cotizacionCliente.getProductoCotizador().get(j).getTipo());
-                    System.out.println("validarCotizacionvsPortafolio cotizacionCliente.getProductoCotizador().get(j).getTipoPeticion() "+cotizacionCliente.getProductoCotizador().get(j).getTipoPeticion());
+
                     if((cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(i).tipoProducto() == cotizacionCliente.getProductoCotizador().get(j).getTipo()) && cotizacionCliente.getProductoCotizador().get(j).getTipoPeticion().equalsIgnoreCase("C")){
                         contadorIguales++;
                     }
@@ -1253,15 +1247,9 @@ public class UtilidadesTarificadorNew {
     public static CotizacionCliente tipoDeFacturacion(CotizacionCliente cotizacionCliente, Cliente cliente ) {
 
         //ArrayList<ProductoCotizador> productos = cotizacionCliente.getProductoCotizador();
-        System.out.println("tipoDeFacturacion  cliente.servicio "+cliente.getServicioElite() );
-        System.out.println("tipoDeFacturacion  cliente smart promo "+cliente.isClienteNuevoSmartPromo());
-        System.out.println("tipoDeFacturacion getPortafolioUNE "+cliente.getPortafolioUNE());
 
         if(cliente.getPortafolioUNE()!= null/* && cliente.getPortafolioUNE().getPaqueteSeleccionado() != null*/) {
                     if (!UtilidadesTarificadorNew.ventaConExistente(cotizacionCliente)) {
-                        System.out.println("tipoDeFacturacion venta nueva ");
-                        System.out.println("tipoDeFacturacion cliente smart promo "+cliente.isClienteNuevoSmartPromo());
-                        System.out.println("getPortafolioUNE "+cliente.getPortafolioUNE());
 
                         if(cliente.getPortafolioUNE().getTipoFacturacionCiudad() != null) {
                             for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
@@ -1302,11 +1290,10 @@ public class UtilidadesTarificadorNew {
                                 }else{
                                     for (int j = 0; j < cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().size(); j++) {
                                         //if(cotizacionCliente.getProductoCotizador())
-                                        System.out.println("facturacion ventas existentes");
+
                                         cotizacionCliente.getProductoCotizador().get(i).imprimir("CotizacionCliente tipoDeFacturacion");
                                         cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).imprimir();
-                                        System.out.println("cotizacionCliente.getProductoCotizador().get(i).getTipo() "+cotizacionCliente.getProductoCotizador().get(i).getTipo());
-                                        System.out.println("cliente.getPortafolioUNE().getProductoPortafolioUNEArrayList().get(j).tipoProducto() "+cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).tipoProducto());
+
                                         if(cotizacionCliente.getProductoCotizador().get(i).getTipo() == cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).tipoProducto()){
                                             cotizacionCliente.getProductoCotizador().get(i).setTipoFacturacion(cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getTipoFactura());
                                             cotizacionCliente.getProductoCotizador().get(i).setSmartPromo(cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList().get(j).getSmartPromo());
@@ -1343,7 +1330,7 @@ public class UtilidadesTarificadorNew {
         }
 
         if(smartPromo){
-            System.out.println("cliente.getPortafolioUNE().getSmartPromoCiudad() "+cliente.getPortafolioUNE().getSmartPromoCiudad());
+
             if(cliente.getPortafolioUNE().getSmartPromoCiudad().equalsIgnoreCase("ON")){
                 tipoFacturacion = "S";
             }

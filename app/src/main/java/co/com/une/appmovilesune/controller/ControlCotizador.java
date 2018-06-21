@@ -228,9 +228,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             buscarPaqueteUNE();
         }
 
-        System.out.println("bloqueoCobertura " + bloqueoCobertura);
-        System.out.println("cliente.getCobertura() " + cliente.getCobertura());
-
         Utilidades.DialogoMensaje(this, cliente.getCiudad());
 
     }
@@ -507,13 +504,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             /*llenarOfertas((String) parent.getSelectedItem(), (String) spntipooferta.getSelectedItem());
             parametrizarComponentes();*/
-            System.out.println("spnpaquete " +(String) spnpaquete.getSelectedItem());
             cliente.getPortafolioUNE().setSaltarValidacionClienteNuevo(false);
 
-            System.out.println("(String) spnpaquete.getSelectedItem()).equalsIgnoreCase(\"Pqte Nuevo\") "+((String) spnpaquete.getSelectedItem()).equalsIgnoreCase("Pqte Nuevo"));
-
             if((String) spnpaquete.getSelectedItem() != null && !((String) spnpaquete.getSelectedItem()).equalsIgnoreCase("") && !((String) spnpaquete.getSelectedItem()).equalsIgnoreCase(Utilidades.seleccionePaquete)){
-                System.out.println("(String) spnpaquete.getSelectedItem()).equalsIgnoreCase(\"Pqte Nuevo\") "+((String) spnpaquete.getSelectedItem()).equalsIgnoreCase("Pqte Nuevo"));
 
                 if(((String) spnpaquete.getSelectedItem()).equalsIgnoreCase("Pqte Nuevo")){
                     cliente.getPortafolioUNE().setSaltarValidacionClienteNuevo(true);
@@ -612,7 +605,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     }
 
     public PaqueteUNE buscarPaqueteUNE(){
-        System.out.println("paqueteUNE "+cliente.getPortafolioUNE());
         ArrayList<Integer> idPaquete = new ArrayList<Integer>();
         ArrayList<String> paquetexIdCliente = new ArrayList<String>();
         PaqueteUNE paqueteUNE = null;
@@ -620,18 +612,13 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
             if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().size() > 1) {
                 for (int i = 0; i < cliente.getPortafolioUNE().getPaqueteUNEArrayList().size(); i++) {
                     cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).imprimirProductosPaquete("buscarPaqueteUNE");
-                    System.out.println("paqueteUNE clientes " + cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes());
-                    System.out.println("paqueteUNE clientes " + cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes());
-                    System.out.println("paqueteUNE clientes " + cliente.getCedula());
                     if (cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes().contains(cliente.getCedula())) {
                         idPaquete.add(i);
                     }
                     paquetexIdCliente.add("paquete: "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete()+" - cliente Id: "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes());
                 }
-                System.out.println("paqueteUNE idPaquete " + idPaquete);
                 if(idPaquete.size() > 0){
 
-                    System.out.println("paqueteUNE SI paquete cliente ");
                     if(idPaquete.size()==1){
                         paqueteUNE = cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(idPaquete.get(0));
                     }else{
@@ -639,14 +626,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                     }
                 }else{
                   Utilidades.MensajesToast("Seleccionar Paquete",this);
-                    System.out.println("paqueteUNE NO paquete cliente ");
                     llyPaquete.setVisibility(View.VISIBLE);
-                    System.out.println("paqueteUNE paquetexIdCliente "+paquetexIdCliente);
                     llenarPaquetes();
                 }
             }else{
-                System.out.println("cliente.getPortafolioUNE().getPaqueteUNEArrayList() tamaño "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().size());
-                System.out.println("cliente.getPortafolioUNE().getPaqueteUNEArrayList() idPaquete "+idPaquete);
                 cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(0).imprimir("cliente.getPortafolioUNE()");
 
                 /*if(idPaquete != null && idPaquete.size() > 0) {
@@ -656,9 +639,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 }*/
                 for (int i = 0; i < cliente.getPortafolioUNE().getPaqueteUNEArrayList().size(); i++) {
                     cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).imprimirProductosPaquete("buscarPaqueteUNE");
-                    System.out.println("paqueteUNE clientes " + cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes());
-                    System.out.println("paqueteUNE clientes " + cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes());
-                    System.out.println("paqueteUNE clientes " + cliente.getCedula());
                     if (cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getClientes().contains(cliente.getCedula())) {
                         idPaquete.add(i);
                     }
@@ -669,7 +649,6 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                 }else{
                     //paqueteUNE = cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(0);
                     llyPaquete.setVisibility(View.VISIBLE);
-                    System.out.println("paqueteUNE paquetexIdCliente "+paquetexIdCliente);
                     llenarPaquetes();
                 }
             }
@@ -686,12 +665,9 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
         int id=-1;
         int maximo = 0;
         for (int i = 0; i < idPaquete.size(); i++) {
-            System.out.println("buscarPaqueteCliente id productos "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(idPaquete.get(i)).getProductoPortafolioUNEArrayList().size());
-            System.out.println("buscarPaqueteCliente maximo "+maximo);
             if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(idPaquete.get(i)).getProductoPortafolioUNEArrayList().size() > maximo){
                 id = idPaquete.get(i);
                 maximo = cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(idPaquete.get(i)).getProductoPortafolioUNEArrayList().size();
-                System.out.println("buscarPaqueteCliente id "+id);
             }
         }
 
@@ -703,12 +679,10 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
     }
 
     public void llenarComponente(CompProducto componente, String tipoProducto) {
-        System.out.println("llenarComponente "+cliente.getPortafolioUNE().getPaqueteSeleccionado());
         componente.setPeticionProductonHabilirarCampo();
         if (cliente.getPortafolioUNE() != null && cliente.getPortafolioUNE().getPaqueteSeleccionado() != null) {
             //ProductoPortafolioUNE productoPortafolioUNE = cliente.getPortafolioUNE().buscarProductoPorTipoProducto(tipoProducto);
             ProductoPortafolioUNE productoPortafolioUNE = cliente.getPortafolioUNE().buscarProductoPorTipoProductoEnPaqueteSeleccionado(tipoProducto);
-            System.out.println("productoPortafolioUNE  llenarComponente " + productoPortafolioUNE);
             if (productoPortafolioUNE != null) {
                 componente.setPeticionProducton("C");
             } else {
@@ -751,22 +725,16 @@ public class ControlCotizador extends Activity implements Observer, SubjectTotal
                }
             }
         }
-        System.out.println("llenarPaquetes cliente diferente listaPaquetes "+listaPaquetes);
         return listaPaquetes;
     }
 
     public void buscarPaquetexidPaquete(String idPaquete){
-        System.out.println("buscarPaquetexidPaquete idPaquete "+idPaquete);
         if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().size() > 0) {
             for (int i = 0; i < cliente.getPortafolioUNE().getPaqueteUNEArrayList().size(); i++) {
-                System.out.println("buscarPaquetexidPaquete cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete() "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete());
-                System.out.println("buscarPaquetexidPaquete idPaquete "+idPaquete);
-                System.out.println("buscarPaquetexidPaquete cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete() "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete());
-                if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete().equalsIgnoreCase(idPaquete)){
-                    System.out.println("cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getProductoPortafolioUNEArrayList().size() "+cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getProductoPortafolioUNEArrayList().size());
+                  if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getIdPaquete().equalsIgnoreCase(idPaquete)){
                     if(cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i).getProductoPortafolioUNEArrayList().size() <=2) {
                         cliente.getPortafolioUNE().setPaqueteSeleccionado(cliente.getPortafolioUNE().getPaqueteUNEArrayList().get(i));
-                        System.out.println("buscarPaquetexidPaquete cliente.getPortafolioUNE().getPaqueteSeleccionado " + cliente.getPortafolioUNE().getPaqueteSeleccionado());
+
                     }else{
                         Utilidades.MensajesToast("No Es Posible Seleccionar El Paquete",this);
                         spnpaquete.setSelection(0);
