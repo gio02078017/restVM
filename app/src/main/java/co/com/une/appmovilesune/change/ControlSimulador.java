@@ -2524,7 +2524,7 @@ public class ControlSimulador extends Activity implements Observer, TextWatcher 
         parametros.add(id);
         parametros.add(Utilidades.idCapanaLLamadasMasivas());
         parametros.add(cliente.getCedula());
-        parametros.add(cliente.getNombre() + " " + cliente.getApellido());
+        parametros.add(Utilidades.Quitar_Tildes2(cliente.getNombre() + " " + cliente.getApellido()));
         ArrayList<Object> params = new ArrayList<Object>();
         params.add(MainActivity.config.getCodigo());
         params.add("LanzarLLamadaPorLlamadasMasivas");
