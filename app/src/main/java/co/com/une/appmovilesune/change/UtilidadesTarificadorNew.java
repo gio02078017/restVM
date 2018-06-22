@@ -1274,8 +1274,10 @@ public class UtilidadesTarificadorNew {
                             }
                         }
                     } else {
-                        System.out.println("venta existente ");
-                        if(cliente.getPortafolioUNE() != null && cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList() != null) {
+                        //System.out.println("venta existente cliente.getPortafolioUNE() "+cliente.getPortafolioUNE());
+                        //System.out.println("venta existente cliente.getPortafolioUNE().getPaqueteSeleccionado() "+cliente.getPortafolioUNE().getPaqueteSeleccionado());
+
+                        if(cliente.getPortafolioUNE() != null && cliente.getPortafolioUNE().getPaqueteSeleccionado() != null && cliente.getPortafolioUNE().getPaqueteSeleccionado().getProductoPortafolioUNEArrayList() != null) {
                             for (int i = 0; i < cotizacionCliente.getProductoCotizador().size(); i++) {
                                 //cotizacionCliente.getProductoCotizador().get(i).imprimir();
                                 if(cotizacionCliente.getProductoCotizador().get(i).getTipoPeticion().equalsIgnoreCase("N")){
